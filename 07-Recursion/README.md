@@ -38,10 +38,10 @@ Subsequences, Power Set, Combination Sum, Permutations, N-Queens, Sudoku Solver,
 - [x] **Problem 18**: [Sudoku Solver (Full grid validation)](./18-sudoku-solver.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 19**: [M-Coloring Problem (Graph vertex coloring)](./19-m-coloring-problem.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 20**: [Rat in a Maze Problem](./20-rat-in-a-maze-problem.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 21**: [Word Break Problem (Backtracking / Trie)](https://takeuforward.org/data-structure/word-break-problem/) — 🔴 `Hard`
+- [x] **Problem 21**: [Word Break Problem (Backtracking / Trie)](https://takeuforward.org/data-structure/word-break-problem/) — 🔴 `Hard`
 - [x] **Problem 22**: [K-th Permutation Sequence](./22-k-th-permutation-sequence.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 23**: [Expression Add Operators](./23-expression-add-operators.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 24**: [Generate Valid IP Addresses](https://takeuforward.org/recursion/restore-ip-addresses/) — 🟡 `Medium`
+- [x] **Problem 24**: [Generate Valid IP Addresses](https://takeuforward.org/recursion/restore-ip-addresses/) — 🟡 `Medium`
 - [x] **Problem 25**: [Non-Decreasing Subsequences](./25-non-decreasing-subsequences.md) — 🟡 `Medium` (Solved)
 
 ---

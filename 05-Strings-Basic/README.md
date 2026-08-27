@@ -17,7 +17,7 @@ String parsing, anagrams, isomorphic checks, nesting depths, Roman numeral conve
 - [x] **Problem 03**: [Largest Odd Number in a String](./03-largest-odd-number-in-a-string.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 04**: [Longest Common Prefix](./04-longest-common-prefix.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 05**: [Isomorphic Strings](./05-isomorphic-strings.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 06**: [Check if one string is a rotation of another](https://takeuforward.org/strings/check-if-one-string-is-a-rotation-of-another/) — 🟢 `Easy`
+- [x] **Problem 06**: [Check if one string is a rotation of another](https://takeuforward.org/strings/check-if-one-string-is-a-rotation-of-another/) — 🟢 `Easy`
 - [x] **Problem 07**: [Check if two Strings are Anagrams of each other](./07-valid-anagram.md) — 🟢 `Easy` (Solved)
 
 ### Step 5.2: Medium String Problems (8 Problems)

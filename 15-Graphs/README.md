@@ -67,7 +67,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 41**: [Kruskal's Algorithm for Minimum Spanning Tree (MST)](./41-kruskals-algorithm-minimum-spanning-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 42**: [Number of Operations to Make Network Connected](./42-number-of-operations-to-make-network-connected.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 43**: [Most Stones Removed with Same Row or Column](./43-most-stones-removed-with-same-row-or-column.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 44**: [Accounts Merge (String identifier grouping with DSU)](https://takeuforward.org/data-structure/accounts-merge-dsu-g-50/) — 🔴 `Hard`
+- [x] **Problem 44**: [Accounts Merge (String identifier grouping with DSU)](https://takeuforward.org/data-structure/accounts-merge-dsu-g-50/) — 🔴 `Hard`
 - [x] **Problem 45**: [Number of Islands II (Online Dynamic Queries with DSU)](./45-number-of-islands-ii-online-queries-dsu.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 46**: [Making a Large Island (Flip 0 to 1 with DSU Size Lookup)](./46-making-a-large-island.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 47**: [Swim in Rising Water](./47-swim-in-rising-water.md) — 🔴 `Hard` (Solved)

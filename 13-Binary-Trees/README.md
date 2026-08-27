@@ -55,7 +55,7 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 35**: [Check if Subtree of Another Tree](./35-subtree-of-another-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 36**: [Construct String from Binary Tree with Parentheses](./36-construct-string-from-binary-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 37**: [Diagonal Traversal of Binary Tree](./37-diagonal-traversal-of-binary-tree.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 38**: [Kth Ancestor of a Node in Binary Tree](https://takeuforward.org/data-structure/kth-ancestor-of-a-node-in-binary-tree/) — 🟡 `Medium`
+- [x] **Problem 38**: [Kth Ancestor of a Node in Binary Tree](https://takeuforward.org/data-structure/kth-ancestor-of-a-node-in-binary-tree/) — 🟡 `Medium`
 
 ---
 
