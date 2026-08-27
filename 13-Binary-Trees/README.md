@@ -30,11 +30,11 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 13**: [Boundary Traversal of Binary Tree (Anti-Clockwise)](./13-boundary-traversal-of-binary-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 14**: [Vertical Order Traversal of Binary Tree](./14-vertical-order-traversal-of-binary-tree.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 15**: [Top View of Binary Tree](./15-top-view-of-binary-tree.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 16**: [Bottom View of Binary Tree](https://takeuforward.org/data-structure/bottom-view-of-a-binary-tree/) — 🟡 `Medium`
-- [ ] **Problem 17**: [Right and Left View of Binary Tree](https://takeuforward.org/data-structure/right-left-view-of-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 18**: [Check for Symmetrical Binary Tree (Mirror Reflection)](https://takeuforward.org/data-structure/check-for-symmetrical-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 19**: [Print Root to Node Path in Binary Tree](https://takeuforward.org/data-structure/print-root-to-node-path-in-a-binary-tree/) — 🟡 `Medium`
-- [ ] **Problem 20**: [Lowest Common Ancestor (LCA) in Binary Tree](https://takeuforward.org/data-structure/lowest-common-ancestor-for-two-given-nodes/) — 🟡 `Medium`
+- [x] **Problem 16**: [Bottom View of Binary Tree](./16-bottom-view-of-binary-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 17**: [Right and Left View of Binary Tree](./17-right-and-left-view-of-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 18**: [Check for Symmetrical Binary Tree (Mirror Reflection)](./18-check-for-symmetrical-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 19**: [Print Root to Node Path in Binary Tree](./19-print-root-to-node-path-in-binary-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 20**: [Lowest Common Ancestor (LCA) in Binary Tree](./20-lowest-common-ancestor-lca-in-binary-tree.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 21**: [Maximum Width of Binary Tree (Indexed BFS)](https://takeuforward.org/data-structure/maximum-width-of-a-binary-tree/) — 🟡 `Medium`
 - [ ] **Problem 22**: [Check for Children Sum Property in Binary Tree](https://takeuforward.org/data-structure/check-for-children-sum-property-in-a-binary-tree/) — 🟡 `Medium`
 
