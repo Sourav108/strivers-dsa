@@ -57,7 +57,7 @@ int findMaxConsecutiveOnesBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Checking streaks starting from every index with nested loops takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -70,7 +70,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Running Streak Counter: Traverse `nums`. When `x == 1`, increment `currentCnt++` and update `maxCnt = max(maxCnt, currentCnt)`. When `x == 0`, reset `currentCnt = 0`.
 
 ### C++17 Code
 ```cpp
@@ -98,30 +98,32 @@ int findMaxConsecutiveOnesOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Inspects each element once in $\mathcal{O}(n)$ time and $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [1, 1, 0, 1, 1, 1] -> streak reaches 3 -> returns 3
+`nums = [1, 1, 0, 1, 1, 1]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `x=1` | currentCnt=1, maxCnt=1 | streak=1 |
+| `x=1` | currentCnt=2, maxCnt=2 | streak=2 |
+| `x=0` | currentCnt=0, maxCnt=2 | reset |
+| `x=1` | currentCnt=1, maxCnt=2 | streak=1 |
+| `x=1` | currentCnt=2, maxCnt=2 | streak=2 |
+| `x=1` | currentCnt=3, maxCnt=3 | Final maxCnt: 3 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Array with all 0s (`[0, 0, 0]` -> returns 0).
+- Array with all 1s (`[1, 1, 1]` -> returns 3).
+- 1s at the very end (`[0, 1, 1]` -> returns 2).
 
----
+### Common Bugs to Avoid
+- Updating `maxCnt` only when hitting a 0, which misses trailing 1 streaks.
 
 ## 8. Follow-Up Questions (Interview Style)
 

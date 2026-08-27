@@ -57,7 +57,7 @@ vector<int> printMaxSubarrayBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Nested loop evaluation of all contiguous subarrays takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -70,7 +70,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Extended Kadane Tracking Window: Maintain `start = 0`, `ansStart = 0`, `ansEnd = 0`. When `currentSum == 0`, reset `start = i`. When `currentSum + nums[i] > maxSum`, update `ansStart = start, ansEnd = i`.
 
 ### C++17 Code
 ```cpp
@@ -101,30 +101,31 @@ vector<int> printMaxSubarrayOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Tracks the maximal bounding subarray in a single $\mathcal{O}(n)$ pass with $\mathcal{O}(1)$ auxiliary space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4] -> returns [4, -1, 2, 1]
+`nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `i=0 (x=-2)` | cur=-2, max=-2, cur<0 -> cur=0, start=1 | max=-2, [0..0] |
+| `i=1 (x=1)` | start=1, cur=1, max=1 -> ansStart=1, ansEnd=1 | max=1, [1..1] |
+| `i=2 (x=-3)` | cur=-2 < 0 -> cur=0, start=3 | max=1, [1..1] |
+| `i=3 (x=4)` | start=3, cur=4, max=4 -> ansStart=3, ansEnd=3 | max=4, [3..3] |
+| `i=4..6` | accumulates to cur=6 at i=6 -> ansStart=3, ansEnd=6 | max=6, [3..6] |
+| `i=7..8` | cur drops then ends | Final Subarray: `[4, -1, 2, 1]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- All negative elements (`[-4, -1, -2]` -> returns `[-1]`).
+- Entire array positive (`[1, 2, 3]` -> returns entire array `[1, 2, 3]`).
 
----
+### Common Bugs to Avoid
+- Resetting `start` after adding `nums[i]` instead of at the moment `currentSum` becomes 0.
 
 ## 8. Follow-Up Questions (Interview Style)
 

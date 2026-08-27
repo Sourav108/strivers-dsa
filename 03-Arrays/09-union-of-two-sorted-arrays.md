@@ -51,7 +51,7 @@ vector<int> unionBrute(const vector<int>& a, const vector<int>& b) {
 ### Complexity Derivation
 - **Time Complexity**: O((n+m) log(n+m))
 - **Space Complexity**: O(n+m)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Inserting all elements into `std::set` takes $\mathcal{O}((n+m) \log(n+m))$ time and $\mathcal{O}(n+m)$ tree set memory.
 
 ---
 
@@ -88,7 +88,7 @@ vector<int> unionBetter(const vector<int>& a, const vector<int>& b) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Lockstep Two-Pointer Merge: Maintain pointers `i` and `j` for arrays `a` and `b`. Compare `a[i]` and `b[j]`, append the smaller element to result if it's not a duplicate of `res.back()`, and advance the corresponding pointer.
 
 ### C++17 Code
 ```cpp
@@ -126,30 +126,34 @@ vector<int> unionOptimal(const vector<int>& a, const vector<int>& b) {
 ### Complexity Derivation
 - **Time Complexity**: O(n + m)
 - **Space Complexity**: O(n + m)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Exploits the sorted property to compute the distinct union in $\mathcal{O}(n + m)$ linear time with zero hashing or sorting overhead.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: a = [1, 2, 3, 4, 5], b = [2, 3, 4, 4, 5, 6] -> union = [1, 2, 3, 4, 5, 6]
+`a = [1, 2, 3, 4, 5]`, `b = [2, 3, 4, 4, 5, 6]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `i=0, j=0` | a[0]=1 < b[0]=2 -> append 1, i=1 | res=[1] |
+| `i=1, j=0` | a[1]=2 == b[0]=2 -> append 2, i=2, j=1 | res=[1, 2] |
+| `i=2, j=1` | a[2]=3 == b[1]=3 -> append 3, i=3, j=2 | res=[1, 2, 3] |
+| `i=3, j=2` | a[3]=4 == b[2]=4 -> append 4, i=4, j=3 | res=[1, 2, 3, 4] |
+| `i=4, j=3` | b[3]=4 == res.back() -> skip duplicate, j=4 | res=[1, 2, 3, 4] |
+| `i=4, j=4` | a[4]=5 == b[4]=5 -> append 5, i=5, j=5 | res=[1, 2, 3, 4, 5] |
+| `Drain b` | b[5]=6 -> append 6, j=6 | Final: [1, 2, 3, 4, 5, 6] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- One array is empty -> returns distinct elements of the other array.
+- Both arrays contain identical elements -> returns single deduplicated copy.
+- Arrays have disjoint ranges (`[1, 2]` and `[3, 4]` -> concatenates without gaps).
 
----
+### Common Bugs to Avoid
+- Accessing `res.back()` when `res.empty()`, causing segmentation fault.
+- Forgetting to drain remaining elements from the unfinished array after main loop.
 
 ## 8. Follow-Up Questions (Interview Style)
 

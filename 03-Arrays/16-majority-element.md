@@ -55,7 +55,7 @@ int majorityBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Nested loop frequency counting takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -91,7 +91,7 @@ int majorityElementBetter(const vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Boyer-Moore Voting Algorithm: Maintain `candidate` and `count = 0`. For each $x$: if `count == 0`, `candidate = x`. Update `count += (x == candidate ? 1 : -1)`. Return `candidate`.
 
 ### C++17 Code
 ```cpp
@@ -115,30 +115,32 @@ int majorityOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Cancels non-majority elements 1-to-1 in $\mathcal{O}(n)$ time and strictly $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [2, 2, 1, 1, 1, 2, 2] -> candidate 2 survives with count > 0
+`nums = [2, 2, 1, 1, 1, 2, 2]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `x=2` | count=0 -> candidate=2, count=1 | cand=2, cnt=1 |
+| `x=2` | x==2 -> count=2 | cand=2, cnt=2 |
+| `x=1` | x!=2 -> count=1 | cand=2, cnt=1 |
+| `x=1` | x!=2 -> count=0 | cand=2, cnt=0 |
+| `x=1` | count=0 -> candidate=1, count=1 | cand=1, cnt=1 |
+| `x=2` | x!=1 -> count=0 | cand=1, cnt=0 |
+| `x=2` | count=0 -> candidate=2, count=1 | Final candidate: 2 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Single element (`[1]` -> returns 1).
+- Array with all identical elements (`[5, 5, 5]` -> returns 5).
 
----
+### Common Bugs to Avoid
+- Assuming Boyer-Moore works when no majority element exists (must run verification pass if not guaranteed).
 
 ## 8. Follow-Up Questions (Interview Style)
 

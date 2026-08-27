@@ -56,7 +56,7 @@ int longestConsecutiveBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Searching linearly for consecutive elements takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -98,7 +98,7 @@ int longestConsecutiveBetter(vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Hash Set with Sequence Head Detection: Insert all numbers into `unordered_set`. For each $x$: if $x - 1$ is NOT in set, $x$ is the start of a streak. Increment $x+1, x+2...$ while in set, updating `maxLen`.
 
 ### C++17 Code
 ```cpp
@@ -126,30 +126,31 @@ int longestConsecutiveOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Each element in a streak is visited at most twice, achieving $\mathcal{O}(n)$ total time.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [100, 4, 200, 1, 3, 2] -> sequence [1, 2, 3, 4] len 4
+`nums = [100, 4, 200, 1, 3, 2]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Set` | st = {1, 2, 3, 4, 100, 200} | st ready |
+| `x=100` | 99 not in st -> streak [100], len=1 | maxLen=1 |
+| `x=4` | 3 in st -> not sequence head, skip | maxLen=1 |
+| `x=200` | 199 not in st -> streak [200], len=1 | maxLen=1 |
+| `x=1` | 0 not in st -> streak [1, 2, 3, 4], len=4 | maxLen=4 |
+| `x=3, 2` | predecessors exist -> skip | Final maxLen: 4 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Empty array -> returns 0.
+- Array with duplicate elements (`[1, 2, 0, 1]` -> hash set dedupes to `[0, 1, 2]`, returns 3).
 
----
+### Common Bugs to Avoid
+- Iterating without `!st.count(x - 1)` check, degrading complexity to $\mathcal{O}(n^2)$ on consecutive sequences.
 
 ## 8. Follow-Up Questions (Interview Style)
 

@@ -52,7 +52,7 @@ void rotateBrute(vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Shifting by 1 repeated $k$ times takes $\mathcal{O}(n \cdot k)$ operations, which is too slow when $k \approx n$.
 
 ---
 
@@ -97,7 +97,7 @@ void rotateBetter(vector<int>& nums, int k) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+3-Step Reversal Algorithm: Normalize $k = k \% n$. 1) Reverse the entire array `nums[0..n-1]`. 2) Reverse the first $k$ elements `nums[0..k-1]`. 3) Reverse the remaining $n-k$ elements `nums[k..n-1]`.
 
 ### C++17 Code
 ```cpp
@@ -120,30 +120,30 @@ void rotateOptimal(vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Rotates all elements in exactly $2n$ element swaps ($\mathcal{O}(n)$ time) and strictly $\mathcal{O}(1)$ auxiliary space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [1, 2, 3, 4, 5, 6, 7], k=3 -> rev whole [7,6,5,4,3,2,1] -> rev parts [5,6,7, 1,2,3,4]
+`nums = [1, 2, 3, 4, 5, 6, 7]`, `k = 3`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Step 1` | Reverse entire array | `[7, 6, 5, 4, 3, 2, 1]` |
+| `Step 2` | Reverse first k=3 elements | `[5, 6, 7, 4, 3, 2, 1]` |
+| `Step 3` | Reverse remaining 4 elements | `[5, 6, 7, 1, 2, 3, 4]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- k is multiple of n (`k = n` -> array unchanged).
+- k is larger than n (`k = 10, n = 7` -> normalized to $k = 3$).
+- Single element array (`nums = [1], k = 3` -> unchanged).
 
----
+### Common Bugs to Avoid
+- Forgetting `k %= n`, causing out-of-bounds iterators when $k > n$.
+- Reversing wrong subranges.
 
 ## 8. Follow-Up Questions (Interview Style)
 

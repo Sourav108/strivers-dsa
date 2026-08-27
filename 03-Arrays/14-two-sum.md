@@ -53,7 +53,7 @@ vector<int> twoSumBrute(vector<int>& nums, int target) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Checking every pair with nested loops takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -99,7 +99,7 @@ vector<int> twoSumBetter(vector<int>& nums, int target) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Hash Map Complement Search: For each element `nums[i]`, compute `complement = target - nums[i]`. If `complement` is in map, return `{seen[complement], i}`. Otherwise, store `seen[nums[i]] = i`.
 
 ### C++17 Code
 ```cpp
@@ -124,30 +124,27 @@ vector<int> twoSumOptimal(vector<int>& nums, int target) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Performs single-pass $\mathcal{O}(n)$ average time lookup matching the $\Omega(n)$ lower bound for unsorted pair search.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [2, 7, 11, 15], target = 9 -> return {0, 1}
+`nums = [2, 7, 11, 15]`, `target = 9`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `i=0 (x=2)` | comp=7, not in map -> seen[2]=0 | seen={2:0} |
+| `i=1 (x=7)` | comp=2, found seen[2]=0 -> return {0, 1} | Return {0, 1} ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Duplicate elements forming target (`nums = [3, 3], target = 6` -> returns `{0, 1}`).
+- Negative numbers (`nums = [-3, 4, 1], target = 1` -> returns `{0, 1}`).
 
----
+### Common Bugs to Avoid
+- Inserting `nums[i]` into map *before* checking complement, letting an element pair with itself.
 
 ## 8. Follow-Up Questions (Interview Style)
 

@@ -54,7 +54,7 @@ int maxLenZeroSumBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Evaluating all $n(n+1)/2$ subarrays takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -67,7 +67,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Prefix Sum Earliest Index Map: Maintain `sum`. If `sum == 0`, `maxLen = i + 1`. If `sum` is seen in map at index `prev`, update `maxLen = max(maxLen, i - prev)`. Only insert `sum` if not already present.
 
 ### C++17 Code
 ```cpp
@@ -94,30 +94,31 @@ int maxLenZeroSumOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Computes the maximum length in a single $\mathcal{O}(n)$ pass with $\mathcal{O}(n)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [15, -2, 2, -8, 1, 7, 10, 23] -> subarray [-2, 2, -8, 1, 7] len = 5
+`nums = [15, -2, 2, -8, 1, 7, 10, 23]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `i=0 (x=15)` | sum=15, prefixMap[15]=0 | maxLen=0 |
+| `i=1 (x=-2)` | sum=13, prefixMap[13]=1 | maxLen=0 |
+| `i=2 (x=2)` | sum=15 in map at idx 0 -> len = 2-0 = 2 | maxLen=2 |
+| `i=3 (x=-8)` | sum=7, prefixMap[7]=3 | maxLen=2 |
+| `i=4 (x=1)` | sum=8, prefixMap[8]=4 | maxLen=2 |
+| `i=5 (x=7)` | sum=15 in map at idx 0 -> len = 5-0 = 5 | maxLen=5 (subarray [-2, 2, -8, 1, 7]) ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Subarray with 0 sum starts at index 0 (`sum == 0` -> `maxLen = i + 1`).
+- No subarray with sum 0 -> returns 0.
 
----
+### Common Bugs to Avoid
+- Overwriting `prefixMap[sum]` on repeats, shrinking the subarray length.
 
 ## 8. Follow-Up Questions (Interview Style)
 

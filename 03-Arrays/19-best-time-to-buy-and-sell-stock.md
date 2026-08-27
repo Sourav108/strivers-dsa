@@ -53,7 +53,7 @@ int maxProfitBrute(const vector<int>& prices) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Pairwise nested loops checking every $(buy, sell)$ pair take $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -66,7 +66,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Running Minimum Price Tracking: Maintain `minPrice = INT_MAX` and `maxProfit = 0`. For each price $p$: update `minPrice = min(minPrice, p)` and `maxProfit = max(maxProfit, p - minPrice)`.
 
 ### C++17 Code
 ```cpp
@@ -90,30 +90,31 @@ int maxProfitOptimal(const vector<int>& prices) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Captures the maximum price spread in single-pass $\mathcal{O}(n)$ time and $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: prices = [7, 1, 5, 3, 6, 4] -> buy at 1, sell at 6 -> profit = 5
+`prices = [7, 1, 5, 3, 6, 4]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `p=7` | minPrice=7, profit=0 | maxProfit=0 |
+| `p=1` | minPrice=1, profit=0 | maxProfit=0 |
+| `p=5` | minPrice=1, profit=5-1=4 | maxProfit=4 |
+| `p=3` | minPrice=1, profit=3-1=2 | maxProfit=4 |
+| `p=6` | minPrice=1, profit=6-1=5 | maxProfit=5 |
+| `p=4` | minPrice=1, profit=4-1=3 | Final maxProfit: 5 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Monotonically decreasing prices (`[7, 6, 4, 3, 1]` -> returns 0, no transactions).
+- Single day (`[5]` -> returns 0).
 
----
+### Common Bugs to Avoid
+- Attempting to sell before buying.
 
 ## 8. Follow-Up Questions (Interview Style)
 

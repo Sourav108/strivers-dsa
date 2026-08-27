@@ -52,7 +52,7 @@ void rotateByOneBrute(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Creating an auxiliary vector of size $n$ takes $\mathcal{O}(n)$ extra space when in-place shifting is $\mathcal{O}(1)$ space.
 
 ---
 
@@ -65,7 +65,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Temporary Variable Shift: Save `temp = nums[0]`. Shift each element leftward `nums[i] = nums[i+1]` from index 0 to $n-2$. Place `temp` at `nums[n-1]`.
 
 ### C++17 Code
 ```cpp
@@ -87,30 +87,29 @@ void rotateByOneOptimal(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Performs $n-1$ shifts in a single linear pass with strictly $\mathcal{O}(1)$ auxiliary memory.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [1, 2, 3, 4, 5] -> shifts to [2, 3, 4, 5, 1]
+`nums = [1, 2, 3, 4, 5]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Save` | temp = nums[0] = 1 | temp = 1 |
+| `Shift 0..3` | nums[0]=2, nums[1]=3, nums[2]=4, nums[3]=5 | nums=[2, 3, 4, 5, 5] |
+| `Wrap` | nums[4] = temp = 1 | Final: [2, 3, 4, 5, 1] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Single element array (`[5]` -> returns `[5]`).
+- Two element array (`[1, 2]` -> becomes `[2, 1]`).
 
----
+### Common Bugs to Avoid
+- Overwriting `nums[0]` before saving it in `temp`.
+- Loop out of bounds by accessing `nums[i+1]` when $i = n-1$.
 
 ## 8. Follow-Up Questions (Interview Style)
 

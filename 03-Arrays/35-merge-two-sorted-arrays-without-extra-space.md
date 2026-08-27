@@ -50,7 +50,7 @@ void mergeSortedBrute(vector<int>& nums1, int m, vector<int>& nums2, int n) {
 ### Complexity Derivation
 - **Time Complexity**: O(m + n)
 - **Space Complexity**: O(m + n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Creating an auxiliary vector of size $m+n$ consumes $\mathcal{O}(m+n)$ extra memory.
 
 ---
 
@@ -91,7 +91,7 @@ void mergeSortedBetter(vector<int>& a, int n, vector<int>& b, int m) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Three Pointers from Back (LeetCode 88): Maintain `i = m - 1` (nums1 end), `j = n - 1` (nums2 end), `k = m + n - 1` (write index). Place larger of `nums1[i]` and `nums2[j]` at `nums1[k--]`.
 
 ### C++17 Code
 ```cpp
@@ -118,30 +118,29 @@ void mergeSortedOptimal(vector<int>& nums1, int m, vector<int>& nums2, int n) {
 ### Complexity Derivation
 - **Time Complexity**: O(m + n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Filling from back to front in `nums1` never overwrites unread elements, achieving $\mathcal{O}(m + n)$ time and strictly $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums1 = [1,2,3,0,0,0], nums2 = [2,5,6] -> [1,2,2,3,5,6]
+`nums1 = [1, 2, 3, 0, 0, 0], m=3`, `nums2 = [2, 5, 6], n=3`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `i=2 (3), j=2 (6)` | 6 > 3 -> nums1[5] = 6, j=1, k=4 | nums1=[1, 2, 3, 0, 0, 6] |
+| `i=2 (3), j=1 (5)` | 5 > 3 -> nums1[4] = 5, j=0, k=3 | nums1=[1, 2, 3, 0, 5, 6] |
+| `i=2 (3), j=0 (2)` | 3 > 2 -> nums1[3] = 3, i=1, k=2 | nums1=[1, 2, 3, 3, 5, 6] |
+| `i=1 (2), j=0 (2)` | 2 <= 2 -> nums1[2] = 2, j=-1, k=1 | nums1=[1, 2, 2, 3, 5, 6] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- nums1 is empty ($m=0$) -> copies all nums2 elements.
+- nums2 is empty ($n=0$) -> nums1 already sorted.
 
----
+### Common Bugs to Avoid
+- Writing from front to back, which overwrites unprocessed elements in `nums1`.
 
 ## 8. Follow-Up Questions (Interview Style)
 

@@ -54,7 +54,7 @@ int secLargestBrute(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Sorting takes $\mathcal{O}(n \log n)$ time and rearranges the entire array when only the top two distinct elements are needed.
 
 ---
 
@@ -93,7 +93,7 @@ int secondLargestBetter(const vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Single-Pass Two-Variable Update: Maintain `largest = INT_MIN` and `secondLargest = -1`. When `x > largest`, demote `largest` to `secondLargest` and set `largest = x`. When `x > secondLargest && x < largest`, set `secondLargest = x`.
 
 ### C++17 Code
 ```cpp
@@ -117,30 +117,33 @@ int secLargestOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Examines each element once in $\mathcal{O}(n)$ time and $\mathcal{O}(1)$ space, which matches the optimal linear scanning lower bound.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [12, 35, 1, 10, 34, 1] -> largest=35, sec=34 -> returns 34
+`nums = [12, 35, 1, 10, 34, 1]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `x=12` | 12 > INT_MIN -> secondLargest=INT_MIN, largest=12 | largest=12, sec=-1 |
+| `x=35` | 35 > 12 -> secondLargest=12, largest=35 | largest=35, sec=12 |
+| `x=1` | 1 < 12 -> no change | largest=35, sec=12 |
+| `x=10` | 10 < 12 -> no change | largest=35, sec=12 |
+| `x=34` | 34 > 12 and 34 < 35 -> secondLargest=34 | largest=35, sec=34 |
+| `x=1` | 1 < 34 -> no change | largest=35, sec=34 (Final Output: 34) ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- All elements equal (`[10, 10, 10]` -> secondLargest remains -1, correctly returning -1).
+- Array of size < 2 -> returns -1 immediately.
+- Array with negative numbers (`[-10, -5, -2]` -> returns -5).
 
----
+### Common Bugs to Avoid
+- Missing `x < largest` check in the `else if` branch, causing duplicate maximums to overwrite `secondLargest`.
+- Initializing `secondLargest = 0` when the array contains negative numbers.
 
 ## 8. Follow-Up Questions (Interview Style)
 

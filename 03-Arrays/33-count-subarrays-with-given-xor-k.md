@@ -54,7 +54,7 @@ int subarraysWithXorKBrute(const vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Evaluating all subarrays with nested loops takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -67,7 +67,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Prefix XOR Frequency Map: Maintain `xr = 0` and `freq[0] = 1`. For each $x$: compute `xr ^= x`, query `target = xr ^ k` in `freq`, add `freq[target]` to `count`, and increment `freq[xr]++`.
 
 ### C++17 Code
 ```cpp
@@ -95,30 +95,31 @@ int subarraysWithXorKOptimal(const vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Isomorphic to Subarray Sum Equals K, solving the XOR formulation in $\mathcal{O}(n)$ time and $\mathcal{O}(n)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [4, 2, 2, 6, 4], k=6 -> 4 subarrays
+`nums = [4, 2, 2, 6, 4]`, `k = 6`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Init` | xr=0, freq={0: 1}, count=0 | ready |
+| `i=0 (x=4)` | xr=4, target=4^6=2, not in map -> freq[4]=1 | count=0 |
+| `i=1 (x=2)` | xr=6, target=6^6=0 in map (freq 1) -> count += 1 -> count=1, freq[6]=1 | count=1 |
+| `i=2 (x=2)` | xr=4, target=4^6=2, not in map -> freq[4]=2 | count=1 |
+| `i=3 (x=6)` | xr=2, target=2^6=4 in map (freq 2) -> count += 2 -> count=3, freq[2]=1 | count=3 |
+| `i=4 (x=4)` | xr=6, target=6^6=0 in map (freq 1) -> count += 1 -> count=4 | Final count: 4 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- k = 0 -> counts subarrays with XOR 0 (elements cancel).
+- Single element array matching k -> count = 1.
 
----
+### Common Bugs to Avoid
+- Missing `freq[0] = 1` base initialization.
 
 ## 8. Follow-Up Questions (Interview Style)
 

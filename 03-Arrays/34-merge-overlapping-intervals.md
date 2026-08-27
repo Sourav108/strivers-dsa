@@ -51,7 +51,7 @@ vector<vector<int>> mergeIntervalsBrute(vector<vector<int>>& intervals) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Pairwise interval comparisons without sorting take $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -64,7 +64,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Sort + Single-Pass Extension: Sort intervals by start time. Iterate through intervals: if `res` is empty or `res.back()[1] < curr[0]`, append `curr`. Else, extend overlap `res.back()[1] = max(res.back()[1], curr[1])`.
 
 ### C++17 Code
 ```cpp
@@ -93,30 +93,29 @@ vector<vector<int>> mergeIntervalsOptimal(vector<vector<int>>& intervals) {
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Sorting localizes overlaps so that a single $\mathcal{O}(n)$ linear pass completes the merge in $\mathcal{O}(n \log n)$ total time.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: intervals = [[1,3],[2,6],[8,10],[15,18]] -> [[1,6],[8,10],[15,18]]
+`intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `iv=[1, 3]` | res empty -> push [1, 3] | res=[[1, 3]] |
+| `iv=[2, 6]` | 2 <= 3 (overlap!) -> res.back()[1] = max(3, 6) = 6 | res=[[1, 6]] |
+| `iv=[8, 10]` | 8 > 6 (no overlap) -> push [8, 10] | res=[[1, 6], [8, 10]] |
+| `iv=[15, 18]` | 15 > 10 (no overlap) -> push [15, 18] | Final: `[[1, 6], [8, 10], [15, 18]]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- No overlapping intervals (`[[1, 2], [3, 4]]` -> returns original list).
+- One interval completely contains another (`[[1, 10], [2, 3]]` -> returns `[[1, 10]]`).
 
----
+### Common Bugs to Avoid
+- Assuming intervals are already sorted without calling `sort()` first.
 
 ## 8. Follow-Up Questions (Interview Style)
 

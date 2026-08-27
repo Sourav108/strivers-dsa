@@ -52,7 +52,7 @@ vector<int> majority2Brute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Nested loop counting takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -90,7 +90,7 @@ vector<int> majorityElement2Better(const vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Extended Boyer-Moore Voting (2 Candidates): At most 2 elements can appear $> \lfloor n/3 \rfloor$ times. Maintain `(el1, c1)` and `(el2, c2)`. If $x == el1$, `c1++`; else if $x == el2$, `c2++`; else if `c1 == 0`, `el1 = x, c1 = 1`; else if `c2 == 0`, `el2 = x, c2 = 1`; else `c1--, c2--`. Run verification pass.
 
 ### C++17 Code
 ```cpp
@@ -126,30 +126,30 @@ vector<int> majorityElement2Optimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Finds candidate elements in $\mathcal{O}(n)$ time and strictly $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [3, 2, 3] -> el1=3 (count 2 > 3/3=1) -> [3]
+`nums = [3, 2, 3]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `x=3` | c1=0 -> el1=3, c1=1 | el1=3 (c1=1) |
+| `x=2` | c2=0 -> el2=2, c2=1 | el1=3, el2=2 |
+| `x=3` | x==el1 -> c1=2 | el1=3 (c1=2), el2=2 (c2=1) |
+| `Verify` | Count of 3 is 2 > 3/3=1 -> Valid! Count of 2 is 1 <= 1 -> Rejected | Result: `[3]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- All elements distinct (`[1, 2, 3, 4, 5, 6]` -> returns `[]`).
+- Two majority elements (`[1, 1, 1, 2, 2, 2]` -> returns `[1, 2]`).
 
----
+### Common Bugs to Avoid
+- Missing the second verification pass (Boyer-Moore only produces candidates, not confirmed majorities).
+- Assigning both `el1` and `el2` to the same number during initialization.
 
 ## 8. Follow-Up Questions (Interview Style)
 

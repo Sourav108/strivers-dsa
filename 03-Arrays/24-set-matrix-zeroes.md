@@ -52,7 +52,7 @@ void setZeroesBrute(vector<vector<int>>& mat) {
 ### Complexity Derivation
 - **Time Complexity**: O((m*n)*(m+n))
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Marking zeroes with sentinel values takes $\mathcal{O}((m \cdot n)(m + n))$ time.
 
 ---
 
@@ -97,7 +97,7 @@ void setZeroesBetter(vector<vector<int>>& mat) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+In-Place Matrix Markers with col0 Flag: Use first row `mat[0][j]` and first col `mat[i][0]` as marker flags. Use boolean `col0` for column 0. Update inner matrix bottom-up, then update row 0 and col 0.
 
 ### C++17 Code
 ```cpp
@@ -126,30 +126,28 @@ void setZeroesOptimal(vector<vector<int>>& mat) {
 ### Complexity Derivation
 - **Time Complexity**: O(m * n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Embeds markers into the matrix in $\mathcal{O}(m \cdot n)$ time and strictly $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: mat = [[1,1,1],[1,0,1],[1,1,1]] -> sets row 1 and col 1 to 0
+`mat = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Pass 1` | mat[1][1]==0 -> mat[1][0]=0, mat[0][1]=0 | markers set |
+| `Pass 2` | mat[1][0]==0 or mat[0][1]==0 -> sets cell (1,2),(2,1) etc to 0 | inner cells zeroed |
+| `Result` | Row 1 and Col 1 are all 0s | `[[1, 0, 1], [0, 0, 0], [1, 0, 1]]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- First row or column already contains zero -> captured by `col0` and `mat[0][0]` flags.
+- Single row or single column matrix.
 
----
+### Common Bugs to Avoid
+- Updating row 0 or col 0 first, which corrupts marker states for the rest of the matrix.
 
 ## 8. Follow-Up Questions (Interview Style)
 

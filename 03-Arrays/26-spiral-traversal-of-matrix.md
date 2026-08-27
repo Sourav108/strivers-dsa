@@ -47,7 +47,7 @@ using namespace std;
 ### Complexity Derivation
 - **Time Complexity**: O(m * n)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Simulating boundary traversal is the standard direct optimal approach.
 
 ---
 
@@ -60,7 +60,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+4-Boundary Shifting: Maintain `top = 0, bottom = m - 1, left = 0, right = n - 1`. Sweep right across `top` (`top++`), sweep down across `right` (`right--`), sweep left across `bottom` if `top <= bottom` (`bottom--`), sweep up across `left` if `left <= right` (`left++`).
 
 ### C++17 Code
 ```cpp
@@ -96,30 +96,30 @@ vector<int> spiralOrderOptimal(const vector<vector<int>>& mat) {
 ### Complexity Derivation
 - **Time Complexity**: O(m * n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Visits every cell exactly once in $\mathcal{O}(m \cdot n)$ time and $\mathcal{O}(1)$ auxiliary space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: mat = [[1,2,3],[4,5,6],[7,8,9]] -> [1,2,3,6,9,8,7,4,5]
+`mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Top sweep` | Traverse row 0: [1, 2, 3], top=1 | res=[1, 2, 3] |
+| `Right sweep` | Traverse col 2: [6, 9], right=1 | res=[1, 2, 3, 6, 9] |
+| `Bottom sweep` | Traverse row 2: [8, 7], bottom=1 | res=[1, 2, 3, 6, 9, 8, 7] |
+| `Left sweep` | Traverse col 0: [4], left=1 | res=[1, 2, 3, 6, 9, 8, 7, 4] |
+| `Center cell` | Traverse cell (1, 1): [5] | Final: `[1, 2, 3, 6, 9, 8, 7, 4, 5]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Single row matrix ($1 \times 4$) or single column ($4 \times 1$).
+- Empty matrix -> returns empty vector.
 
----
+### Common Bugs to Avoid
+- Omitting `if (top <= bottom)` or `if (left <= right)` before bottom/left sweeps, duplicating elements in rectangular matrices.
 
 ## 8. Follow-Up Questions (Interview Style)
 

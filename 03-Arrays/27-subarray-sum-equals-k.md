@@ -54,7 +54,7 @@ int subarraySumBrute(const vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Evaluating all $n(n+1)/2$ subarrays takes $\mathcal{O}(n^2)$ time, causing TLE at $n = 2 \times 10^4$.
 
 ---
 
@@ -91,7 +91,7 @@ int subarraySumBetter(const vector<int>& nums, int k) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Prefix Sum Frequency Map: Maintain `unordered_map<int, int> prefixFreq` with `prefixFreq[0] = 1`. Accumulate `sum += x`. If `sum - k` is in map, add `prefixFreq[sum - k]` to total count. Increment `prefixFreq[sum]++`.
 
 ### C++17 Code
 ```cpp
@@ -119,30 +119,31 @@ int subarraySumOptimal(const vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Counts valid subarrays in single-pass $\mathcal{O}(n)$ time and $\mathcal{O}(n)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [1, 1, 1], k=2 -> subarrays [1,1] (2 times) -> count = 2
+`nums = [1, 1, 1]`, `k = 2`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Init` | sum=0, count=0, prefixFreq={0: 1} | ready |
+| `i=0 (x=1)` | sum=1, rem=1-2=-1, not in map -> prefixFreq[1]=1 | count=0 |
+| `i=1 (x=1)` | sum=2, rem=2-2=0 in map (freq 1) -> count += 1 -> count=1, prefixFreq[2]=1 | count=1 |
+| `i=2 (x=1)` | sum=3, rem=3-2=1 in map (freq 1) -> count += 1 -> count=2, prefixFreq[3]=1 | count=2 |
+| `Result` | - | Total count of subarrays with sum 2 is **2** (`[nums[0..1], nums[1..2]]`) |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Negative numbers cancelling sum (`[1, -1, 0], k=0` -> correctly counts subarrays).
+- Subarrays starting from index 0 -> enabled by `prefixFreq[0] = 1`.
 
----
+### Common Bugs to Avoid
+- Forgetting `prefixFreq[0] = 1` base initialization.
+- Using sliding window on arrays with negative values.
 
 ## 8. Follow-Up Questions (Interview Style)
 

@@ -51,7 +51,7 @@ int removeDuplicatesBrute(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Using `std::set` requires $\mathcal{O}(n \log n)$ time and $\mathcal{O}(n)$ extra memory, failing the in-place requirement.
 
 ---
 
@@ -64,7 +64,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Slow and Fast Two Pointers: Pointer `i` marks the write boundary of unique elements. Pointer `j` scans from index 1 to $n-1$. When `nums[j] != nums[i]`, advance `i++` and copy `nums[i] = nums[j]`. Return `i + 1`.
 
 ### C++17 Code
 ```cpp
@@ -91,30 +91,35 @@ int removeDuplicatesOptimal(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Modifies the array in-place in a single $\mathcal{O}(n)$ pass with $\mathcal{O}(1)$ auxiliary space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [1, 1, 2, 2, 3] -> writes [1, 2, 3] -> returns 3
+`nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `j=1` | nums[1]=0 == nums[i=0]=0 -> skip | i=0, nums=[0...] |
+| `j=2` | nums[2]=1 != nums[i=0]=0 -> i=1, nums[1]=1 | nums=[0, 1...] |
+| `j=3..4` | nums[j]=1 == nums[i=1]=1 -> skip | i=1 |
+| `j=5` | nums[5]=2 != nums[i=1]=1 -> i=2, nums[2]=2 | nums=[0, 1, 2...] |
+| `j=6` | nums[6]=2 == nums[i=2]=2 -> skip | i=2 |
+| `j=7` | nums[7]=3 != nums[i=2]=2 -> i=3, nums[3]=3 | nums=[0, 1, 2, 3...] |
+| `j=8` | nums[8]=3 == nums[i=3]=3 -> skip | i=3 |
+| `j=9` | nums[9]=4 != nums[i=3]=3 -> i=4, nums[4]=4 | nums=[0, 1, 2, 3, 4...] (Return i+1 = 5) ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Array with no duplicates (`[1, 2, 3]` -> returns 3).
+- Array with all identical elements (`[7, 7, 7]` -> returns 1).
+- Single element array (`[1]` -> returns 1).
 
----
+### Common Bugs to Avoid
+- Starting `j` from 0 instead of 1, causing redundant self-assignment.
+- Returning `i` instead of `i + 1` (since `i` is 0-indexed).
 
 ## 8. Follow-Up Questions (Interview Style)
 

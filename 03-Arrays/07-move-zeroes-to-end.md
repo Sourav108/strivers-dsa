@@ -52,7 +52,7 @@ void moveZeroesBrute(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Copying non-zero elements into an auxiliary array takes $\mathcal{O}(n)$ extra space.
 
 ---
 
@@ -65,7 +65,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Two-Pointer Partitioning: Pointer `j` locates the first zero. Traverse `i` from $j + 1$ to $n - 1$. Whenever `nums[i] != 0`, swap `nums[i]` with `nums[j]` and increment `j++`.
 
 ### C++17 Code
 ```cpp
@@ -94,30 +94,32 @@ void moveZeroesOptimal(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Maintains relative order and moves zeroes in $\mathcal{O}(n)$ time and strictly $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [0, 1, 0, 3, 12] -> swap 1 with 0 -> swap 3 with 0 -> [1, 3, 12, 0, 0]
+`nums = [0, 1, 0, 3, 12]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Init` | First zero found at j=0 | j=0 |
+| `i=1` | nums[1]=1 != 0 -> swap(nums[1], nums[0]) -> [1, 0, 0, 3, 12], j=1 | nums=[1, 0, 0, 3, 12] |
+| `i=2` | nums[2]=0 -> no swap | j=1 |
+| `i=3` | nums[3]=3 != 0 -> swap(nums[3], nums[1]) -> [1, 3, 0, 0, 12], j=2 | nums=[1, 3, 0, 0, 12] |
+| `i=4` | nums[4]=12 != 0 -> swap(nums[4], nums[2]) -> [1, 3, 12, 0, 0], j=3 | Final: [1, 3, 12, 0, 0] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Array with no zeroes (`[1, 2, 3]` -> returns without modification).
+- Array with all zeroes (`[0, 0, 0]` -> `j` stays at 0, no swaps).
+- Zeroes already at the end (`[1, 2, 0, 0]` -> 0 swaps).
 
----
+### Common Bugs to Avoid
+- Swapping when $i == j$, causing redundant memory writes.
+- Failing to handle arrays containing no zeroes.
 
 ## 8. Follow-Up Questions (Interview Style)
 

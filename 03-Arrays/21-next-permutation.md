@@ -49,7 +49,7 @@ void nextPermutationBrute(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n! * n)
 - **Space Complexity**: O(n!)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Generating all $n!$ permutations takes $\mathcal{O}(n! \cdot n)$ time and triggers immediate TLE.
 
 ---
 
@@ -62,7 +62,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Single-Pass 3-Step Algorithm: 1) Find the pivot $i$: rightmost index where `nums[i] < nums[i+1]`. 2) If $i \ge 0$, find rightmost index $j$ where `nums[j] > nums[i]` and swap `nums[i], nums[j]`. 3) Reverse suffix `nums[i+1..n-1]` to make it ascending.
 
 ### C++17 Code
 ```cpp
@@ -88,30 +88,29 @@ void nextPermutationOptimal(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Transforms into the next lexicographical permutation in-place in $\mathcal{O}(n)$ time and $\mathcal{O}(1)$ space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [1, 2, 3] -> [1, 3, 2]
+`nums = [1, 2, 3]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Step 1` | nums[1]=2 < nums[2]=3 -> pivot index i=1 | pivot=2 |
+| `Step 2` | nums[2]=3 > nums[1]=2 -> swap(nums[1], nums[2]) | nums=[1, 3, 2] |
+| `Step 3` | Reverse suffix from i+1=2 to 2 | Final: [1, 3, 2] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Already at maximum permutation (`[3, 2, 1]` -> pivot $i=-1$, reverses whole array to `[1, 2, 3]`).
+- Array with duplicate elements (`[1, 1, 5]` -> gives `[1, 5, 1]`).
 
----
+### Common Bugs to Avoid
+- Using strict inequality `nums[i] <= nums[i+1]` instead of `<` during pivot search, missing equal elements.
+- Sorting the suffix instead of reversing (reversing is $\mathcal{O}(n)$, sorting is $\mathcal{O}(n \log n)$).
 
 ## 8. Follow-Up Questions (Interview Style)
 

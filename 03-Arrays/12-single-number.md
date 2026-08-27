@@ -54,7 +54,7 @@ int singleNumberBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Nested loop counting frequency for every element takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -91,7 +91,7 @@ int singleNumberBetter(const vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Bitwise XOR: XOR all elements in `nums`. All duplicate pairs cancel each other out ($a \oplus a = 0$), leaving the unique element ($0 \oplus x = x$).
 
 ### C++17 Code
 ```cpp
@@ -112,30 +112,32 @@ int singleNumberOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Finds the unique element in $\mathcal{O}(n)$ time and $\mathcal{O}(1)$ space with zero memory allocations.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [4, 1, 2, 1, 2] -> 4 ^ (1^1) ^ (2^2) = 4 ^ 0 = 4
+`nums = [4, 1, 2, 1, 2]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Init` | xorSum = 0 | xorSum = 0 |
+| `x=4` | xorSum = 0 ^ 4 = 4 | xorSum = 4 |
+| `x=1` | xorSum = 4 ^ 1 = 5 | xorSum = 5 |
+| `x=2` | xorSum = 5 ^ 2 = 7 | xorSum = 7 |
+| `x=1` | xorSum = 7 ^ 1 = 6 | xorSum = 6 |
+| `x=2` | xorSum = 6 ^ 2 = 4 | Final: 4 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Single element array (`[42]` -> returns 42).
+- Unique element is negative (`[-1, 2, 2]` -> returns -1).
 
----
+### Common Bugs to Avoid
+- Initializing `xorSum = 1` instead of `0`.
+- Attempting to use XOR on floating-point data.
 
 ## 8. Follow-Up Questions (Interview Style)
 

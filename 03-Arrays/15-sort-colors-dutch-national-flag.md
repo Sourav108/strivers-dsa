@@ -47,7 +47,7 @@ void sortColorsBrute(vector<int>& nums) { sort(nums.begin(), nums.end()); }
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Standard comparison sort takes $\mathcal{O}(n \log n)$ time, ignoring the small constant range of 3 colors.
 
 ---
 
@@ -85,7 +85,7 @@ void sortColorsBetter(vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Dutch National Flag 3-Way Partitioning: Maintain pointers `low = 0, mid = 0, high = n - 1`. While `mid <= high`: if `nums[mid] == 0`, swap `nums[low]` with `nums[mid]` and increment `low++`, `mid++`. If `nums[mid] == 1`, increment `mid++`. If `nums[mid] == 2`, swap `nums[mid]` with `nums[high]` and decrement `high--`.
 
 ### C++17 Code
 ```cpp
@@ -115,30 +115,32 @@ void sortColorsOptimal(vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Partitions 3 distinct colors in-place in a single $\mathcal{O}(n)$ pass with minimal swaps and zero extra space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [2, 0, 2, 1, 1, 0] -> 3-way partition sorts to [0, 0, 1, 1, 2, 2]
+`nums = [2, 0, 2, 1, 1, 0]`, `low=0, mid=0, high=5`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Step 1` | nums[mid=0]=2 -> swap(nums[0], nums[5]) -> high=4 | low=0, mid=0, high=4 |
+| `Step 2` | nums[mid=0]=0 -> swap(nums[0], nums[0]) -> low=1, mid=1 | low=1, mid=1, high=4 |
+| `Step 3` | nums[mid=1]=0 -> swap(nums[1], nums[1]) -> low=2, mid=2 | low=2, mid=2, high=4 |
+| `Step 4` | nums[mid=2]=2 -> swap(nums[2], nums[4]) -> high=3 | low=2, mid=2, high=3 |
+| `Step 5` | nums[mid=2]=1 -> mid++ | low=2, mid=3, high=3 |
+| `Step 6` | nums[mid=3]=1 -> mid++ | Final: [0, 0, 1, 1, 2, 2] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- All identical elements (`[0, 0, 0]` or `[2, 2, 2]` -> handles gracefully without out-of-bounds error).
+- Array with only 2 colors (`[2, 0, 2, 0]` -> sorts to `[0, 0, 2, 2]`).
 
----
+### Common Bugs to Avoid
+- Incrementing `mid` after swapping with `high`, which fails to inspect the newly swapped element.
+- Using `mid < high` instead of `mid <= high`, skipping the element at `high`.
 
 ## 8. Follow-Up Questions (Interview Style)
 

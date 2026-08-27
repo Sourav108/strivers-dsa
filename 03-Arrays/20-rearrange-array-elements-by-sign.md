@@ -56,7 +56,7 @@ vector<int> rearrangeBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(2n) = O(n)
 - **Space Complexity**: O(n)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Segregating into two separate vectors and then interleaving takes two full passes.
 
 ---
 
@@ -69,7 +69,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Two Pointers Even/Odd Placement: Allocate result vector of size $n$. Maintain `posIdx = 0` (even indices) and `negIdx = 1` (odd indices). For each $x$: if $x > 0$, place at `res[posIdx]` and advance `posIdx += 2`; else place at `res[negIdx]` and advance `negIdx += 2`.
 
 ### C++17 Code
 ```cpp
@@ -99,30 +99,31 @@ vector<int> rearrangeOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Populates the alternate array in a single $\mathcal{O}(n)$ pass using $\mathcal{O}(n)$ output space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [3, 1, -2, -5, 2, -4] -> returns [3, -2, 1, -5, 2, -4]
+`nums = [3, 1, -2, -5, 2, -4]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `x=3` | posIdx=0 -> res[0]=3, posIdx=2 | res=[3, _, _, _, _, _] |
+| `x=1` | posIdx=2 -> res[2]=1, posIdx=4 | res=[3, _, 1, _, _, _] |
+| `x=-2` | negIdx=1 -> res[1]=-2, negIdx=3 | res=[3, -2, 1, _, _, _] |
+| `x=-5` | negIdx=3 -> res[3]=-5, negIdx=5 | res=[3, -2, 1, -5, _, _] |
+| `x=2` | posIdx=4 -> res[4]=2, posIdx=6 | res=[3, -2, 1, -5, 2, _] |
+| `x=-4` | negIdx=5 -> res[5]=-4, negIdx=7 | Final: [3, -2, 1, -5, 2, -4] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Array of size 2 (`[1, -1]` -> returns `[1, -1]`).
+- Alternating signs already (`[1, -2, 3, -4]` -> preserved).
 
----
+### Common Bugs to Avoid
+- Using 1-based indexing for `posIdx` or `negIdx` causing offset alignment errors.
 
 ## 8. Follow-Up Questions (Interview Style)
 

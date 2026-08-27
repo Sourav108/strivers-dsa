@@ -54,7 +54,7 @@ void rotateMatrixBrute(vector<vector<int>>& mat) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(n^2)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Using an auxiliary $n \times n$ matrix consumes $\mathcal{O}(n^2)$ extra memory.
 
 ---
 
@@ -67,7 +67,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Transpose + Reverse Rows: 1) Transpose matrix by swapping `mat[i][j]` with `mat[j][i]` for $i < j$. 2) Reverse every row `reverse(mat[i].begin(), mat[i].end())`.
 
 ### C++17 Code
 ```cpp
@@ -93,30 +93,27 @@ void rotateMatrixOptimal(vector<vector<int>>& mat) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Rotates the $n \times n$ matrix in-place in $\mathcal{O}(n^2)$ time and $\mathcal{O}(1)$ auxiliary space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: mat = [[1,2],[3,4]] -> Transpose [[1,3],[2,4]] -> Rev rows [[3,1],[4,2]]
+`mat = [[1, 2], [3, 4]]`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Transpose` | swap(mat[0][1], mat[1][0]) -> `[[1, 3], [2, 4]]` | transpose done |
+| `Reverse Rows` | Row 0: [3, 1], Row 1: [4, 2] | Final: `[[3, 1], [4, 2]]` ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- 1x1 matrix (`[[1]]` -> unchanged).
+- Matrix with all identical elements.
 
----
+### Common Bugs to Avoid
+- Swapping `mat[i][j]` across full $n \times n$ instead of $j > i$, swapping twice and undoing transpose.
 
 ## 8. Follow-Up Questions (Interview Style)
 

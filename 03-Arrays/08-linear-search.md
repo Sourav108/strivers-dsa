@@ -52,7 +52,7 @@ int searchBrute(const vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Linear search is already the fundamental minimal search algorithm on unsorted arrays.
 
 ---
 
@@ -65,7 +65,7 @@ No meaningful intermediate step — the optimal approach below removes the brute
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Sequential Scan: Iterate index `i` from 0 to $n-1$. If `nums[i] == k`, return `i`. If the loop finishes without a match, return `-1`.
 
 ### C++17 Code
 ```cpp
@@ -87,30 +87,30 @@ int searchOptimal(const vector<int>& nums, int k) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Matches the theoretical lower bound $\Omega(n)$ for unsorted data since the target could be at the final position.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [6, 7, 8, 4, 1], k=4 -> finds at index 3
+`nums = [6, 7, 8, 4, 1]`, `k = 4`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `i=0` | nums[0]=6 != 4 | continue |
+| `i=1` | nums[1]=7 != 4 | continue |
+| `i=2` | nums[2]=8 != 4 | continue |
+| `i=3` | nums[3]=4 == 4 -> Found match! | Return index 3 ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Target not present in array -> returns -1.
+- Target is at index 0 -> returns 0 in 1 step.
+- Target is at index n-1 -> returns n-1.
 
----
+### Common Bugs to Avoid
+- Returning `-1` inside the loop instead of after the loop finishes.
 
 ## 8. Follow-Up Questions (Interview Style)
 

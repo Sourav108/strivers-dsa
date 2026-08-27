@@ -56,7 +56,7 @@ vector<int> findMissingRepeatingBrute(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
-- **Why it's not good enough**: For $n = 10^5$, polynomial time $\mathcal{O}(n^2)$ takes $\approx 10^{10}$ operations and triggers Time Limit Exceeded (TLE).
+- **Why it's not good enough**: Counting frequencies of $1..n$ using nested loops takes $\mathcal{O}(n^2)$ time.
 
 ---
 
@@ -94,7 +94,7 @@ vector<int> findMissingRepeatingBetter(const vector<int>& nums) {
 ## 5. Approach 3 — Optimal
 
 ### Idea
-Production-quality single-pass or $\mathcal{O}(n \log n)$ divide-and-conquer implementation.
+Mathematical System of Equations: 1) $S - S_N = A - B$. 2) $S^2 - S^2_N = A^2 - B^2 = (A - B)(A + B)$. Dividing (2) by (1) gives $A + B$. Solving linear equations yields $A = \frac{(A-B) + (A+B)}{2}$ and $B = (A+B) - A$.
 
 ### C++17 Code
 ```cpp
@@ -125,30 +125,30 @@ vector<int> findMissingRepeatingOptimal(const vector<int>& nums) {
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
-- **Why this is optimal**: Matches the theoretical information lower bound $\Omega(n)$ for unsorted array inspection.
+- **Why this is optimal**: Calculates both $A$ and $B$ in a single $\mathcal{O}(n)$ pass with $\mathcal{O}(1)$ auxiliary space.
 
 ---
 
 ## 6. Dry Run
 
-**Trace**: nums = [3, 1, 2, 5, 3] -> Repeating A=3, Missing B=4
+`nums = [3, 1, 2, 5, 3]`, `n = 5`
 
-| State | Variable Trackers | Status |
-|:---:|:---:|:---:|
-| Initial | Initialized boundaries / variables | Ready |
-| Loop | Stepping through elements | Invariant Maintained |
-| Final | Correct result returned | ✅ Success |
-
----
+| Step | Action / State Change | Result |
+|---|---|---|
+| `Formulas` | SN = 5*6/2 = 15, S2N = 5*6*11/6 = 55 | SN=15, S2N=55 |
+| `Sums` | S = 3+1+2+5+3 = 14, S2 = 9+1+4+25+9 = 48 | S=14, S2=48 |
+| `Equations` | val1 = S - SN = 14 - 15 = -1 (A - B = -1) | val1 = -1 |
+| `Equations` | val2 = (S2 - S2N)/val1 = (48 - 55)/(-1) = 7 (A + B = 7) | val2 = 7 |
+| `Solve` | A = (-1 + 7)/2 = 3 (Repeating), B = 7 - 3 = 4 (Missing) | Result: [3, 4] ✅ |
 
 ## 7. Edge Cases & Common Bugs
 
-- **Single element / Empty array**: Handled gracefully at the boundary checks.
-- **All elements identical**: Avoids infinite loops or redundant state shifts.
-- **Integer overflow**: 64-bit `long long` used for large sums/products.
-- **Off-by-one errors**: Proper loop bounds $[0, n-1]$.
+### Edge Cases
+- Large $n = 10^5$ -> 64-bit `long long` prevents arithmetic overflow in $S^2$.
+- Repeating number is 1 or n.
 
----
+### Common Bugs to Avoid
+- Using 32-bit integers for $S^2_N$, which overflows `INT_MAX` for $n > 2000$.
 
 ## 8. Follow-Up Questions (Interview Style)
 
