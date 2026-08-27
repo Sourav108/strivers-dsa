@@ -42,7 +42,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 22**: [Detect Cycle in a Directed Graph using BFS (Kahn's Algorithm)](./22-detect-cycle-in-a-directed-graph-using-bfs.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 23**: [Course Schedule I (Prerequisites cycle check)](./23-course-schedule-i.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 24**: [Course Schedule II (Find valid course ordering)](./24-course-schedule-ii.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 25**: [Find Eventual Safe States & Alien Dictionary](https://takeuforward.org/data-structure/alien-dictionary/) — 🔴 `Hard`
+- [x] **Problem 25**: [Find Eventual Safe States & Alien Dictionary](./25-find-eventual-safe-states-and-alien-dictionary.md) — 🔴 `Hard` (Solved)
 
 ### Step 15.4: Shortest Path Algorithms (13 Problems)
 
