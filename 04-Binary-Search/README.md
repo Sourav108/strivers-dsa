@@ -38,9 +38,9 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 - [x] **Problem 21**: [Aggressive Cows (Minimise Maximum Distance)](./21-aggressive-cows.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 22**: [Book Allocation Problem](./22-book-allocation-problem.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 23**: [Split Array - Largest Sum (LeetCode 410)](./23-split-array-largest-sum.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 24**: [Painter's Partition Problem](https://takeuforward.org/binary-search/painters-partition-problem/) — 🔴 `Hard`
-- [ ] **Problem 25**: [Minimise Maximum Distance between Gas Stations](https://takeuforward.org/binary-search/minimise-maximum-distance-between-gas-stations/) — 🔴 `Hard`
-- [ ] **Problem 26**: [Median of Two Sorted Arrays of Different Sizes](https://takeuforward.org/data-structure/median-of-two-sorted-arrays-of-different-sizes/) — 🔴 `Hard`
+- [x] **Problem 24**: [Painter's Partition Problem](./24-painter-partition-problem.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 25**: [Minimise Maximum Distance between Gas Stations](./25-minimise-maximum-distance-between-gas-stations.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 26**: [Median of Two Sorted Arrays of Different Sizes](./26-median-of-two-sorted-arrays.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 27**: [Kth Element of Two Sorted Arrays](https://takeuforward.org/data-structure/k-th-element-of-two-sorted-arrays/) — 🔴 `Hard`
 
 ### Step 4.3: BS on 2D Arrays (5 Problems)
