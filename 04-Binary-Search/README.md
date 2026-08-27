@@ -41,11 +41,11 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 - [x] **Problem 24**: [Painter's Partition Problem](./24-painter-partition-problem.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 25**: [Minimise Maximum Distance between Gas Stations](./25-minimise-maximum-distance-between-gas-stations.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 26**: [Median of Two Sorted Arrays of Different Sizes](./26-median-of-two-sorted-arrays.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 27**: [Kth Element of Two Sorted Arrays](https://takeuforward.org/data-structure/k-th-element-of-two-sorted-arrays/) — 🔴 `Hard`
+- [x] **Problem 27**: [Kth Element of Two Sorted Arrays](./27-kth-element-of-two-sorted-arrays.md) — 🔴 `Hard` (Solved)
 
 ### Step 4.3: BS on 2D Arrays (5 Problems)
 
-- [ ] **Problem 28**: [Find the Row with Maximum Number of 1s](https://takeuforward.org/data-structure/find-the-row-with-maximum-number-of-1s/) — 🟢 `Easy`
+- [x] **Problem 28**: [Find the Row with Maximum Number of 1s](./28-find-the-row-with-maximum-number-of-1s.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 29**: [Search in a 2D Matrix I (Strictly Sorted 1D Flattend)](https://takeuforward.org/data-structure/search-in-a-sorted-2d-matrix/) — 🟡 `Medium`
 - [ ] **Problem 30**: [Search in a 2D Matrix II (Row and Column Sorted)](https://takeuforward.org/data-structure/search-in-a-row-and-column-wise-sorted-matrix/) — 🟡 `Medium`
 - [ ] **Problem 31**: [Find a Peak Element II (2D Peak)](https://takeuforward.org/binary-search/find-peak-element-in-2d-matrix/) — 🔴 `Hard`
