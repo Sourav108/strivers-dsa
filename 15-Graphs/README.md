@@ -50,7 +50,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 27**: [Shortest Path in Directed Acyclic Graph (DAG) using Topo Sort](./27-shortest-path-in-directed-acyclic-graph-dag-using-topo-sort.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 28**: [Dijkstra's Algorithm using Priority Queue / Set](./28-dijkstras-algorithm-using-priority-queue-set.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 29**: [Print Shortest Path in Weighted Undirected Graph (Dijkstra Parent array)](./29-print-shortest-path-in-weighted-undirected-graph.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 30**: [Shortest Path in Binary Matrix (Maze BFS)](https://takeuforward.org/data-structure/g-36-shortest-distance-in-a-binary-maze/) — 🟡 `Medium`
+- [x] **Problem 30**: [Shortest Path in Binary Matrix (Maze BFS)](./30-shortest-path-in-binary-matrix.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 31**: [Path with Minimum Effort (Dijkstra on 2D Matrix)](https://takeuforward.org/data-structure/g-37-path-with-minimum-effort/) — 🟡 `Medium`
 - [ ] **Problem 32**: [Cheapest Flights Within K Stops](https://takeuforward.org/data-structure/g-38-cheapest-flights-within-k-stops/) — 🟡 `Medium`
 - [ ] **Problem 33**: [Network Delay Time](https://takeuforward.org/data-structure/network-delay-time/) — 🟡 `Medium`
