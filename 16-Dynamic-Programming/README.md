@@ -51,14 +51,14 @@
 - [x] **Problem 28**: [Longest Palindromic Subsequence](./28-longest-palindromic-subsequence.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 29**: [Minimum Insertions to Make String Palindrome](./29-minimum-insertions-to-make-string-palindrome.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 30**: [Minimum Insertions/Deletions to Convert String A to String B](./30-minimum-insertions-deletions-to-convert-string.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 31**: [Shortest Common Supersequence](https://takeuforward.org/data-structure/shortest-common-supersequence-dp-31/) — 🔴 `Hard`
-- [ ] **Problem 32**: [Distinct Subsequences (Number of times string S2 occurs in S1)](https://takeuforward.org/data-structure/distinct-subsequences-dp-32/) — 🔴 `Hard`
-- [ ] **Problem 33**: [Edit Distance (Levenshtein Distance: Insert, Delete, Replace)](https://takeuforward.org/data-structure/edit-distance-dp-33/) — 🔴 `Hard`
-- [ ] **Problem 34**: [Wildcard Matching ('?' and '*' pattern matching)](https://takeuforward.org/data-structure/wildcard-matching-dp-34/) — 🔴 `Hard`
+- [x] **Problem 31**: [Shortest Common Supersequence](./31-shortest-common-supersequence.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 32**: [Distinct Subsequences (Number of times string S2 occurs in S1)](./32-distinct-subsequences.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 33**: [Edit Distance (Levenshtein Distance: Insert, Delete, Replace)](./33-edit-distance.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 34**: [Wildcard Matching ('?' and '*' pattern matching)](./34-wildcard-matching.md) — 🔴 `Hard` (Solved)
 
 ### Step 16.5: DP on Stocks (6 Problems)
 
-- [ ] **Problem 35**: [Best Time to Buy and Sell Stock (Single transaction)](https://takeuforward.org/data-structure/stock-buy-and-sell/) — 🟢 `Easy`
+- [x] **Problem 35**: [Best Time to Buy and Sell Stock (Single transaction)](./35-best-time-to-buy-and-sell-stock.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 36**: [Best Time to Buy and Sell Stock II (Unlimited transactions)](https://takeuforward.org/data-structure/buy-and-sell-stock-ii-dp-36/) — 🟡 `Medium`
 - [ ] **Problem 37**: [Best Time to Buy and Sell Stock III (At most 2 transactions)](https://takeuforward.org/data-structure/buy-and-sell-stock-iii-dp-37/) — 🔴 `Hard`
 - [ ] **Problem 38**: [Best Time to Buy and Sell Stock IV (At most K transactions)](https://takeuforward.org/data-structure/buy-and-sell-stocks-iv-dp-38/) — 🔴 `Hard`
