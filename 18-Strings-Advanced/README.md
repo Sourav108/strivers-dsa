@@ -12,7 +12,7 @@ Knuth-Morris-Pratt (KMP), Rabin-Karp Rolling Hash, Z-Algorithm, and Minimum Add 
 
 ### Step 18.1: String Matching & Hard Algorithms (9 Problems)
 
-- [ ] **Problem 01**: [Minimum Add to Make Parentheses Valid](https://takeuforward.org/strings/minimum-add-to-make-parentheses-valid/) — 🟡 `Medium`
+- [x] **Problem 01**: [Minimum Add to Make Parentheses Valid](./01-minimum-add-to-make-parentheses-valid.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 02**: [Count and Say (Run-Length Sequence)](https://takeuforward.org/strings/count-and-say/) — 🟡 `Medium`
 - [ ] **Problem 03**: [Repeated String Match (Rabin-Karp Rolling Hash)](https://takeuforward.org/strings/repeated-string-match/) — 🟡 `Medium`
 - [ ] **Problem 04**: [Find the Index of the First Occurrence in a String (KMP LPS Array)](https://takeuforward.org/strings/knuth-morris-pratt-kmp-algorithm/) — 🟡 `Medium`
