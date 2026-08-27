@@ -12,11 +12,11 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 
 ### Step 13.1: Traversals (6 Problems)
 
-- [ ] **Problem 01**: [Introduction to Trees & Binary Tree Representation](https://takeuforward.org/data-structure/binary-tree-representation-in-c/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Preorder Traversal of Binary Tree (Recursive & Iterative)](https://takeuforward.org/data-structure/preorder-traversal-of-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Inorder Traversal of Binary Tree (Recursive & Iterative)](https://takeuforward.org/data-structure/inorder-traversal-of-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 04**: [Postorder Traversal of Binary Tree (1 Stack & 2 Stacks)](https://takeuforward.org/data-structure/post-order-traversal-of-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 05**: [Level Order Traversal / BFS of Binary Tree](https://takeuforward.org/data-structure/level-order-traversal-of-a-binary-tree/) — 🟢 `Easy`
+- [x] **Problem 01**: [Introduction to Trees & Binary Tree Representation](./01-introduction-to-trees-binary-tree-representation.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Preorder Traversal of Binary Tree (Recursive & Iterative)](./02-preorder-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Inorder Traversal of Binary Tree (Recursive & Iterative)](./03-inorder-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 04**: [Postorder Traversal of Binary Tree (1 Stack & 2 Stacks)](./04-postorder-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 05**: [Level Order Traversal / BFS of Binary Tree](./05-level-order-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 06**: [All Traversals in One Pass (Pre, In, Post with Stack)](https://takeuforward.org/data-structure/preorder-inorder-postorder-in-a-single-traversal/) — 🟡 `Medium`
 
 ### Step 13.2: Medium Problems (16 Problems)
