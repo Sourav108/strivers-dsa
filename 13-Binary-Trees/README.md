@@ -17,14 +17,14 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 03**: [Inorder Traversal of Binary Tree (Recursive & Iterative)](./03-inorder-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 04**: [Postorder Traversal of Binary Tree (1 Stack & 2 Stacks)](./04-postorder-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 05**: [Level Order Traversal / BFS of Binary Tree](./05-level-order-traversal-of-binary-tree.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 06**: [All Traversals in One Pass (Pre, In, Post with Stack)](https://takeuforward.org/data-structure/preorder-inorder-postorder-in-a-single-traversal/) — 🟡 `Medium`
+- [x] **Problem 06**: [All Traversals in One Pass (Pre, In, Post with Stack)](./06-all-traversals-in-one-pass.md) — 🟡 `Medium` (Solved)
 
 ### Step 13.2: Medium Problems (16 Problems)
 
-- [ ] **Problem 07**: [Height / Maximum Depth of a Binary Tree](https://takeuforward.org/data-structure/maximum-depth-of-a-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 08**: [Check for Balanced Binary Tree (O(N) check)](https://takeuforward.org/data-structure/check-for-balanced-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 09**: [Diameter of Binary Tree (Longest path between two nodes)](https://takeuforward.org/data-structure/calculate-the-diameter-of-a-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 10**: [Maximum Path Sum in Binary Tree](https://takeuforward.org/data-structure/maximum-sum-path-in-binary-tree/) — 🔴 `Hard`
+- [x] **Problem 07**: [Height / Maximum Depth of a Binary Tree](./07-height-maximum-depth-of-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 08**: [Check for Balanced Binary Tree (O(N) check)](./08-check-for-balanced-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 09**: [Diameter of Binary Tree (Longest path between two nodes)](./09-diameter-of-binary-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 10**: [Maximum Path Sum in Binary Tree](./10-maximum-path-sum-in-binary-tree.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 11**: [Check if Two Trees are Identical / Same Tree](https://takeuforward.org/data-structure/check-if-two-trees-are-identical/) — 🟢 `Easy`
 - [ ] **Problem 12**: [Zig-Zag / Spiral Level Order Traversal](https://takeuforward.org/data-structure/zig-zag-traversal-of-binary-tree/) — 🟡 `Medium`
 - [ ] **Problem 13**: [Boundary Traversal of Binary Tree (Anti-Clockwise)](https://takeuforward.org/data-structure/boundary-traversal-of-a-binary-tree/) — 🟡 `Medium`
