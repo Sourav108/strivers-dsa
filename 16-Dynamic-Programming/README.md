@@ -72,14 +72,14 @@
 - [x] **Problem 43**: [Longest Increasing Subsequence using Binary Search](./43-longest-increasing-subsequence-binary-search.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 44**: [Largest Divisible Subset](./44-largest-divisible-subset.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 45**: [Longest String Chain](./45-longest-string-chain.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 46**: [Longest Bitonic Subsequence](https://takeuforward.org/data-structure/longest-bitonic-subsequence-dp-46/) — 🟡 `Medium`
-- [ ] **Problem 47**: [Number of Longest Increasing Subsequences](https://takeuforward.org/data-structure/number-of-longest-increasing-subsequences-dp-47/) — 🟡 `Medium`
+- [x] **Problem 46**: [Longest Bitonic Subsequence](./46-longest-bitonic-subsequence.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 47**: [Number of Longest Increasing Subsequences](./47-number-of-longest-increasing-subsequences.md) — 🟡 `Medium` (Solved)
 
 ### Step 16.7: Matrix Chain Multiplication (MCM) / Partition DP (8 Problems)
 
-- [ ] **Problem 48**: [Matrix Chain Multiplication (MCM Partition template)](https://takeuforward.org/data-structure/matrix-chain-multiplication-dp-48/) — 🔴 `Hard`
-- [ ] **Problem 49**: [Matrix Chain Multiplication - Tabulation / Bottom-Up](https://takeuforward.org/data-structure/matrix-chain-multiplication-tabulation-mcm-dp-49/) — 🔴 `Hard`
-- [ ] **Problem 50**: [Minimum Cost to Cut a Stick](https://takeuforward.org/data-structure/minimum-cost-to-cut-the-stick-dp-50/) — 🔴 `Hard`
+- [x] **Problem 48**: [Matrix Chain Multiplication (MCM Partition Template)](./48-matrix-chain-multiplication.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 49**: [Matrix Chain Multiplication - Tabulation (Bottom-Up)](./49-matrix-chain-multiplication-tabulation.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 50**: [Minimum Cost to Cut a Stick](./50-minimum-cost-to-cut-a-stick.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 51**: [Burst Balloons](https://takeuforward.org/data-structure/burst-balloons-partition-dp-dp-51/) — 🔴 `Hard`
 - [ ] **Problem 52**: [Evaluate Boolean Expression to True (Boolean Parenthesization)](https://takeuforward.org/data-structure/evaluate-boolean-expression-to-true-partition-dp-dp-52/) — 🔴 `Hard`
 - [ ] **Problem 53**: [Palindrome Partitioning II (Minimum cuts to make palindromic substrings)](https://takeuforward.org/data-structure/palindrome-partitioning-ii-front-partition-dp-53/) — 🔴 `Hard`
