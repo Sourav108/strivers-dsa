@@ -38,14 +38,14 @@
 - [x] **Problem 18**: [Count Partitions with Given Difference](./18-count-partitions-with-given-difference.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 19**: [0/1 Knapsack Problem (Bounded)](./19-0-1-knapsack-problem.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 20**: [Minimum Coins to Make a Target Sum (Coin Change I)](./20-minimum-coins-to-make-target-sum-coin-change.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 21**: [Target Sum (Assign +/- signs to achieve target)](https://takeuforward.org/data-structure/target-sum-dp-21/) — 🟡 `Medium`
-- [ ] **Problem 22**: [Coin Change II (Number of Ways to make target with infinite supply)](https://takeuforward.org/data-structure/coin-change-2-dp-22/) — 🟡 `Medium`
-- [ ] **Problem 23**: [Unbounded Knapsack Problem](https://takeuforward.org/data-structure/unbounded-knapsack-dp-23/) — 🟡 `Medium`
-- [ ] **Problem 24**: [Rod Cutting Problem](https://takeuforward.org/data-structure/rod-cutting-problem-dp-24/) — 🟡 `Medium`
+- [x] **Problem 21**: [Target Sum (Assign +/- signs to achieve target)](./21-target-sum.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 22**: [Coin Change II (Number of Ways with Infinite Supply)](./22-coin-change-ii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 23**: [Unbounded Knapsack Problem](./23-unbounded-knapsack.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 24**: [Rod Cutting Problem](./24-rod-cutting-problem.md) — 🟡 `Medium` (Solved)
 
 ### Step 16.4: DP on Strings (10 Problems)
 
-- [ ] **Problem 25**: [Longest Common Subsequence (LCS)](https://takeuforward.org/data-structure/longest-common-subsequence-dp-25/) — 🟡 `Medium`
+- [x] **Problem 25**: [Longest Common Subsequence (LCS)](./25-longest-common-subsequence-lcs.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 26**: [Print Longest Common Subsequence](https://takeuforward.org/data-structure/print-longest-common-subsequence-dp-26/) — 🟡 `Medium`
 - [ ] **Problem 27**: [Longest Common Substring](https://takeuforward.org/data-structure/longest-common-substring-dp-27/) — 🟡 `Medium`
 - [ ] **Problem 28**: [Longest Palindromic Subsequence](https://takeuforward.org/data-structure/longest-palindromic-subsequence-dp-28/) — 🟡 `Medium`
