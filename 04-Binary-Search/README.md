@@ -13,18 +13,18 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 ### Step 4.1: BS on 1D Arrays (13 Problems)
 
 - [x] **Problem 01**: [Binary Search to Find X in Sorted Array](./01-binary-search-to-find-x-in-sorted-array.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 02**: [Implement Lower Bound](https://takeuforward.org/arrays/implement-lower-bound-bs-2/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Implement Upper Bound](https://takeuforward.org/arrays/implement-upper-bound/) — 🟢 `Easy`
-- [ ] **Problem 04**: [Search Insert Position](https://takeuforward.org/arrays/search-insert-position/) — 🟢 `Easy`
-- [ ] **Problem 05**: [Floor and Ceil in Sorted Array](https://takeuforward.org/arrays/floor-and-ceil-in-sorted-array/) — 🟢 `Easy`
-- [ ] **Problem 06**: [First and Last Occurrences of X in Sorted Array](https://takeuforward.org/data-structure/first-and-last-occurrences-of-x/) — 🟢 `Easy`
-- [ ] **Problem 07**: [Count Occurrences of a Number in Sorted Array](https://takeuforward.org/data-structure/count-occurrences-in-sorted-array/) — 🟢 `Easy`
-- [ ] **Problem 08**: [Search in Rotated Sorted Array I (Unique Elements)](https://takeuforward.org/data-structure/search-element-in-a-rotated-sorted-array/) — 🟡 `Medium`
-- [ ] **Problem 09**: [Search in Rotated Sorted Array II (Duplicate Elements)](https://takeuforward.org/arrays/search-in-rotated-sorted-array-ii/) — 🟡 `Medium`
-- [ ] **Problem 10**: [Find Minimum in Rotated Sorted Array](https://takeuforward.org/data-structure/minimum-in-rotated-sorted-array/) — 🟡 `Medium`
-- [ ] **Problem 11**: [Find out how many times array has been rotated](https://takeuforward.org/arrays/find-out-how-many-times-has-an-array-been-rotated/) — 🟢 `Easy`
-- [ ] **Problem 12**: [Single Element in a Sorted Array (Index Parity Check)](https://takeuforward.org/data-structure/search-single-element-in-a-sorted-array/) — 🟡 `Medium`
-- [ ] **Problem 13**: [Find Peak Element in Array](https://takeuforward.org/data-structure/peak-element-in-array/) — 🟡 `Medium`
+- [x] **Problem 02**: [Implement Lower Bound](./02-implement-lower-bound.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Implement Upper Bound](./03-implement-upper-bound.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 04**: [Search Insert Position](./04-search-insert-position.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 05**: [Floor and Ceil in Sorted Array](./05-floor-and-ceil-in-sorted-array.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 06**: [First and Last Occurrences of X in Sorted Array](./06-first-and-last-occurrences-of-x.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 07**: [Count Occurrences of a Number in Sorted Array](./07-count-occurrences-in-sorted-array.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 08**: [Search in Rotated Sorted Array I (Unique Elements)](./08-search-in-rotated-sorted-array-i.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 09**: [Search in Rotated Sorted Array II (Duplicate Elements)](./09-search-in-rotated-sorted-array-ii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 10**: [Find Minimum in Rotated Sorted Array](./10-find-minimum-in-rotated-sorted-array.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 11**: [Find out how many times array has been rotated](./11-find-out-how-many-times-array-has-been-rotated.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 12**: [Single Element in a Sorted Array (Index Parity Check)](./12-single-element-in-a-sorted-array.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 13**: [Find Peak Element in Array](./13-find-peak-element.md) — 🟡 `Medium` (Solved)
 
 ### Step 4.2: BS on Answers (14 Problems)
 
