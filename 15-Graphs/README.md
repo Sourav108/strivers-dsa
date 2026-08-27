@@ -48,7 +48,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 
 - [x] **Problem 26**: [Shortest Path in Undirected Graph with Unit Weights](./26-shortest-path-in-undirected-graph-with-unit-weights.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 27**: [Shortest Path in Directed Acyclic Graph (DAG) using Topo Sort](./27-shortest-path-in-directed-acyclic-graph-dag-using-topo-sort.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 28**: [Dijkstra's Algorithm using Priority Queue / Set](https://takeuforward.org/data-structure/dijkstras-algorithm-using-priority-queue-g-32/) — 🟡 `Medium`
+- [x] **Problem 28**: [Dijkstra's Algorithm using Priority Queue / Set](./28-dijkstras-algorithm-using-priority-queue-set.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 29**: [Print Shortest Path in Weighted Undirected Graph (Dijkstra Parent array)](https://takeuforward.org/data-structure/g-35-print-shortest-path-dijkstras-algorithm/) — 🟡 `Medium`
 - [ ] **Problem 30**: [Shortest Path in Binary Matrix (Maze BFS)](https://takeuforward.org/data-structure/g-36-shortest-distance-in-a-binary-maze/) — 🟡 `Medium`
 - [ ] **Problem 31**: [Path with Minimum Effort (Dijkstra on 2D Matrix)](https://takeuforward.org/data-structure/g-37-path-with-minimum-effort/) — 🟡 `Medium`
