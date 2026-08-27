@@ -14,7 +14,7 @@ Trie Node Structure, Insert/Search/StartsWith, Prefix Matching, Distinct Substri
 
 - [x] **Problem 01**: [Implement Trie (Prefix Tree) I (Insert, Search, StartsWith)](./01-implement-trie-prefix-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 02**: [Implement Trie II (Prefix Tree) (countWordsEqualTo, countWordsStartingWith, erase)](./02-implement-trie-ii.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 03**: [Longest Word with All Prefixes (Complete String)](https://takeuforward.org/data-structure/longest-word-with-all-prefixes/) — 🟡 `Medium`
+- [x] **Problem 03**: [Longest Word with All Prefixes (Complete String)](./03-longest-word-with-all-prefixes.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 04**: [Number of Distinct Substrings in a String (Trie based O(N^2))](https://takeuforward.org/data-structure/number-of-distinct-substrings-in-a-string-using-trie/) — 🟡 `Medium`
 - [ ] **Problem 05**: [Bit Prerequisites for TRIE Problems (Bit Manipulation in 32-bit Tries)](https://takeuforward.org/trie/bit-prerequisites-for-trie-problems/) — 🟢 `Easy`
 - [ ] **Problem 06**: [Maximum XOR of Two Numbers in an Array (Bitwise Trie Search)](https://takeuforward.org/data-structure/maximum-xor-of-two-numbers-in-an-array/) — 🟡 `Medium`
