@@ -43,11 +43,11 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 23**: [Print all Nodes at Distance K in Binary Tree](./23-nodes-at-given-distance-k-in-binary-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 24**: [Minimum Time Taken to BURN the Binary Tree from a Node](./24-minimum-time-taken-to-burn-binary-tree.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 25**: [Count Total Nodes in a COMPLETE Binary Tree in O((log N)^2)](./25-count-number-of-nodes-in-complete-binary-tree.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 26**: [Requirements to Construct Unique Binary Tree (Inorder + Pre/Post)](https://takeuforward.org/data-structure/unique-binary-tree/) — 🟢 `Easy`
-- [ ] **Problem 27**: [Construct Binary Tree from Inorder and Preorder Traversal](https://takeuforward.org/data-structure/construct-a-binary-tree-from-inorder-and-preorder-traversal/) — 🟡 `Medium`
-- [ ] **Problem 28**: [Construct Binary Tree from Inorder and Postorder Traversal](https://takeuforward.org/data-structure/construct-binary-tree-from-inorder-and-postorder-traversal/) — 🟡 `Medium`
-- [ ] **Problem 29**: [Serialize and Deserialize Binary Tree (String formatting)](https://takeuforward.org/data-structure/serialize-and-deserialize-a-binary-tree/) — 🔴 `Hard`
-- [ ] **Problem 30**: [Morris Inorder Traversal (Threaded Binary Tree O(1) space)](https://takeuforward.org/data-structure/morris-inorder-traversal-of-a-binary-tree/) — 🔴 `Hard`
+- [x] **Problem 26**: [Requirements to Construct Unique Binary Tree (Inorder + Pre/Post)](./26-unique-binary-tree-requirements.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 27**: [Construct Binary Tree from Inorder and Preorder Traversal](./27-construct-binary-tree-from-inorder-and-preorder.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 28**: [Construct Binary Tree from Inorder and Postorder Traversal](./28-construct-binary-tree-from-inorder-and-postorder.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 29**: [Serialize and Deserialize Binary Tree (String formatting)](./29-serialize-and-deserialize-binary-tree.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 30**: [Morris Inorder Traversal (Threaded Binary Tree O(1) space)](./30-morris-inorder-traversal.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 31**: [Morris Preorder Traversal (Threaded Binary Tree O(1) space)](https://takeuforward.org/data-structure/morris-preorder-traversal-of-a-binary-tree/) — 🔴 `Hard`
 - [ ] **Problem 32**: [Flatten Binary Tree to LinkedList (In-place pointer rewire)](https://takeuforward.org/data-structure/flatten-binary-tree-to-linked-list/) — 🟡 `Medium`
 - [ ] **Problem 33**: [Find Path Sum III (Sub-paths equal to Target Sum)](https://takeuforward.org/data-structure/path-sum-iii/) — 🟡 `Medium`
