@@ -12,24 +12,24 @@ Activity Selection, Minimum Platforms, Job Sequencing, Fractional Knapsack, Jump
 
 ### Step 12.1: Easy (5 Problems)
 
-- [ ] **Problem 01**: [Assign Cookies](https://takeuforward.org/data-structure/assign-cookies/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Fractional Knapsack Problem](https://takeuforward.org/data-structure/fractional-knapsack-problem-greedy-approach/) — 🟡 `Medium`
-- [ ] **Problem 03**: [Find Minimum Number of Coins (Greedy Indian Denominations)](https://takeuforward.org/data-structure/find-minimum-number-of-coins/) — 🟢 `Easy`
-- [ ] **Problem 04**: [Lemonade Change](https://takeuforward.org/data-structure/lemonade-change/) — 🟢 `Easy`
-- [ ] **Problem 05**: [Valid Parenthesis String (Greedy Min/Max Open range)](https://takeuforward.org/data-structure/valid-parenthesis-string/) — 🟡 `Medium`
+- [x] **Problem 01**: [Assign Cookies](./01-assign-cookies.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Fractional Knapsack Problem](./02-fractional-knapsack-problem.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 03**: [Find Minimum Number of Coins (Greedy Indian Denominations)](./03-find-minimum-number-of-coins.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 04**: [Lemonade Change](./04-lemonade-change.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 05**: [Valid Parenthesis String (Greedy Min/Max Open range)](./05-valid-parenthesis-string.md) — 🟡 `Medium` (Solved)
 
 ### Step 12.2: Medium / Hard (10 Problems)
 
-- [ ] **Problem 06**: [N Meetings in One Room (Activity Selection)](https://takeuforward.org/data-structure/n-meetings-in-one-room/) — 🟢 `Easy`
-- [ ] **Problem 07**: [Non-overlapping Intervals (Min interval removals)](https://takeuforward.org/data-structure/non-overlapping-intervals/) — 🟡 `Medium`
-- [ ] **Problem 08**: [Minimum Number of Platforms Required for a Railway](https://takeuforward.org/data-structure/minimum-number-of-platforms-required-for-a-railway/) — 🟡 `Medium`
-- [ ] **Problem 09**: [Job Sequencing Problem (Max Profit with Deadlines)](https://takeuforward.org/data-structure/job-sequencing-problem/) — 🟡 `Medium`
-- [ ] **Problem 10**: [Candy (LeetCode 135 - Slope and Two-Pass method)](https://takeuforward.org/data-structure/candy/) — 🔴 `Hard`
-- [ ] **Problem 11**: [Shortest Job First (SJF) CPU Scheduling](https://takeuforward.org/greedy/shortest-job-first/) — 🟢 `Easy`
-- [ ] **Problem 12**: [Insert Interval (Merge new interval in sorted set)](https://takeuforward.org/data-structure/insert-interval/) — 🟡 `Medium`
-- [ ] **Problem 13**: [Merge Intervals](https://takeuforward.org/data-structure/merge-overlapping-sub-intervals/) — 🟡 `Medium`
-- [ ] **Problem 14**: [Jump Game I (Can Reach End)](https://takeuforward.org/data-structure/jump-game-i/) — 🟡 `Medium`
-- [ ] **Problem 15**: [Jump Game II (Minimum Jumps to Reach End)](https://takeuforward.org/data-structure/jump-game-ii/) — 🟡 `Medium`
+- [x] **Problem 06**: [N Meetings in One Room (Activity Selection)](./06-n-meetings-in-one-room.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 07**: [Non-overlapping Intervals (Min interval removals)](./07-non-overlapping-intervals.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 08**: [Minimum Number of Platforms Required for a Railway](./08-minimum-number-of-platforms.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 09**: [Job Sequencing Problem (Max Profit with Deadlines)](./09-job-sequencing-problem.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 10**: [Candy (LeetCode 135 - Slope and Two-Pass method)](./10-candy.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 11**: [Shortest Job First (SJF) CPU Scheduling](./11-shortest-job-first-cpu-scheduling.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 12**: [Insert Interval (Merge new interval in sorted set)](./12-insert-interval.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 13**: [Merge Intervals](./13-merge-intervals.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 14**: [Jump Game I (Can Reach End)](./14-jump-game-i.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 15**: [Jump Game II (Minimum Jumps to Reach End)](./15-jump-game-ii.md) — 🟡 `Medium` (Solved)
 
 ---
 
