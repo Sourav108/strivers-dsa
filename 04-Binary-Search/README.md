@@ -34,7 +34,7 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 - [x] **Problem 17**: [Minimum Days to Make M Bouquets (LeetCode 1482)](./17-minimum-days-to-make-m-bouquets.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 18**: [Find the Smallest Divisor Given a Threshold](./18-find-the-smallest-divisor-given-a-threshold.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 19**: [Capacity to Ship Packages within D Days (LeetCode 1011)](./19-capacity-to-ship-packages-within-d-days.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 20**: [Kth Missing Positive Number](https://takeuforward.org/binary-search/kth-missing-positive-number/) — 🟢 `Easy`
+- [x] **Problem 20**: [Kth Missing Positive Number](./20-kth-missing-positive-number.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 21**: [Aggressive Cows (Minimise Maximum Distance)](https://takeuforward.org/data-structure/aggressive-cows-detailed-solution/) — 🔴 `Hard`
 - [ ] **Problem 22**: [Book Allocation Problem](https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/) — 🔴 `Hard`
 - [ ] **Problem 23**: [Split Array - Largest Sum (LeetCode 410)](https://takeuforward.org/binary-search/split-array-largest-sum/) — 🔴 `Hard`
