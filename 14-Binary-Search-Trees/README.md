@@ -20,11 +20,11 @@ BST Properties, Insert/Delete, Inorder Successor, BST Iterator, Two Sum in BST, 
 
 - [x] **Problem 04**: [Ceil in a Binary Search Tree](./04-ceil-in-a-binary-search-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 05**: [Floor in a Binary Search Tree](./05-floor-in-a-binary-search-tree.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 06**: [Insert a Given Node in BST](https://takeuforward.org/data-structure/insert-a-given-node-in-binary-search-tree-bst/) — 🟡 `Medium`
-- [ ] **Problem 07**: [Delete a Node in Binary Search Tree](https://takeuforward.org/data-structure/delete-a-node-in-binary-search-tree-bst/) — 🟡 `Medium`
-- [ ] **Problem 08**: [Find K-th Smallest / Largest Element in BST](https://takeuforward.org/data-structure/kth-largest-smallest-element-in-binary-search-tree-bst/) — 🟡 `Medium`
-- [ ] **Problem 09**: [Check if a Binary Tree is BST or Not (Valid BST range [min, max])](https://takeuforward.org/data-structure/check-if-a-tree-is-a-bst-or-bt/) — 🟡 `Medium`
-- [ ] **Problem 10**: [Lowest Common Ancestor (LCA) in BST](https://takeuforward.org/data-structure/lca-in-binary-search-tree-bst/) — 🟢 `Easy`
+- [x] **Problem 06**: [Insert a Given Node in BST](./06-insert-a-given-node-in-bst.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 07**: [Delete a Node in Binary Search Tree](./07-delete-a-node-in-binary-search-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 08**: [Find K-th Smallest / Largest Element in BST](./08-kth-smallest-largest-element-in-bst.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 09**: [Check if a Binary Tree is BST or Not (Valid BST range [min, max])](./09-check-if-binary-tree-is-bst.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 10**: [Lowest Common Ancestor (LCA) in BST](./10-lowest-common-ancestor-in-bst.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 11**: [Construct a BST from a Preorder Traversal in O(N)](https://takeuforward.org/data-structure/construct-a-bst-from-a-preorder-traversal/) — 🟡 `Medium`
 - [ ] **Problem 12**: [Inorder Successor and Predecessor in BST](https://takeuforward.org/data-structure/inorder-successor-predecessor-in-bst/) — 🟡 `Medium`
 - [ ] **Problem 13**: [BST Iterator (O(H) memory iterator for next() & hasNext())](https://takeuforward.org/data-structure/bst-iterator/) — 🟡 `Medium`
