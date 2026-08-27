@@ -17,14 +17,14 @@
 - [x] **Problem 03**: [Frog Jump (Geek Jump 1 or 2 steps)](./03-frog-jump.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 04**: [Frog Jump with K Distances](./04-frog-jump-with-k-distances.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 05**: [Maximum Sum of Non-Adjacent Elements (House Robber I)](./05-maximum-sum-of-non-adjacent-elements-house-robber.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 06**: [House Robber II (Circular Street)](https://takeuforward.org/data-structure/dynamic-programming-house-robber-dp-6/) — 🟡 `Medium`
-- [ ] **Problem 07**: [Ninja's Training (2D DP on Activities)](https://takeuforward.org/data-structure/dynamic-programming-ninjas-training-dp-7/) — 🟡 `Medium`
+- [x] **Problem 06**: [House Robber II (Circular Street)](./06-house-robber-ii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 07**: [Ninja's Training (2D DP on Activities)](./07-ninjas-training.md) — 🟡 `Medium` (Solved)
 
 ### Step 16.2: 2D/3D DP and DP on Grids (6 Problems)
 
-- [ ] **Problem 08**: [Grid Unique Paths (Combinatorics vs DP)](https://takeuforward.org/data-structure/grid-unique-paths-dp-on-grids-dp8/) — 🟡 `Medium`
-- [ ] **Problem 09**: [Grid Unique Paths II (With Obstacles)](https://takeuforward.org/data-structure/grid-unique-paths-2-dp-on-grids-dp9/) — 🟡 `Medium`
-- [ ] **Problem 10**: [Minimum Path Sum in Grid](https://takeuforward.org/data-structure/minimum-path-sum-in-a-grid-dp-10/) — 🟡 `Medium`
+- [x] **Problem 08**: [Grid Unique Paths (Combinatorics vs DP)](./08-grid-unique-paths.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 09**: [Grid Unique Paths II (With Obstacles)](./09-grid-unique-paths-ii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 10**: [Minimum Path Sum in Grid](./10-minimum-path-sum-in-grid.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 11**: [Minimum Path Sum in Triangular Grid (Triangle)](https://takeuforward.org/data-structure/minimum-path-sum-in-triangular-grid-dp-11/) — 🟡 `Medium`
 - [ ] **Problem 12**: [Minimum / Maximum Falling Path Sum (Variable start/end points)](https://takeuforward.org/data-structure/minimum-maximum-falling-path-sum-dp-12/) — 🟡 `Medium`
 - [ ] **Problem 13**: [3D DP: Ninja and his Friends (Cherry Pickup II)](https://takeuforward.org/data-structure/3-d-dp-ninja-and-his-friends-dp-13/) — 🔴 `Hard`
