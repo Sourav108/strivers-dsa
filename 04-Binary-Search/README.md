@@ -33,7 +33,7 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 - [x] **Problem 16**: [Koko Eating Bananas (LeetCode 875)](./16-koko-eating-bananas.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 17**: [Minimum Days to Make M Bouquets (LeetCode 1482)](./17-minimum-days-to-make-m-bouquets.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 18**: [Find the Smallest Divisor Given a Threshold](./18-find-the-smallest-divisor-given-a-threshold.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 19**: [Capacity to Ship Packages within D Days (LeetCode 1011)](https://takeuforward.org/binary-search/capacity-to-ship-packages-within-d-days/) — 🟡 `Medium`
+- [x] **Problem 19**: [Capacity to Ship Packages within D Days (LeetCode 1011)](./19-capacity-to-ship-packages-within-d-days.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 20**: [Kth Missing Positive Number](https://takeuforward.org/binary-search/kth-missing-positive-number/) — 🟢 `Easy`
 - [ ] **Problem 21**: [Aggressive Cows (Minimise Maximum Distance)](https://takeuforward.org/data-structure/aggressive-cows-detailed-solution/) — 🔴 `Hard`
 - [ ] **Problem 22**: [Book Allocation Problem](https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/) — 🔴 `Hard`
