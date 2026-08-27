@@ -1,10 +1,10 @@
-# 02 — Sorting Techniques
+# 02 — Sorting Techniques (Complete 7 Problems Solved)
 
 > **Topic Problem Count**: 7 Problems  
-> **Language**: C++ (with Intuition, Multi-Tier Approaches, and Complexity Analysis)
+> **Language**: C++ (with Intuition, Multi-Tier Approaches, In-Place Optimizations, and Proofs)
 
 ## 📌 Overview
-Fundamental and advanced sorting algorithms, time/space complexity derivations, and recursive implementations.
+Fundamental and advanced sorting algorithms, time/space complexity derivations, recursive divide-and-conquer, and in-place partitioning.
 
 ---
 
@@ -12,22 +12,19 @@ Fundamental and advanced sorting algorithms, time/space complexity derivations, 
 
 ### Step 2.1: Sorting-I (3 Problems)
 
-- [ ] **Problem 01**: [Selection Sort Algorithm](https://takeuforward.org/sorting/selection-sort-algorithm/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Bubble Sort Algorithm](https://takeuforward.org/data-structure/bubble-sort-algorithm/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Insertion Sort Algorithm](https://takeuforward.org/data-structure/insertion-sort-algorithm/) — 🟢 `Easy`
+- [x] **Problem 01**: [Selection Sort Algorithm](./01-selection-sort.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Bubble Sort Algorithm](./02-bubble-sort.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Insertion Sort Algorithm](./03-insertion-sort.md) — 🟢 `Easy` (Solved)
 
 ### Step 2.2: Sorting-II (4 Problems)
 
-- [ ] **Problem 04**: [Merge Sort Algorithm (Divide and Conquer)](https://takeuforward.org/data-structure/merge-sort-algorithm/) — 🟡 `Medium`
-- [ ] **Problem 05**: [Recursive Bubble Sort](https://takeuforward.org/data-structure/recursive-bubble-sort-algorithm/) — 🟢 `Easy`
-- [ ] **Problem 06**: [Recursive Insertion Sort](https://takeuforward.org/data-structure/recursive-insertion-sort-algorithm/) — 🟢 `Easy`
-- [ ] **Problem 07**: [Quick Sort Algorithm (Partitioning & Pivot Selection)](https://takeuforward.org/data-structure/quick-sort-algorithm/) — 🟡 `Medium`
+- [x] **Problem 04**: [Merge Sort Algorithm (Divide and Conquer)](./04-merge-sort.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 05**: [Recursive Bubble Sort](./05-recursive-bubble-sort.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 06**: [Recursive Insertion Sort](./06-recursive-insertion-sort.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 07**: [Quick Sort Algorithm (Partitioning & Pivot Selection)](./07-quick-sort.md) — 🟡 `Medium` (Solved)
 
 ---
 
-## 💡 How to Add Solutions
+## 💡 How to Add or Update Solutions
 
-To add a solution for any problem in this section:
-1. Copy the prompt template from [`../AI_PROMPT_TEMPLATE.md`](../AI_PROMPT_TEMPLATE.md).
-2. Generate the C++ solution with intuition, brute-force, better, and optimal implementations.
-3. Save the solution as `NN-problem-slug.md` inside this folder and tick off the checklist box above!
+All 7 problems in Step 2 are solved using the standardized 9-section format defined in [`../AI_PROMPT_TEMPLATE.md`](../AI_PROMPT_TEMPLATE.md).

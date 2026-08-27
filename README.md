@@ -10,7 +10,7 @@
 | # | Step Folder | Topics Covered | Problem Count | Status |
 |---|---|---|:---:|:---:|
 | 01 | [**01-Learn-the-Basics**](./01-Learn-the-Basics/README.md) | C++ Basics, 22 Patterns, STL, Basic Maths, Recursion, Hashing | **54** | 🟡 In Progress |
-| 02 | [**02-Sorting-Techniques**](./02-Sorting-Techniques/README.md) | Selection, Bubble, Insertion, Merge Sort, Quick Sort | **7** | ⚪ Pending |
+| 02 | [**02-Sorting-Techniques**](./02-Sorting-Techniques/README.md) | Selection, Bubble, Insertion, Merge Sort, Quick Sort | **7** | 🟢 Completed (7/7) |
 | 03 | [**03-Arrays**](./03-Arrays/README.md) | Two Pointers, Kadane's, Moore's Voting, Dutch Flag, Hard Subarrays | **40** | 🟢 Completed (40/40) |
 | 04 | [**04-Binary-Search**](./04-Binary-Search/README.md) | BS 1D, Rotated Arrays, BS on Answers, 2D Matrix Binary Search | **32** | ⚪ Pending |
 | 05 | [**05-Strings-Basic**](./05-Strings-Basic/README.md) | Anagrams, Isomorphic, Roman Numerals, Nesting Depth | **15** | ⚪ Pending |
@@ -45,7 +45,9 @@ flowchart LR
 2. **Open [`AI_PROMPT_TEMPLATE.md`](./AI_PROMPT_TEMPLATE.md)**, copy the prompt block, and fill in the 5 fields (*Problem Name, Step, Link, Difficulty, Statement*).
 3. **Paste into Claude / AI** to get the standardized 5-part guide:
    - 💡 **Intuition & Pattern Recognition**
-   - 🛠️ **Brute Force $ightarrow$ Better $ightarrow$ Optimal C++ Code** (with derived Time/Space Complexity)
+   - 🛠️ **Brute Force $
+ightarrow$ Better $
+ightarrow$ Optimal C++ Code** (with derived Time/Space Complexity)
    - 📊 **Step-by-Step Visual Dry Run Table**
    - ⚠️ **Edge Cases & Pitfalls**
    - 💬 **Interview Follow-up Q&A**
