@@ -78,7 +78,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 49**: [Bridges in Graph (Tarjan's Algorithm / Critical Connections in a Network)](./49-bridges-in-graph-tarjans-algorithm.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 50**: [Articulation Point in Graph (Tarjan's Algorithm for Cut Vertices)](./50-articulation-point-in-graph.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 51**: [Strongly Connected Components (Kosaraju's Algorithm)](./51-strongly-connected-components-kosarajus-algorithm.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 52**: [Eulerian Circuit and Path in Directed & Undirected Graphs](https://takeuforward.org/graph/eulerian-path-and-circuit/) — 🔴 `Hard`
+- [x] **Problem 52**: [Eulerian Circuit and Path in Undirected and Directed Graphs](./52-eulerian-circuit-and-path.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 53**: [Tarjan's Algorithm for Strongly Connected Components in Single Pass](https://takeuforward.org/graph/tarjans-scc-algorithm/) — 🔴 `Hard`
 
 ---
