@@ -13,7 +13,7 @@
 | 02 | [**02-Sorting-Techniques**](./02-Sorting-Techniques/README.md) | Selection, Bubble, Insertion, Merge Sort, Quick Sort | **7** | 🟢 Completed (7/7) |
 | 03 | [**03-Arrays**](./03-Arrays/README.md) | Two Pointers, Kadane's, Moore's Voting, Dutch Flag, Hard Subarrays | **40** | 🟢 Completed (40/40) |
 | 04 | [**04-Binary-Search**](./04-Binary-Search/README.md) | BS 1D, Rotated Arrays, BS on Answers, 2D Matrix Binary Search | **32** | 🟢 Completed (32/32) |
-| 05 | [**05-Strings-Basic**](./05-Strings-Basic/README.md) | Anagrams, Isomorphic, Roman Numerals, Nesting Depth | **15** | ⚪ Pending |
+| 05 | [**05-Strings-Basic**](./05-Strings-Basic/README.md) | Anagrams, Isomorphic, Roman Numerals, Nesting Depth | **15** | 🟢 Completed (15/15) |
 | 06 | [**06-LinkedList**](./06-LinkedList/README.md) | Singly & Doubly LL, Floyd's Cycle, Reversals, K-Group, Flattening | **31** | ⚪ Pending |
 | 07 | [**07-Recursion**](./07-Recursion/README.md) | Subsequences, Power Set, Combination Sum, N-Queens, Sudoku | **25** | ⚪ Pending |
 | 08 | [**08-Bit-Manipulation**](./08-Bit-Manipulation/README.md) | Bitwise Tricks, Two Odd Numbers, Power Set Bits, Sieve | **18** | ⚪ Pending |
