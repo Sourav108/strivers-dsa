@@ -12,7 +12,7 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 
 ### Step 4.1: BS on 1D Arrays (13 Problems)
 
-- [ ] **Problem 01**: [Binary Search to Find X in Sorted Array](https://takeuforward.org/data-structure/binary-search-explained/) — 🟢 `Easy`
+- [x] **Problem 01**: [Binary Search to Find X in Sorted Array](./01-binary-search-to-find-x-in-sorted-array.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 02**: [Implement Lower Bound](https://takeuforward.org/arrays/implement-lower-bound-bs-2/) — 🟢 `Easy`
 - [ ] **Problem 03**: [Implement Upper Bound](https://takeuforward.org/arrays/implement-upper-bound/) — 🟢 `Easy`
 - [ ] **Problem 04**: [Search Insert Position](https://takeuforward.org/arrays/search-insert-position/) — 🟢 `Easy`
