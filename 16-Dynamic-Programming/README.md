@@ -67,11 +67,11 @@
 
 ### Step 16.6: DP on Longest Increasing Subsequence (LIS) (7 Problems)
 
-- [ ] **Problem 41**: [Longest Increasing Subsequence (O(N^2) DP & O(N log N) Binary Search)](https://takeuforward.org/data-structure/longest-increasing-subsequence-dp-41/) — 🟡 `Medium`
-- [ ] **Problem 42**: [Printing Longest Increasing Subsequence](https://takeuforward.org/data-structure/printing-longest-increasing-subsequence-dp-42/) — 🟡 `Medium`
-- [ ] **Problem 43**: [Longest Increasing Subsequence using Binary Search (std::lower_bound)](https://takeuforward.org/data-structure/longest-increasing-subsequence-binary-search-dp-43/) — 🟡 `Medium`
-- [ ] **Problem 44**: [Largest Divisible Subset](https://takeuforward.org/data-structure/largest-divisible-subset-dp-44/) — 🟡 `Medium`
-- [ ] **Problem 45**: [Longest String Chain](https://takeuforward.org/data-structure/longest-string-chain-dp-45/) — 🟡 `Medium`
+- [x] **Problem 41**: [Longest Increasing Subsequence (LIS)](./41-longest-increasing-subsequence.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 42**: [Printing Longest Increasing Subsequence](./42-printing-longest-increasing-subsequence.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 43**: [Longest Increasing Subsequence using Binary Search](./43-longest-increasing-subsequence-binary-search.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 44**: [Largest Divisible Subset](./44-largest-divisible-subset.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 45**: [Longest String Chain](./45-longest-string-chain.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 46**: [Longest Bitonic Subsequence](https://takeuforward.org/data-structure/longest-bitonic-subsequence-dp-46/) — 🟡 `Medium`
 - [ ] **Problem 47**: [Number of Longest Increasing Subsequences](https://takeuforward.org/data-structure/number-of-longest-increasing-subsequences-dp-47/) — 🟡 `Medium`
 
