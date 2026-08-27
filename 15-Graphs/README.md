@@ -20,11 +20,11 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 
 ### Step 15.2: Problems on BFS / DFS (14 Problems)
 
-- [ ] **Problem 06**: [Number of Provinces (Connected Components in Disjoint Graph)](https://takeuforward.org/data-structure/number-of-provinces/) — 🟡 `Medium`
-- [ ] **Problem 07**: [Rotting Oranges (Multi-source BFS)](https://takeuforward.org/data-structure/rotton-oranges-min-time-to-rot-all-oranges-bfs/) — 🟡 `Medium`
-- [ ] **Problem 08**: [Flood Fill Algorithm](https://takeuforward.org/data-structure/flood-fill-algorithm/) — 🟢 `Easy`
-- [ ] **Problem 09**: [Detect Cycle in an Undirected Graph using BFS](https://takeuforward.org/data-structure/detect-cycle-in-an-undirected-graph-using-bfs/) — 🟡 `Medium`
-- [ ] **Problem 10**: [Detect Cycle in an Undirected Graph using DFS](https://takeuforward.org/data-structure/detect-cycle-in-an-undirected-graph-using-dfs/) — 🟡 `Medium`
+- [x] **Problem 06**: [Number of Provinces (Connected Components in Disjoint Graph)](./06-number-of-provinces.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 07**: [Rotting Oranges (Multi-source BFS)](./07-rotting-oranges.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 08**: [Flood Fill Algorithm](./08-flood-fill-algorithm.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 09**: [Detect Cycle in an Undirected Graph using BFS](./09-detect-cycle-in-an-undirected-graph-using-bfs.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 10**: [Detect Cycle in an Undirected Graph using DFS](./10-detect-cycle-in-an-undirected-graph-using-dfs.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 11**: [0/1 Matrix (Distance of Nearest Cell having 1)](https://takeuforward.org/data-structure/distance-of-nearest-cell-having-1/) — 🟡 `Medium`
 - [ ] **Problem 12**: [Surrounded Regions (Replace O's with X's on Board)](https://takeuforward.org/data-structure/surrounded-regions-replace-os-with-xs/) — 🟡 `Medium`
 - [ ] **Problem 13**: [Number of Enclaves (Count unreachable land cells)](https://takeuforward.org/data-structure/number-of-enclaves/) — 🟡 `Medium`
