@@ -46,11 +46,11 @@
 ### Step 16.4: DP on Strings (10 Problems)
 
 - [x] **Problem 25**: [Longest Common Subsequence (LCS)](./25-longest-common-subsequence-lcs.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 26**: [Print Longest Common Subsequence](https://takeuforward.org/data-structure/print-longest-common-subsequence-dp-26/) — 🟡 `Medium`
-- [ ] **Problem 27**: [Longest Common Substring](https://takeuforward.org/data-structure/longest-common-substring-dp-27/) — 🟡 `Medium`
-- [ ] **Problem 28**: [Longest Palindromic Subsequence](https://takeuforward.org/data-structure/longest-palindromic-subsequence-dp-28/) — 🟡 `Medium`
-- [ ] **Problem 29**: [Minimum Insertions to Make String Palindrome](https://takeuforward.org/data-structure/minimum-insertions-to-make-string-palindrome-dp-29/) — 🟡 `Medium`
-- [ ] **Problem 30**: [Minimum Insertions/Deletions to Convert String A to String B](https://takeuforward.org/data-structure/minimum-insertions-deletions-to-convert-string-dp-30/) — 🟡 `Medium`
+- [x] **Problem 26**: [Print Longest Common Subsequence](./26-print-longest-common-subsequence.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 27**: [Longest Common Substring](./27-longest-common-substring.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 28**: [Longest Palindromic Subsequence](./28-longest-palindromic-subsequence.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 29**: [Minimum Insertions to Make String Palindrome](./29-minimum-insertions-to-make-string-palindrome.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 30**: [Minimum Insertions/Deletions to Convert String A to String B](./30-minimum-insertions-deletions-to-convert-string.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 31**: [Shortest Common Supersequence](https://takeuforward.org/data-structure/shortest-common-supersequence-dp-31/) — 🔴 `Hard`
 - [ ] **Problem 32**: [Distinct Subsequences (Number of times string S2 occurs in S1)](https://takeuforward.org/data-structure/distinct-subsequences-dp-32/) — 🔴 `Hard`
 - [ ] **Problem 33**: [Edit Distance (Levenshtein Distance: Insert, Delete, Replace)](https://takeuforward.org/data-structure/edit-distance-dp-33/) — 🔴 `Hard`
