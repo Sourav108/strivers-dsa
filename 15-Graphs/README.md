@@ -29,7 +29,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 12**: [Surrounded Regions (Replace O's with X's on Board)](./12-surrounded-regions-replace-os-with-xs.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 13**: [Number of Enclaves (Count unreachable land cells)](./13-number-of-enclaves.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 14**: [Word Ladder I (Shortest transformation sequence length)](./14-word-ladder-i.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 15**: [Word Ladder II (Find all shortest transformation sequences)](https://takeuforward.org/data-structure/word-ladder-ii-shortest-paths/) — 🔴 `Hard`
+- [x] **Problem 15**: [Word Ladder II (Find all shortest transformation sequences)](./15-word-ladder-ii.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 16**: [Number of Distinct Islands (DFS with shape serialization)](https://takeuforward.org/data-structure/number-of-distinct-islands/) — 🟡 `Medium`
 - [ ] **Problem 17**: [Check if Graph is Bipartite (2-Coloring via BFS/DFS)](https://takeuforward.org/data-structure/bipartite-graph/) — 🟡 `Medium`
 - [ ] **Problem 18**: [Detect Cycle in a Directed Graph using DFS (Recursion Stack)](https://takeuforward.org/data-structure/detect-a-cycle-in-directed-graph-using-dfs/) — 🟡 `Medium`
