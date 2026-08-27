@@ -12,11 +12,11 @@
 
 ### Step 16.1: Introduction to DP (7 Problems)
 
-- [ ] **Problem 01**: [Dynamic Programming Introduction (Memoization vs Tabulation)](https://takeuforward.org/data-structure/dynamic-programming-introduction/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Climbing Stairs](https://takeuforward.org/data-structure/dynamic-programming-climbing-stairs/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Frog Jump (Geek Jump 1 or 2 steps)](https://takeuforward.org/data-structure/dynamic-programming-frog-jump-dp-3/) — 🟢 `Easy`
-- [ ] **Problem 04**: [Frog Jump with K Distances](https://takeuforward.org/data-structure/dynamic-programming-frog-jump-with-k-distances-dp-4/) — 🟡 `Medium`
-- [ ] **Problem 05**: [Maximum Sum of Non-Adjacent Elements (House Robber I)](https://takeuforward.org/data-structure/maximum-sum-of-non-adjacent-elements-dp-5/) — 🟡 `Medium`
+- [x] **Problem 01**: [Dynamic Programming Introduction (Memoization vs Tabulation)](./01-dynamic-programming-introduction.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Climbing Stairs](./02-climbing-stairs.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Frog Jump (Geek Jump 1 or 2 steps)](./03-frog-jump.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 04**: [Frog Jump with K Distances](./04-frog-jump-with-k-distances.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 05**: [Maximum Sum of Non-Adjacent Elements (House Robber I)](./05-maximum-sum-of-non-adjacent-elements-house-robber.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 06**: [House Robber II (Circular Street)](https://takeuforward.org/data-structure/dynamic-programming-house-robber-dp-6/) — 🟡 `Medium`
 - [ ] **Problem 07**: [Ninja's Training (2D DP on Activities)](https://takeuforward.org/data-structure/dynamic-programming-ninjas-training-dp-7/) — 🟡 `Medium`
 
