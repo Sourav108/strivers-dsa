@@ -47,9 +47,9 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 
 - [x] **Problem 28**: [Find the Row with Maximum Number of 1s](./28-find-the-row-with-maximum-number-of-1s.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 29**: [Search in a 2D Matrix I (Strictly Sorted 1D Flattend)](https://takeuforward.org/data-structure/search-in-a-sorted-2d-matrix/) — 🟡 `Medium`
-- [ ] **Problem 30**: [Search in a 2D Matrix II (Row and Column Sorted)](https://takeuforward.org/data-structure/search-in-a-row-and-column-wise-sorted-matrix/) — 🟡 `Medium`
-- [ ] **Problem 31**: [Find a Peak Element II (2D Peak)](https://takeuforward.org/binary-search/find-peak-element-in-2d-matrix/) — 🔴 `Hard`
-- [ ] **Problem 32**: [Matrix Median in a Row-Wise Sorted Matrix](https://takeuforward.org/data-structure/median-of-row-wise-sorted-matrix/) — 🔴 `Hard`
+- [x] **Problem 30**: [Search in a 2D Matrix II (Row and Column Sorted)](./30-search-in-a-2d-matrix-ii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 31**: [Find a Peak Element II (2D Peak)](./31-find-peak-element-ii.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 32**: [Matrix Median in a Row-Wise Sorted Matrix](./32-matrix-median.md) — 🔴 `Hard` (Solved)
 
 ---
 
