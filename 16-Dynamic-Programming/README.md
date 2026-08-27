@@ -25,14 +25,14 @@
 - [x] **Problem 08**: [Grid Unique Paths (Combinatorics vs DP)](./08-grid-unique-paths.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 09**: [Grid Unique Paths II (With Obstacles)](./09-grid-unique-paths-ii.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 10**: [Minimum Path Sum in Grid](./10-minimum-path-sum-in-grid.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 11**: [Minimum Path Sum in Triangular Grid (Triangle)](https://takeuforward.org/data-structure/minimum-path-sum-in-triangular-grid-dp-11/) — 🟡 `Medium`
-- [ ] **Problem 12**: [Minimum / Maximum Falling Path Sum (Variable start/end points)](https://takeuforward.org/data-structure/minimum-maximum-falling-path-sum-dp-12/) — 🟡 `Medium`
-- [ ] **Problem 13**: [3D DP: Ninja and his Friends (Cherry Pickup II)](https://takeuforward.org/data-structure/3-d-dp-ninja-and-his-friends-dp-13/) — 🔴 `Hard`
+- [x] **Problem 11**: [Minimum Path Sum in Triangular Grid (Triangle)](./11-minimum-path-sum-in-triangular-grid.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 12**: [Minimum / Maximum Falling Path Sum (Variable start/end points)](./12-minimum-maximum-falling-path-sum.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 13**: [3D DP: Ninja and his Friends (Cherry Pickup II)](./13-cherry-pickup-ii-3d-dp.md) — 🔴 `Hard` (Solved)
 
 ### Step 16.3: DP on Subsequences (11 Problems)
 
-- [ ] **Problem 14**: [Subset Sum Equal to Target](https://takeuforward.org/data-structure/subset-sum-equal-to-target-dp-14/) — 🟡 `Medium`
-- [ ] **Problem 15**: [Partition Equal Subset Sum](https://takeuforward.org/data-structure/partition-equal-subset-sum-dp-15/) — 🟡 `Medium`
+- [x] **Problem 14**: [Subset Sum Equal to Target](./14-subset-sum-equal-to-target.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 15**: [Partition Equal Subset Sum](./15-partition-equal-subset-sum.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 16**: [Partition Set Into 2 Subsets With Min Absolute Sum Difference](https://takeuforward.org/data-structure/partition-set-into-2-subsets-with-min-absolute-sum-diff-dp-16/) — 🔴 `Hard`
 - [ ] **Problem 17**: [Count Subsets with Sum K](https://takeuforward.org/data-structure/count-subsets-with-sum-k-dp-17/) — 🟡 `Medium`
 - [ ] **Problem 18**: [Count Partitions with Given Difference](https://takeuforward.org/data-structure/count-partitions-with-given-difference-dp-18/) — 🟡 `Medium`
