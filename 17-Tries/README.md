@@ -12,7 +12,7 @@ Trie Node Structure, Insert/Search/StartsWith, Prefix Matching, Distinct Substri
 
 ### Step 17.1: Theory & Practice (7 Problems)
 
-- [ ] **Problem 01**: [Implement Trie (Prefix Tree) I (Insert, Search, StartsWith)](https://takeuforward.org/data-structure/implement-trie-1/) — 🟡 `Medium`
+- [x] **Problem 01**: [Implement Trie (Prefix Tree) I (Insert, Search, StartsWith)](./01-implement-trie-prefix-tree.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 02**: [Implement Trie II (Prefix Tree) (countWordsEqualTo, countWordsStartingWith, erase)](https://takeuforward.org/data-structure/implement-trie-ii/) — 🟡 `Medium`
 - [ ] **Problem 03**: [Longest Word with All Prefixes (Complete String)](https://takeuforward.org/data-structure/longest-word-with-all-prefixes/) — 🟡 `Medium`
 - [ ] **Problem 04**: [Number of Distinct Substrings in a String (Trie based O(N^2))](https://takeuforward.org/data-structure/number-of-distinct-substrings-in-a-string-using-trie/) — 🟡 `Medium`
