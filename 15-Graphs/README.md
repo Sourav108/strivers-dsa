@@ -68,7 +68,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 42**: [Number of Operations to Make Network Connected](./42-number-of-operations-to-make-network-connected.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 43**: [Most Stones Removed with Same Row or Column](./43-most-stones-removed-with-same-row-or-column.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 44**: [Accounts Merge (String identifier grouping with DSU)](https://takeuforward.org/data-structure/accounts-merge-dsu-g-50/) — 🔴 `Hard`
-- [ ] **Problem 45**: [Number of Islands II (Online Dynamic Island Grid with DSU)](https://takeuforward.org/data-structure/number-of-islands-ii-online-queries-dsu-g-51/) — 🔴 `Hard`
+- [x] **Problem 45**: [Number of Islands II (Online Dynamic Queries with DSU)](./45-number-of-islands-ii-online-queries-dsu.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 46**: [Making a Large Island (Flip at most one 0 to 1 with DSU)](https://takeuforward.org/data-structure/making-a-large-island-dsu-g-52/) — 🔴 `Hard`
 - [ ] **Problem 47**: [Swim in Rising Water (Dijkstra / Binary Search + DSU)](https://takeuforward.org/data-structure/swim-in-rising-water/) — 🔴 `Hard`
 - [ ] **Problem 48**: [Redundant Connection (Find cycle edge in tree via DSU)](https://takeuforward.org/data-structure/redundant-connection/) — 🟡 `Medium`
