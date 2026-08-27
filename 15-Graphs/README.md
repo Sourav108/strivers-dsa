@@ -12,11 +12,11 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 
 ### Step 15.1: Learning (5 Problems)
 
-- [ ] **Problem 01**: [Introduction to Graphs, Degrees, and Types](https://takeuforward.org/graph/introduction-to-graph/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Graph Representation in C++ (Adjacency Matrix & Adjacency List)](https://takeuforward.org/graph/graph-representation-in-c/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Connected Components in Graph](https://takeuforward.org/graph/connected-components-in-graph/) — 🟢 `Easy`
-- [ ] **Problem 04**: [Breadth First Search (BFS) Traversal](https://takeuforward.org/data-structure/breadth-first-search-bfs-level-order-traversal/) — 🟢 `Easy`
-- [ ] **Problem 05**: [Depth First Search (DFS) Traversal](https://takeuforward.org/data-structure/depth-first-search-dfs-traversal-graph/) — 🟢 `Easy`
+- [x] **Problem 01**: [Introduction to Graphs, Degrees, and Types](./01-introduction-to-graphs-types-and-degrees.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Graph Representation in C++ (Adjacency Matrix & Adjacency List)](./02-graph-representation-adjacency-matrix-and-list.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Connected Components in Graph](./03-connected-components-in-graph.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 04**: [Breadth First Search (BFS) Traversal](./04-bfs-traversal-of-graph.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 05**: [Depth First Search (DFS) Traversal](./05-dfs-traversal-of-graph.md) — 🟢 `Easy` (Solved)
 
 ### Step 15.2: Problems on BFS / DFS (14 Problems)
 
