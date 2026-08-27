@@ -59,11 +59,11 @@
 ### Step 16.5: DP on Stocks (6 Problems)
 
 - [x] **Problem 35**: [Best Time to Buy and Sell Stock (Single transaction)](./35-best-time-to-buy-and-sell-stock.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 36**: [Best Time to Buy and Sell Stock II (Unlimited transactions)](https://takeuforward.org/data-structure/buy-and-sell-stock-ii-dp-36/) — 🟡 `Medium`
-- [ ] **Problem 37**: [Best Time to Buy and Sell Stock III (At most 2 transactions)](https://takeuforward.org/data-structure/buy-and-sell-stock-iii-dp-37/) — 🔴 `Hard`
-- [ ] **Problem 38**: [Best Time to Buy and Sell Stock IV (At most K transactions)](https://takeuforward.org/data-structure/buy-and-sell-stocks-iv-dp-38/) — 🔴 `Hard`
-- [ ] **Problem 39**: [Best Time to Buy and Sell Stock with Cooldown](https://takeuforward.org/data-structure/buy-and-sell-stocks-with-cooldown-dp-39/) — 🟡 `Medium`
-- [ ] **Problem 40**: [Best Time to Buy and Sell Stock with Transaction Fee](https://takeuforward.org/data-structure/buy-and-sell-stocks-with-transaction-fee-dp-40/) — 🟡 `Medium`
+- [x] **Problem 36**: [Best Time to Buy and Sell Stock II (Unlimited transactions)](./36-best-time-to-buy-and-sell-stock-ii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 37**: [Best Time to Buy and Sell Stock III (At most 2 transactions)](./37-best-time-to-buy-and-sell-stock-iii.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 38**: [Best Time to Buy and Sell Stock IV (At most K transactions)](./38-best-time-to-buy-and-sell-stock-iv.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 39**: [Best Time to Buy and Sell Stock with Cooldown](./39-best-time-to-buy-and-sell-stock-with-cooldown.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 40**: [Best Time to Buy and Sell Stock with Transaction Fee](./40-best-time-to-buy-and-sell-stock-with-transaction-fee.md) — 🟡 `Medium` (Solved)
 
 ### Step 16.6: DP on Longest Increasing Subsequence (LIS) (7 Problems)
 
