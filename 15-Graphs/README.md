@@ -64,7 +64,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 
 - [x] **Problem 39**: [Prim's Algorithm for Minimum Spanning Tree (MST)](./39-prims-algorithm-minimum-spanning-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 40**: [Disjoint Set Union (DSU by Rank & Size with Path Compression)](./40-disjoint-set-union-by-rank-and-size.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 41**: [Kruskal's Algorithm for Minimum Spanning Tree (Edge list sort + DSU)](https://takeuforward.org/data-structure/kruskals-algorithm-minimum-spanning-tree-g-47/) — 🟡 `Medium`
+- [x] **Problem 41**: [Kruskal's Algorithm for Minimum Spanning Tree (MST)](./41-kruskals-algorithm-minimum-spanning-tree.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 42**: [Number of Operations to Make Network Connected](https://takeuforward.org/data-structure/number-of-operations-to-make-network-connected-dsu-g-49/) — 🟡 `Medium`
 - [ ] **Problem 43**: [Most Stones Removed with Same Row or Column](https://takeuforward.org/data-structure/most-stones-removed-with-same-row-or-column-dsu-g-53/) — 🟡 `Medium`
 - [ ] **Problem 44**: [Accounts Merge (String identifier grouping with DSU)](https://takeuforward.org/data-structure/accounts-merge-dsu-g-50/) — 🔴 `Hard`
