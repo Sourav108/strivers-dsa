@@ -12,14 +12,14 @@ BST Properties, Insert/Delete, Inorder Successor, BST Iterator, Two Sum in BST, 
 
 ### Step 14.1: Concepts (3 Problems)
 
-- [ ] **Problem 01**: [Introduction to Binary Search Trees & Inorder Invariant](https://takeuforward.org/data-structure/binary-search-trees/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Search in a Binary Search Tree](https://takeuforward.org/data-structure/search-in-a-binary-search-tree-bst/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Find Min and Max Element in BST](https://takeuforward.org/data-structure/find-minimum-maximum-element-in-bst/) — 🟢 `Easy`
+- [x] **Problem 01**: [Introduction to Binary Search Trees & Inorder Invariant](./01-introduction-to-binary-search-trees.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Search in a Binary Search Tree](./02-search-in-a-binary-search-tree.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Find Min and Max Element in BST](./03-find-min-and-max-element-in-bst.md) — 🟢 `Easy` (Solved)
 
 ### Step 14.2: Practice Problems (13 Problems)
 
-- [ ] **Problem 04**: [Ceil in a Binary Search Tree](https://takeuforward.org/data-structure/ceil-in-a-binary-search-tree-bst/) — 🟡 `Medium`
-- [ ] **Problem 05**: [Floor in a Binary Search Tree](https://takeuforward.org/data-structure/floor-in-a-binary-search-tree-bst/) — 🟡 `Medium`
+- [x] **Problem 04**: [Ceil in a Binary Search Tree](./04-ceil-in-a-binary-search-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 05**: [Floor in a Binary Search Tree](./05-floor-in-a-binary-search-tree.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 06**: [Insert a Given Node in BST](https://takeuforward.org/data-structure/insert-a-given-node-in-binary-search-tree-bst/) — 🟡 `Medium`
 - [ ] **Problem 07**: [Delete a Node in Binary Search Tree](https://takeuforward.org/data-structure/delete-a-node-in-binary-search-tree-bst/) — 🟡 `Medium`
 - [ ] **Problem 08**: [Find K-th Smallest / Largest Element in BST](https://takeuforward.org/data-structure/kth-largest-smallest-element-in-binary-search-tree-bst/) — 🟡 `Medium`
