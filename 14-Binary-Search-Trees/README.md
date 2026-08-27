@@ -25,12 +25,12 @@ BST Properties, Insert/Delete, Inorder Successor, BST Iterator, Two Sum in BST, 
 - [x] **Problem 08**: [Find K-th Smallest / Largest Element in BST](./08-kth-smallest-largest-element-in-bst.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 09**: [Check if a Binary Tree is BST or Not (Valid BST range [min, max])](./09-check-if-binary-tree-is-bst.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 10**: [Lowest Common Ancestor (LCA) in BST](./10-lowest-common-ancestor-in-bst.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 11**: [Construct a BST from a Preorder Traversal in O(N)](https://takeuforward.org/data-structure/construct-a-bst-from-a-preorder-traversal/) — 🟡 `Medium`
-- [ ] **Problem 12**: [Inorder Successor and Predecessor in BST](https://takeuforward.org/data-structure/inorder-successor-predecessor-in-bst/) — 🟡 `Medium`
-- [ ] **Problem 13**: [BST Iterator (O(H) memory iterator for next() & hasNext())](https://takeuforward.org/data-structure/bst-iterator/) — 🟡 `Medium`
-- [ ] **Problem 14**: [Two Sum IV - Input is a BST (Two Pointer with two BST Iterators)](https://takeuforward.org/data-structure/two-sum-in-bst/) — 🟡 `Medium`
-- [ ] **Problem 15**: [Recover BST: Correct BST with Two Nodes Swapped](https://takeuforward.org/data-structure/fix-bst-with-two-nodes-swapped/) — 🔴 `Hard`
-- [ ] **Problem 16**: [Largest BST in a Binary Tree (Postorder with bounds validation)](https://takeuforward.org/data-structure/maximum-sum-bst-in-binary-tree/) — 🔴 `Hard`
+- [x] **Problem 11**: [Construct a BST from a Preorder Traversal in O(N)](./11-construct-a-bst-from-a-preorder-traversal.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 12**: [Inorder Successor and Predecessor in BST](./12-inorder-successor-predecessor-in-bst.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 13**: [BST Iterator (O(H) memory iterator for next() & hasNext())](./13-bst-iterator.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 14**: [Two Sum IV - Input is a BST (Two Pointer with two BST Iterators)](./14-two-sum-in-bst.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 15**: [Recover BST: Correct BST with Two Nodes Swapped](./15-fix-bst-with-two-nodes-swapped.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 16**: [Largest BST in a Binary Tree (Postorder with bounds validation)](./16-largest-bst-in-binary-tree.md) — 🔴 `Hard` (Solved)
 
 ---
 
