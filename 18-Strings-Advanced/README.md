@@ -14,7 +14,7 @@ Knuth-Morris-Pratt (KMP), Rabin-Karp Rolling Hash, Z-Algorithm, and Minimum Add 
 
 - [x] **Problem 01**: [Minimum Add to Make Parentheses Valid](./01-minimum-add-to-make-parentheses-valid.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 02**: [Count and Say (Run-Length Sequence)](./02-count-and-say.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 03**: [Repeated String Match (Rabin-Karp Rolling Hash)](https://takeuforward.org/strings/repeated-string-match/) — 🟡 `Medium`
+- [x] **Problem 03**: [Repeated String Match (Rabin-Karp Rolling Hash)](./03-repeated-string-match.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 04**: [Find the Index of the First Occurrence in a String (KMP LPS Array)](https://takeuforward.org/strings/knuth-morris-pratt-kmp-algorithm/) — 🟡 `Medium`
 - [ ] **Problem 05**: [Shortest Palindrome (KMP LPS on s + '#' + rev(s))](https://takeuforward.org/strings/shortest-palindrome/) — 🔴 `Hard`
 - [ ] **Problem 06**: [Longest Happy Prefix (Proper prefix which is also suffix)](https://takeuforward.org/strings/longest-happy-prefix/) — 🔴 `Hard`
