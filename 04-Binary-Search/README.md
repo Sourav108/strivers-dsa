@@ -30,7 +30,7 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 
 - [x] **Problem 14**: [Find Square Root of an Integer using BS](./14-find-square-root-of-an-integer.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 15**: [Find the Nth Root of an Integer M](./15-find-nth-root-of-an-integer.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 16**: [Koko Eating Bananas (LeetCode 875)](https://takeuforward.org/binary-search/koko-eating-bananas/) — 🟡 `Medium`
+- [x] **Problem 16**: [Koko Eating Bananas (LeetCode 875)](./16-koko-eating-bananas.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 17**: [Minimum Days to Make M Bouquets (LeetCode 1482)](https://takeuforward.org/binary-search/minimum-days-to-make-m-bouquets/) — 🟡 `Medium`
 - [ ] **Problem 18**: [Find the Smallest Divisor Given a Threshold](https://takeuforward.org/binary-search/find-the-smallest-divisor-given-a-threshold/) — 🟡 `Medium`
 - [ ] **Problem 19**: [Capacity to Ship Packages within D Days (LeetCode 1011)](https://takeuforward.org/binary-search/capacity-to-ship-packages-within-d-days/) — 🟡 `Medium`
