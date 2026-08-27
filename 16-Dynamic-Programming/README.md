@@ -33,11 +33,11 @@
 
 - [x] **Problem 14**: [Subset Sum Equal to Target](./14-subset-sum-equal-to-target.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 15**: [Partition Equal Subset Sum](./15-partition-equal-subset-sum.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 16**: [Partition Set Into 2 Subsets With Min Absolute Sum Difference](https://takeuforward.org/data-structure/partition-set-into-2-subsets-with-min-absolute-sum-diff-dp-16/) — 🔴 `Hard`
-- [ ] **Problem 17**: [Count Subsets with Sum K](https://takeuforward.org/data-structure/count-subsets-with-sum-k-dp-17/) — 🟡 `Medium`
-- [ ] **Problem 18**: [Count Partitions with Given Difference](https://takeuforward.org/data-structure/count-partitions-with-given-difference-dp-18/) — 🟡 `Medium`
-- [ ] **Problem 19**: [0/1 Knapsack Problem (Bounded)](https://takeuforward.org/data-structure/0-1-knapsack-dp-19/) — 🟡 `Medium`
-- [ ] **Problem 20**: [Minimum Coins to Make a Target Sum (Coin Change I)](https://takeuforward.org/data-structure/minimum-coins-dp-20/) — 🟡 `Medium`
+- [x] **Problem 16**: [Partition Set Into 2 Subsets With Min Absolute Sum Difference](./16-partition-set-into-2-subsets-with-min-absolute-sum-difference.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 17**: [Count Subsets with Sum K](./17-count-subsets-with-sum-k.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 18**: [Count Partitions with Given Difference](./18-count-partitions-with-given-difference.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 19**: [0/1 Knapsack Problem (Bounded)](./19-0-1-knapsack-problem.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 20**: [Minimum Coins to Make a Target Sum (Coin Change I)](./20-minimum-coins-to-make-target-sum-coin-change.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 21**: [Target Sum (Assign +/- signs to achieve target)](https://takeuforward.org/data-structure/target-sum-dp-21/) — 🟡 `Medium`
 - [ ] **Problem 22**: [Coin Change II (Number of Ways to make target with infinite supply)](https://takeuforward.org/data-structure/coin-change-2-dp-22/) — 🟡 `Medium`
 - [ ] **Problem 23**: [Unbounded Knapsack Problem](https://takeuforward.org/data-structure/unbounded-knapsack-dp-23/) — 🟡 `Medium`
