@@ -32,7 +32,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 15**: [Word Ladder II (Find all shortest transformation sequences)](./15-word-ladder-ii.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 16**: [Number of Distinct Islands (DFS with shape serialization)](./16-number-of-distinct-islands.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 17**: [Check if Graph is Bipartite (2-Coloring via BFS/DFS)](./17-check-if-graph-is-bipartite.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 18**: [Detect Cycle in a Directed Graph using DFS (Recursion Stack)](https://takeuforward.org/data-structure/detect-a-cycle-in-directed-graph-using-dfs/) — 🟡 `Medium`
+- [x] **Problem 18**: [Detect Cycle in a Directed Graph using DFS (Recursion Stack)](./18-detect-cycle-in-a-directed-graph-using-dfs.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 19**: [Number of Islands (Grid DFS/BFS)](https://takeuforward.org/data-structure/find-the-number-of-islands-using-dsu/) — 🟡 `Medium`
 
 ### Step 15.3: Topological Sort and Kahn's Algorithm (6 Problems)
