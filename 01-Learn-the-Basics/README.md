@@ -52,33 +52,33 @@ Programming language fundamentals (C++), Basic Maths, Recursion, Hashing, Patter
 
 ### Step 1.4: Know Basic Maths (7 Problems)
 
-- [ ] **Problem 32**: [Count Digits in a Number](https://takeuforward.org/data-structure/count-digits-in-a-number/) — 🟢 `Easy`
+- [x] **Problem 32**: [Count Digits in a Number](./32-count-digits-in-a-number.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 33**: [Reverse a Number](https://takeuforward.org/c-programs/reverse-digits-of-a-number/) — 🟢 `Easy`
 - [ ] **Problem 34**: [Check Palindrome Number](https://takeuforward.org/data-structure/check-if-a-number-is-palindrome-or-not/) — 🟢 `Easy`
-- [ ] **Problem 35**: [GCD / HCF using Euclidean Algorithm](https://takeuforward.org/data-structure/find-gcd-of-two-numbers/) — 🟢 `Easy`
-- [ ] **Problem 36**: [Check Armstrong Number](https://takeuforward.org/maths/check-if-a-number-is-armstrong-number-or-not/) — 🟢 `Easy`
-- [ ] **Problem 37**: [Print All Divisors of a Number O(sqrt(N))](https://takeuforward.org/data-structure/print-all-divisors-of-a-given-number/) — 🟢 `Easy`
-- [ ] **Problem 38**: [Check for Prime Number O(sqrt(N))](https://takeuforward.org/data-structure/check-if-a-number-is-prime-or-not/) — 🟢 `Easy`
+- [x] **Problem 35**: [GCD / HCF using Euclidean Algorithm](./35-gcd-or-hcf-euclidean-algorithm.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 36**: [Check Armstrong Number](./36-check-armstrong-number.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 37**: [Print All Divisors of a Number O(sqrt(N))](./37-print-all-divisors-of-a-number.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 38**: [Check for Prime Number O(sqrt(N))](./38-check-for-prime-number.md) — 🟢 `Easy` (Solved)
 
 ### Step 1.5: Learn Basic Recursion (7 Problems)
 
 - [ ] **Problem 39**: [Understand Recursion by Print 1 to N without Loop](https://takeuforward.org/recursion/print-1-to-n-using-recursion/) — 🟢 `Easy`
-- [ ] **Problem 40**: [Print N to 1 using Recursion](https://takeuforward.org/recursion/print-n-to-1-using-recursion/) — 🟢 `Easy`
+- [x] **Problem 40**: [Print N to 1 using Recursion](./40-print-n-to-1-using-recursion.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 41**: [Sum of First N Numbers (Parameterized & Functional)](https://takeuforward.org/data-structure/sum-of-first-n-natural-numbers/) — 🟢 `Easy`
-- [ ] **Problem 42**: [Factorial of N Numbers](https://takeuforward.org/data-structure/factorial-of-a-number-iterative-and-recursive/) — 🟢 `Easy`
-- [ ] **Problem 43**: [Reverse an Array using Recursion](https://takeuforward.org/data-structure/reverse-a-given-array/) — 🟢 `Easy`
-- [ ] **Problem 44**: [Check if a String is Palindrome using Recursion](https://takeuforward.org/data-structure/check-if-the-given-string-is-palindrome-or-not/) — 🟢 `Easy`
+- [x] **Problem 42**: [Factorial of N Numbers](./42-factorial-of-n-numbers.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 43**: [Reverse an Array using Recursion](./43-reverse-an-array-using-recursion.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 44**: [Check if a String is Palindrome using Recursion](./44-check-if-string-is-palindrome-recursion.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 45**: [Fibonacci Number using Multiple Recursion Calls](https://takeuforward.org/data-structure/print-fibonacci-series-up-to-nth-term/) — 🟢 `Easy`
 
 ### Step 1.6: Learn Basic Hashing (9 Problems)
 
-- [ ] **Problem 46**: [Counting Frequencies of Array Elements](https://takeuforward.org/data-structure/count-frequency-of-each-element-in-the-array/) — 🟢 `Easy`
-- [ ] **Problem 47**: [Find the Highest & Lowest Frequency Element](https://takeuforward.org/arrays/find-the-highest-lowest-frequency-element/) — 🟢 `Easy`
-- [ ] **Problem 48**: [Character Hashing with ASCII Arrays](https://takeuforward.org/data-structure/character-hashing-explained/) — 🟢 `Easy`
-- [ ] **Problem 49**: [Hash Map vs Hash Set Time Complexity Breakdown](https://takeuforward.org/data-structure/hashing-basics/) — 🟢 `Easy`
-- [ ] **Problem 50**: [Division Rule & Folding Hash Functions](https://takeuforward.org/data-structure/hashing-theory/) — 🟢 `Easy`
-- [ ] **Problem 51**: [Collision Handling: Chaining with Linked Lists](https://takeuforward.org/data-structure/separate-chaining-in-hashing/) — 🟢 `Easy`
-- [ ] **Problem 52**: [Collision Handling: Open Addressing (Linear & Quadratic Probing)](https://takeuforward.org/data-structure/open-addressing/) — 🟢 `Easy`
+- [x] **Problem 46**: [Counting Frequencies of Array Elements](./46-counting-frequencies-of-array-elements.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 47**: [Find the Highest & Lowest Frequency Element](./47-find-highest-and-lowest-frequency-element.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 48**: [Character Hashing with ASCII Arrays](./48-character-hashing-with-ascii-arrays.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 49**: [Hash Map vs Hash Set Time Complexity Breakdown](./49-hash-map-vs-hash-set-time-complexity.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 50**: [Division Rule & Folding Hash Functions](./50-division-rule-and-folding-hash-functions.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 51**: [Collision Handling: Chaining with Linked Lists](./51-collision-handling-chaining-linked-lists.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 52**: [Collision Handling: Open Addressing (Linear & Quadratic Probing)](./52-collision-handling-open-addressing.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 53**: [Unordered Map Rehashing & Load Factor mechanics](https://takeuforward.org/c/unordered-map-rehashing/) — 🟢 `Easy`
 - [ ] **Problem 54**: [Counting Frequency of Elements in Range 1 to N](https://takeuforward.org/data-structure/frequency-of-elements/) — 🟢 `Easy`
 
