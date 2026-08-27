@@ -19,7 +19,7 @@ Knuth-Morris-Pratt (KMP), Rabin-Karp Rolling Hash, Z-Algorithm, and Minimum Add 
 - [x] **Problem 05**: [Shortest Palindrome (KMP LPS on s + '#' + rev(s))](./05-shortest-palindrome.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 06**: [Longest Happy Prefix (Proper Prefix which is also Suffix)](./06-longest-happy-prefix.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 07**: [Z-Function / Z-Algorithm for Pattern Searching](./07-z-function-algorithm.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 08**: [Minimum Window Substring (Character count frequency window)](https://takeuforward.org/data-structure/minimum-window-substring/) — 🔴 `Hard`
+- [x] **Problem 08**: [Minimum Window Substring (Character Frequency Sliding Window)](./08-minimum-window-substring.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 09**: [String to Integer (atoi) with 32-bit Integer Bounds Handling](https://takeuforward.org/strings/implement-atoi/) — 🟡 `Medium`
 
 ---
