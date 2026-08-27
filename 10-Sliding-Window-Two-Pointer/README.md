@@ -12,21 +12,21 @@ Fixed and dynamic sliding window patterns, frequency counts, and substring optim
 
 ### Step 10.1: Medium Problems (8 Problems)
 
-- [ ] **Problem 01**: [Longest Substring Without Repeating Characters](https://takeuforward.org/data-structure/length-of-longest-substring-without-any-repeating-character/) — 🟡 `Medium`
-- [ ] **Problem 02**: [Max Consecutive Ones III (At most K zeroes flipped)](https://takeuforward.org/data-structure/max-consecutive-ones-iii/) — 🟡 `Medium`
-- [ ] **Problem 03**: [Fruit Into Baskets (At most 2 distinct fruits)](https://takeuforward.org/data-structure/fruit-into-baskets/) — 🟡 `Medium`
-- [ ] **Problem 04**: [Longest Repeating Character Replacement](https://takeuforward.org/data-structure/longest-repeating-character-replacement/) — 🟡 `Medium`
-- [ ] **Problem 05**: [Binary Subarrays With Sum (Exact goal sum via atMost(K) - atMost(K-1))](https://takeuforward.org/data-structure/binary-subarrays-with-sum/) — 🟡 `Medium`
-- [ ] **Problem 06**: [Count Number of Nice Subarrays](https://takeuforward.org/data-structure/count-number-of-nice-subarrays/) — 🟡 `Medium`
-- [ ] **Problem 07**: [Number of Substrings Containing All Three Characters](https://takeuforward.org/data-structure/number-of-substrings-containing-all-three-characters/) — 🟡 `Medium`
-- [ ] **Problem 08**: [Maximum Points You Can Obtain from Cards](https://takeuforward.org/data-structure/maximum-points-you-can-obtain-from-cards/) — 🟡 `Medium`
+- [x] **Problem 01**: [Longest Substring Without Repeating Characters](./01-longest-substring-without-repeating-characters.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 02**: [Max Consecutive Ones III (At most K zeroes flipped)](./02-max-consecutive-ones-iii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 03**: [Fruit Into Baskets (At most 2 distinct fruits)](./03-fruit-into-baskets.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 04**: [Longest Repeating Character Replacement](./04-longest-repeating-character-replacement.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 05**: [Binary Subarrays With Sum (Exact goal sum via atMost(K) - atMost(K-1))](./05-binary-subarrays-with-sum.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 06**: [Count Number of Nice Subarrays](./06-count-number-of-nice-subarrays.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 07**: [Number of Substrings Containing All Three Characters](./07-number-of-substrings-containing-all-three-characters.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 08**: [Maximum Points You Can Obtain from Cards](./08-maximum-points-you-can-obtain-from-cards.md) — 🟡 `Medium` (Solved)
 
 ### Step 10.2: Hard Problems (4 Problems)
 
-- [ ] **Problem 09**: [Longest Substring with At Most K Distinct Characters](https://takeuforward.org/data-structure/longest-substring-with-at-most-k-distinct-characters/) — 🟡 `Medium`
-- [ ] **Problem 10**: [Subarrays with K Different Integers](https://takeuforward.org/data-structure/subarrays-with-k-different-integers/) — 🔴 `Hard`
-- [ ] **Problem 11**: [Minimum Window Substring (Exact character match)](https://takeuforward.org/data-structure/minimum-window-substring/) — 🔴 `Hard`
-- [ ] **Problem 12**: [Minimum Window Subsequence](https://takeuforward.org/data-structure/minimum-window-subsequence/) — 🔴 `Hard`
+- [x] **Problem 09**: [Longest Substring with At Most K Distinct Characters](./09-longest-substring-with-at-most-k-distinct-characters.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 10**: [Subarrays with K Different Integers](./10-subarrays-with-k-different-integers.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 11**: [Minimum Window Substring (Exact character match)](./11-minimum-window-substring.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 12**: [Minimum Window Subsequence](./12-minimum-window-subsequence.md) — 🔴 `Hard` (Solved)
 
 ---
 
