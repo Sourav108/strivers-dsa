@@ -25,11 +25,11 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 08**: [Check for Balanced Binary Tree (O(N) check)](./08-check-for-balanced-binary-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 09**: [Diameter of Binary Tree (Longest path between two nodes)](./09-diameter-of-binary-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 10**: [Maximum Path Sum in Binary Tree](./10-maximum-path-sum-in-binary-tree.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 11**: [Check if Two Trees are Identical / Same Tree](https://takeuforward.org/data-structure/check-if-two-trees-are-identical/) — 🟢 `Easy`
-- [ ] **Problem 12**: [Zig-Zag / Spiral Level Order Traversal](https://takeuforward.org/data-structure/zig-zag-traversal-of-binary-tree/) — 🟡 `Medium`
-- [ ] **Problem 13**: [Boundary Traversal of Binary Tree (Anti-Clockwise)](https://takeuforward.org/data-structure/boundary-traversal-of-a-binary-tree/) — 🟡 `Medium`
-- [ ] **Problem 14**: [Vertical Order Traversal of Binary Tree](https://takeuforward.org/data-structure/vertical-order-traversal-of-binary-tree/) — 🔴 `Hard`
-- [ ] **Problem 15**: [Top View of Binary Tree](https://takeuforward.org/data-structure/top-view-of-a-binary-tree/) — 🟡 `Medium`
+- [x] **Problem 11**: [Check if Two Trees are Identical / Same Tree](./11-check-if-two-trees-are-identical.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 12**: [Zig-Zag / Spiral Level Order Traversal](./12-zig-zag-spiral-level-order-traversal.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 13**: [Boundary Traversal of Binary Tree (Anti-Clockwise)](./13-boundary-traversal-of-binary-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 14**: [Vertical Order Traversal of Binary Tree](./14-vertical-order-traversal-of-binary-tree.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 15**: [Top View of Binary Tree](./15-top-view-of-binary-tree.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 16**: [Bottom View of Binary Tree](https://takeuforward.org/data-structure/bottom-view-of-a-binary-tree/) — 🟡 `Medium`
 - [ ] **Problem 17**: [Right and Left View of Binary Tree](https://takeuforward.org/data-structure/right-left-view-of-binary-tree/) — 🟢 `Easy`
 - [ ] **Problem 18**: [Check for Symmetrical Binary Tree (Mirror Reflection)](https://takeuforward.org/data-structure/check-for-symmetrical-binary-tree/) — 🟢 `Easy`
