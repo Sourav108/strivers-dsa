@@ -37,7 +37,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 
 ### Step 15.3: Topological Sort and Kahn's Algorithm (6 Problems)
 
-- [ ] **Problem 20**: [Topological Sort using DFS (Finish time stack)](https://takeuforward.org/data-structure/topological-sort-algorithm-dfs/) — 🟡 `Medium`
+- [x] **Problem 20**: [Topological Sort using DFS (Finish time stack)](./20-topological-sort-using-dfs.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 21**: [Kahn's Algorithm (Topological Sort using BFS In-Degree)](https://takeuforward.org/data-structure/topological-sort-bfs/) — 🟡 `Medium`
 - [ ] **Problem 22**: [Detect Cycle in a Directed Graph using BFS (Kahn's Algorithm)](https://takeuforward.org/data-structure/detect-a-cycle-in-directed-graph-using-bfs/) — 🟡 `Medium`
 - [ ] **Problem 23**: [Course Schedule I (Prerequisites cycle check)](https://takeuforward.org/data-structure/course-schedule-i-and-ii/) — 🟡 `Medium`
