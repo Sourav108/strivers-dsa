@@ -12,30 +12,30 @@ Bitwise operations, masks, parity checks, two odd occurring elements, and Sieve 
 
 ### Step 8.1: Learn Bit Manipulation (10 Problems)
 
-- [ ] **Problem 01**: [Introduction to Bitwise Operators (AND, OR, XOR, NOT, Shifts)](https://takeuforward.org/bit-manipulation/introduction-to-bitwise-operators/) — 🟢 `Easy`
-- [ ] **Problem 02**: [Check if the i-th bit is set or not](https://takeuforward.org/data-structure/check-if-the-i-th-bit-is-set-or-not/) — 🟢 `Easy`
-- [ ] **Problem 03**: [Set the i-th bit](https://takeuforward.org/bit-manipulation/set-the-ith-bit/) — 🟢 `Easy`
-- [ ] **Problem 04**: [Clear the i-th bit](https://takeuforward.org/bit-manipulation/clear-the-ith-bit/) — 🟢 `Easy`
-- [ ] **Problem 05**: [Toggle the i-th bit](https://takeuforward.org/bit-manipulation/toggle-the-ith-bit/) — 🟢 `Easy`
-- [ ] **Problem 06**: [Remove the Last Set Bit (Rightmost set bit unset)](https://takeuforward.org/bit-manipulation/remove-the-last-set-bit/) — 🟢 `Easy`
-- [ ] **Problem 07**: [Check if a Number is Power of 2 (n & (n-1) == 0)](https://takeuforward.org/bit-manipulation/check-if-a-number-is-power-of-2/) — 🟢 `Easy`
-- [ ] **Problem 08**: [Count the Number of Set Bits (Brian Kernighan's Algorithm)](https://takeuforward.org/data-structure/count-number-of-bits-to-be-flipped-to-convert-a-to-b/) — 🟢 `Easy`
-- [ ] **Problem 09**: [Set / Unset the Rightmost Unset Bit](https://takeuforward.org/bit-manipulation/set-rightmost-unset-bit/) — 🟢 `Easy`
-- [ ] **Problem 10**: [Swap Two Numbers without Temp Variable (XOR swap)](https://takeuforward.org/bit-manipulation/swap-two-numbers-using-xor/) — 🟢 `Easy`
+- [x] **Problem 01**: [Introduction to Bitwise Operators (AND, OR, XOR, NOT, Shifts)](./01-introduction-to-bitwise-operators.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 02**: [Check if the i-th bit is set or not](./02-check-if-ith-bit-is-set.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 03**: [Set the i-th bit](./03-set-the-ith-bit.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 04**: [Clear the i-th bit](./04-clear-the-ith-bit.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 05**: [Toggle the i-th bit](./05-toggle-the-ith-bit.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 06**: [Remove the Last Set Bit (Rightmost set bit unset)](./06-remove-the-last-set-bit.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 07**: [Check if a Number is Power of 2 (n & (n-1) == 0)](./07-check-if-number-is-power-of-2.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 08**: [Count the Number of Set Bits (Brian Kernighan's Algorithm)](./08-count-the-number-of-set-bits.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 09**: [Set / Unset the Rightmost Unset Bit](./09-set-rightmost-unset-bit.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 10**: [Swap Two Numbers without Temp Variable (XOR swap)](./10-swap-two-numbers-using-xor.md) — 🟢 `Easy` (Solved)
 
 ### Step 8.2: Interview Problems (6 Problems)
 
-- [ ] **Problem 11**: [Count Number of Bits to be Flipped to Convert A to B](https://takeuforward.org/data-structure/count-number-of-bits-to-be-flipped-to-convert-a-to-b/) — 🟢 `Easy`
-- [ ] **Problem 12**: [Find the Only Odd Appearing Number (Single Number I)](https://takeuforward.org/arrays/find-the-number-that-appears-once-and-the-other-numbers-twice/) — 🟢 `Easy`
-- [ ] **Problem 13**: [Power Set (Print all subsequences using Bit Masking)](https://takeuforward.org/data-structure/power-set-print-all-subsequences/) — 🟡 `Medium`
-- [ ] **Problem 14**: [Find the Two Numbers Occurring Odd Number of Times (Single Number III)](https://takeuforward.org/bit-manipulation/two-numbers-with-odd-occurrences/) — 🟡 `Medium`
-- [ ] **Problem 15**: [Find XOR of Numbers from Range L to R in O(1)](https://takeuforward.org/bit-manipulation/xor-of-numbers-in-a-given-range/) — 🟡 `Medium`
-- [ ] **Problem 16**: [Divide Two Integers without Multiplication, Division or Mod](https://takeuforward.org/bit-manipulation/divide-two-integers-without-using-multiplication-division-and-mod-operator/) — 🟡 `Medium`
+- [x] **Problem 11**: [Count Number of Bits to be Flipped to Convert A to B](./11-count-bits-to-flip-a-to-b.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 12**: [Find the Only Odd Appearing Number (Single Number I)](./12-single-number-i.md) — 🟢 `Easy` (Solved)
+- [x] **Problem 13**: [Power Set (Print all subsequences using Bit Masking)](./13-power-set-using-bit-masking.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 14**: [Find the Two Numbers Occurring Odd Number of Times (Single Number III)](./14-two-numbers-with-odd-occurrences.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 15**: [Find XOR of Numbers from Range L to R in O(1)](./15-find-xor-of-numbers-from-l-to-r.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 16**: [Divide Two Integers without Multiplication, Division or Mod](./16-divide-two-integers-without-division.md) — 🟡 `Medium` (Solved)
 
 ### Step 8.3: Advanced Maths (2 Problems)
 
-- [ ] **Problem 17**: [Print Prime Factors of a Given Number (Trial Division)](https://takeuforward.org/data-structure/prime-factorisation/) — 🟡 `Medium`
-- [ ] **Problem 18**: [Sieve of Eratosthenes (Prime generation up to N in O(N log log N))](https://takeuforward.org/data-structure/sieve-of-eratosthenes/) — 🟡 `Medium`
+- [x] **Problem 17**: [Print Prime Factors of a Given Number (Trial Division)](./17-print-prime-factors-of-a-number.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 18**: [Sieve of Eratosthenes (Prime generation up to N in O(N log log N))](./18-sieve-of-eratosthenes.md) — 🟡 `Medium` (Solved)
 
 ---
 
