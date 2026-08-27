@@ -71,7 +71,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 45**: [Number of Islands II (Online Dynamic Queries with DSU)](./45-number-of-islands-ii-online-queries-dsu.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 46**: [Making a Large Island (Flip 0 to 1 with DSU Size Lookup)](./46-making-a-large-island.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 47**: [Swim in Rising Water](./47-swim-in-rising-water.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 48**: [Redundant Connection (Find cycle edge in tree via DSU)](https://takeuforward.org/data-structure/redundant-connection/) — 🟡 `Medium`
+- [x] **Problem 48**: [Minimum Spanning Tree (Prim's & Kruskal's Full Comparison)](./48-minimum-spanning-tree-prims-and-kruskals.md) — 🟡 `Medium` (Solved)
 
 ### Step 15.6: Other Advanced Graph Algorithms (5 Problems)
 
