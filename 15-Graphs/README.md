@@ -28,7 +28,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 11**: [0/1 Matrix (Distance of Nearest Cell having 1 / 0)](./11-distance-of-nearest-cell-having-1.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 12**: [Surrounded Regions (Replace O's with X's on Board)](./12-surrounded-regions-replace-os-with-xs.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 13**: [Number of Enclaves (Count unreachable land cells)](./13-number-of-enclaves.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 14**: [Word Ladder I (Shortest transformation sequence length)](https://takeuforward.org/data-structure/word-ladder-i-shortest-paths/) — 🔴 `Hard`
+- [x] **Problem 14**: [Word Ladder I (Shortest transformation sequence length)](./14-word-ladder-i.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 15**: [Word Ladder II (Find all shortest transformation sequences)](https://takeuforward.org/data-structure/word-ladder-ii-shortest-paths/) — 🔴 `Hard`
 - [ ] **Problem 16**: [Number of Distinct Islands (DFS with shape serialization)](https://takeuforward.org/data-structure/number-of-distinct-islands/) — 🟡 `Medium`
 - [ ] **Problem 17**: [Check if Graph is Bipartite (2-Coloring via BFS/DFS)](https://takeuforward.org/data-structure/bipartite-graph/) — 🟡 `Medium`
