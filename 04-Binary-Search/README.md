@@ -35,9 +35,9 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 - [x] **Problem 18**: [Find the Smallest Divisor Given a Threshold](./18-find-the-smallest-divisor-given-a-threshold.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 19**: [Capacity to Ship Packages within D Days (LeetCode 1011)](./19-capacity-to-ship-packages-within-d-days.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 20**: [Kth Missing Positive Number](./20-kth-missing-positive-number.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 21**: [Aggressive Cows (Minimise Maximum Distance)](https://takeuforward.org/data-structure/aggressive-cows-detailed-solution/) — 🔴 `Hard`
-- [ ] **Problem 22**: [Book Allocation Problem](https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/) — 🔴 `Hard`
-- [ ] **Problem 23**: [Split Array - Largest Sum (LeetCode 410)](https://takeuforward.org/binary-search/split-array-largest-sum/) — 🔴 `Hard`
+- [x] **Problem 21**: [Aggressive Cows (Minimise Maximum Distance)](./21-aggressive-cows.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 22**: [Book Allocation Problem](./22-book-allocation-problem.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 23**: [Split Array - Largest Sum (LeetCode 410)](./23-split-array-largest-sum.md) — 🔴 `Hard` (Solved)
 - [ ] **Problem 24**: [Painter's Partition Problem](https://takeuforward.org/binary-search/painters-partition-problem/) — 🔴 `Hard`
 - [ ] **Problem 25**: [Minimise Maximum Distance between Gas Stations](https://takeuforward.org/binary-search/minimise-maximum-distance-between-gas-stations/) — 🔴 `Hard`
 - [ ] **Problem 26**: [Median of Two Sorted Arrays of Different Sizes](https://takeuforward.org/data-structure/median-of-two-sorted-arrays-of-different-sizes/) — 🔴 `Hard`
