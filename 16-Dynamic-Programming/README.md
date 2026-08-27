@@ -80,11 +80,11 @@
 - [x] **Problem 48**: [Matrix Chain Multiplication (MCM Partition Template)](./48-matrix-chain-multiplication.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 49**: [Matrix Chain Multiplication - Tabulation (Bottom-Up)](./49-matrix-chain-multiplication-tabulation.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 50**: [Minimum Cost to Cut a Stick](./50-minimum-cost-to-cut-a-stick.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 51**: [Burst Balloons](https://takeuforward.org/data-structure/burst-balloons-partition-dp-dp-51/) — 🔴 `Hard`
-- [ ] **Problem 52**: [Evaluate Boolean Expression to True (Boolean Parenthesization)](https://takeuforward.org/data-structure/evaluate-boolean-expression-to-true-partition-dp-dp-52/) — 🔴 `Hard`
-- [ ] **Problem 53**: [Palindrome Partitioning II (Minimum cuts to make palindromic substrings)](https://takeuforward.org/data-structure/palindrome-partitioning-ii-front-partition-dp-53/) — 🔴 `Hard`
-- [ ] **Problem 54**: [Partition Array for Maximum Sum](https://takeuforward.org/data-structure/partition-array-for-maximum-sum-front-partition-dp-54/) — 🟡 `Medium`
-- [ ] **Problem 55**: [Count Square Submatrices with All Ones](https://takeuforward.org/data-structure/maximum-rectangle-area-with-all-1s-dp-on-rectangles-dp-55/) — 🟡 `Medium`
+- [x] **Problem 51**: [Burst Balloons (Partition DP)](./51-burst-balloons.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 52**: [Evaluate Boolean Expression to True (Boolean Parenthesization)](./52-evaluate-boolean-expression-to-true.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 53**: [Palindrome Partitioning II (Minimum Cuts for Palindromic Substrings)](./53-palindrome-partitioning-ii.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 54**: [Partition Array for Maximum Sum (Front Partition DP)](./54-partition-array-for-maximum-sum.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 55**: [Count Square Submatrices with All Ones](./55-count-square-submatrices-with-all-ones.md) — 🟡 `Medium` (Solved)
 
 ---
 
