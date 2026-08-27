@@ -54,7 +54,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 31**: [Path with Minimum Effort (Dijkstra on 2D Matrix)](./31-path-with-minimum-effort.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 32**: [Cheapest Flights Within K Stops](./32-cheapest-flights-within-k-stops.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 33**: [Network Delay Time (Signal propagation via Dijkstra)](./33-network-delay-time.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 34**: [Number of Ways to Arrive at Destination](https://takeuforward.org/data-structure/g-40-number-of-ways-to-arrive-at-destination/) — 🟡 `Medium`
+- [x] **Problem 34**: [Number of Ways to Arrive at Destination (Modulo Dijkstra Counting)](./34-number-of-ways-to-arrive-at-destination.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 35**: [Minimum Multiplications to Reach End (Modulo BFS)](https://takeuforward.org/data-structure/g-39-minimum-multiplications-to-reach-end/) — 🟡 `Medium`
 - [ ] **Problem 36**: [Bellman-Ford Algorithm (Negative Weights & Negative Cycle Detection)](https://takeuforward.org/data-structure/bellman-ford-algorithm-g-41/) — 🟡 `Medium`
 - [ ] **Problem 37**: [Floyd-Warshall Algorithm (All-Pairs Shortest Path in O(V^3))](https://takeuforward.org/data-structure/floyd-warshall-algorithm-g-42/) — 🟡 `Medium`
