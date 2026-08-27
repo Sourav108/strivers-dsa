@@ -48,11 +48,11 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 28**: [Construct Binary Tree from Inorder and Postorder Traversal](./28-construct-binary-tree-from-inorder-and-postorder.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 29**: [Serialize and Deserialize Binary Tree (String formatting)](./29-serialize-and-deserialize-binary-tree.md) — 🔴 `Hard` (Solved)
 - [x] **Problem 30**: [Morris Inorder Traversal (Threaded Binary Tree O(1) space)](./30-morris-inorder-traversal.md) — 🔴 `Hard` (Solved)
-- [ ] **Problem 31**: [Morris Preorder Traversal (Threaded Binary Tree O(1) space)](https://takeuforward.org/data-structure/morris-preorder-traversal-of-a-binary-tree/) — 🔴 `Hard`
-- [ ] **Problem 32**: [Flatten Binary Tree to LinkedList (In-place pointer rewire)](https://takeuforward.org/data-structure/flatten-binary-tree-to-linked-list/) — 🟡 `Medium`
-- [ ] **Problem 33**: [Find Path Sum III (Sub-paths equal to Target Sum)](https://takeuforward.org/data-structure/path-sum-iii/) — 🟡 `Medium`
-- [ ] **Problem 34**: [Sum of Nodes on the Longest Path from Root to Leaf](https://takeuforward.org/data-structure/sum-of-the-longest-bloodline-of-a-tree/) — 🟡 `Medium`
-- [ ] **Problem 35**: [Check if Subtree of Another Tree](https://takeuforward.org/data-structure/subtree-of-another-tree/) — 🟢 `Easy`
+- [x] **Problem 31**: [Morris Preorder Traversal (Threaded Binary Tree O(1) space)](./31-morris-preorder-traversal.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 32**: [Flatten Binary Tree to LinkedList (In-place pointer rewire)](./32-flatten-binary-tree-to-linked-list.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 33**: [Find Path Sum III (Sub-paths equal to Target Sum)](./33-path-sum-iii.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 34**: [Sum of Nodes on the Longest Path from Root to Leaf](./34-sum-of-the-longest-bloodline-of-a-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 35**: [Check if Subtree of Another Tree](./35-subtree-of-another-tree.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 36**: [Construct String from Binary Tree with Parentheses](https://takeuforward.org/data-structure/construct-string-from-binary-tree/) — 🟢 `Easy`
 - [ ] **Problem 37**: [Diagonal Traversal of Binary Tree](https://takeuforward.org/data-structure/diagonal-traversal-of-binary-tree/) — 🟡 `Medium`
 - [ ] **Problem 38**: [Kth Ancestor of a Node in Binary Tree](https://takeuforward.org/data-structure/kth-ancestor-of-a-node-in-binary-tree/) — 🟡 `Medium`
