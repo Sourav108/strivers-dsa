@@ -57,7 +57,7 @@ BFS/DFS, Topological Sort, Shortest Paths (Dijkstra, Bellman-Ford, Floyd-Warshal
 - [x] **Problem 34**: [Number of Ways to Arrive at Destination (Modulo Dijkstra Counting)](./34-number-of-ways-to-arrive-at-destination.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 35**: [Minimum Multiplications to Reach End (Modulo 100,000 BFS)](./35-minimum-multiplications-to-reach-end.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 36**: [Bellman-Ford Algorithm (Negative Weights & Negative Cycle Detection)](./36-bellman-ford-algorithm.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 37**: [Floyd-Warshall Algorithm (All-Pairs Shortest Path in O(V^3))](https://takeuforward.org/data-structure/floyd-warshall-algorithm-g-42/) — 🟡 `Medium`
+- [x] **Problem 37**: [Floyd-Warshall Algorithm (All-Pairs Shortest Path in O(V^3))](./37-floyd-warshall-algorithm.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 38**: [Find the City with the Smallest Number of Neighbors at a Threshold Distance](https://takeuforward.org/data-structure/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance-g-43/) — 🟡 `Medium`
 
 ### Step 15.5: Minimum Spanning Tree & Disjoint Set Union (10 Problems)
