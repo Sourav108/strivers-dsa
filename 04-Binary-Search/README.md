@@ -29,7 +29,7 @@ BS on 1D arrays, BS on rotated arrays, BS on answers (Monotonic Predicates), and
 ### Step 4.2: BS on Answers (14 Problems)
 
 - [x] **Problem 14**: [Find Square Root of an Integer using BS](./14-find-square-root-of-an-integer.md) — 🟢 `Easy` (Solved)
-- [ ] **Problem 15**: [Find the Nth Root of an Integer M](https://takeuforward.org/data-structure/nth-root-of-a-number-using-binary-search/) — 🟢 `Easy`
+- [x] **Problem 15**: [Find the Nth Root of an Integer M](./15-find-nth-root-of-an-integer.md) — 🟢 `Easy` (Solved)
 - [ ] **Problem 16**: [Koko Eating Bananas (LeetCode 875)](https://takeuforward.org/binary-search/koko-eating-bananas/) — 🟡 `Medium`
 - [ ] **Problem 17**: [Minimum Days to Make M Bouquets (LeetCode 1482)](https://takeuforward.org/binary-search/minimum-days-to-make-m-bouquets/) — 🟡 `Medium`
 - [ ] **Problem 18**: [Find the Smallest Divisor Given a Threshold](https://takeuforward.org/binary-search/find-the-smallest-divisor-given-a-threshold/) — 🟡 `Medium`
