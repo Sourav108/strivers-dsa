@@ -35,14 +35,14 @@ Tree Traversals (Pre, In, Post, Level, Morris), Views, Diameter, LCA, Path Sums,
 - [x] **Problem 18**: [Check for Symmetrical Binary Tree (Mirror Reflection)](./18-check-for-symmetrical-binary-tree.md) — 🟢 `Easy` (Solved)
 - [x] **Problem 19**: [Print Root to Node Path in Binary Tree](./19-print-root-to-node-path-in-binary-tree.md) — 🟡 `Medium` (Solved)
 - [x] **Problem 20**: [Lowest Common Ancestor (LCA) in Binary Tree](./20-lowest-common-ancestor-lca-in-binary-tree.md) — 🟡 `Medium` (Solved)
-- [ ] **Problem 21**: [Maximum Width of Binary Tree (Indexed BFS)](https://takeuforward.org/data-structure/maximum-width-of-a-binary-tree/) — 🟡 `Medium`
-- [ ] **Problem 22**: [Check for Children Sum Property in Binary Tree](https://takeuforward.org/data-structure/check-for-children-sum-property-in-a-binary-tree/) — 🟡 `Medium`
+- [x] **Problem 21**: [Maximum Width of Binary Tree (Indexed BFS)](./21-maximum-width-of-binary-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 22**: [Check for Children Sum Property in Binary Tree](./22-check-for-children-sum-property.md) — 🟡 `Medium` (Solved)
 
 ### Step 13.3: Hard Problems (16 Problems)
 
-- [ ] **Problem 23**: [Print all Nodes at Distance K in Binary Tree](https://takeuforward.org/data-structure/nodes-at-given-distance-in-binary-tree/) — 🟡 `Medium`
-- [ ] **Problem 24**: [Minimum Time Taken to BURN the Binary Tree from a Node](https://takeuforward.org/data-structure/minimum-time-taken-to-burn-the-binary-tree-from-a-node/) — 🔴 `Hard`
-- [ ] **Problem 25**: [Count Total Nodes in a COMPLETE Binary Tree in O((log N)^2)](https://takeuforward.org/data-structure/count-number-of-nodes-in-a-binary-tree/) — 🟡 `Medium`
+- [x] **Problem 23**: [Print all Nodes at Distance K in Binary Tree](./23-nodes-at-given-distance-k-in-binary-tree.md) — 🟡 `Medium` (Solved)
+- [x] **Problem 24**: [Minimum Time Taken to BURN the Binary Tree from a Node](./24-minimum-time-taken-to-burn-binary-tree.md) — 🔴 `Hard` (Solved)
+- [x] **Problem 25**: [Count Total Nodes in a COMPLETE Binary Tree in O((log N)^2)](./25-count-number-of-nodes-in-complete-binary-tree.md) — 🟡 `Medium` (Solved)
 - [ ] **Problem 26**: [Requirements to Construct Unique Binary Tree (Inorder + Pre/Post)](https://takeuforward.org/data-structure/unique-binary-tree/) — 🟢 `Easy`
 - [ ] **Problem 27**: [Construct Binary Tree from Inorder and Preorder Traversal](https://takeuforward.org/data-structure/construct-a-binary-tree-from-inorder-and-preorder-traversal/) — 🟡 `Medium`
 - [ ] **Problem 28**: [Construct Binary Tree from Inorder and Postorder Traversal](https://takeuforward.org/data-structure/construct-binary-tree-from-inorder-and-postorder-traversal/) — 🟡 `Medium`
