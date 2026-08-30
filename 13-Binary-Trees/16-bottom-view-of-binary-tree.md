@@ -1,6 +1,6 @@
 # Bottom View of Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Bottom View of Binary Tree](https://takeuforward.org/data-structure/bottom-view-of-a-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS passing `{row, col}` and updating map only when `row >= existingRow`.
 
 ### C++17 Code
 ```cpp
+// DFS depth comparison approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS depth comparison approach
 ```
 
@@ -99,6 +105,55 @@ public:
         // Extract in ascending column order
         for (auto& [col, val] : bottomNode) {
             result.push_back(val);
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] bottomView(TreeNode  root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        
+        // Map stores: col . bottom-most node value
+        Map<Integer, Integer> bottomNode = new HashMap<>();
+        
+        // Queue stores: {TreeNode , col}
+        queue<pair<TreeNode , int>> q;
+        q.push({root, 0});
+        
+        while (!q.isEmpty()) {
+            var [curr, col] = q.peek();
+            q.pop();
+            
+            // Unconditionally overwrite: later levels replace higher levels
+            bottomNode[col] = curr.val;
+            
+            if (curr.left != null) {
+                q.push({curr.left, col - 1});
+            }
+            if (curr.right != null) {
+                q.push({curr.right, col + 1});
+            }
+        }
+        
+        // Extract in ascending column order
+        for (var [col, val] : bottomNode) {
+            result.add(val);
         }
         
         return result;

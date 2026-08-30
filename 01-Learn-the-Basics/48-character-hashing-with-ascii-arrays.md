@@ -1,6 +1,6 @@
 # Character Hashing with ASCII Arrays (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Character Hashing with ASCII Arrays](https://takeuforward.org/data-structure/character-hashing-explained/)
 - **Difficulty**: Easy
@@ -40,6 +40,19 @@ map<char, int> charMap(const string& s) {
     map<char, int> m;
     for (char c : s) m[c]++;
     return m;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    map<char, int> charMap(String s) {
+        map<char, int> m;
+        for (char c : s) m[c]++;
+        return m;
+    }
 }
 ```
 
@@ -87,6 +100,33 @@ public:
         for (int i = 0; i < 26; i++) {
             if (hash[i] > 0) {
                 cout << (char)('a' + i) << ": " << hash[i] << "\n";
+            }
+        }
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void countCharFrequency(String s) {
+        // Direct ASCII table for lowercase English letters
+        int hash[26] = {0};
+        
+        for (char ch : s) {
+            hash[ch - 'a']++; // O(1) direct memory offset
+        }
+        
+        // Full ASCII table (all 256 characters)
+        int asciiHash[256] = {0};
+        for (char ch : s) {
+            asciiHash[(int)ch]++;
+        }
+        
+        for (int i = 0; i < 26; i++) {
+            if (hash[i] > 0) {
+                System.out.print((char)('a' + i) << ": " << hash[i] << "\n");
             }
         }
     }

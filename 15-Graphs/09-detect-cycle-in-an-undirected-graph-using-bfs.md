@@ -1,6 +1,6 @@
 # Detect Cycle in an Undirected Graph using BFS (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Detect Cycle in an Undirected Graph using BFS](https://takeuforward.org/data-structure/detect-cycle-in-an-undirected-graph-using-bfs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS cycle detection with recursion stack.
 
 ### C++17 Code
 ```cpp
+// DFS alternative
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS alternative
 ```
 
@@ -90,6 +96,54 @@ private:
 public:
     bool isCycle(int V, vector<vector<int>>& adj) {
         vector<int> vis(V, 0);
+        
+        // Check for cycle across all disconnected components
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (checkForCycleBFS(i, adj, vis)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean checkForCycleBFS(int src, int[][] adj, int[] vis) {
+        vis[src] = 1;
+        // Queue stores pair of {currentNode, parentNode}
+        queue<pair<int, int>> q;
+        q.push({src, -1});
+        
+        while (!q.isEmpty()) {
+            var [node, parent] = q.peek();
+            q.pop();
+            
+            for (int neighbor : adj[node]) {
+                if (!vis[neighbor]) {
+                    vis[neighbor] = 1;
+                    q.push({neighbor, node});
+                }
+                // If neighbor is visited and is NOT the parent who called this node . CYCLE!
+                else if (neighbor != parent) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    boolean isCycle(int V, int[][] adj) {
+        int[] vis = new int[V];
         
         // Check for cycle across all disconnected components
         for (int i = 0; i < V; i++) {

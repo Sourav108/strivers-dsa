@@ -1,6 +1,6 @@
 # Bit Prerequisites for TRIE Problems (Bit Manipulation in 32-bit Tries) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Bit Prerequisites for TRIE Problems (Bit Manipulation in 32-bit Tries)](https://takeuforward.org/trie/bit-prerequisites-for-trie-problems/)
 - **Difficulty**: Easy
@@ -53,6 +53,15 @@ using namespace std;
 
 string toBinaryString(int n) {
     return bitset<32>(n).to_string(); // Creates 32-byte string allocation
+}
+```
+
+### Java Code
+```java
+class Solution {
+    String toBinaryString(int n) {
+        return bitset<32>(n).String.valueOf(); // Creates 32-byte String allocation
+    }
 }
 ```
 
@@ -134,6 +143,69 @@ public:
                 node->put(bit, new BitNode());
             }
             node = node->get(bit);
+        }
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+// 2-Way Binary Trie Node for Bitwise Operations
+static class BitNode {
+    BitNode* links[2];
+    
+    BitNode() {
+        links[0] = null;
+        links[1] = null;
+    }
+    
+    boolean containsKey(int bit) {
+        return links[bit] != null;
+    }
+    
+    BitNode* get(int bit) {
+        return links[bit];
+    }
+    
+    void put(int bit, BitNode* node) {
+        links[bit] = node;
+    }
+};
+
+class BitTriePrerequisites {
+
+    // 1. Check if the i-th bit of num is set (0-indexed from LSB)
+    static int checkBit(int num, int i) {
+        return (num >> i) & 1;
+    }
+    
+    // 2. Set the i-th bit of num to 1
+    static int setBit(int num, int i) {
+        return num | (1 << i);
+    }
+    
+    // 3. Clear the i-th bit of num to 0
+    static int clearBit(int num, int i) {
+        return num & ~(1 << i);
+    }
+    
+    // 4. Toggle the i-th bit of num
+    static int toggleBit(int num, int i) {
+        return num ^ (1 << i);
+    }
+    
+    // 5. Insert a 32-bit non-negative integer into a Binary Trie in O(32) = O(1)
+    static void insertInteger(BitNode* root, int num) {
+        BitNode* node = root;
+        // Traverse from MSB (bit 31) down to LSB (bit 0)
+        for (int i = 31; i >= 0; i--) {
+            int bit = (num >> i) & 1;
+            if (!node.containsKey(bit)) {
+                node.put(bit, new BitNode());
+            }
+            node = node.get(bit);
         }
     }
 };

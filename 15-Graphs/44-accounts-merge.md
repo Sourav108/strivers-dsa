@@ -1,6 +1,6 @@
 # Accounts Merge (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Accounts Merge](https://takeuforward.org/data-structure/accounts-merge-dsu-g-54/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Build undirected email-to-email adjacency graph and perform DFS traversal in $\m
 
 ### C++17 Code
 ```cpp
+// DFS email graph traversal
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS email graph traversal
 ```
 
@@ -133,6 +139,84 @@ public:
                 temp.push_back(mail);
             }
             ans.push_back(temp);
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+
+    int[] parent, size;
+    DisjointSet(int n) {
+        parent.resize(n);
+        size.resize(n, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    void unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        if (rootU == rootV) return;
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+    }
+};
+
+class Solution {
+
+    List<List<String>> accountsMerge(List<List<String>> accounts) {
+        int n = accounts.length;
+        DisjointSet dsu(n);
+        
+        // 1. Map email . first seen account index
+        Map<String, Integer> mapMailNode = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (int)accounts[i].size(); j++) {
+                String mail = accounts[i][j];
+                if (mapMailNode.find(mail) == mapMailNode.end()) {
+                    mapMailNode[mail] = i;
+                } else {
+                    // Unite current account i with previous account having same email
+                    dsu.unionBySize(i, mapMailNode[mail]);
+                }
+            }
+        }
+        
+        // 2. Group emails by root account parent
+        List<List<String>> mergedMail(n);
+        for (var [mail, accIdx] : mapMailNode) {
+            int rootNode = dsu.findUPar(accIdx);
+            mergedMail[rootNode].add(mail);
+        }
+        
+        // 3. Format result: Sort emails and attach account name
+        List<List<String>> ans;
+        for (int i = 0; i < n; i++) {
+            if (mergedMail[i].isEmpty()) continue;
+            
+            // Sort emails lexicographically
+            sort(mergedMail[i].begin(), mergedMail[i].end());
+            
+            List<String> temp = new ArrayList<>();
+            temp.add(accounts[i][0]); // Name
+            for (var mail : mergedMail[i]) {
+                temp.add(mail);
+            }
+            ans.add(temp);
         }
         
         return ans;

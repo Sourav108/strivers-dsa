@@ -1,6 +1,6 @@
 # Subarrays with K Different Integers (Step 10.2 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Subarrays with K Different Integers](https://takeuforward.org/data-structure/subarrays-with-k-different-integers/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Nested loops counting distinct elements with a set in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute search
 ```
 
@@ -88,6 +94,42 @@ private:
 
 public:
     int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return atMostKDistinct(nums, k) - atMostKDistinct(nums, k - 1);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int atMostKDistinct(int[] nums, int k) {
+        if (k <= 0) return 0;
+        
+        Map<Integer, Integer> mp = new HashMap<>();
+        int left = 0, count = 0;
+        int n = nums.length;
+        
+        for (int right = 0; right < n; right++) {
+            mp[nums[right]]++;
+            
+            while (mp.length > k) {
+                mp[nums[left]]--;
+                if (mp[nums[left]] == 0) {
+                    mp.remove(nums[left]);
+                }
+                left++;
+            }
+            
+            count += (right - left + 1);
+        }
+        
+        return count;
+    }
+
+    int subarraysWithKDistinct(int[] nums, int k) {
         return atMostKDistinct(nums, k) - atMostKDistinct(nums, k - 1);
     }
 };

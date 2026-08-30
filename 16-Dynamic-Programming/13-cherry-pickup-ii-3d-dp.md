@@ -1,6 +1,6 @@
 # 3D DP: Ninja and his Friends (Cherry Pickup II) (Step 16.2 — 2D/3D DP and DP on Grids)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [3D DP: Ninja and his Friends (Cherry Pickup II)](https://takeuforward.org/data-structure/3-d-dp-ninja-and-his-friends-dp-13/)
 - **Difficulty**: Hard
@@ -41,6 +41,13 @@ Recursively explore all $9^R$ simultaneous robot trajectories in $\mathcal{O}(9^
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(9^R) exponential brute force
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(9^R) exponential brute force
 };
@@ -88,6 +95,43 @@ public:
                                 val += dp[i + 1][nj1][nj2];
                             else val = -1e8;
                             maxi = max(maxi, val);
+                        }
+                    }
+                    dp[i][j1][j2] = maxi;
+                }
+            }
+        }
+        return dp[0][0][c - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution3D {
+
+    int cherryPickup(int[][] grid) {
+        int r = grid.length, c = grid[0].size();
+        vector<int[][]> dp(r, int[][](c, int[](c, 0)));
+        // Base case for last row
+        for (int j1 = 0; j1 < c; j1++) {
+            for (int j2 = 0; j2 < c; j2++) {
+                if (j1 == j2) dp[r - 1][j1][j2] = grid[r - 1][j1];
+                else dp[r - 1][j1][j2] = grid[r - 1][j1] + grid[r - 1][j2];
+            }
+        }
+        for (int i = r - 2; i >= 0; i--) {
+            for (int j1 = 0; j1 < c; j1++) {
+                for (int j2 = 0; j2 < c; j2++) {
+                    int maxi = -1e8;
+                    for (int dj1 = -1; dj1 <= 1; dj1++) {
+                        for (int dj2 = -1; dj2 <= 1; dj2++) {
+                            int nj1 = j1 + dj1, nj2 = j2 + dj2;
+                            int val = (j1 == j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+                            if (nj1 >= 0 && nj1 < c && nj2 >= 0 && nj2 < c)
+                                val += dp[i + 1][nj1][nj2];
+                            else val = -1e8;
+                            maxi = Math.max(maxi, val);
                         }
                     }
                     dp[i][j1][j2] = maxi;
@@ -160,6 +204,67 @@ public:
                             }
                             
                             maxCherries = max(maxCherries, cherries);
+                        }
+                    }
+                    
+                    cur[j1][j2] = maxCherries;
+                }
+            }
+            
+            front = cur; // Roll 2D state upward
+        }
+        
+        // Robot 1 starts at col 0, Robot 2 starts at col c - 1 on row 0
+        return front[0][c - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int cherryPickup(int[][] grid) {
+        int r = grid.length;
+        int c = grid[0].size();
+        
+        // front[j1][j2] stores max cherries from (row + 1) with robots at (j1, j2)
+        int[][] front = new int[c][c];
+        
+        // 1. Base case: Initialize for the last row (r - 1)
+        for (int j1 = 0; j1 < c; j1++) {
+            for (int j2 = 0; j2 < c; j2++) {
+                if (j1 == j2) {
+                    front[j1][j2] = grid[r - 1][j1];
+                } else {
+                    front[j1][j2] = grid[r - 1][j1] + grid[r - 1][j2];
+                }
+            }
+        }
+        
+        // 2. Iterate upward from second-last row (r - 2) down to 0
+        for (int i = r - 2; i >= 0; i--) {
+            int[][] cur = new int[c][c];
+            
+            for (int j1 = 0; j1 < c; j1++) {
+                for (int j2 = 0; j2 < c; j2++) {
+                    int maxCherries = -1e8;
+                    
+                    // Explore all 9 combinations of moves (-1, 0, +1)
+                    for (int dj1 = -1; dj1 <= 1; dj1++) {
+                        for (int dj2 = -1; dj2 <= 1; dj2++) {
+                            int nj1 = j1 + dj1;
+                            int nj2 = j2 + dj2;
+                            
+                            int cherries = (j1 == j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+                            
+                            if (nj1 >= 0 && nj1 < c && nj2 >= 0 && nj2 < c) {
+                                cherries += front[nj1][nj2];
+                            } else {
+                                cherries += -1e8; // Invalid out-of-bounds branch
+                            }
+                            
+                            maxCherries = Math.max(maxCherries, cherries);
                         }
                     }
                     

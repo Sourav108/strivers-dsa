@@ -1,6 +1,6 @@
 # Find the Starting Point of Loop in LinkedList (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Starting Point of Loop in LinkedList](https://takeuforward.org/data-structure/find-the-starting-point-of-the-loop-in-linked-list/)
 - **Difficulty**: Medium
@@ -45,6 +45,21 @@ Node* detectCycleHash(Node* head) {
         curr = curr->next;
     }
     return nullptr;
+}
+```
+
+### Java Code
+```java
+static class Node { int data; Node  next; };
+Node  detectCycleHash(Node  head) {
+    unordered_set<Node > vis;
+    Node  curr = head;
+    while (curr) {
+        if (vis.contains(curr)) return curr;
+        vis.add(curr);
+        curr = curr.next;
+    }
+    return null;
 }
 ```
 
@@ -97,6 +112,41 @@ public:
         }
         
         return nullptr; // No cycle
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node detectCycle(Node head) {
+        Node  slow = head;
+        Node  fast = head;
+        
+        // Phase 1: Detect cycle and find collision point
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if (slow == fast) {
+                // Phase 2: Reset slow to head, advance both by 1 step
+                slow = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow; // Entry node of cycle!
+            }
+        }
+        
+        return null; // No cycle
     }
 };
 ```

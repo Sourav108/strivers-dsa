@@ -1,6 +1,6 @@
 # Frog Jump with K Distances (Step 16.1 — Introduction to DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Frog Jump with K Distances](https://takeuforward.org/data-structure/dynamic-programming-frog-jump-with-k-distances-dp-4/)
 - **Difficulty**: Medium
@@ -58,6 +58,27 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int[] h, int k) {
+        if (i == 0) return 0;
+        int minSteps = 1e9;
+        for (int j = 1; j <= k; j++) {
+            if (i - j >= 0) {
+                int jump = solve(i - j, h, k) + Math.abs(h[i] - h[i - j]);
+                minSteps = Math.min(minSteps, jump);
+            }
+        }
+        return minSteps;
+    }
+
+    int minimizeCost(int[] height, int n, int k) {
+        return solve(n - 1, height, k);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(K^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -98,6 +119,29 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionMemo {
+    int memo(int i, int[] h, int k, int[] dp) {
+        if (i == 0) return 0;
+        if (dp[i] != -1) return dp[i];
+        int minCost = 1e9;
+        for (int j = 1; j <= k; j++) {
+            if (i - j >= 0) {
+                int jump = memo(i - j, h, k, dp) + Math.abs(h[i] - h[i - j]);
+                minCost = Math.min(minCost, jump);
+            }
+        }
+        return dp[i] = minCost;
+    }
+
+    int minimizeCost(int[] height, int n, int k) {
+        int[] dp = new int[n];
+        return memo(n - 1, height, k, dp);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times K)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ memo array + call stack.
@@ -129,6 +173,29 @@ public:
                 if (i - j >= 0) {
                     int jumpCost = dp[i - j] + abs(height[i] - height[i - j]);
                     dp[i] = min(dp[i], jumpCost);
+                }
+            }
+        }
+        
+        return dp[n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minimizeCost(int[] height, int n, int k) {
+        int[] dp = new int[n];
+        dp[0] = 0; // Base case: 0 energy needed to stay at start
+        
+        for (int i = 1; i < n; i++) {
+            // Check all valid jumps of size j from 1 to k
+            for (int j = 1; j <= k; j++) {
+                if (i - j >= 0) {
+                    int jumpCost = dp[i - j] + Math.abs(height[i] - height[i - j]);
+                    dp[i] = Math.min(dp[i], jumpCost);
                 }
             }
         }

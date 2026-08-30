@@ -1,6 +1,6 @@
 # Best Time to Buy and Sell Stock with Transaction Fee (Step 16.5 — DP on Stocks)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Best Time to Buy and Sell Stock with Transaction Fee](https://takeuforward.org/data-structure/buy-and-sell-stocks-with-transaction-fee-dp-40/)
 - **Difficulty**: Medium
@@ -44,6 +44,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(2^N) recursion
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack.
@@ -71,6 +78,23 @@ public:
         for (int i = n - 1; i >= 0; i--) {
             dp[i][1] = max(-prices[i] + dp[i + 1][0], dp[i + 1][1]);
             dp[i][0] = max(+prices[i] - fee + dp[i + 1][1], dp[i + 1][0]);
+        }
+        return dp[0][1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int[][] dp = new int[n + 1][2];
+        
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i][1] = Math.max(-prices[i] + dp[i + 1][0], dp[i + 1][1]);
+            dp[i][0] = Math.max(+prices[i] - fee + dp[i + 1][1], dp[i + 1][0]);
         }
         return dp[0][1];
     }
@@ -107,6 +131,30 @@ public:
         for (int i = n - 1; i >= 0; i--) {
             int curBuy = max(-prices[i] + aheadNotBuy, aheadBuy);
             int curNotBuy = max(+prices[i] - fee + aheadBuy, aheadNotBuy);
+            
+            aheadBuy = curBuy;
+            aheadNotBuy = curNotBuy;
+        }
+        
+        return aheadBuy;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        if (n <= 1) return 0;
+        
+        int aheadBuy = 0;    // dp[i + 1][1]
+        int aheadNotBuy = 0; // dp[i + 1][0]
+        
+        for (int i = n - 1; i >= 0; i--) {
+            int curBuy = Math.max(-prices[i] + aheadNotBuy, aheadBuy);
+            int curNotBuy = Math.max(+prices[i] - fee + aheadBuy, aheadNotBuy);
             
             aheadBuy = curBuy;
             aheadNotBuy = curNotBuy;

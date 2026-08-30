@@ -1,6 +1,6 @@
 # Edit Distance (Levenshtein Distance: Insert, Delete, Replace) (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Edit Distance (Levenshtein Distance: Insert, Delete, Replace)](https://takeuforward.org/data-structure/edit-distance-dp-33/)
 - **Difficulty**: Hard
@@ -62,6 +62,25 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, String s1, String s2) {
+        if (i < 0) return j + 1; // Insert remaining s2 characters
+        if (j < 0) return i + 1; // Delete remaining s1 characters
+        if (s1[i] == s2[j]) return solve(i - 1, j - 1, s1, s2);
+        int ins = 1 + solve(i, j - 1, s1, s2);
+        int del = 1 + solve(i - 1, j, s1, s2);
+        int rep = 1 + solve(i - 1, j - 1, s1, s2);
+        return Math.min({ins, del, rep});
+    }
+
+    int minDistance(String word1, String word2) {
+        return solve(word1.length - 1, word2.length - 1, word1, word2);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(3^{\max(N, M)})$ time.
 - **Space Complexity**: $\mathcal{O}(N + M)$ recursion stack.
@@ -95,6 +114,30 @@ public:
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
                     dp[i][j] = 1 + min({dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]});
+                }
+            }
+        }
+        return dp[n][m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int minDistance(String word1, String word2) {
+        int n = word1.length, m = word2.length;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 0; i <= n; i++) dp[i][0] = i;
+        for (int j = 0; j <= m; j++) dp[0][j] = j;
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (word1[i - 1] == word2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = 1 + Math.min({dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]});
                 }
             }
         }
@@ -147,6 +190,44 @@ public:
                     int replaceOp = prev[j - 1]; // Replace
                     
                     cur[j] = 1 + min({insertOp, deleteOp, replaceOp});
+                }
+            }
+            
+            prev = cur;
+        }
+        
+        return prev[m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minDistance(String word1, String word2) {
+        int n = word1.length;
+        int m = word2.length;
+        
+        // prev[j] stores edit distance for previous row (i - 1)
+        int[] prev = new int[m + 1];
+        for (int j = 0; j <= m; j++) {
+            prev[j] = j; // Base case: converting empty word1 to word2 of length j
+        }
+        
+        for (int i = 1; i <= n; i++) {
+            int[] cur = new int[m + 1];
+            cur[0] = i; // Base case: converting word1 of length i to empty word2 (i deletions)
+            
+            for (int j = 1; j <= m; j++) {
+                if (word1[i - 1] == word2[j - 1]) {
+                    cur[j] = prev[j - 1]; // Matching character: 0 cost
+                } else {
+                    int insertOp  = cur[j - 1];  // Insert
+                    int deleteOp  = prev[j];     // Delete
+                    int replaceOp = prev[j - 1]; // Replace
+                    
+                    cur[j] = 1 + Math.min({insertOp, deleteOp, replaceOp});
                 }
             }
             

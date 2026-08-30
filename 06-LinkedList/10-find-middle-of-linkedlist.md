@@ -1,6 +1,6 @@
 # Find the Middle Node of a LinkedList (Tortoise-Hare) (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Middle Node of a LinkedList (Tortoise-Hare)](https://takeuforward.org/data-structure/find-middle-element-in-a-linked-list/)
 - **Difficulty**: Easy
@@ -44,6 +44,19 @@ Node* middleNodeTwoPass(Node* head) {
 }
 ```
 
+### Java Code
+```java
+static class Node { int data; Node  next; };
+Node  middleNodeTwoPass(Node  head) {
+    int n = 0;
+    Node  curr = head;
+    while (curr) { n++; curr = curr.next; }
+    curr = head;
+    for (int i = 0; i < n / 2; i++) curr = curr.next;
+    return curr;
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N + N/2) = \mathcal{O}(N)$ time (two passes).
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -80,6 +93,31 @@ public:
         while (fast != nullptr && fast->next != nullptr) {
             slow = slow->next;
             fast = fast->next->next;
+        }
+        
+        return slow; // Points to exact middle node
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  middleNode(Node  head) {
+        Node  slow = head;
+        Node  fast = head;
+        
+        // Fast moves 2 steps, Slow moves 1 step
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
         
         return slow; // Points to exact middle node

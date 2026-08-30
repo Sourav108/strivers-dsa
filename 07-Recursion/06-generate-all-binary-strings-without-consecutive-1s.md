@@ -1,6 +1,6 @@
 # Generate All Binary Strings without Consecutive 1s (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Generate All Binary Strings without Consecutive 1s](https://takeuforward.org/recursion/generate-all-binary-strings/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate all $2^K$ binary strings and filter out ones containing `"11"`.
 
 ### C++17 Code
 ```cpp
+// Filter approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Filter approach
 ```
 
@@ -85,6 +91,40 @@ public:
     vector<string> generateBinaryStrings(int k) {
         vector<string> result;
         string current = "";
+        backtrack(k, current, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void backtrack(int k, String current, String[] result) {
+        if (current.length() == k) {
+            result.add(current);
+            return;
+        }
+        
+        // Choice 1: Always allowed to add '0'
+        current.add('0');
+        backtrack(k, current, result);
+        current.remove(); // backtrack
+        
+        // Choice 2: Add '1' only if previous char was not '1'
+        if (current.isEmpty() || current.peekLast() == '0') {
+            current.add('1');
+            backtrack(k, current, result);
+            current.remove(); // backtrack
+        }
+    }
+
+    String[] generateBinaryStrings(int k) {
+        List<String> result = new ArrayList<>();
+        String current = "";
         backtrack(k, current, result);
         return result;
     }

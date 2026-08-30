@@ -1,6 +1,6 @@
 # Union of Two Sorted Arrays (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/union-of-two-sorted-arrays/
 - **Difficulty**: Easy
@@ -48,6 +48,19 @@ vector<int> unionBrute(const vector<int>& a, const vector<int>& b) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] unionBrute(int[] a, int[] b) {
+        Set<Integer> s(a.begin(), a.end());
+        s.add(b.begin(), b.end());
+        return int[](s.begin(), s.end());
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O((n+m) log(n+m))
 - **Space Complexity**: O(n+m)
@@ -75,6 +88,23 @@ vector<int> unionBetter(const vector<int>& a, const vector<int>& b) {
     vector<int> res(uniqueElements.begin(), uniqueElements.end());
     sort(res.begin(), res.end());
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] unionBetter(int[] a, int[] b) {
+        Set<Integer> uniqueElements = new HashSet<>();
+        for (int x : a) uniqueElements.add(x);
+        for (int x : b) uniqueElements.add(x);
+        
+        int[] res(uniqueElements.begin(), uniqueElements.end());
+        Arrays.sort(res);
+        return res;
+    }
 }
 ```
 
@@ -120,6 +150,36 @@ vector<int> unionOptimal(const vector<int>& a, const vector<int>& b) {
         j++;
     }
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] unionOptimal(int[] a, int[] b) {
+        List<Integer> res = new ArrayList<>();
+        int i = 0, j = 0, n = a.length, m = b.length;
+        while (i < n && j < m) {
+            if (a[i] <= b[j]) {
+                if (res.isEmpty() || res.peekLast() != a[i]) res.add(a[i]);
+                i++;
+            } else {
+                if (res.isEmpty() || res.peekLast() != b[j]) res.add(b[j]);
+                j++;
+            }
+        }
+        while (i < n) {
+            if (res.isEmpty() || res.peekLast() != a[i]) res.add(a[i]);
+            i++;
+        }
+        while (j < m) {
+            if (res.isEmpty() || res.peekLast() != b[j]) res.add(b[j]);
+            j++;
+        }
+        return res;
+    }
 }
 ```
 

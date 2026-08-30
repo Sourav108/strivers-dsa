@@ -1,6 +1,6 @@
 # Sliding Window Maximum (Monotonic Deque O(N)) (Step 9.4 — Implementation Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sliding Window Maximum (Monotonic Deque O(N))](https://takeuforward.org/data-structure/sliding-window-maximum/)
 - **Difficulty**: Hard
@@ -36,6 +36,12 @@ Scan window of size $k$ in $\mathcal{O}(N \times k)$ time.
 // O(N*k) brute loop
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N*k) brute loop
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times k)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -50,6 +56,12 @@ Max-Heap / Multiset in O(N log k) time.
 
 ### C++17 Code
 ```cpp
+// multiset approach O(N log k)
+```
+
+### Java Code
+```java
+// Java equivalent
 // multiset approach O(N log k)
 ```
 
@@ -96,6 +108,43 @@ public:
             // 4. If window size has reached k, record maximum
             if (i >= k - 1) {
                 result.push_back(nums[dq.front()]);
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        deque<int> dq; // stores indices in monotonic decreasing order of nums[i]
+        List<Integer> result = new ArrayList<>();
+        result.reserve(n - k + 1);
+        
+        for (int i = 0; i < n; i++) {
+            // 1. Remove indices that are out of the current window [i - k + 1, i]
+            if (!dq.isEmpty() && dq.peek() <= i - k) {
+                dq.pop_front();
+            }
+            
+            // 2. Remove elements smaller than current element from back
+            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
+                dq.remove();
+            }
+            
+            // 3. Add current index
+            dq.add(i);
+            
+            // 4. If window size has reached k, record maximum
+            if (i >= k - 1) {
+                result.add(nums[dq.peek()]);
             }
         }
         

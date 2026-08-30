@@ -1,6 +1,6 @@
 # Combination Sum I (Unlimited Reuse) (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Combination Sum I (Unlimited Reuse)](https://takeuforward.org/data-structure/combination-sum-1/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generating all combinations up to max depth with set filtering.
 
 ### C++17 Code
 ```cpp
+// Unbounded permutation with set
+```
+
+### Java Code
+```java
+// Java equivalent
 // Unbounded permutation with set
 ```
 
@@ -84,6 +90,40 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> ans;
         vector<int> ds;
+        findCombinations(0, target, candidates, ds, ans);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void findCombinations(int ind, int target, int[] arr, int[] ds, int[][] ans) {
+        if (ind == arr.length) {
+            if (target == 0) {
+                ans.add(ds);
+            }
+            return;
+        }
+        
+        // Choice 1: Pick the element (can pick again, so ind stays the same)
+        if (arr[ind] <= target) {
+            ds.add(arr[ind]);
+            findCombinations(ind, target - arr[ind], arr, ds, ans);
+            ds.remove(); // backtrack
+        }
+        
+        // Choice 2: Do not pick the element (move to next index)
+        findCombinations(ind + 1, target, arr, ds, ans);
+    }
+
+    int[][] combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
         findCombinations(0, target, candidates, ds, ans);
         return ans;
     }

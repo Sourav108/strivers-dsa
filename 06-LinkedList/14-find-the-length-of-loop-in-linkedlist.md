@@ -1,6 +1,6 @@
 # Find the Length of Loop in LinkedList (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Length of Loop in LinkedList](https://takeuforward.org/data-structure/find-length-of-loop-in-linked-list/)
 - **Difficulty**: Easy
@@ -49,6 +49,22 @@ int countNodesinLoopHash(Node* head) {
 }
 ```
 
+### Java Code
+```java
+static class Node { int data; Node  next; };
+int countNodesinLoopHash(Node  head) {
+    unordered_map<Node , int> timer;
+    Node  curr = head;
+    int t = 1;
+    while (curr) {
+        if (timer.contains(curr)) return t - timer[curr];
+        timer[curr] = t++;
+        curr = curr.next;
+    }
+    return 0;
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ hash map space.
@@ -90,6 +106,38 @@ int countNodesinLoop(Node *head) {
             while (temp != slow) {
                 length++;
                 temp = temp->next;
+            }
+            return length;
+        }
+    }
+    
+    return 0; // No loop
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+int countNodesinLoop(Node head) {
+    Node  slow = head;
+    Node  fast = head;
+    
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        
+        if (slow == fast) {
+            // Count loop length
+            int length = 1;
+            Node  temp = slow.next;
+            while (temp != slow) {
+                length++;
+                temp = temp.next;
             }
             return length;
         }

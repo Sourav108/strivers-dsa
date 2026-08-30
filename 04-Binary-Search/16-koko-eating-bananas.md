@@ -1,6 +1,6 @@
 # Koko Eating Bananas (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | [TakeUForward](https://takeuforward.org/binary-search/koko-eating-bananas/)
 - **Difficulty**: Medium
@@ -71,6 +71,26 @@ int minEatingSpeedLinear(const vector<int>& piles, int h) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int minEatingSpeedLinear(int[] piles, int h) {
+        int maxVal = max_element(piles.begin(), piles.end());
+        
+        for (int k = 1; k <= maxVal; k++) {
+            long totalHours = 0;
+            for (int pile : piles) {
+                totalHours += (pile + k - 1) / k; // integer ceiling division
+            }
+            if (totalHours <= h) {
+                return k;
+            }
+        }
+        return maxVal;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\max(\text{piles}) \times n)$ — in the worst case where $\max(\text{piles}) = 10^9$ and $n = 10^4$, this takes $10^{13}$ operations, triggering Time Limit Exceeded.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -109,6 +129,32 @@ int minEatingSpeedBetter(const vector<int>& piles, int h) {
         }
     }
     return maxVal;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int minEatingSpeedBetter(int[] piles, int h) {
+        long totalBananas = 0;
+        int maxVal = 0;
+        for (int p : piles) {
+            totalBananas += p;
+            maxVal = Math.max(maxVal, p);
+        }
+        
+        int startK = Math.max(1LL, totalBananas / h);
+        for (int k = startK; k <= maxVal; k++) {
+            long totalHours = 0;
+            for (int pile : piles) {
+                totalHours += (pile + k - 1) / k;
+            }
+            if (totalHours <= h) {
+                return k;
+            }
+        }
+        return maxVal;
+    }
 }
 ```
 
@@ -163,6 +209,40 @@ int minEatingSpeed(const vector<int>& piles, int h) {
     }
     
     return ans;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    long calculateTotalHours(int[] piles, int speed) {
+        long totalHours = 0;
+        for (int pile : piles) {
+            // Safe integer ceiling division: ceil(pile / speed) = (pile + speed - 1) / speed
+            totalHours += ((long)pile + speed - 1) / speed;
+        }
+        return totalHours;
+    }
+    
+    int minEatingSpeed(int[] piles, int h) {
+        int low = 1;
+        int high = max_element(piles.begin(), piles.end());
+        int ans = high;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            long totalHours = calculateTotalHours(piles, mid);
+            
+            if (totalHours <= h) {
+                ans = mid;        // valid speed, try to minimize further
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // too slow, increase speed
+            }
+        }
+        
+        return ans;
+    }
 }
 ```
 

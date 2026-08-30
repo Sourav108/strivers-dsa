@@ -1,6 +1,6 @@
 # Implement Trie (Prefix Tree) I (Insert, Search, StartsWith) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Trie (Prefix Tree) I (Insert, Search, StartsWith)](https://takeuforward.org/data-structure/implement-trie-1/)
 - **Difficulty**: Medium
@@ -66,6 +66,30 @@ public:
 };
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class TrieNaive {
+    Set<String> dict = new HashSet<>();
+    List<String> words = new ArrayList<>();
+
+    void insert(String word) {
+        dict.add(word);
+        words.add(word);
+    }
+    boolean search(String word) {
+        return dict.find(word) != dict.end();
+    }
+    boolean startsWith(String prefix) {
+        for (String w : words) {
+            if (w.rfind(prefix, 0) == 0) return true; // O(N * L) prefix scanning
+        }
+        return false;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: `insert`: $\mathcal{O}(L)$, `search`: $\mathcal{O}(L)$ average, `startsWith`: $\mathcal{O}(N \times L)$ worst-case time.
 - **Space Complexity**: $\mathcal{O}(N \times L)$ space.
@@ -114,6 +138,46 @@ public:
         for (char c : prefix) {
             if (!curr->children.count(c)) return false;
             curr = curr->children[c];
+        }
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class MapNode {
+    unordered_map<char, MapNode*> children;
+    boolean isEnd = false;
+};
+
+class TrieMap {
+    MapNode* root;
+
+    TrieMap() { root = new MapNode(); }
+    void insert(String word) {
+        MapNode* curr = root;
+        for (char c : word) {
+            if (!curr.children.contains(c)) curr.children[c] = new MapNode();
+            curr = curr.children[c];
+        }
+        curr.isEnd = true;
+    }
+    boolean search(String word) {
+        MapNode* curr = root;
+        for (char c : word) {
+            if (!curr.children.contains(c)) return false;
+            curr = curr.children[c];
+        }
+        return curr.isEnd;
+    }
+    boolean startsWith(String prefix) {
+        MapNode* curr = root;
+        for (char c : prefix) {
+            if (!curr.children.contains(c)) return false;
+            curr = curr.children[c];
         }
         return true;
     }
@@ -211,6 +275,86 @@ public:
                 return false;
             }
             node = node->get(ch);
+        }
+        return true; // Reaching here means entire prefix was matched
+    }
+};
+```
+
+### Java Code
+```java
+// Trie Node Definition
+static class Node {
+    Node  links[26];
+    boolean flag = false;
+    
+    // Check if character 'ch' is present as a child
+    boolean containsKey(char ch) {
+        return links[ch - 'a'] != null;
+    }
+    
+    // Put character 'ch' link
+    void put(char ch, Node  node) {
+        links[ch - 'a'] = node;
+    }
+    
+    // Get child node for character 'ch'
+    Node  get(char ch) {
+        return links[ch - 'a'];
+    }
+    
+    // Mark the end of a word
+    void setEnd() {
+        flag = true;
+    }
+    
+    // Check if node is the end of a word
+    boolean isEnd() {
+        return flag;
+    }
+};
+
+class Trie {
+
+    Node  root;
+
+    // Initialize Trie
+    Trie() {
+        root = new Node();
+    }
+    
+    // Inserts a word into the trie in O(L) time
+    void insert(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                node.put(ch, new Node());
+            }
+            node = node.get(ch);
+        }
+        node.setEnd();
+    }
+    
+    // Returns true if word is in the trie in O(L) time
+    boolean search(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                return false;
+            }
+            node = node.get(ch);
+        }
+        return node.isEnd();
+    }
+    
+    // Returns true if there is any word in trie starting with prefix in O(L) time
+    boolean startsWith(String prefix) {
+        Node  node = root;
+        for (char ch : prefix) {
+            if (!node.containsKey(ch)) {
+                return false;
+            }
+            node = node.get(ch);
         }
         return true; // Reaching here means entire prefix was matched
     }

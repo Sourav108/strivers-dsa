@@ -1,6 +1,6 @@
 # Introduction to Doubly LinkedList & Structure (Step 6.2 — Learn Doubly LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to Doubly LinkedList & Structure](https://takeuforward.org/data-structure/introduction-to-doubly-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Singly linked list without back-pointers.
 
 ### C++17 Code
 ```cpp
+// SLL lacking prev pointers
+```
+
+### Java Code
+```java
+// Java equivalent
 // SLL lacking prev pointers
 ```
 
@@ -105,6 +111,60 @@ void printForwardAndBackward(Node* head) {
 int main() {
     vector<int> arr = {1, 2, 3, 4};
     Node* head = constructDLL(arr);
+    printForwardAndBackward(head);
+    return 0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+    public Node(int val, Node  nextN, Node  prevN) { /* initialized: data(val), next(nextN), prev(prevN)  */  }
+};
+
+// Convert array to Doubly Linked List
+Node  constructDLL(int[] arr) {
+    if (arr.isEmpty()) return null;
+    
+    Node  head = new Node(arr[0]);
+    Node  prevNode = head;
+    
+    for (int i = 1; i < arr.length; i++) {
+        Node  temp = new Node(arr[i], null, prevNode);
+        prevNode.next = temp;
+        prevNode = temp;
+    }
+    
+    return head;
+}
+
+void printForwardAndBackward(Node  head) {
+    Node  curr = head;
+    Node  tail = null;
+    System.out.print("Forward: ");
+    while (curr) {
+        System.out.print(curr.data << " <. ");
+        tail = curr;
+        curr = curr.next;
+    }
+    System.out.print("null\nBackward: ");
+    while (tail) {
+        System.out.print(tail.data << " <. ");
+        tail = tail.prev;
+    }
+    System.out.print("null\n");
+}
+
+int main() {
+    int[] arr = {1, 2, 3, 4};
+    Node  head = constructDLL(arr);
     printForwardAndBackward(head);
     return 0;
 }

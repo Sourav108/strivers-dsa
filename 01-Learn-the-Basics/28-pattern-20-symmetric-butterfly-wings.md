@@ -1,6 +1,6 @@
 # Pattern-20: Symmetric Butterfly Wings (Step 1.2 — Build-up Logical Thinking (Patterns))
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Pattern-20: Symmetric Butterfly Wings](https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-must-do-questions)
 - **Difficulty**: Easy
@@ -47,6 +47,24 @@ void pattern20(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void pattern20(int n) {
+        int spaces = 2 * n - 2;
+        for (int i = 1; i <= 2 * n - 1; i++) {
+            int stars = (i <= n) ? i : (2 * n - i);
+            for (int j = 1; j <= stars; j++) System.out.print("*");
+            for (int j = 1; j <= spaces; j++) System.out.print(" ");
+            for (int j = 1; j <= stars; j++) System.out.print("*");
+            System.out.print("\n");
+            if (i < n) spaces -= 2;
+            else spaces += 2;
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ — prints $N \times N$ grid cells.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -88,6 +106,30 @@ int main() {
     int n = 4;
     pattern20(n);
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void pattern20(int n) {
+        int spaces = 2 * n - 2;
+        for (int i = 1; i <= 2 * n - 1; i++) {
+            int stars = (i <= n) ? i : (2 * n - i);
+            for (int j = 1; j <= stars; j++) System.out.print("*");
+            for (int j = 1; j <= spaces; j++) System.out.print(" ");
+            for (int j = 1; j <= stars; j++) System.out.print("*");
+            System.out.print("\n");
+            if (i < n) spaces -= 2;
+            else spaces += 2;
+        }
+    }
+    
+    int main() {
+        int n = 4;
+        pattern20(n);
+        return 0;
+    }
 }
 ```
 

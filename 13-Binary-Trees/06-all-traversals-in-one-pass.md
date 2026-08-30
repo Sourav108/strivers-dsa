@@ -1,6 +1,6 @@
 # All Traversals in One Pass (Pre, In, Post with Stack) (Step 13.1 — Traversals)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [All Traversals in One Pass (Pre, In, Post with Stack)](https://takeuforward.org/data-structure/preorder-inorder-postorder-in-a-single-traversal/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Three independent recursive passes for preorder, inorder, and postorder.
 
 ### C++17 Code
 ```cpp
+// Three separate recursive passes taking 3 passes over the tree
+```
+
+### Java Code
+```java
+// Java equivalent
 // Three separate recursive passes taking 3 passes over the tree
 ```
 
@@ -97,6 +103,56 @@ public:
             } else {
                 // Milestone 3: Postorder (Right finished, finishing Root)
                 post.push_back(node->val);
+                st.pop();
+            }
+        }
+        
+        return {pre, in, post};
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[][] preInPostTraversal(TreeNode  root) {
+        int[] pre, in, post;
+        if (root == null) return {pre, in, post};
+        
+        // Stack stores pair of: {TreeNode , state (1, 2, or 3)}
+        stack<pair<TreeNode , int>> st;
+        st.push({root, 1});
+        
+        while (!st.isEmpty()) {
+            var [node, state] = st.peek();
+            
+            if (state == 1) {
+                // Milestone 1: Preorder (Root)
+                pre.add(node.val);
+                state = 2;
+                if (node.left != null) {
+                    st.push({node.left, 1});
+                }
+            } else if (state == 2) {
+                // Milestone 2: Inorder (Left finished, visiting Root)
+                in.add(node.val);
+                state = 3;
+                if (node.right != null) {
+                    st.push({node.right, 1});
+                }
+            } else {
+                // Milestone 3: Postorder (Right finished, finishing Root)
+                post.add(node.val);
                 st.pop();
             }
         }

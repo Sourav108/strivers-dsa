@@ -1,6 +1,6 @@
 # Job Sequencing Problem (Max Profit with Deadlines) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Job Sequencing Problem (Max Profit with Deadlines)](https://takeuforward.org/data-structure/job-sequencing-problem/)
 - **Difficulty**: Medium
@@ -42,6 +42,24 @@ vector<int> JobSchedulingLinear(Job arr[], int n) {
     int maxDead = 0;
     for (int i = 0; i < n; i++) maxDead = max(maxDead, arr[i].dead);
     vector<int> slot(maxDead + 1, -1);
+    int count = 0, totalProfit = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = arr[i].dead; j > 0; j--) {
+            if (slot[j] == -1) { slot[j] = arr[i].id; count++; totalProfit += arr[i].profit; break; }
+        }
+    }
+    return {count, totalProfit};
+}
+```
+
+### Java Code
+```java
+static class Job { int id, dead, profit; };
+int[] JobSchedulingLinear(Job arr[], int n) {
+    sort(arr, arr + n, [](Job a, Job b) { return a.profit > b.profit; });
+    int maxDead = 0;
+    for (int i = 0; i < n; i++) maxDead = Math.max(maxDead, arr[i].dead);
+    int[] slot = new int[maxDead + 1];
     int count = 0, totalProfit = 0;
     for (int i = 0; i < n; i++) {
         for (int j = arr[i].dead; j > 0; j--) {
@@ -110,6 +128,63 @@ public:
         int maxDeadline = 0;
         for (int i = 0; i < n; i++) {
             maxDeadline = max(maxDeadline, arr[i].dead);
+        }
+        
+        DSU dsu(maxDeadline);
+        int jobCount = 0, maxProfit = 0;
+        
+        for (int i = 0; i < n; i++) {
+            // Find latest available slot <= deadline
+            int availableSlot = dsu.find(arr[i].dead);
+            
+            if (availableSlot > 0) {
+                jobCount++;
+                maxProfit += arr[i].profit;
+                // Mark slot occupied by pointing to next available slot (availableSlot - 1)
+                dsu.unite(availableSlot, dsu.find(availableSlot - 1));
+            }
+        }
+        
+        return {jobCount, maxProfit};
+    }
+};
+```
+
+### Java Code
+```java
+static class Job { 
+    int id;
+    int dead;
+    int profit;
+};
+
+class DSU {
+
+    int[] parent;
+    public DSU(int n) { /* initialized: parent(n + 1)  */ 
+        iota(parent.begin(), parent.end(), 0);
+     }
+    
+    int find(int i) {
+        if (parent[i] == i) return i;
+        return parent[i] = find(parent[i]); // path compression
+    }
+    
+    void unite(int u, int v) {
+        parent[u] = v; // point occupied slot u to available slot v
+    }
+};
+
+class Solution {
+
+    int[] JobScheduling(Job arr[], int n) {
+        sort(arr, arr + n, [](Job a, Job b) {
+            return a.profit > b.profit; // sort descending profit
+        });
+        
+        int maxDeadline = 0;
+        for (int i = 0; i < n; i++) {
+            maxDeadline = Math.max(maxDeadline, arr[i].dead);
         }
         
         DSU dsu(maxDeadline);

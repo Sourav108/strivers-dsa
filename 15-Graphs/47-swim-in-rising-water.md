@@ -1,6 +1,6 @@
 # Swim in Rising Water (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Swim in Rising Water](https://takeuforward.org/data-structure/swim-in-rising-water/)
 - **Difficulty**: Hard
@@ -40,6 +40,12 @@ DFS backtracking with all simple paths in $\mathcal{O}(4^{N^2})$ time.
 
 ### C++17 Code
 ```cpp
+// O(4^(N^2)) naive DFS
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(4^(N^2)) naive DFS
 ```
 
@@ -83,6 +89,45 @@ class SolutionBinarySearch {
 public:
     int swimInWater(vector<vector<int>>& grid) {
         int n = grid.size();
+        int low = grid[0][0], high = n * n - 1, ans = high;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (canReach(mid, grid, n)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionBinarySearch {
+    boolean canReach(int t, int[][] grid, int n) {
+        if (grid[0][0] > t) return false;
+        int[][] vis = new int[n][n];
+        queue<pair<int, int>> q;
+        q.push({0, 0}); vis[0][0] = 1;
+        int dr[] = {-1, 0, 1, 0}, dc[] = {0, 1, 0, -1};
+        while (!q.isEmpty()) {
+            var [r, c] = q.peek(); q.pop();
+            if (r == n - 1 && c == n - 1) return true;
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dr[i], nc = c + dc[i];
+                if (nr >= 0 && nr < n && nc >= 0 && nc < n && !vis[nr][nc] && grid[nr][nc] <= t) {
+                    vis[nr][nc] = 1; q.push({nr, nc});
+                }
+            }
+        }
+        return false;
+    }
+
+    int swimInWater(int[][] grid) {
+        int n = grid.length;
         int low = grid[0][0], high = n * n - 1, ans = high;
         while (low <= high) {
             int mid = low + (high - low) / 2;
@@ -157,6 +202,62 @@ public:
                 if (nr >= 0 && nr < n && nc >= 0 && nc < n) {
                     // Bottleneck elevation is maximum along the path
                     int nextTime = max(time, grid[nr][nc]);
+                    
+                    if (nextTime < dist[nr][nc]) {
+                        dist[nr][nc] = nextTime;
+                        pq.push({nextTime, {nr, nc}});
+                    }
+                }
+            }
+        }
+        
+        return 0;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int swimInWater(int[][] grid) {
+        int n = grid.length;
+        
+        // Min-heap stores {time, {row, col}}
+        priority_queue<pair<int, pair<int, int>>,
+                       vector<pair<int, pair<int, int>>>,
+                       greater<pair<int, pair<int, int>>>> pq;
+        
+        int[][] dist = new int[n][n];
+        
+        dist[0][0] = grid[0][0];
+        pq.push({grid[0][0], {0, 0}});
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        while (!pq.isEmpty()) {
+            var top = pq.peek();
+            pq.pop();
+            
+            int time = top.first;
+            int r = top.second.first;
+            int c = top.second.second;
+            
+            // Early exit: First extraction of destination is guaranteed optimal
+            if (r == n - 1 && c == n - 1) {
+                return time;
+            }
+            
+            if (time > dist[r][c]) continue;
+            
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dRow[i];
+                int nc = c + dCol[i];
+                
+                if (nr >= 0 && nr < n && nc >= 0 && nc < n) {
+                    // Bottleneck elevation is maximum along the path
+                    int nextTime = Math.max(time, grid[nr][nc]);
                     
                     if (nextTime < dist[nr][nc]) {
                         dist[nr][nc] = nextTime;

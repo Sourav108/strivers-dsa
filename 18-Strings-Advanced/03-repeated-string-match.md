@@ -1,6 +1,6 @@
 # Repeated String Match (Rabin-Karp Rolling Hash) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Repeated String Match (Rabin-Karp Rolling Hash)](https://takeuforward.org/strings/repeated-string-match/)
 - **Difficulty**: Medium
@@ -10,7 +10,8 @@ This is a complete, interview-ready note in C++ following the standard 9-section
 
 ## 1. Problem, Restated
 
-Find the minimum integer $k$ such that $b$ is a substring of $a^k$ using Upper Bound Repetition ($\lceil |b|/|a| ceil + 2$) + Rabin-Karp Rolling Hash in $\mathcal{O}(N + M)$ time and $\mathcal{O}(N + M)$ space.
+Find the minimum integer $k$ such that $b$ is a substring of $a^k$ using Upper Bound Repetition ($\lceil |b|/|a| 
+ceil + 2$) + Rabin-Karp Rolling Hash in $\mathcal{O}(N + M)$ time and $\mathcal{O}(N + M)$ space.
 
 - **Input**: Strings `a` and `b`.
 - **Output**: Minimum repetitions integer or -1.
@@ -64,6 +65,26 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    int repeatedStringMatch(String a, String b) {
+        String s = a;
+        int count = 1;
+        while (s.length < b.length) {
+            s += a;
+            count++;
+        }
+        if (s.find(b) != String::npos) return count;
+        s += a;
+        count++;
+        if (s.find(b) != String::npos) return count;
+        return -1;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((N + M) \times M)$ worst-case time using naive substring search.
 - **Space Complexity**: $\mathcal{O}(N + M)$ string space.
@@ -106,6 +127,40 @@ public:
         string s = "";
         int count = 0;
         while (s.size() < b.size()) { s += a; count++; }
+        if (kmpSearch(s, b)) return count;
+        s += a; count++;
+        if (kmpSearch(s, b)) return count;
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionKMP {
+    boolean kmpSearch(String text, String pat) {
+        int n = text.length, m = pat.length;
+        int[] lps = new int[m];
+        for (int i = 1, len = 0; i < m; ) {
+            if (pat[i] == pat[len]) lps[i++] = ++len;
+            else if (len) len = lps[len - 1];
+            else lps[i++] = 0;
+        }
+        for (int i = 0, j = 0; i < n; ) {
+            if (text[i] == pat[j]) { i++; j++; }
+            if (j == m) return true;
+            else if (i < n && text[i] != pat[j]) {
+                if (j) j = lps[j - 1];
+                else i++;
+            }
+        }
+        return false;
+    }
+
+    int repeatedStringMatch(String a, String b) {
+        String s = "";
+        int count = 0;
+        while (s.length < b.length) { s += a; count++; }
         if (kmpSearch(s, b)) return count;
         s += a; count++;
         if (kmpSearch(s, b)) return count;
@@ -183,6 +238,80 @@ public:
         
         // Step 1: Repeat string a until its length is at least length of b
         while (s.size() < b.size()) {
+            s += a;
+            count++;
+        }
+        
+        // Step 2: Check if b is a substring of s
+        if (rabinKarp(s, b)) {
+            return count;
+        }
+        
+        // Step 3: Append one more copy of a to cover boundary wrap-around
+        s += a;
+        count++;
+        if (rabinKarp(s, b)) {
+            return count;
+        }
+        
+        // Impossible for b to be a substring of any repetition of a
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    long BASE = 31;
+    long MOD = 1e9 + 7;
+    
+    // Rabin-Karp Rolling Hash Substring Search in O(text.length + pat.length)
+    boolean rabinKarp(String text, String pat) {
+        int n = text.length;
+        int m = pat.length;
+        if (n < m) return false;
+        
+        long patHash = 0;
+        long textHash = 0;
+        long power = 1;
+        
+        // Compute base^(m - 1) % MOD and initial window hash
+        for (int i = 0; i < m; i++) {
+            patHash = (patHash * BASE + (pat[i] - 'a' + 1)) % MOD;
+            textHash = (textHash * BASE + (text[i] - 'a' + 1)) % MOD;
+            if (i < m - 1) {
+                power = (power * BASE) % MOD;
+            }
+        }
+        
+        // Slide the window across text
+        for (int i = 0; i <= n - m; i++) {
+            if (patHash == textHash) {
+                // Confirm actual substring match to prevent hash collisions
+                if (text.substring(i, i + m) == pat) {
+                    return true;
+                }
+            }
+            
+            // Roll hash to next position: remove leading char, add trailing char
+            if (i < n - m) {
+                textHash = (textHash - (text[i] - 'a' + 1) * power) % MOD;
+                if (textHash < 0) textHash += MOD;
+                textHash = (textHash * BASE + (text[i + m] - 'a' + 1)) % MOD;
+            }
+        }
+        
+        return false;
+    }
+
+    int repeatedStringMatch(String a, String b) {
+        String s = "";
+        int count = 0;
+        
+        // Step 1: Repeat String a until its length is at least length of b
+        while (s.length < b.length) {
             s += a;
             count++;
         }

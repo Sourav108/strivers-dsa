@@ -1,6 +1,6 @@
 # Implement Queue using LinkedList (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Queue using LinkedList](https://takeuforward.org/data-structure/implement-queue-using-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ SLL with single head pointer traversing to tail on push in $\mathcal{O}(N)$ time
 
 ### C++17 Code
 ```cpp
+// Single head SLL queue O(N) push
+```
+
+### Java Code
+```java
+// Java equivalent
 // Single head SLL queue O(N) push
 ```
 
@@ -112,6 +118,69 @@ public:
     
     bool isEmpty() {
         return frontNode == nullptr;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class LinkedListQueue {
+
+    Node  frontNode;
+    Node  rearNode;
+    int currentSize;
+
+    public LinkedListQueue() { /* initialized: frontNode(null), rearNode(null), currentSize(0)  */  }
+    
+    ~LinkedListQueue() {
+        while (frontNode != null) {
+            Node  temp = frontNode;
+            frontNode = frontNode.next;
+            delete temp;
+        }
+    }
+    
+    void push(int x) {
+        Node  newNode = new Node(x);
+        if (isEmpty()) {
+            frontNode = rearNode = newNode;
+        } else {
+            rearNode.next = newNode;
+            rearNode = newNode;
+        }
+        currentSize++;
+    }
+    
+    int pop() {
+        if (isEmpty()) return -1;
+        Node  temp = frontNode;
+        int val = temp.data;
+        frontNode = frontNode.next;
+        if (frontNode == null) rearNode = null; // queue became empty
+        delete temp;
+        currentSize--;
+        return val;
+    }
+    
+    int peek() {
+        if (isEmpty()) return -1;
+        return frontNode.data;
+    }
+    
+    int size() {
+        return currentSize;
+    }
+    
+    boolean isEmpty() {
+        return frontNode == null;
     }
 };
 ```

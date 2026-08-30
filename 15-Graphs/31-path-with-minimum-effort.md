@@ -1,6 +1,6 @@
 # Path with Minimum Effort (Dijkstra on 2D Matrix) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Path with Minimum Effort (Dijkstra on 2D Matrix)](https://takeuforward.org/data-structure/g-37-path-with-minimum-effort/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS backtracking all simple paths in $\mathcal{O}(4^{R \times C})$ exponential t
 
 ### C++17 Code
 ```cpp
+// O(4^(R*C)) DFS backtracking
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(4^(R*C)) DFS backtracking
 ```
 
@@ -80,6 +86,48 @@ class SolutionBinarySearch {
     }
 public:
     int minimumEffortPath(vector<vector<int>>& heights) {
+        int low = 0, high = 1e6, ans = 1e6;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (canReach(mid, heights)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionBinarySearch {
+    boolean canReach(int mid, int[][] heights) {
+        int r = heights.length, c = heights[0].size();
+        int[][] vis = new int[r][c];
+        queue<pair<int, int>> q;
+        q.push({0, 0});
+        vis[0][0] = 1;
+        int dRow[] = {-1, 0, 1, 0}, dCol[] = {0, 1, 0, -1};
+        while (!q.isEmpty()) {
+            var [cr, cc] = q.peek(); q.pop();
+            if (cr == r - 1 && cc == c - 1) return true;
+            for (int d = 0; d < 4; d++) {
+                int nr = cr + dRow[d], nc = cc + dCol[d];
+                if (nr >= 0 && nr < r && nc >= 0 && nc < c && !vis[nr][nc]) {
+                    if (Math.abs(heights[nr][nc] - heights[cr][cc]) <= mid) {
+                        vis[nr][nc] = 1;
+                        q.push({nr, nc});
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    int minimumEffortPath(int[][] heights) {
         int low = 0, high = 1e6, ans = 1e6;
         while (low <= high) {
             int mid = low + (high - low) / 2;
@@ -155,6 +203,62 @@ public:
                 if (nr >= 0 && nr < n && nc >= 0 && nc < m) {
                     // Maximum height jump along the path to (nr, nc)
                     int newEffort = max(diff, abs(heights[nr][nc] - heights[r][c]));
+                    
+                    if (newEffort < dist[nr][nc]) {
+                        dist[nr][nc] = newEffort;
+                        pq.push({newEffort, {nr, nc}});
+                    }
+                }
+            }
+        }
+        
+        return 0; // Fallback for 1x1 matrix
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minimumEffortPath(int[][] heights) {
+        int n = heights.length;
+        int m = heights[0].size();
+        
+        // Min-heap stores {effort, {row, col}}
+        priority_queue<pair<int, pair<int, int>>,
+                       vector<pair<int, pair<int, int>>>,
+                       greater<pair<int, pair<int, int>>>> pq;
+        
+        int[][] dist = new int[n][m];
+        dist[0][0] = 0;
+        pq.push({0, {0, 0}});
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        while (!pq.isEmpty()) {
+            var top = pq.peek();
+            pq.pop();
+            
+            int diff = top.first;
+            int r = top.second.first;
+            int c = top.second.second;
+            
+            // Early exit: First time bottom-right cell is popped . guaranteed minimum effort!
+            if (r == n - 1 && c == m - 1) {
+                return diff;
+            }
+            
+            if (diff > dist[r][c]) continue;
+            
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dRow[i];
+                int nc = c + dCol[i];
+                
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m) {
+                    // Maximum height jump along the path to (nr, nc)
+                    int newEffort = Math.max(diff, Math.abs(heights[nr][nc] - heights[r][c]));
                     
                     if (newEffort < dist[nr][nc]) {
                         dist[nr][nc] = newEffort;

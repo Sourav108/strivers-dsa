@@ -1,6 +1,6 @@
 # Print 1 to N without Loop (Recursion & Backtracking) (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print 1 to N without Loop (Recursion & Backtracking)](https://takeuforward.org/recursion/print-1-to-n-using-recursion/)
 - **Difficulty**: Easy
@@ -40,6 +40,15 @@ void printLoop(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void printLoop(int n) {
+        for (int i = 1; i <= n; i++) System.out.print(i << " ");
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -60,6 +69,17 @@ void printForward(int i, int n) {
     if (i > n) return;
     cout << i << " ";
     printForward(i + 1, n);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void printForward(int i, int n) {
+        if (i > n) return;
+        System.out.print(i << " ");
+        printForward(i + 1, n);
+    }
 }
 ```
 
@@ -91,6 +111,23 @@ public:
         
         // Backtracking print step
         cout << N << " ";
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void printNos(int N) {
+        // Base Case
+        if (N == 0) return;
+        
+        // Recursive call first (delays printing until all smaller numbers print)
+        printNos(N - 1);
+        
+        // Backtracking print step
+        System.out.print(N << " ");
     }
 };
 ```

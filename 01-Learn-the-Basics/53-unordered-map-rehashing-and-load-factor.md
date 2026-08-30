@@ -1,6 +1,6 @@
 # Unordered Map Rehashing & Load Factor Mechanics (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Unordered Map Rehashing & Load Factor Mechanics](https://takeuforward.org/c/unordered-map-rehashing/)
 - **Difficulty**: Easy
@@ -38,6 +38,18 @@ using namespace std;
 void insertWithoutReserve(int n) {
     unordered_map<int, int> mp;
     for (int i = 0; i < n; i++) mp[i] = i; // Multiple rehash delays!
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    void insertWithoutReserve(int n) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int i = 0; i < n; i++) mp[i] = i; // Multiple rehash delays!
+    }
 }
 ```
 
@@ -81,6 +93,31 @@ int main() {
     
     cout << "Current load factor: " << mp.load_factor() << "\n";
     return 0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int main() {
+        Map<Integer, Integer> mp = new HashMap<>();
+        
+        System.out.print("Initial bucket count: " << mp.bucket_count() << "\n");
+        System.out.print("Max load factor: " << mp.max_load_factor() << "\n");
+        
+        // Reserve upfront for 100,000 elements (Zero rehashing during inserts)
+        mp.reserve(100000);
+        System.out.print("Bucket count after public reserve(100k) { /* initialized: " << mp.bucket_count() << "\n");
+        
+        for (int i = 0; i < 100000; i++)  */ 
+            mp[i] = i * 2;
+         }
+        
+        System.out.print("Current load factor: " << mp.load_factor() << "\n");
+        return 0;
+    }
 }
 ```
 

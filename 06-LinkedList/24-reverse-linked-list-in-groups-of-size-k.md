@@ -1,6 +1,6 @@
 # Reverse Nodes in k-Group (Iterative pointer manipulation) (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse Nodes in k-Group (Iterative pointer manipulation)](https://takeuforward.org/data-structure/reverse-linked-list-in-groups-of-size-k/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Store in array, reverse chunks of $K$, recreate list.
 
 ### C++17 Code
 ```cpp
+// Array conversion
+```
+
+### Java Code
+```java
+// Java equivalent
 // Array conversion
 ```
 
@@ -105,6 +111,65 @@ public:
             reverseSublist(temp); // kthNode becomes new head of this chunk
             
             prevLast->next = kthNode;
+            prevLast = temp; // temp is now the tail of this reversed chunk
+            temp = nextGroup;
+        }
+        
+        return dummy.next;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  getKthNode(Node  curr, int k) {
+        k -= 1;
+        while (curr != null && k > 0) {
+            k--;
+            curr = curr.next;
+        }
+        return curr;
+    }
+    
+    Node  reverseSublist(Node  head) {
+        Node  prev = null;
+        Node  curr = head;
+        while (curr) {
+            Node  front = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = front;
+        }
+        return prev;
+    }
+
+    Node  reverseKGroup(Node  head, int k) {
+        Node dummy(0);
+        dummy.next = head;
+        Node  prevLast = &dummy;
+        Node  temp = head;
+        
+        while (temp != null) {
+            Node  kthNode = getKthNode(temp, k);
+            if (kthNode == null) {
+                prevLast.next = temp; // connect remaining unchanged nodes
+                break;
+            }
+            
+            Node  nextGroup = kthNode.next;
+            kthNode.next = null; // isolate k-sublist
+            
+            reverseSublist(temp); // kthNode becomes new head of this chunk
+            
+            prevLast.next = kthNode;
             prevLast = temp; // temp is now the tail of this reversed chunk
             temp = nextGroup;
         }

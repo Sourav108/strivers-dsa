@@ -1,6 +1,6 @@
 # Inorder Traversal of Binary Tree (Recursive & Iterative) (Step 13.1 — Traversals)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Inorder Traversal of Binary Tree (Recursive & Iterative)](https://takeuforward.org/data-structure/inorder-traversal-of-binary-tree/)
 - **Difficulty**: Easy
@@ -41,6 +41,17 @@ void inorderRec(TreeNode* root, vector<int>& ans) {
     inorderRec(root->left, ans);
     ans.push_back(root->val);
     inorderRec(root->right, ans);
+}
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+void inorderRec(TreeNode  root, int[] ans) {
+    if (root == null) return;
+    inorderRec(root.left, ans);
+    ans.add(root.val);
+    inorderRec(root.right, ans);
 }
 ```
 
@@ -96,6 +107,45 @@ public:
             
             // Move to the right subtree
             curr = curr->right;
+        }
+        
+        return inorder;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] inorderTraversal(TreeNode  root) {
+        List<Integer> inorder = new ArrayList<>();
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode  curr = root;
+        
+        while (curr != null || !st.isEmpty()) {
+            // Dive left as deep as possible
+            while (curr != null) {
+                st.push(curr);
+                curr = curr.left;
+            }
+            
+            // Pop the leftmost node
+            curr = st.peek();
+            st.pop();
+            inorder.add(curr.val);
+            
+            // Move to the right subtree
+            curr = curr.right;
         }
         
         return inorder;

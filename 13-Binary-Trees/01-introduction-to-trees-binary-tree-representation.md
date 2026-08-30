@@ -1,6 +1,6 @@
 # Introduction to Trees & Binary Tree Representation (Step 13.1 — Traversals)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to Trees & Binary Tree Representation](https://takeuforward.org/data-structure/binary-tree-representation-in-c/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Representing trees as 2D adjacency matrix taking $\mathcal{O}(N^2)$ memory.
 
 ### C++17 Code
 ```cpp
+// Adjacency matrix representation (wasteful O(N^2) memory)
+```
+
+### Java Code
+```java
+// Java equivalent
 // Adjacency matrix representation (wasteful O(N^2) memory)
 ```
 
@@ -81,6 +87,34 @@ public:
         root->left->right = new TreeNode(arr[4]);
         root->right->left = new TreeNode(arr[5]);
         root->right->right = new TreeNode(arr[6]);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode  left;
+    TreeNode  right;
+    
+    public TreeNode() { /* initialized: val(0), left(null), right(null)  */  }
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+    public TreeNode(int x, TreeNode  l, TreeNode  r) { /* initialized: val(x), left(l), right(r)  */  }
+};
+
+class Solution {
+
+    void createTree(TreeNode root, int[] arr) {
+        // Construct binary tree level-by-level from array
+        if (arr.isEmpty()) return;
+        root = new TreeNode(arr[0]);
+        root.left = new TreeNode(arr[1]);
+        root.right = new TreeNode(arr[2]);
+        root.left.left = new TreeNode(arr[3]);
+        root.left.right = new TreeNode(arr[4]);
+        root.right.left = new TreeNode(arr[5]);
+        root.right.right = new TreeNode(arr[6]);
     }
 };
 ```

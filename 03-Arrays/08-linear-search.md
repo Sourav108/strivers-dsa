@@ -1,6 +1,6 @@
 # Linear Search (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/linear-search-algorithm/
 - **Difficulty**: Easy
@@ -49,6 +49,18 @@ int searchBrute(const vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int searchBrute(int[] nums, int k) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == k) return i;
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(1)
@@ -81,6 +93,18 @@ int searchOptimal(const vector<int>& nums, int k) {
         if (nums[i] == k) return i;
     }
     return -1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int searchOptimal(int[] nums, int k) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == k) return i;
+        }
+        return -1;
+    }
 }
 ```
 

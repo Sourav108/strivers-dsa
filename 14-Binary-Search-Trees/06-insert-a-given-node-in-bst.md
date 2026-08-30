@@ -1,6 +1,6 @@
 # Insert a Given Node in BST (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Insert a Given Node in BST](https://takeuforward.org/data-structure/insert-a-given-node-in-binary-search-tree-bst/)
 - **Difficulty**: Medium
@@ -38,6 +38,18 @@ TreeNode* insertIntoBSTRec(TreeNode* root, int val) {
     if (val < root->val) root->left = insertIntoBSTRec(root->left, val);
     else root->right = insertIntoBSTRec(root->right, val);
     return root;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    TreeNode  insertIntoBSTRec(TreeNode  root, int val) {
+        if (root == null) return new TreeNode(val);
+        if (val < root.val) root.left = insertIntoBSTRec(root.left, val);
+        else root.right = insertIntoBSTRec(root.right, val);
+        return root;
+    }
 }
 ```
 
@@ -89,6 +101,46 @@ public:
                     curr = curr->right;
                 } else {
                     curr->right = new TreeNode(val);
+                    break;
+                }
+            }
+        }
+        
+        return root;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  insertIntoBST(TreeNode  root, int val) {
+        if (root == null) {
+            return new TreeNode(val);
+        }
+        
+        TreeNode  curr = root;
+        while (true) {
+            if (val < curr.val) {
+                if (curr.left != null) {
+                    curr = curr.left;
+                } else {
+                    curr.left = new TreeNode(val);
+                    break;
+                }
+            } else {
+                if (curr.right != null) {
+                    curr = curr.right;
+                } else {
+                    curr.right = new TreeNode(val);
                     break;
                 }
             }

@@ -1,6 +1,6 @@
 # Maximum Nesting Depth of the Parentheses (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum Nesting Depth of the Parentheses](https://takeuforward.org/strings/maximum-nesting-depth-of-the-parentheses/)
 - **Difficulty**: Easy
@@ -48,6 +48,23 @@ int maxDepthStack(string s) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int maxDepthStack(String s) {
+        int maxD = 0;
+        Stack<Character> st = new Stack<>();
+        for (char c : s) {
+            if (c == '(') { st.push(c); maxD = Math.max(maxD, st.length); }
+            else if (c == ')') st.pop();
+        }
+        return maxD;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack space.
@@ -82,6 +99,28 @@ public:
             if (c == '(') {
                 currentDepth++;
                 maxD = max(maxD, currentDepth);
+            } else if (c == ')') {
+                currentDepth--;
+            }
+        }
+        
+        return maxD;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxDepth(String s) {
+        int currentDepth = 0;
+        int maxD = 0;
+        
+        for (char c : s) {
+            if (c == '(') {
+                currentDepth++;
+                maxD = Math.max(maxD, currentDepth);
             } else if (c == ')') {
                 currentDepth--;
             }

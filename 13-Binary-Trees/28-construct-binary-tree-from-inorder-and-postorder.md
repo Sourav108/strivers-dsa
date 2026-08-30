@@ -1,6 +1,6 @@
 # Construct Binary Tree from Inorder and Postorder Traversal (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Construct Binary Tree from Inorder and Postorder Traversal](https://takeuforward.org/data-structure/construct-binary-tree-from-inorder-and-postorder-traversal/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Linear scan of inorder array in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) linear scan
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) linear scan
 ```
 
@@ -103,6 +109,56 @@ public:
         
         return build(postorder, 0, postorder.size() - 1,
                      inorder, 0, inorder.size() - 1, inMap);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  build(int[] postorder, int postStart, int postEnd,
+                    int[] inorder, int inStart, int inEnd,
+                    Map<Integer, Integer> inMap) {
+        if (postStart > postEnd || inStart > inEnd) {
+            return null;
+        }
+        
+        // Root is the last element in current postorder segment
+        int rootVal = postorder[postEnd];
+        TreeNode  root = new TreeNode(rootVal);
+        
+        // Position of root in inorder array
+        int inRoot = inMap[rootVal];
+        int numsLeft = inRoot - inStart; // count of nodes in left subtree
+        
+        // Build left and right subtrees recursively
+        root.left = build(postorder, postStart, postStart + numsLeft - 1,
+                           inorder, inStart, inRoot - 1, inMap);
+        
+        root.right = build(postorder, postStart + numsLeft, postEnd - 1,
+                            inorder, inRoot + 1, inEnd, inMap);
+        
+        return root;
+    }
+
+    TreeNode  buildTree(int[] inorder, int[] postorder) {
+        Map<Integer, Integer> inMap = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            inMap[inorder[i]] = i;
+        }
+        
+        return build(postorder, 0, postorder.length - 1,
+                     inorder, 0, inorder.length - 1, inMap);
     }
 };
 ```

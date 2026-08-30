@@ -1,6 +1,6 @@
 # Task Scheduler (Greedy Heap + Cool Down Queue) (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Task Scheduler (Greedy Heap + Cool Down Queue)](https://takeuforward.org/data-structure/task-scheduler/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Max-Heap + Cooldown Queue simulation in $\mathcal{O}(\text{time})$ steps.
 
 ### C++17 Code
 ```cpp
+// Simulation approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Simulation approach
 ```
 
@@ -80,6 +86,32 @@ public:
         
         int frameLength = (maxFreq - 1) * (n + 1) + maxCount;
         return max((int)tasks.size(), frameLength);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int leastInterval(char[] tasks, int n) {
+        int[] freq = new int[26];
+        int maxFreq = 0;
+        
+        for (char t : tasks) {
+            freq[t - 'A']++;
+            maxFreq = Math.max(maxFreq, freq[t - 'A']);
+        }
+        
+        int maxCount = 0;
+        for (int f : freq) {
+            if (f == maxFreq) {
+                maxCount++;
+            }
+        }
+        
+        int frameLength = (maxFreq - 1) * (n + 1) + maxCount;
+        return Math.max(tasks.length, frameLength);
     }
 };
 ```

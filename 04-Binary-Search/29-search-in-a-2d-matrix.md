@@ -1,6 +1,6 @@
 # Search in a 2D Matrix I (Strictly Sorted 1D Flattened) (Step 4.3 — BS on 2D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Search in a 2D Matrix I (Strictly Sorted 1D Flattened)](https://takeuforward.org/data-structure/search-in-a-sorted-2d-matrix/)
 - **Difficulty**: Medium
@@ -52,6 +52,20 @@ bool searchMatrixBrute(vector<vector<int>>& matrix, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean searchMatrixBrute(int[][] matrix, int target) {
+        for (var row : matrix) {
+            for (int val : row) {
+                if (val == target) return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(m \times n)$ — scans all cells.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -94,6 +108,34 @@ bool searchMatrixTwoBS(vector<vector<int>>& matrix, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean searchMatrixTwoBS(int[][] matrix, int target) {
+        int m = matrix.length, n = matrix[0].size();
+        
+        // Binary search to find row
+        int low = 0, high = m - 1, targetRow = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (matrix[mid][0] <= target && target <= matrix[mid][n - 1]) {
+                targetRow = mid;
+                break;
+            } else if (matrix[mid][0] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        
+        if (targetRow == -1) return false;
+        
+        // Binary search inside targetRow
+        return binary_search(matrix[targetRow].begin(), matrix[targetRow].end(), target);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log m + \log n)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -117,6 +159,43 @@ public:
         if (matrix.empty() || matrix[0].empty()) return false;
         
         int m = matrix.size();
+        int n = matrix[0].size();
+        
+        int low = 0;
+        int high = m * n - 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            // Map 1D index to 2D row and column coordinates
+            int row = mid / n;
+            int col = mid % n;
+            int val = matrix[row][col];
+            
+            if (val == target) {
+                return true;
+            } else if (val < target) {
+                low = mid + 1;  // search right
+            } else {
+                high = mid - 1; // search left
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.isEmpty() || matrix[0].isEmpty()) return false;
+        
+        int m = matrix.length;
         int n = matrix[0].size();
         
         int low = 0;

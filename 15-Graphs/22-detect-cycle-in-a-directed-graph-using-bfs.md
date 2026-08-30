@@ -1,6 +1,6 @@
 # Detect Cycle in a Directed Graph using BFS (Kahn's Algorithm) (Step 15.3 — Topological Sort and Kahn's Algorithm)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Detect Cycle in a Directed Graph using BFS (Kahn's Algorithm)](https://takeuforward.org/data-structure/detect-a-cycle-in-directed-graph-using-bfs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS cycle detection with recursion stack arrays in $\mathcal{O}(V + E)$ time.
 
 ### C++17 Code
 ```cpp
+// DFS 3-color cycle detection
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS 3-color cycle detection
 ```
 
@@ -98,6 +104,53 @@ public:
         
         // If topological sort includes all V vertices -> DAG (No cycle)
         // If count < V -> At least one directed cycle prevented in-degree from reaching 0
+        return (count != V);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean isCyclic(int V, int[][] adj) {
+        int[] inDegree = new int[V];
+        
+        // 1. Calculate in-degree for all vertices
+        for (int u = 0; u < V; u++) {
+            for (int v : adj[u]) {
+                inDegree[v]++;
+            }
+        }
+        
+        // 2. Enqueue all vertices with in-degree 0
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < V; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        int count = 0;
+        
+        // 3. Process BFS
+        while (!q.isEmpty()) {
+            int node = q.peek();
+            q.pop();
+            count++; // Track count of processed vertices
+            
+            for (int neighbor : adj[node]) {
+                inDegree[neighbor]--;
+                if (inDegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+        
+        // If topological sort includes all V vertices . DAG (No cycle)
+        // If count < V . At least one directed cycle prevented in-degree from reaching 0
         return (count != V);
     }
 };

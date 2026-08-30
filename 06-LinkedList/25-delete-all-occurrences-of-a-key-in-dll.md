@@ -1,6 +1,6 @@
 # Delete All Occurrences of a Key in DLL (Step 6.4 — Medium Problems of DLL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Delete All Occurrences of a Key in DLL](https://takeuforward.org/data-structure/delete-all-occurrences-of-a-key-in-dll/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Reconstruct DLL via filtered array.
 
 ### C++17 Code
 ```cpp
+// Filtered array copy
+```
+
+### Java Code
+```java
+// Java equivalent
 // Filtered array copy
 ```
 
@@ -85,6 +91,45 @@ public:
                 curr = nextNode;
             } else {
                 curr = curr->next;
+            }
+        }
+        
+        return head;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+};
+
+class Solution {
+
+    Node  deleteAllOccurrences(Node  head, int key) {
+        Node  curr = head;
+        
+        while (curr != null) {
+            if (curr.data == key) {
+                // If deleting head node
+                if (curr == head) {
+                    head = curr.next;
+                }
+                
+                Node  nextNode = curr.next;
+                Node  prevNode = curr.prev;
+                
+                if (nextNode) nextNode.prev = prevNode;
+                if (prevNode) prevNode.next = nextNode;
+                
+                delete curr;
+                curr = nextNode;
+            } else {
+                curr = curr.next;
             }
         }
         

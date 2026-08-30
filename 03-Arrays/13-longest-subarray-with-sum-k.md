@@ -1,6 +1,6 @@
 # Longest Subarray with Sum K (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/longest-subarray-with-given-sum-k/
 - **Difficulty**: Medium
@@ -54,6 +54,23 @@ int longestSubarrayBrute(const vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int longestSubarrayBrute(int[] nums, int k) {
+        int maxLen = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            long sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                if (sum == k) maxLen = Math.max(maxLen, j - i + 1);
+            }
+        }
+        return maxLen;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -97,6 +114,31 @@ int longestSubarrayOptimal(const vector<int>& nums, int k) {
         }
     }
     return maxLen;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int longestSubarrayOptimal(int[] nums, int k) {
+        unordered_map<long, int> prefixMap; // prefixSum . earliest index
+        long sum = 0;
+        int maxLen = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum == k) maxLen = i + 1;
+            long rem = sum - k;
+            if (prefixMap.find(rem) != prefixMap.end()) {
+                maxLen = Math.max(maxLen, i - prefixMap[rem]);
+            }
+            if (prefixMap.find(sum) == prefixMap.end()) {
+                prefixMap[sum] = i; // only store first occurrence for max length
+            }
+        }
+        return maxLen;
+    }
 }
 ```
 

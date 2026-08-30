@@ -1,6 +1,6 @@
 # Vertical Order Traversal of Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Vertical Order Traversal of Binary Tree](https://takeuforward.org/data-structure/vertical-order-traversal-of-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ DFS dumping all nodes into a vector of tuples `(col, row, val)` and calling `std
 
 ### C++17 Code
 ```cpp
+// Tuple sorting DFS
+```
+
+### Java Code
+```java
+// Java equivalent
 // Tuple sorting DFS
 ```
 
@@ -103,6 +109,58 @@ public:
                 colValues.insert(colValues.end(), values.begin(), values.end());
             }
             result.push_back(colValues);
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[][] verticalTraversal(TreeNode  root) {
+        // map: col . (row . multiset of values)
+        map<int, map<int, multiset<int>>> nodes;
+        
+        // Queue stores: {TreeNode , {col, row}}
+        queue<pair<TreeNode , pair<int, int>>> q;
+        q.push({root, {0, 0}});
+        
+        while (!q.isEmpty()) {
+            var [curr, coord] = q.peek();
+            q.pop();
+            
+            int col = coord.first;
+            int row = coord.second;
+            
+            nodes[col][row].insert(curr.val);
+            
+            if (curr.left != null) {
+                q.push({curr.left, {col - 1, row + 1}});
+            }
+            if (curr.right != null) {
+                q.push({curr.right, {col + 1, row + 1}});
+            }
+        }
+        
+        List<List<Integer>> result = new ArrayList<>();
+        for (var [col, rowMap] : nodes) {
+            int[] colValues;
+            for (var [row, values] : rowMap) {
+                colValues.add(colValues.end(), values.begin(), values.end());
+            }
+            result.add(colValues);
         }
         
         return result;

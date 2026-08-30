@@ -1,6 +1,6 @@
 # Find Path Sum III (Sub-paths equal to Target Sum) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Path Sum III (Sub-paths equal to Target Sum)](https://takeuforward.org/data-structure/path-sum-iii/)
 - **Difficulty**: Medium
@@ -45,6 +45,22 @@ public:
     int pathSum(TreeNode* root, int targetSum) {
         if (!root) return 0;
         return countPathsFromNode(root, targetSum) + pathSum(root->left, targetSum) + pathSum(root->right, targetSum);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+class SolutionBrute {
+    int countPathsFromNode(TreeNode  node, long target) {
+        if (node == null) return 0;
+        return (node.val == target) + countPathsFromNode(node.left, target - node.val) + countPathsFromNode(node.right, target - node.val);
+    }
+
+    int pathSum(TreeNode  root, int targetSum) {
+        if (root == null) return 0;
+        return countPathsFromNode(root, targetSum) + pathSum(root.left, targetSum) + pathSum(root.right, targetSum);
     }
 };
 ```
@@ -108,6 +124,51 @@ private:
 public:
     int pathSum(TreeNode* root, int targetSum) {
         unordered_map<long long, int> prefixMap;
+        prefixMap[0] = 1; // base case for paths starting from root
+        return dfs(root, 0, targetSum, prefixMap);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int dfs(TreeNode  node, long currSum, int targetSum, unordered_map<long, int> prefixMap) {
+        if (node == null) return 0;
+        
+        currSum += node.val;
+        
+        // Count sub-paths ending at current node with sum equal to targetSum
+        int totalPaths = 0;
+        if (prefixMap.contains(currSum - targetSum)) {
+            totalPaths += prefixMap[currSum - targetSum];
+        }
+        
+        // Record current prefix sum
+        prefixMap[currSum]++;
+        
+        // Recurse on children
+        totalPaths += dfs(node.left, currSum, targetSum, prefixMap);
+        totalPaths += dfs(node.right, currSum, targetSum, prefixMap);
+        
+        // Backtrack: remove current node's prefix sum before returning to parent
+        prefixMap[currSum]--;
+        
+        return totalPaths;
+    }
+
+    int pathSum(TreeNode  root, int targetSum) {
+        unordered_map<long, int> prefixMap;
         prefixMap[0] = 1; // base case for paths starting from root
         return dfs(root, 0, targetSum, prefixMap);
     }

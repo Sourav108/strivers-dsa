@@ -1,6 +1,6 @@
 # Count Number of Bits to be Flipped to Convert A to B (Step 8.2 — Interview Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Number of Bits to be Flipped to Convert A to B](https://takeuforward.org/data-structure/count-number-of-bits-to-be-flipped-to-convert-a-to-b/)
 - **Difficulty**: Easy
@@ -42,6 +42,19 @@ int minBitFlipsLoop(int start, int goal) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int minBitFlipsLoop(int start, int goal) {
+        int flips = 0;
+        for (int i = 0; i < 32; i++) {
+            if (((start >> i) & 1) != ((goal >> i) & 1)) flips++;
+        }
+        return flips;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(32)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -64,6 +77,17 @@ XOR Difference + Popcount in $\mathcal{O}(1)$ time.
 ```cpp
 class Solution {
 public:
+    int minBitFlips(int start, int goal) {
+        // XOR gives 1 at all differing bit positions
+        return __builtin_popcount(start ^ goal);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int minBitFlips(int start, int goal) {
         // XOR gives 1 at all differing bit positions
         return __builtin_popcount(start ^ goal);

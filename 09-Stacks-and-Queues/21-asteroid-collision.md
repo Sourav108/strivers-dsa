@@ -1,6 +1,6 @@
 # Asteroid Collision (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Asteroid Collision](https://takeuforward.org/data-structure/asteroid-collision/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Repeated array deletions in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) vector erasing
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) vector erasing
 ```
 
@@ -84,6 +90,42 @@ public:
             
             if (!exploded) {
                 st.push_back(ast);
+            }
+        }
+        
+        return st;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] asteroidCollision(int[] asteroids) {
+        List<Integer> st = new ArrayList<>(); // use vector as stack
+        
+        for (int ast : asteroids) {
+            boolean exploded = false;
+            
+            // Collision occurs only when top is moving right (>0) and current is moving left (<0)
+            while (!st.isEmpty() && st.peekLast() > 0 && ast < 0) {
+                if (Math.abs(ast) > st.peekLast()) {
+                    st.remove(); // top explodes, current continues
+                } else if (Math.abs(ast) == st.peekLast()) {
+                    st.remove(); // both explode
+                    exploded = true;
+                    break;
+                } else {
+                    exploded = true; // current explodes
+                    break;
+                }
+            }
+            
+            if (exploded == null) {
+                st.add(ast);
             }
         }
         

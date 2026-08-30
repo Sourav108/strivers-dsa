@@ -1,6 +1,6 @@
 # Infix to Prefix Conversion (Step 9.2 — Prefix, Infix, Postfix Expressions)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Infix to Prefix Conversion](https://takeuforward.org/data-structure/infix-to-prefix/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Syntax tree generation.
 
 ### C++17 Code
 ```cpp
+// Tree approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Tree approach
 ```
 
@@ -113,6 +119,70 @@ public:
         
         while (!st.empty()) {
             postfix += st.top();
+            st.pop();
+        }
+        
+        // Step 3: Reverse postfix to get prefix
+        reverse(postfix.begin(), postfix.end());
+        return postfix;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int precedence(char c) {
+        if (c == '^') return 3;
+        if (c == '*' || c == '/') return 2;
+        if (c == '+' || c == '-') return 1;
+        return -1;
+    }
+
+    String infixToPrefix(String s) {
+        // Step 1: Reverse String and swap brackets
+        reverse(s.begin(), s.end());
+        for (char c : s) {
+            if (c == '(') c = ')';
+            else if (c == ')') c = '(';
+        }
+        
+        // Step 2: Modified Infix to Postfix
+        Stack<Character> st = new Stack<>();
+        String postfix = "";
+        
+        for (char c : s) {
+            if (isalnum(c)) {
+                postfix += c;
+            } else if (c == '(') {
+                st.push('(');
+            } else if (c == ')') {
+                while (!st.isEmpty() && st.peek() != '(') {
+                    postfix += st.peek();
+                    st.pop();
+                }
+                if (!st.isEmpty()) st.pop();
+            } else {
+                if (c == '^') {
+                    while (!st.isEmpty() && precedence(c) <= precedence(st.peek())) {
+                        postfix += st.peek();
+                        st.pop();
+                    }
+                } else {
+                    while (!st.isEmpty() && precedence(c) < precedence(st.peek())) {
+                        postfix += st.peek();
+                        st.pop();
+                    }
+                }
+                st.push(c);
+            }
+        }
+        
+        while (!st.isEmpty()) {
+            postfix += st.peek();
             st.pop();
         }
         

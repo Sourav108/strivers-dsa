@@ -1,6 +1,6 @@
 # Maximum Width of Binary Tree (Indexed BFS) (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum Width of Binary Tree (Indexed BFS)](https://takeuforward.org/data-structure/maximum-width-of-a-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Standard BFS without index normalization (causes integer overflow on tree depth 
 
 ### C++17 Code
 ```cpp
+// Un-normalized BFS (overflows)
+```
+
+### Java Code
+```java
+// Java equivalent
 // Un-normalized BFS (overflows)
 ```
 
@@ -100,6 +106,57 @@ public:
             }
             
             maxWidth = max(maxWidth, lastIdx - firstIdx + 1);
+        }
+        
+        return (int)maxWidth;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int widthOfBinaryTree(TreeNode  root) {
+        if (root == null) return 0;
+        
+        long maxWidth = 0;
+        // Queue stores: {TreeNode , 0-based normalized index}
+        queue<pair<TreeNode , long>> q;
+        q.push({root, 0});
+        
+        while (!q.isEmpty()) {
+            int size = q.length;
+            long minIndex = q.peek().second; // minimum index at current level
+            long firstIdx = 0, lastIdx = 0;
+            
+            for (int i = 0; i < size; i++) {
+                var [curr, idx] = q.peek();
+                q.pop();
+                
+                // Normalize index to prevent 64-bit overflow
+                long normIdx = idx - minIndex;
+                if (i == 0) firstIdx = normIdx;
+                if (i == size - 1) lastIdx = normIdx;
+                
+                if (curr.left != null) {
+                    q.push({curr.left, 2 * normIdx + 1});
+                }
+                if (curr.right != null) {
+                    q.push({curr.right, 2 * normIdx + 2});
+                }
+            }
+            
+            maxWidth = Math.max(maxWidth, lastIdx - firstIdx + 1);
         }
         
         return (int)maxWidth;

@@ -1,6 +1,6 @@
 # Recursive Implementation of Atoi (Step 7.1 — Get a Strong Hold)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Recursive Implementation of Atoi](https://takeuforward.org/recursion/recursive-implementation-of-atoi/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Iterative loop parser (disallowed by recursive constraint).
 
 ### C++17 Code
 ```cpp
+// Iterative loop parser
+```
+
+### Java Code
+```java
+// Java equivalent
 // Iterative loop parser
 ```
 
@@ -80,6 +86,41 @@ private:
 
 public:
     int myAtoi(string s) {
+        int i = 0, n = s.length();
+        while (i < n && s[i] == ' ') i++; // skip whitespace
+        if (i == n) return 0;
+        
+        int sign = 1;
+        if (s[i] == '-' || s[i] == '+') {
+            if (s[i] == '-') sign = -1;
+            i++;
+        }
+        
+        return helper(s, i, sign, 0LL);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int helper(String s, int i, int sign, long result) {
+        if (i >= s.length() || !isdigit(s[i])) {
+            return (int)(result * sign);
+        }
+        
+        int digit = s[i] - '0';
+        result = result * 10 + digit;
+        
+        // 32-bit Clamping
+        if (sign == 1 && result > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        if (sign == -1 && -result < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        
+        return helper(s, i + 1, sign, result);
+    }
+
+    int myAtoi(String s) {
         int i = 0, n = s.length();
         while (i < n && s[i] == ' ') i++; // skip whitespace
         if (i == n) return 0;

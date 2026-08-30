@@ -1,6 +1,6 @@
 # Matrix Chain Multiplication - Tabulation (Bottom-Up) (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Matrix Chain Multiplication - Tabulation (Bottom-Up)](https://takeuforward.org/data-structure/matrix-chain-multiplication-tabulation-mcm-dp-49/)
 - **Difficulty**: Hard
@@ -42,6 +42,12 @@ Memoized Top-Down recursion with function call stack overhead in $\mathcal{O}(N^
 
 ### C++17 Code
 ```cpp
+// Top-down memoization
+```
+
+### Java Code
+```java
+// Java equivalent
 // Top-down memoization
 ```
 
@@ -87,6 +93,36 @@ public:
                 for (int k = i; k < j; k++) {
                     int cost = dp[i][k] + dp[k + 1][j] + arr[i - 1] * arr[k] * arr[j];
                     dp[i][j] = min(dp[i][j], cost);
+                }
+            }
+        }
+        
+        // Entire chain from matrix 1 to matrix N - 1
+        return dp[1][N - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int matrixMultiplication(int N, int[] arr) {
+        // dp[i][j] stores min scalar multiplications for matrix chain A_i ... A_j
+        int[][] dp = new int[N][N];
+        
+        // Base case: dp[i][i] = 0 (already initialized to 0)
+        
+        // Iterate chain length from 2 up to N - 1
+        for (int len = 2; len < N; len++) {
+            for (int i = 1; i <= N - len; i++) {
+                int j = i + len - 1;
+                dp[i][j] = 1e9;
+                
+                // Try all split points k between i and j - 1
+                for (int k = i; k < j; k++) {
+                    int cost = dp[i][k] + dp[k + 1][j] + arr[i - 1] * arr[k] * arr[j];
+                    dp[i][j] = Math.min(dp[i][j], cost);
                 }
             }
         }

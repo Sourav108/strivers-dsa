@@ -1,6 +1,6 @@
 # Count Number of Nice Subarrays (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Number of Nice Subarrays](https://takeuforward.org/data-structure/count-number-of-nice-subarrays/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Prefix sum hash map tracking odd parity counts in $\mathcal{O}(N)$ space.
 
 ### C++17 Code
 ```cpp
+// Prefix sum map
+```
+
+### Java Code
+```java
+// Java equivalent
 // Prefix sum map
 ```
 
@@ -83,6 +89,36 @@ private:
 
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
+        return countAtMost(nums, k) - countAtMost(nums, k - 1);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countAtMost(int[] nums, int k) {
+        if (k < 0) return 0;
+        
+        int left = 0, count = 0, oddCount = 0;
+        int n = nums.length;
+        
+        for (int right = 0; right < n; right++) {
+            oddCount += (nums[right] % 2);
+            
+            while (oddCount > k) {
+                oddCount -= (nums[left] % 2);
+                left++;
+            }
+            
+            count += (right - left + 1);
+        }
+        
+        return count;
+    }
+
+    int numberOfSubarrays(int[] nums, int k) {
         return countAtMost(nums, k) - countAtMost(nums, k - 1);
     }
 };

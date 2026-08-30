@@ -1,6 +1,6 @@
 # Sort a LinkedList of 0s, 1s and 2s by Changing Links (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sort a LinkedList of 0s, 1s and 2s by Changing Links](https://takeuforward.org/data-structure/sort-a-linked-list-of-0s-1s-and-2s-by-changing-links/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Counting 0s, 1s, 2s and overwriting node values.
 
 ### C++17 Code
 ```cpp
+// Overwriting data approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Overwriting data approach
 ```
 
@@ -92,6 +98,50 @@ public:
         zero->next = (oneDummy.next) ? oneDummy.next : twoDummy.next;
         one->next = twoDummy.next;
         two->next = nullptr; // terminate list
+        
+        return zeroDummy.next;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  segregate(Node head) {
+        if (!head || !head.next) return head;
+        
+        // 3 Dummy heads
+        Node zeroDummy(0), oneDummy(0), twoDummy(0);
+        Node  zero = &zeroDummy;
+        Node  one = &oneDummy;
+        Node  two = &twoDummy;
+        
+        Node  curr = head;
+        while (curr != null) {
+            if (curr.data == 0) {
+                zero.next = curr;
+                zero = zero.next;
+            } else if (curr.data == 1) {
+                one.next = curr;
+                one = one.next;
+            } else {
+                two.next = curr;
+                two = two.next;
+            }
+            curr = curr.next;
+        }
+        
+        // Stitch lists: 0s . 1s . 2s
+        zero.next = (oneDummy.next) ? oneDummy.next : twoDummy.next;
+        one.next = twoDummy.next;
+        two.next = null; // terminate list
         
         return zeroDummy.next;
     }

@@ -1,6 +1,6 @@
 # Reverse an Array using Recursion (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse an Array using Recursion](https://takeuforward.org/data-structure/reverse-a-given-array/)
 - **Difficulty**: Easy
@@ -39,6 +39,19 @@ vector<int> reverseExtraSpace(const vector<int>& arr) {
     vector<int> rev;
     for (int i = (int)arr.size() - 1; i >= 0; i--) rev.push_back(arr[i]);
     return rev;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] reverseExtraSpace(int[] arr) {
+        List<Integer> rev = new ArrayList<>();
+        for (int i = arr.length - 1; i >= 0; i--) rev.add(arr[i]);
+        return rev;
+    }
 }
 ```
 
@@ -82,6 +95,27 @@ private:
 public:
     void reverseArray(vector<int>& arr) {
         reverseHelper(arr, 0, arr.size());
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void reverseHelper(int[] arr, int i, int n) {
+        // Base case: passed midpoint
+        if (i >= n / 2) return;
+        
+        // Swap symmetric endpoints
+        int temp = arr[i]; arr[i] = arr[n - 1 - i]; arr[n - 1 - i] = temp;
+        
+        // Recurse on next inner pair
+        reverseHelper(arr, i + 1, n);
+    }
+
+    void reverseArray(int[] arr) {
+        reverseHelper(arr, 0, arr.length);
     }
 };
 ```

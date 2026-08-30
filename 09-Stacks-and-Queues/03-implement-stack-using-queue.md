@@ -1,6 +1,6 @@
 # Implement Stack using Queue (Single Queue) (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Stack using Queue (Single Queue)](https://takeuforward.org/data-structure/implement-stack-using-single-queue/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Using two queues transferring elements back and forth on every pop.
 
 ### C++17 Code
 ```cpp
+// Two queues approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Two queues approach
 ```
 
@@ -89,6 +95,43 @@ public:
     
     bool empty() {
         return q.empty();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class MyStack {
+
+    Queue<Integer> q = new LinkedList<>();
+
+    MyStack() {}
+    
+    void push(int x) {
+        q.push(x);
+        int sz = q.length;
+        
+        // Rotate all previous (sz - 1) elements behind the new element x
+        for (int i = 0; i < sz - 1; i++) {
+            q.push(q.peek());
+            q.pop();
+        }
+    }
+    
+    int pop() {
+        int val = q.peek();
+        q.pop();
+        return val;
+    }
+    
+    int top() {
+        return q.peek();
+    }
+    
+    boolean empty() {
+        return q.isEmpty();
     }
 };
 ```

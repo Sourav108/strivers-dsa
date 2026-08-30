@@ -1,6 +1,6 @@
 # Floor and Ceil in Sorted Array (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Floor and Ceil in Sorted Array](https://takeuforward.org/arrays/floor-and-ceil-in-sorted-array/)
 - **Difficulty**: Easy
@@ -45,6 +45,20 @@ pair<int, int> getFloorAndCeilLinear(const vector<int>& nums, int x) {
         if (num >= x && (c == -1 || num < c)) c = num;
     }
     return {f, c};
+}
+```
+
+### Java Code
+```java
+class Solution {
+    pair<int, int> getFloorAndCeilLinear(int[] nums, int x) {
+        int f = -1, c = -1;
+        for (int num : nums) {
+            if (num <= x && (f == -1 || num > f)) f = num;
+            if (num >= x && (c == -1 || num < c)) c = num;
+        }
+        return {f, c};
+    }
 }
 ```
 
@@ -104,6 +118,45 @@ int findCeil(const vector<int>& nums, int x) {
 
 pair<int, int> getFloorAndCeil(const vector<int>& nums, int x) {
     return {findFloor(nums, x), findCeil(nums, x)};
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findFloor(int[] nums, int x) {
+        int low = 0, high = nums.length - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] <= x) {
+                ans = nums[mid]; // candidate floor, try to find larger on right
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+    
+    int findCeil(int[] nums, int x) {
+        int low = 0, high = nums.length - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] >= x) {
+                ans = nums[mid]; // candidate ceil, try to find smaller on left
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+    
+    pair<int, int> getFloorAndCeil(int[] nums, int x) {
+        return {findFloor(nums, x), findCeil(nums, x)};
+    }
 }
 ```
 

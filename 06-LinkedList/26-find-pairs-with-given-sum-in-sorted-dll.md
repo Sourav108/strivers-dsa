@@ -1,6 +1,6 @@
 # Find Pairs with Given Sum in Sorted DLL (Step 6.4 — Medium Problems of DLL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Pairs with Given Sum in Sorted DLL](https://takeuforward.org/data-structure/find-pairs-with-given-sum-in-dll/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Nested loops checking all $N^2$ node pairs in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) nested loops
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) nested loops
 ```
 
@@ -88,6 +94,47 @@ public:
                 left = left->next;
             } else {
                 right = right->prev;
+            }
+        }
+        
+        return pairs;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+};
+
+class Solution {
+
+    List<int[]> findPairsWithGivenSum(Node head, int target) {
+        List<int[]> pairs;
+        if (!head || !head.next) return pairs;
+        
+        // Step 1: Find tail
+        Node  left = head;
+        Node  right = head;
+        while (right.next != null) right = right.next;
+        
+        // Step 2: Two-pointer scan
+        while (left != null && right != null && left.data < right.data) {
+            int currentSum = left.data + right.data;
+            if (currentSum == target) {
+                pairs.add({left.data, right.data});
+                left = left.next;
+                right = right.prev;
+            } else if (currentSum < target) {
+                left = left.next;
+            } else {
+                right = right.prev;
             }
         }
         

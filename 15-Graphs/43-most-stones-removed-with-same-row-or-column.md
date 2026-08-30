@@ -1,6 +1,6 @@
 # Most Stones Removed with Same Row or Column (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Most Stones Removed with Same Row or Column](https://takeuforward.org/data-structure/most-stones-removed-with-same-row-or-column-dsu-g-53/)
 - **Difficulty**: Medium
@@ -34,6 +34,12 @@ Build $N \times N$ graph connecting any pair of stones sharing row or column in 
 
 ### C++17 Code
 ```cpp
+// O(N^2) pairwise stone graph construction + DFS
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) pairwise stone graph construction + DFS
 ```
 
@@ -80,6 +86,43 @@ public:
                 adj[list[i]].push_back(list[0]);
             }
         vector<int> vis(n, 0);
+        int components = 0;
+        for (int i = 0; i < n; i++)
+            if (!vis[i]) { components++; dfs(i, adj, vis); }
+        return n - components;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionDFS {
+    void dfs(int u, int[][] adj, int[] vis) {
+        vis[u] = 1;
+        for (int v : adj[u]) if (!vis[v]) dfs(v, adj, vis);
+    }
+
+    int removeStones(int[][] stones) {
+        int n = stones.length;
+        unordered_map<int, int[]> rowMap, colMap;
+        for (int i = 0; i < n; i++) {
+            rowMap[stones[i][0]].add(i);
+            colMap[stones[i][1]].add(i);
+        }
+        int[][] adj(n);
+        for (var [r, list] : rowMap)
+            for (int i = 1; i < list.length; i++) {
+                adj[list[0]].add(list[i]);
+                adj[list[i]].add(list[0]);
+            }
+        for (var [c, list] : colMap)
+            for (int i = 1; i < list.length; i++) {
+                adj[list[0]].add(list[i]);
+                adj[list[i]].add(list[0]);
+            }
+        int[] vis = new int[n];
         int components = 0;
         for (int i = 0; i < n; i++)
             if (!vis[i]) { components++; dfs(i, adj, vis); }
@@ -156,6 +199,74 @@ public:
             dsu.unionBySize(nodeRow, nodeCol);
             stoneNodes.insert(nodeRow);
             stoneNodes.insert(nodeCol);
+        }
+        
+        // Count number of connected components
+        int components = 0;
+        for (int node : stoneNodes) {
+            if (dsu.findUPar(node) == node) {
+                components++;
+            }
+        }
+        
+        // Answer = Total Stones - Connected Components
+        return n - components;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+
+    int[] parent, size;
+    DisjointSet(int n) {
+        parent.resize(n + 1);
+        size.resize(n + 1, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    void unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        if (rootU == rootV) return;
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+    }
+};
+
+class Solution {
+
+    int removeStones(int[][] stones) {
+        int n = stones.length;
+        int maxRow = 0, maxCol = 0;
+        
+        for (var stone : stones) {
+            maxRow = Math.max(maxRow, stone[0]);
+            maxCol = Math.max(maxCol, stone[1]);
+        }
+        
+        // Total nodes: (maxRow + 1) rows + (maxCol + 1) columns
+        DisjointSet dsu(maxRow + maxCol + 1);
+        Set<Integer> stoneNodes = new HashSet<>();
+        
+        for (var stone : stones) {
+            int nodeRow = stone[0];
+            int nodeCol = stone[1] + maxRow + 1; // Shift column index
+            
+            dsu.unionBySize(nodeRow, nodeCol);
+            stoneNodes.add(nodeRow);
+            stoneNodes.add(nodeCol);
         }
         
         // Count number of connected components

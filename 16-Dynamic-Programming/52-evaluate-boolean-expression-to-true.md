@@ -1,6 +1,6 @@
 # Evaluate Boolean Expression to True (Boolean Parenthesization) (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Evaluate Boolean Expression to True (Boolean Parenthesization)](https://takeuforward.org/data-structure/evaluate-boolean-expression-to-true-partition-dp-dp-52/)
 - **Difficulty**: Hard
@@ -44,6 +44,13 @@ Recursively parenthesize all sub-expressions without memoization in $\mathcal{O}
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(4^N) recursive boolean parenthesization
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(4^N) recursive boolean parenthesization
 };
@@ -128,6 +135,67 @@ class Solution {
 public:
     int countWays(int n, string exp) {
         vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(n, vector<long long>(2, -1)));
+        return solve(0, n - 1, 1, exp, dp);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+    int MOD = 1e9 + 7;
+    
+    long solve(int i, int j, int isTrue, String exp, vector<long[][]> dp) {
+        // Base case 1: Invalid range
+        if (i > j) return 0;
+        
+        // Base case 2: Single operand ('T' or 'F')
+        if (i == j) {
+            if (isTrue) return exp[i] == 'T' ? 1 : 0;
+            else return exp[i] == 'F' ? 1 : 0;
+        }
+        
+        if (dp[i][j][isTrue] != -1) return dp[i][j][isTrue];
+        
+        long ways = 0;
+        
+        // Operator k is always at odd indices (i + 1, i + 3, ..., j - 1)
+        for (int k = i + 1; k <= j - 1; k += 2) {
+            long lT = solve(i, k - 1, 1, exp, dp);
+            long lF = solve(i, k - 1, 0, exp, dp);
+            long rT = solve(k + 1, j, 1, exp, dp);
+            long rF = solve(k + 1, j, 0, exp, dp);
+            
+            char op = exp[k];
+            
+            if (op == '&') {
+                if (isTrue) {
+                    ways = (ways + (lT * rT) % MOD) % MOD;
+                } else {
+                    ways = (ways + (lF * rT)%MOD + (lT * rF)%MOD + (lF * rF)%MOD) % MOD;
+                }
+            } 
+            else if (op == '|') {
+                if (isTrue) {
+                    ways = (ways + (lT * rT)%MOD + (lT * rF)%MOD + (lF * rT)%MOD) % MOD;
+                } else {
+                    ways = (ways + (lF * rF) % MOD) % MOD;
+                }
+            } 
+            else if (op == '^') {
+                if (isTrue) {
+                    ways = (ways + (lT * rF)%MOD + (lF * rT)%MOD) % MOD;
+                } else {
+                    ways = (ways + (lT * rT)%MOD + (lF * rF)%MOD) % MOD;
+                }
+            }
+        }
+        
+        return dp[i][j][isTrue] = ways;
+    }
+
+    int countWays(int n, String exp) {
+        vector<long[][]> dp(n, long[][](n, long[](2, -1)));
         return solve(0, n - 1, 1, exp, dp);
     }
 };

@@ -1,6 +1,6 @@
 # Sort a K-Sorted (Nearly Sorted) Array (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sort a K-Sorted (Nearly Sorted) Array](https://takeuforward.org/data-structure/sort-a-k-sorted-array/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Standard sort in $\mathcal{O}(N \log N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N log N) full sort
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N log N) full sort
 ```
 
@@ -82,6 +88,40 @@ public:
         // Pop remaining elements in heap
         while (!minHeap.empty()) {
             sortedArr.push_back(minHeap.top());
+            minHeap.pop();
+        }
+        
+        return sortedArr;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] nearlySorted(int arr[], int num, int K) {
+        priority_queue<int, int[], greater<int>> minHeap;
+        List<Integer> sortedArr = new ArrayList<>();
+        sortedArr.reserve(num);
+        
+        // Push first (K + 1) elements
+        for (int i = 0; i <= Math.min(K, num - 1); i++) {
+            minHeap.push(arr[i]);
+        }
+        
+        // Process remaining elements
+        for (int i = K + 1; i < num; i++) {
+            sortedArr.add(minHeap.peek());
+            minHeap.pop();
+            minHeap.push(arr[i]);
+        }
+        
+        // Pop remaining elements in heap
+        while (!minHeap.isEmpty()) {
+            sortedArr.add(minHeap.peek());
             minHeap.pop();
         }
         

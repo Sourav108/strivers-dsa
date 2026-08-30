@@ -1,6 +1,6 @@
 # Diameter of Binary Tree (Longest path between two nodes) (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Diameter of Binary Tree (Longest path between two nodes)](https://takeuforward.org/data-structure/calculate-the-diameter-of-a-binary-tree/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ For every node, call `getHeight(left)` and `getHeight(right)` in $\mathcal{O}(N^
 
 ### C++17 Code
 ```cpp
+// O(N^2) top down diameter search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) top down diameter search
 ```
 
@@ -83,6 +89,38 @@ private:
 
 public:
     int diameterOfBinaryTree(TreeNode* root) {
+        int maxDiameter = 0;
+        calculateHeight(root, maxDiameter);
+        return maxDiameter;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int calculateHeight(TreeNode  root, int maxDiameter) {
+        if (root == null) return 0;
+        
+        int leftHeight = calculateHeight(root.left, maxDiameter);
+        int rightHeight = calculateHeight(root.right, maxDiameter);
+        
+        // Longest path through current node
+        maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
+        
+        // Return height to parent
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    int diameterOfBinaryTree(TreeNode  root) {
         int maxDiameter = 0;
         calculateHeight(root, maxDiameter);
         return maxDiameter;

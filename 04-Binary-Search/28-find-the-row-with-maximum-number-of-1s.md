@@ -1,6 +1,6 @@
 # Find the Row with Maximum Number of 1s (Step 4.3 — BS on 2D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Row with Maximum Number of 1s](https://takeuforward.org/data-structure/find-the-row-with-maximum-number-of-1s/)
 - **Difficulty**: Easy
@@ -56,6 +56,27 @@ int rowWithMax1sBrute(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int rowWithMax1sBrute(int[][] mat) {
+        int n = mat.length, m = mat[0].size();
+        int maxCount = 0, maxRow = -1;
+        for (int i = 0; i < n; i++) {
+            int count = 0;
+            for (int j = 0; j < m; j++) {
+                if (mat[i][j] == 1) count++;
+            }
+            if (count > maxCount) {
+                maxCount = count;
+                maxRow = i;
+            }
+        }
+        return maxRow;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \times m)$ — checks all $n \times m$ cells.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -105,6 +126,41 @@ int rowWithMax1sBS(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int firstOccurrence(int[] row, int m) {
+        int low = 0, high = m - 1;
+        int first = m;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (row[mid] == 1) {
+                first = mid;
+                high = mid - 1; // look for earlier 1 on left
+            } else {
+                low = mid + 1;
+            }
+        }
+        return first;
+    }
+    
+    int rowWithMax1sBS(int[][] mat) {
+        int n = mat.length, m = mat[0].size();
+        int maxCount = 0, maxRow = -1;
+        
+        for (int i = 0; i < n; i++) {
+            int first = firstOccurrence(mat[i], m);
+            int count = m - first;
+            if (count > maxCount) {
+                maxCount = count;
+                maxRow = i;
+            }
+        }
+        return maxRow;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \log_2 m)$ — runs binary search on each of the $n$ rows.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -126,6 +182,33 @@ class Solution {
 public:
     int rowWithMax1s(vector<vector<int>>& mat) {
         int n = mat.size();
+        int m = mat[0].size();
+        
+        int r = 0;
+        int c = m - 1;
+        int maxRow = -1;
+        
+        // Start from top-right corner and traverse left/down
+        while (r < n && c >= 0) {
+            if (mat[r][c] == 1) {
+                maxRow = r; // current row has more 1s than any previously seen row
+                c--;        // step left to see if this row has even more 1s
+            } else {
+                r++;        // 0 encountered, move to next row to find more 1s
+            }
+        }
+        
+        return maxRow;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int rowWithMax1s(int[][] mat) {
+        int n = mat.length;
         int m = mat[0].size();
         
         int r = 0;

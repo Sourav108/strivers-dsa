@@ -1,6 +1,6 @@
 # Divide Two Integers without Multiplication, Division or Mod (Step 8.2 — Interview Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Divide Two Integers without Multiplication, Division or Mod](https://takeuforward.org/bit-manipulation/divide-two-integers-without-using-multiplication-division-and-mod-operator/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Repeated subtraction: `while (dividend >= divisor) { dividend -= divisor; ans++;
 
 ### C++17 Code
 ```cpp
+// Repeated subtraction TLE for 2^31 / 1
+```
+
+### Java Code
+```java
+// Java equivalent
 // Repeated subtraction TLE for 2^31 / 1
 ```
 
@@ -88,6 +94,42 @@ public:
         
         if (quotient > INT_MAX) return INT_MAX;
         if (quotient < INT_MIN) return INT_MIN;
+        
+        return (int)quotient;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int divide(int dividend, int divisor) {
+        // Overflow edge case: -2147483648 / -1 = 2147483648 > Integer.MAX_VALUE
+        if (dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE;
+        if (dividend == Integer.MIN_VALUE && divisor == 1) return Integer.MIN_VALUE;
+        if (dividend == divisor) return 1;
+        
+        boolean isNegative = (dividend < 0) ^ (divisor < 0);
+        
+        long n = Math.abs((long)dividend);
+        long d = Math.abs((long)divisor);
+        long quotient = 0;
+        
+        while (n >= d) {
+            int count = 0;
+            // Find largest power of 2 such that (d << count) <= n
+            while (n >= (d << (count + 1))) {
+                count++;
+            }
+            quotient += (1LL << count);
+            n -= (d << count);
+        }
+        
+        if (isNegative) quotient = -quotient;
+        
+        if (quotient > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        if (quotient < Integer.MIN_VALUE) return Integer.MIN_VALUE;
         
         return (int)quotient;
     }

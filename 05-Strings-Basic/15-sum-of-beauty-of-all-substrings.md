@@ -1,6 +1,6 @@
 # Sum of Beauty of All Substrings (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sum of Beauty of All Substrings](https://takeuforward.org/strings/sum-of-beauty-of-all-substrings/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate substrings and count frequencies from scratch in $\mathcal{O}(N^3)$ tim
 
 ### C++17 Code
 ```cpp
+// O(N^3) recalculating frequencies on every substring
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^3) recalculating frequencies on every substring
 ```
 
@@ -82,6 +88,40 @@ public:
                     if (freq[k] > 0) {
                         maxF = max(maxF, freq[k]);
                         minF = min(minF, freq[k]);
+                    }
+                }
+                
+                totalBeauty += (maxF - minF);
+            }
+        }
+        
+        return totalBeauty;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int beautySum(String s) {
+        int n = s.length();
+        int totalBeauty = 0;
+        
+        for (int i = 0; i < n; i++) {
+            int freq[26] = {0};
+            
+            for (int j = i; j < n; j++) {
+                freq[s[j] - 'a']++;
+                
+                int maxF = 0;
+                int minF = Integer.MAX_VALUE;
+                
+                // Scan 26 lowercase alphabet frequencies
+                for (int k = 0; k < 26; k++) {
+                    if (freq[k] > 0) {
+                        maxF = Math.max(maxF, freq[k]);
+                        minF = Math.min(minF, freq[k]);
                     }
                 }
                 

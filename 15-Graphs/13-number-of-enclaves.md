@@ -1,6 +1,6 @@
 # Number of Enclaves (Count unreachable land cells) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Enclaves (Count unreachable land cells)](https://takeuforward.org/data-structure/number-of-enclaves/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Launch individual BFS from every internal 1-cell to test boundary reachability i
 
 ### C++17 Code
 ```cpp
+// O((N*M)^2) individual search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((N*M)^2) individual search
 ```
 
@@ -87,6 +93,63 @@ public:
         // 2. Multi-source BFS to mark all boundary-connected land
         while (!q.empty()) {
             auto [r, c] = q.front();
+            q.pop();
+            
+            for (int d = 0; d < 4; d++) {
+                int nr = r + dRow[d];
+                int nc = c + dCol[d];
+                
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc] && grid[nr][nc] == 1) {
+                    vis[nr][nc] = 1;
+                    q.push({nr, nc});
+                }
+            }
+        }
+        
+        // 3. Count remaining unvisited 1s (enclaves)
+        int enclaves = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1 && !vis[i][j]) {
+                    enclaves++;
+                }
+            }
+        }
+        
+        return enclaves;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int numEnclaves(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].size();
+        
+        int[][] vis = new int[n][m];
+        queue<pair<int, int>> q;
+        
+        // 1. Enqueue all boundary land cells (row 0, row n-1, col 0, col m-1)
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (i == 0 || i == n - 1 || j == 0 || j == m - 1) {
+                    if (grid[i][j] == 1) {
+                        q.push({i, j});
+                        vis[i][j] = 1;
+                    }
+                }
+            }
+        }
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        // 2. Multi-source BFS to mark all boundary-connected land
+        while (!q.isEmpty()) {
+            var [r, c] = q.peek();
             q.pop();
             
             for (int d = 0; d < 4; d++) {

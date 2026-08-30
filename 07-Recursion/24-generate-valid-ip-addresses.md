@@ -1,6 +1,6 @@
 # Generate Valid IP Addresses (Restore IP Addresses) (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Generate Valid IP Addresses (Restore IP Addresses)](https://takeuforward.org/recursion/restore-ip-addresses/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Backtrack maintaining `(index, dotsCount, currentIP)`. At each octet: try chunk 
 
 ### C++17 Code
 ```cpp
+// 3 nested loops approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // 3 nested loops approach
 ```
 
@@ -85,6 +91,41 @@ private:
 public:
     vector<string> restoreIpAddresses(string s) {
         vector<string> result;
+        if (s.length() < 4 || s.length() > 12) return result;
+        backtrack(0, 0, s, "", result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void backtrack(int index, int dots, String s, String current, String[] result) {
+        if (dots == 4) {
+            if (index == s.length()) {
+                current.remove(); // remove trailing dot
+                result.add(current);
+            }
+            return;
+        }
+        
+        for (int len = 1; len <= 3 && index + len <= s.length(); len++) {
+            String segment = s.substring(index, index + len);
+            int val = stoi(segment);
+            
+            // Check leading zero and value <= 255
+            if ((len > 1 && segment[0] == '0') || val > 255) break;
+            
+            backtrack(index + len, dots + 1, s, current + segment + ".", result);
+        }
+    }
+
+    String[] restoreIpAddresses(String s) {
+        List<String> result = new ArrayList<>();
         if (s.length() < 4 || s.length() > 12) return result;
         backtrack(0, 0, s, "", result);
         return result;

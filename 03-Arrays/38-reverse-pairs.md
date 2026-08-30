@@ -1,6 +1,6 @@
 # Reverse Pairs (LeetCode 493) (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/count-reverse-pairs/
 - **Difficulty**: Hard
@@ -47,6 +47,19 @@ int reversePairsBrute(const vector<int>& nums) {
         for (int j = i + 1; j < n; j++)
             if ((long long)nums[i] > 2LL * nums[j]) cnt++;
     return cnt;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int reversePairsBrute(int[] nums) {
+        int cnt = 0, n = nums.length;
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j < n; j++)
+                if ((long)nums[i] > 2LL * nums[j]) cnt++;
+        return cnt;
+    }
 }
 ```
 
@@ -110,6 +123,48 @@ int mergeSortRP(vector<int>& arr, int low, int high) {
 
 int reversePairs(vector<int>& nums) {
     return mergeSortRP(nums, 0, (int)nums.size() - 1);
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int countPairs(int[] arr, int low, int mid, int high) {
+        int right = mid + 1, count = 0;
+        for (int i = low; i <= mid; i++) {
+            while (right <= high && (long)arr[i] > 2LL * arr[right]) right++;
+            count += (right - (mid + 1));
+        }
+        return count;
+    }
+    
+    void merge(int[] arr, int low, int mid, int high) {
+        List<Integer> temp = new ArrayList<>();
+        int left = low, right = mid + 1;
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) temp.add(arr[left++]);
+            else temp.add(arr[right++]);
+        }
+        while (left <= mid) temp.add(arr[left++]);
+        while (right <= high) temp.add(arr[right++]);
+        for (int i = low; i <= high; i++) arr[i] = temp[i - low];
+    }
+    
+    int mergeSortRP(int[] arr, int low, int high) {
+        if (low >= high) return 0;
+        int mid = low + (high - low) / 2;
+        int cnt = mergeSortRP(arr, low, mid);
+        cnt += mergeSortRP(arr, mid + 1, high);
+        cnt += countPairs(arr, low, mid, high);
+        merge(arr, low, mid, high);
+        return cnt;
+    }
+    
+    int reversePairs(int[] nums) {
+        return mergeSortRP(nums, 0, nums.length - 1);
+    }
 }
 ```
 

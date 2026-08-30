@@ -1,6 +1,6 @@
 # Find the Two Numbers Occurring Odd Number of Times (Single Number III) (Step 8.2 — Interview Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Two Numbers Occurring Odd Number of Times (Single Number III)](https://takeuforward.org/bit-manipulation/two-numbers-with-odd-occurrences/)
 - **Difficulty**: Medium
@@ -45,6 +45,21 @@ vector<int> singleNumberHash(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] singleNumberHash(int[] nums) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int x : nums) mp[x]++;
+        List<Integer> ans = new ArrayList<>();
+        for (var [k, v] : mp) if (v == 1) ans.add(k);
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ hash space.
@@ -84,6 +99,35 @@ public:
         int b1 = 0, b2 = 0;
         for (int x : nums) {
             if (x & rightmostBit) {
+                b1 ^= x; // bucket with bit set
+            } else {
+                b2 ^= x; // bucket with bit unset
+            }
+        }
+        
+        return {b1, b2};
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int[] singleNumber(int[] nums) {
+        // Step 1: Compute full XOR sum = a ^ b
+        long xorSum = 0;
+        for (int x : nums) {
+            xorSum ^= x;
+        }
+        
+        // Step 2: Isolate the rightmost set bit (where a and b differ)
+        long rightmostBit = xorSum & (-xorSum);
+        
+        // Step 3: Divide numbers into 2 buckets and XOR separately
+        int b1 = 0, b2 = 0;
+        for (int x : nums) {
+            if (x rightmostBit) {
                 b1 ^= x; // bucket with bit set
             } else {
                 b2 ^= x; // bucket with bit unset

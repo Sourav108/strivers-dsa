@@ -1,6 +1,6 @@
 # Two Sum IV - Input is a BST (Two Pointer with two BST Iterators) (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Two Sum IV - Input is a BST (Two Pointer with two BST Iterators)](https://takeuforward.org/data-structure/two-sum-in-bst/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Inorder traversal into a vector, then run two pointers on vector in $\mathcal{O}
 // Vector two pointer approach
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Vector two pointer approach
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ space.
@@ -61,6 +67,23 @@ public:
         if (st.count(k - root->val)) return true;
         st.insert(root->val);
         return findTarget(root->left, k) || findTarget(root->right, k);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode { int val; TreeNode left, right; };
+class SolutionHashSet {
+    Set<Integer> st = new HashSet<>();
+
+    boolean findTarget(TreeNode  root, int k) {
+        if (root == null) return false;
+        if (st.contains(k - root.val)) return true;
+        st.add(root.val);
+        return findTarget(root.left, k) || findTarget(root.right, k);
     }
 };
 ```
@@ -122,6 +145,67 @@ class Solution {
 public:
     bool findTarget(TreeNode* root, int k) {
         if (root == nullptr) return false;
+        
+        BSTIterator l(root, false); // forward iterator (starts at min)
+        BSTIterator r(root, true);  // reverse iterator (starts at max)
+        
+        int i = l.next();
+        int j = r.next();
+        
+        while (i < j) {
+            if (i + j == k) return true;
+            if (i + j < k) i = l.next();
+            else j = r.next();
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class BSTIterator {
+
+    Stack<TreeNode> st = new Stack<>();
+    boolean reverse; // false . next() [ascending]; true . before() [descending]
+    
+    void pushAll(TreeNode  node) {
+        while (node != null) {
+            st.push(node);
+            node = reverse ? node.right : node.left;
+        }
+    }
+
+    public BSTIterator(TreeNode  root, boolean isReverse) { /* initialized: reverse(isReverse)  */ 
+        pushAll(root);
+     }
+    
+    int next() {
+        TreeNode  topNode = st.peek();
+        st.pop();
+        if (reverse) {
+            pushAll(topNode.left);
+        } else {
+            pushAll(topNode.right);
+        }
+        return topNode.val;
+    }
+};
+
+class Solution {
+
+    boolean findTarget(TreeNode  root, int k) {
+        if (root == null) return false;
         
         BSTIterator l(root, false); // forward iterator (starts at min)
         BSTIterator r(root, true);  // reverse iterator (starts at max)

@@ -1,6 +1,6 @@
 # Search in a 2D Matrix II (Row and Column Sorted) (Step 4.3 — BS on 2D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Search in a 2D Matrix II (Row and Column Sorted)](https://takeuforward.org/data-structure/search-in-a-row-and-column-wise-sorted-matrix/)
 - **Difficulty**: Medium
@@ -55,6 +55,20 @@ bool searchMatrixIIBrute(vector<vector<int>>& matrix, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean searchMatrixIIBrute(int[][] matrix, int target) {
+        for (var row : matrix) {
+            for (int val : row) {
+                if (val == target) return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(m \times n)$ — scans all $m \times n$ elements.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -83,6 +97,20 @@ bool searchMatrixIIBS(vector<vector<int>>& matrix, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean searchMatrixIIBS(int[][] matrix, int target) {
+        for (var row : matrix) {
+            if (binary_search(row.begin(), row.end(), target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(m \log_2 n)$ — binary searches each row independently.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -106,6 +134,37 @@ public:
         if (matrix.empty() || matrix[0].empty()) return false;
         
         int m = matrix.size();
+        int n = matrix[0].size();
+        
+        // Start at top-right corner
+        int r = 0;
+        int c = n - 1;
+        
+        while (r < m && c >= 0) {
+            int val = matrix[r][c];
+            
+            if (val == target) {
+                return true;
+            } else if (val > target) {
+                c--; // eliminate entire column (all elements below are larger)
+            } else {
+                r++; // eliminate entire row (all elements to the left are smaller)
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix.isEmpty() || matrix[0].isEmpty()) return false;
+        
+        int m = matrix.length;
         int n = matrix[0].size();
         
         // Start at top-right corner

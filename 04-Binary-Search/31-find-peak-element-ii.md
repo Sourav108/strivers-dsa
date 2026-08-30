@@ -1,6 +1,6 @@
 # Find a Peak Element II (2D Peak) (Step 4.3 — BS on 2D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find a Peak Element II (2D Peak)](https://takeuforward.org/binary-search/find-peak-element-in-2d-matrix/)
 - **Difficulty**: Hard
@@ -58,6 +58,26 @@ vector<int> findPeakGridBrute(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] findPeakGridBrute(int[][] mat) {
+        int m = mat.length, n = mat[0].size();
+        int maxVal = -1;
+        int[] ans = {-1, -1};
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] > maxVal) {
+                    maxVal = mat[i][j];
+                    ans = {i, j};
+                }
+            }
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(m \times n)$ — scans all elements.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -99,6 +119,54 @@ private:
 public:
     vector<int> findPeakGrid(vector<vector<int>>& mat) {
         int m = mat.size();
+        int n = mat[0].size();
+        
+        int low = 0;
+        int high = n - 1;
+        
+        while (low <= high) {
+            int midCol = low + (high - low) / 2;
+            
+            // Find the row index of the maximum element in column midCol
+            int maxRow = findMaxRowIndex(mat, m, midCol);
+            
+            int currentVal = mat[maxRow][midCol];
+            int leftVal  = (midCol - 1 >= 0) ? mat[maxRow][midCol - 1] : -1;
+            int rightVal = (midCol + 1 < n)  ? mat[maxRow][midCol + 1] : -1;
+            
+            // If current is strictly greater than both horizontal neighbors, it is a 2D peak!
+            if (currentVal > leftVal && currentVal > rightVal) {
+                return {maxRow, midCol};
+            } else if (leftVal > currentVal) {
+                high = midCol - 1; // peak guaranteed on left
+            } else {
+                low = midCol + 1;  // peak guaranteed on right
+            }
+        }
+        
+        return {-1, -1};
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findMaxRowIndex(int[][] mat, int m, int col) {
+        int maxValue = -1;
+        int maxIndex = -1;
+        for (int i = 0; i < m; i++) {
+            if (mat[i][col] > maxValue) {
+                maxValue = mat[i][col];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    int[] findPeakGrid(int[][] mat) {
+        int m = mat.length;
         int n = mat[0].size();
         
         int low = 0;

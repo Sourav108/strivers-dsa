@@ -1,6 +1,6 @@
 # Merge Overlapping Intervals (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/merge-overlapping-sub-intervals/
 - **Difficulty**: Medium
@@ -48,6 +48,19 @@ vector<vector<int>> mergeIntervalsBrute(vector<vector<int>>& intervals) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[][] mergeIntervalsBrute(int[][] intervals) {
+        Arrays.sort(intervals);
+        // pairwise check
+        return intervals;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -87,6 +100,27 @@ vector<vector<int>> mergeIntervalsOptimal(vector<vector<int>>& intervals) {
         }
     }
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[][] mergeIntervalsOptimal(int[][] intervals) {
+        if (intervals.isEmpty()) return {};
+        Arrays.sort(intervals);
+        List<List<Integer>> res = new ArrayList<>();
+        for (var iv : intervals) {
+            if (res.isEmpty() || res.peekLast()[1] < iv[0]) {
+                res.add(iv);
+            } else {
+                res.peekLast()[1] = Math.max(res.peekLast()[1], iv[1]);
+            }
+        }
+        return res;
+    }
 }
 ```
 

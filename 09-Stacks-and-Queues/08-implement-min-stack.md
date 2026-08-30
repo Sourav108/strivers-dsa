@@ -1,6 +1,6 @@
 # Implement Min Stack (O(1) time and space) (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Min Stack (O(1) time and space)](https://takeuforward.org/data-structure/implement-min-stack-o2n-and-on-space-complexity/)
 - **Difficulty**: Medium
@@ -45,6 +45,23 @@ public:
     void pop() { st.pop(); }
     int top() { return st.top().first; }
     int getMin() { return st.top().second; }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class MinStackPair {
+    stack<pair<int, int>> st;
+
+    void push(int val) {
+        int m = st.isEmpty() ? val : Math.min(val, st.peek().second);
+        st.push({val, m});
+    }
+    void pop() { st.pop(); }
+    int top() { return st.peek().first; }
+    int getMin() { return st.peek().second; }
 };
 ```
 
@@ -110,6 +127,59 @@ public:
     int top() {
         if (st.empty()) return -1;
         long long topVal = st.top();
+        if (topVal < mini) {
+            return (int)mini; // the actual value pushed was mini
+        }
+        return (int)topVal;
+    }
+    
+    int getMin() {
+        return (int)mini;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class MinStack {
+
+    stack<long> st;
+    long mini;
+
+    public MinStack() { /* initialized: mini(Long.MAX_VALUE)  */  }
+    
+    void push(int val) {
+        long x = val;
+        if (st.isEmpty()) {
+            mini = x;
+            st.push(x);
+        } else {
+            if (x < mini) {
+                // Push encoded flag value (2x - mini) which is strictly < x
+                st.push(2 * x - mini);
+                mini = x; // update current minimum
+            } else {
+                st.push(x);
+            }
+        }
+    }
+    
+    void pop() {
+        if (st.isEmpty()) return;
+        long topVal = st.peek();
+        st.pop();
+        
+        // If popped value is encoded flag, restore previous minimum
+        if (topVal < mini) {
+            mini = 2 * mini - topVal;
+        }
+    }
+    
+    int top() {
+        if (st.isEmpty()) return -1;
+        long topVal = st.peek();
         if (topVal < mini) {
             return (int)mini; // the actual value pushed was mini
         }

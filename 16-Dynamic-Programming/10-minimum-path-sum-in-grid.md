@@ -1,6 +1,6 @@
 # Minimum Path Sum in Grid (Step 16.2 — 2D/3D DP and DP on Grids)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Path Sum in Grid](https://takeuforward.org/data-structure/minimum-path-sum-in-a-grid-dp-10/)
 - **Difficulty**: Medium
@@ -54,6 +54,23 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, int[][] g) {
+        if (i == 0 && j == 0) return g[0][0];
+        if (i < 0 || j < 0) return 1e9;
+        int up = g[i][j] + solve(i - 1, j, g);
+        int left = g[i][j] + solve(i, j - 1, g);
+        return Math.min(up, left);
+    }
+
+    int minPathSum(int[][] grid) {
+        return solve(grid.length - 1, grid[0].size() - 1, grid);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^{M+N})$ time.
 - **Space Complexity**: $\mathcal{O}(M + N)$ recursion stack.
@@ -85,6 +102,29 @@ public:
                     int up = (i > 0) ? dp[i - 1][j] : 1e9;
                     int left = (j > 0) ? dp[i][j - 1] : 1e9;
                     dp[i][j] = grid[i][j] + min(up, left);
+                }
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int minPathSum(int[][] grid) {
+        int m = grid.length, n = grid[0].size();
+        int[][] dp = new int[m][n];
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 && j == 0) dp[i][j] = grid[i][j];
+                else {
+                    int up = (i > 0) ? dp[i - 1][j] : 1e9;
+                    int left = (j > 0) ? dp[i][j - 1] : 1e9;
+                    dp[i][j] = grid[i][j] + Math.min(up, left);
                 }
             }
         }
@@ -129,6 +169,36 @@ public:
                     int up = (i > 0) ? prev[j] : 1e9;
                     int left = (j > 0) ? cur[j - 1] : 1e9;
                     cur[j] = grid[i][j] + min(up, left);
+                }
+            }
+            prev = cur;
+        }
+        
+        return prev[n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].size();
+        
+        // prev[j] stores minimum path sum to reach (previous_row, j)
+        int[] prev = new int[n];
+        
+        for (int i = 0; i < m; i++) {
+            int[] cur = new int[n];
+            for (int j = 0; j < n; j++) {
+                if (i == 0 && j == 0) {
+                    cur[j] = grid[i][j];
+                } else {
+                    int up = (i > 0) ? prev[j] : 1e9;
+                    int left = (j > 0) ? cur[j - 1] : 1e9;
+                    cur[j] = grid[i][j] + Math.min(up, left);
                 }
             }
             prev = cur;

@@ -1,6 +1,6 @@
 # Maximum Sum Combination (Max-Heap with index pairs) (Step 11.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum Sum Combination (Max-Heap with index pairs)](https://takeuforward.org/data-structure/maximum-sum-combination/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Generate all $N^2$ sums, sort, take top $C$ in $\mathcal{O}(N^2 \log(N^2))$ time
 
 ### C++17 Code
 ```cpp
+// O(N^2 log N) brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2 log N) brute force
 ```
 
@@ -99,6 +105,55 @@ public:
             if (j + 1 < n && visited.find({i, j + 1}) == visited.end()) {
                 maxHeap.push({A[i] + B[j + 1], {i, j + 1}});
                 visited.insert({i, j + 1});
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] solve(int[] A, int[] B, int C) {
+        int n = A.length;
+        sort(A.rbegin(), A.rend()); // sort descending
+        sort(B.rbegin(), B.rend());
+        
+        // Max-heap stores: {sum, i, j}
+        priority_queue<pair<int, pair<int, int>>> maxHeap;
+        set<pair<int, int>> visited; // track pushed index pairs
+        
+        maxHeap.push({A[0] + B[0], {0, 0}});
+        visited.add({0, 0});
+        
+        List<Integer> result = new ArrayList<>();
+        result.reserve(C);
+        
+        while (result.length < C && !maxHeap.isEmpty()) {
+            var topElem = maxHeap.peek();
+            maxHeap.pop();
+            
+            int sum = topElem.first;
+            int i = topElem.second.first;
+            int j = topElem.second.second;
+            
+            result.add(sum);
+            
+            // Candidate 1: (i + 1, j)
+            if (i + 1 < n && visited.find({i + 1, j}) == visited.end()) {
+                maxHeap.push({A[i + 1] + B[j], {i + 1, j}});
+                visited.add({i + 1, j});
+            }
+            
+            // Candidate 2: (i, j + 1)
+            if (j + 1 < n && visited.find({i, j + 1}) == visited.end()) {
+                maxHeap.push({A[i] + B[j + 1], {i, j + 1}});
+                visited.add({i, j + 1});
             }
         }
         

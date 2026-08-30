@@ -1,6 +1,6 @@
 # While & Do-While Loops in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [While & Do-While Loops in C++](https://takeuforward.org/c/while-loops-in-c/)
 - **Difficulty**: Easy
@@ -38,6 +38,20 @@ void infiniteLoopBug() {
         if (i == 5) continue; // BUG: skips i++, causing infinite loop at i=5!
         cout << i << " ";
         i++;
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void infiniteLoopBug() {
+        int i = 0;
+        while (i < 10) {
+            if (i == 5) continue; // BUG: skips i++, causing infinite loop at i=5!
+            System.out.print(i << " ");
+            i++;
+        }
     }
 }
 ```
@@ -83,6 +97,31 @@ int main() {
     } while (num < 0); // Condition is false, but body executed once!
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        // Standard while loop (Entry-controlled: 0 or more times)
+        int n = 12345;
+        int digitCount = 0;
+        while (n > 0) {
+            digitCount++;
+            n /= 10; // Progress toward termination
+        }
+        System.out.print("Digits: " << digitCount << "\n");
+        
+        // do-while loop (Exit-controlled: Guaranteed >= 1 execution)
+        int num = 0;
+        do {
+            System.out.print("Runs at least once even when num == 0! Val: " << num << "\n");
+            num++;
+        } while (num < 0); // Condition is false, but body executed once!
+        
+        return 0;
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # Median of Two Sorted Arrays of Different Sizes (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Median of Two Sorted Arrays of Different Sizes](https://takeuforward.org/data-structure/median-of-two-sorted-arrays-of-different-sizes/)
 - **Difficulty**: Hard
@@ -62,6 +62,29 @@ double findMedianSortedArraysBrute(vector<int>& nums1, vector<int>& nums2) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    double findMedianSortedArraysBrute(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        List<Integer> merged = new ArrayList<>();
+        int i = 0, j = 0;
+        while (i < m && j < n) {
+            if (nums1[i] <= nums2[j]) merged.add(nums1[i++]);
+            else merged.add(nums2[j++]);
+        }
+        while (i < m) merged.add(nums1[i++]);
+        while (j < n) merged.add(nums2[j++]);
+        
+        int total = m + n;
+        if (total % 2 == 1) return merged[total / 2];
+        return (merged[total / 2 - 1] + merged[total / 2]) / 2.0;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(m + n)$ time.
 - **Space Complexity**: $\mathcal{O}(m + n)$ space.
@@ -107,6 +130,43 @@ double findMedianSortedArraysBetter(vector<int>& nums1, vector<int>& nums2) {
     }
     if (total % 2 == 1) return el2;
     return (el1 + el2) / 2.0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    double findMedianSortedArraysBetter(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        int total = m + n;
+        int idx2 = total / 2;
+        int idx1 = idx2 - 1;
+        int el1 = -1, el2 = -1;
+        
+        int i = 0, j = 0, count = 0;
+        while (i < m && j < n) {
+            int val = (nums1[i] <= nums2[j]) ? nums1[i++] : nums2[j++];
+            if (count == idx1) el1 = val;
+            if (count == idx2) el2 = val;
+            count++;
+        }
+        while (i < m) {
+            int val = nums1[i++];
+            if (count == idx1) el1 = val;
+            if (count == idx2) el2 = val;
+            count++;
+        }
+        while (j < n) {
+            int val = nums2[j++];
+            if (count == idx1) el1 = val;
+            if (count == idx2) el2 = val;
+            count++;
+        }
+        if (total % 2 == 1) return el2;
+        return (el1 + el2) / 2.0;
+    }
 }
 ```
 
@@ -161,6 +221,58 @@ public:
                 }
                 // Even total elements: average of left max and right min
                 return (max(l1, l2) + min(r1, r2)) / 2.0;
+            } 
+            // Too many elements from nums1
+            else if (l1 > r2) {
+                high = px - 1; // search left in nums1
+            } 
+            // Too few elements from nums1
+            else {
+                low = px + 1;  // search right in nums1
+            }
+        }
+        
+        return 0.0;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        
+        // Ensure nums1 is the smaller array to optimize binary search to O(log(Math.min(m, n)))
+        if (m > n) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+        
+        int low = 0, high = m;
+        int leftTotal = (m + n + 1) / 2; // total elements in left partition
+        
+        while (low <= high) {
+            int px = low + (high - low) / 2; // elements taken from nums1
+            int py = leftTotal - px;         // elements taken from nums2
+            
+            // Boundary values with sentinel guards for empty subpartitions
+            int l1 = (px == 0) ? Integer.MIN_VALUE : nums1[px - 1];
+            int r1 = (px == m) ? Integer.MAX_VALUE : nums1[px];
+            int l2 = (py == 0) ? Integer.MIN_VALUE : nums2[py - 1];
+            int r2 = (py == n) ? Integer.MAX_VALUE : nums2[py];
+            
+            // Valid partition condition: everything on left <= everything on right
+            if (l1 <= r2 && l2 <= r1) {
+                // Odd total elements: median is the maximum of left partition
+                if ((m + n) % 2 == 1) {
+                    return Math.max(l1, l2);
+                }
+                // Even total elements: average of left max and right min
+                return (Math.max(l1, l2) + Math.min(r1, r2)) / 2.0;
             } 
             // Too many elements from nums1
             else if (l1 > r2) {

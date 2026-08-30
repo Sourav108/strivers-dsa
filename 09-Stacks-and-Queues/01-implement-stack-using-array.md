@@ -1,6 +1,6 @@
 # Implement Stack using Arrays (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Stack using Arrays](https://takeuforward.org/data-structure/implement-stack-using-array/)
 - **Difficulty**: Easy
@@ -39,6 +39,17 @@ struct SlowStack {
     vector<int> v;
     void push(int x) { v.insert(v.begin(), x); } // O(N) shift
     int pop() { int x = v[0]; v.erase(v.begin()); return x; }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class SlowStack {
+    int[] v;
+    void push(int x) { v.add(v.begin(), x); } // O(N) shift
+    int pop() { int x = v[0]; v.remove(v.begin()); return x; }
 };
 ```
 
@@ -99,6 +110,48 @@ public:
     }
     
     bool isEmpty() {
+        return topIndex == -1;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class ArrayStack {
+
+    static int MAX_CAPACITY = 10000;
+    int arr[MAX_CAPACITY];
+    int topIndex;
+
+    public ArrayStack() { /* initialized: topIndex(-1)  */  }
+    
+    void push(int x) {
+        if (topIndex >= MAX_CAPACITY - 1) {
+            System.out.print("Stack Overflow\n");
+            return;
+        }
+        arr[++topIndex] = x;
+    }
+    
+    int pop() {
+        if (isEmpty()) {
+            return -1; // Stack Underflow
+        }
+        return arr[topIndex--];
+    }
+    
+    int top() {
+        if (isEmpty()) return -1;
+        return arr[topIndex];
+    }
+    
+    int size() {
+        return topIndex + 1;
+    }
+    
+    boolean isEmpty() {
         return topIndex == -1;
     }
 };

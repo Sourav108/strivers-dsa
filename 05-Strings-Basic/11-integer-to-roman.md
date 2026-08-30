@@ -1,6 +1,6 @@
 # Integer to Roman Conversion (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Integer to Roman Conversion](https://takeuforward.org/strings/integer-to-roman/)
 - **Difficulty**: Medium
@@ -44,6 +44,19 @@ string intToRomanPlaceValue(int num) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    String intToRomanPlaceValue(int num) {
+        String thousands[] = {"", "M", "MM", "MMM"};
+        String hundreds[]  = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        String tens[]      = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        String ones[]      = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+        return thousands[num / 1000] + hundreds[(num % 1000) / 100] + tens[(num % 100) / 10] + ones[num % 10];
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(1)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary.
@@ -76,6 +89,28 @@ public:
         const string symbols[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         
         string roman = "";
+        for (int i = 0; i < 13 && num > 0; i++) {
+            while (num >= values[i]) {
+                roman += symbols[i];
+                num -= values[i];
+            }
+        }
+        
+        return roman;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String intToRoman(int num) {
+        // 13 standard values and their corresponding Roman symbols
+        int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String symbols[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        
+        String roman = "";
         for (int i = 0; i < 13 && num > 0; i++) {
             while (num >= values[i]) {
                 roman += symbols[i];

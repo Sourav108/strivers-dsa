@@ -1,6 +1,6 @@
 # Check if an Array Represents a Min-Heap (Step 11.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if an Array Represents a Min-Heap](https://takeuforward.org/data-structure/check-if-an-array-represents-a-min-heap/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Recursive tree traversal from root.
 // Recursive validation
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Recursive validation
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$.
 - **Space Complexity**: $\mathcal{O}(\log N)$ stack.
@@ -62,6 +68,32 @@ using namespace std;
 class Solution {
 public:
     bool isMinHeap(int arr[], int n) {
+        // Only need to check internal nodes from 0 to (n - 2) / 2
+        for (int i = 0; i <= (n - 2) / 2; i++) {
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            
+            // Check left child
+            if (left < n && arr[i] > arr[left]) {
+                return false;
+            }
+            
+            // Check right child
+            if (right < n && arr[i] > arr[right]) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isMinHeap(int arr[], int n) {
         // Only need to check internal nodes from 0 to (n - 2) / 2
         for (int i = 0; i <= (n - 2) / 2; i++) {
             int left = 2 * i + 1;

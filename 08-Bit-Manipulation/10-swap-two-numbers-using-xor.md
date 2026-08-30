@@ -1,6 +1,6 @@
 # Swap Two Numbers without Temp Variable (XOR swap) (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Swap Two Numbers without Temp Variable (XOR swap)](https://takeuforward.org/bit-manipulation/swap-two-numbers-using-xor/)
 - **Difficulty**: Easy
@@ -40,6 +40,17 @@ void swapTemp(int& a, int& b) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void swapTemp(int a, int b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(1)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -65,6 +76,19 @@ using namespace std;
 
 class Solution {
 public:
+    pair<int, int> get(int a, int b) {
+        a = a ^ b;
+        b = a ^ b; // b becomes original a
+        a = a ^ b; // a becomes original b
+        return {a, b};
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     pair<int, int> get(int a, int b) {
         a = a ^ b;
         b = a ^ b; // b becomes original a

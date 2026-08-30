@@ -1,6 +1,6 @@
 # Prim's Algorithm for Minimum Spanning Tree (MST) (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Prim's Algorithm for Minimum Spanning Tree (MST)](https://takeuforward.org/data-structure/prims-algorithm-minimum-spanning-tree-c-and-java-g-45/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Generate all $\binom{E}{V-1}$ possible edge subsets, verify tree connectivity, a
 // O(Exponential) combinatorics
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(Exponential) combinatorics
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\text{Exponential})$.
 - **Space Complexity**: $\mathcal{O}(V)$.
@@ -50,6 +56,12 @@ Kruskal's Algorithm using Disjoint Set Union (DSU) in O(E log E) time.
 
 ### C++17 Code
 ```cpp
+// Kruskal's algorithm overview with DSU
+```
+
+### Java Code
+```java
+// Java equivalent
 // Kruskal's algorithm overview with DSU
 ```
 
@@ -110,6 +122,63 @@ public:
             
             // Traverse all adjacent edges
             for (const auto& edge : adj[node]) {
+                int adjNode = edge[0];
+                int edgeWeight = edge[1];
+                
+                if (!vis[adjNode]) {
+                    pq.push({edgeWeight, {adjNode, node}});
+                }
+            }
+        }
+        
+        return mstSum;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    // Function to find sum of weights of edges of the Minimum Spanning Tree.
+    int spanningTree(int V, int[][] adj[]) {
+        // Min-heap stores {weight, {node, parent}}
+        // (parent is needed if we also want to record MST edges)
+        priority_queue<pair<int, pair<int, int>>,
+                       vector<pair<int, pair<int, int>>>,
+                       greater<pair<int, pair<int, int>>>> pq;
+        
+        int[] vis = new int[V];
+        
+        // Push initial source vertex (node 0, weight 0, parent -1)
+        pq.push({0, {0, -1}});
+        
+        int mstSum = 0;
+        List<int[]> mstEdges; // Stores the V - 1 MST edges
+        
+        while (!pq.isEmpty()) {
+            var top = pq.peek();
+            pq.pop();
+            
+            int wt = top.first;
+            int node = top.second.first;
+            int parent = top.second.second;
+            
+            // If already included in the MST cut, ignore
+            if (vis[node]) continue;
+            
+            // Add node to MST
+            vis[node] = 1;
+            mstSum += wt;
+            
+            if (parent != -1) {
+                mstEdges.add({parent, node});
+            }
+            
+            // Traverse all adjacent edges
+            for (var edge : adj[node]) {
                 int adjNode = edge[0];
                 int edgeWeight = edge[1];
                 

@@ -1,6 +1,6 @@
 # Next Smaller Element (Immediate smaller) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Next Smaller Element (Immediate smaller)](https://takeuforward.org/data-structure/next-smaller-element/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Nested loops checking rightwards in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute search
 ```
 
@@ -73,6 +79,31 @@ public:
             }
             
             nse[i] = st.empty() ? -1 : st.top();
+            st.push(arr[i]);
+        }
+        
+        return nse;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] prevSmaller(int[] arr) {
+        int n = arr.length;
+        int[] nse = new int[n];
+        Stack<Integer> st = new Stack<>(); // monotonic increasing
+        
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && st.peek() >= arr[i]) {
+                st.pop();
+            }
+            
+            nse[i] = st.isEmpty() ? -1 : st.peek();
             st.push(arr[i]);
         }
         

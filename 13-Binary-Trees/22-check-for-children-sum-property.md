@@ -1,6 +1,6 @@
 # Check for Children Sum Property in Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check for Children Sum Property in Binary Tree](https://takeuforward.org/data-structure/check-for-children-sum-property-in-a-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Repeatedly searching and bumping values in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) repeated bumps
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) repeated bumps
 ```
 
@@ -106,6 +112,62 @@ public:
         if (root->right != nullptr) sum += root->right->val;
         
         return (root->val == sum) && isSumProperty(root->left) && isSumProperty(root->right);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    // Transformation: Enforce Children Sum Property by incrementing values
+    void changeTree(TreeNode  root) {
+        if (root == null) return;
+        
+        // Step 1: Calculate sum of children
+        int childSum = 0;
+        if (root.left != null) childSum += root.left.val;
+        if (root.right != null) childSum += root.right.val;
+        
+        // Step 2: Boost children if parent is larger to prevent value shortages
+        if (childSum >= root.val) {
+            root.val = childSum;
+        } else {
+            if (root.left != null) root.left.val = root.val;
+            if (root.right != null) root.right.val = root.val;
+        }
+        
+        // Step 3: Recurse on subtrees
+        changeTree(root.left);
+        changeTree(root.right);
+        
+        // Step 4: Bottom-up aggregation (set root equal to actual resolved children sum)
+        int totalSum = 0;
+        if (root.left != null) totalSum += root.left.val;
+        if (root.right != null) totalSum += root.right.val;
+        if (root.left != null || root.right != null) {
+            root.val = totalSum;
+        }
+    }
+    
+    // Verification: Check if binary tree satisfies Children Sum Property
+    boolean isSumProperty(TreeNode  root) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return true; // leaf nodes trivially satisfy property
+        }
+        
+        int sum = 0;
+        if (root.left != null) sum += root.left.val;
+        if (root.right != null) sum += root.right.val;
+        
+        return (root.val == sum) && isSumProperty(root.left) && isSumProperty(root.right);
     }
 };
 ```

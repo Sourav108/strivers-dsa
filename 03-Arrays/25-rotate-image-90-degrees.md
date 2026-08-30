@@ -1,6 +1,6 @@
 # Rotate Image by 90 Degrees Clockwise (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/rotate-image-by-90-degree/
 - **Difficulty**: Medium
@@ -51,6 +51,20 @@ void rotateMatrixBrute(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void rotateMatrixBrute(int[][] mat) {
+        int n = mat.length;
+        int[][] res = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                res[j][n - 1 - i] = mat[i][j];
+        mat = res;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(n^2)
@@ -87,6 +101,22 @@ void rotateMatrixOptimal(vector<vector<int>>& mat) {
     // Reverse each row
     for (int i = 0; i < n; i++)
         reverse(mat[i].begin(), mat[i].end());
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void rotateMatrixOptimal(int[][] mat) {
+        int n = mat.length;
+        // Transpose
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j < n; j++)
+                int temp = mat[i][j]; mat[i][j] = mat[j][i]; mat[j][i] = temp;
+        // Reverse each row
+        for (int i = 0; i < n; i++)
+            reverse(mat[i].begin(), mat[i].end());
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # Minimum Cost to Cut a Stick (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Cost to Cut a Stick](https://takeuforward.org/data-structure/minimum-cost-to-cut-the-stick-dp-50/)
 - **Difficulty**: Hard
@@ -42,6 +42,13 @@ Recursively test all $C!$ permutations of cuts in $\mathcal{O}(C!)$ time.
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(C!) factorial permutation search
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(C!) factorial permutation search
 };
@@ -89,6 +96,34 @@ public:
 };
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class SolutionMemo {
+    int memo(int i, int j, int[] cuts, int[][] dp) {
+        if (i + 1 >= j) return 0;
+        if (dp[i][j] != -1) return dp[i][j];
+        
+        int minCost = 1e9;
+        for (int k = i + 1; k < j; k++) {
+            int cost = (cuts[j] - cuts[i]) + memo(i, k, cuts, dp) + memo(k, j, cuts, dp);
+            minCost = Math.min(minCost, cost);
+        }
+        return dp[i][j] = minCost;
+    }
+
+    int minCost(int n, int[] cuts) {
+        cuts.add(0);
+        cuts.add(n);
+        Arrays.sort(cuts);
+        int m = cuts.length;
+        int[][] dp = new int[m][m];
+        return memo(0, m - 1, cuts, dp);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(C^3)$ time.
 - **Space Complexity**: $\mathcal{O}(C^2)$ space.
@@ -130,6 +165,43 @@ public:
                 for (int k = i + 1; k < j; k++) {
                     int cost = (cuts[j] - cuts[i]) + dp[i][k] + dp[k][j];
                     dp[i][j] = min(dp[i][j], cost);
+                }
+            }
+        }
+        
+        // Entire stick between 0 (cuts[0]) and n (cuts[m - 1])
+        return dp[0][m - 1];
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int minCost(int n, int[] cuts) {
+        // Step 1: Add boundary endpoints 0 and n, and sort
+        cuts.add(0);
+        cuts.add(n);
+        Arrays.sort(cuts);
+        
+        int m = cuts.length; // Total points = C + 2
+        
+        // dp[i][j] stores min cost to make all cuts between cuts[i] and cuts[j]
+        int[][] dp = new int[m][m];
+        
+        // Step 2: Iterate chain length from 2 to m - 1
+        for (int len = 2; len < m; len++) {
+            for (int i = 0; i < m - len; i++) {
+                int j = i + len;
+                dp[i][j] = 1e9;
+                
+                // Try making cut at index k first
+                for (int k = i + 1; k < j; k++) {
+                    int cost = (cuts[j] - cuts[i]) + dp[i][k] + dp[k][j];
+                    dp[i][j] = Math.min(dp[i][j], cost);
                 }
             }
         }

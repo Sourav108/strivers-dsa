@@ -1,6 +1,6 @@
 # Left Rotate Array by One (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/left-rotate-the-array-by-one/
 - **Difficulty**: Easy
@@ -49,6 +49,18 @@ void rotateByOneBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void rotateByOneBrute(int[] nums) {
+        int n = nums.length; if (n <= 1) return;
+        int[] t = new int[n];
+        for (int i = 1; i < n; i++) t[i-1] = nums[i];
+        t[n-1] = nums[0]; nums = t;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
@@ -81,6 +93,18 @@ void rotateByOneOptimal(vector<int>& nums) {
     int temp = nums[0], n = nums.size();
     for (int i = 0; i < n - 1; i++) nums[i] = nums[i + 1];
     nums[n - 1] = temp;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void rotateByOneOptimal(int[] nums) {
+        if (nums.length <= 1) return;
+        int temp = nums[0], n = nums.length;
+        for (int i = 0; i < n - 1; i++) nums[i] = nums[i + 1];
+        nums[n - 1] = temp;
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # Design Twitter (Feed timeline with Heap Merge) (Step 11.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Design Twitter (Feed timeline with Heap Merge)](https://takeuforward.org/data-structure/design-twitter/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Dump all tweets from all followed users into a vector and sort in $\mathcal{O}(T
 
 ### C++17 Code
 ```cpp
+// O(T log T) sort all tweets
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(T log T) sort all tweets
 ```
 
@@ -102,6 +108,68 @@ public:
             
             if (nextIdx >= 0) {
                 auto [time, tweetId] = userTweets[u][nextIdx];
+                maxHeap.push({time, tweetId, u, nextIdx});
+            }
+        }
+        
+        return feed;
+    }
+    
+    void follow(int followerId, int followeeId) {
+        if (followerId != followeeId) {
+            userFollowing[followerId].insert(followeeId);
+        }
+    }
+    
+    void unfollow(int followerId, int followeeId) {
+        userFollowing[followerId].erase(followeeId);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Twitter {
+
+    int globalTimestamp;
+    unordered_map<int, List<int[]>> userTweets; // userId . list of {timestamp, tweetId}
+    unordered_map<int, Set<Integer>> userFollowing;  // followerId . set of followeeIds
+
+    public Twitter() { /* initialized: globalTimestamp(0)  */  }
+    
+    void postTweet(int userId, int tweetId) {
+        userTweets[userId].add({globalTimestamp++, tweetId});
+    }
+    
+    int[] getNewsFeed(int userId) {
+        // Max-heap stores {timestamp, tweetId, userId, index_in_user_tweets}
+        priority_queue<int[]> maxHeap;
+        
+        // Collect self and all followees
+        Set<Integer> users = userFollowing[userId];
+        users.add(userId); // include self tweets
+        
+        for (int u : users) {
+            if (!userTweets[u].isEmpty()) {
+                int lastIdx = (int)userTweets[u].size() - 1;
+                var [time, tweetId] = userTweets[u][lastIdx];
+                maxHeap.push({time, tweetId, u, lastIdx});
+            }
+        }
+        
+        List<Integer> feed = new ArrayList<>();
+        while (!maxHeap.isEmpty() && feed.length < 10) {
+            var curr = maxHeap.peek();
+            maxHeap.pop();
+            
+            feed.add(curr[1]); // tweetId
+            int u = curr[2];
+            int nextIdx = curr[3] - 1;
+            
+            if (nextIdx >= 0) {
+                var [time, tweetId] = userTweets[u][nextIdx];
                 maxHeap.push({time, tweetId, u, nextIdx});
             }
         }

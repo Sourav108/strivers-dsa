@@ -1,6 +1,6 @@
 # Subsets II (Unique Subsets with Duplicates) (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Subsets II (Unique Subsets with Duplicates)](https://takeuforward.org/data-structure/subset-ii-print-all-the-unique-subsets/)
 - **Difficulty**: Medium
@@ -41,6 +41,17 @@ set<vector<int>> setSubsets(vector<int>& nums) {
     // slow set insertion approach
     set<vector<int>> st;
     return st;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    set<int[]> setSubsets(int[] nums) {
+        // slow set insertion approach
+        set<int[]> st;
+        return st;
+    }
 }
 ```
 
@@ -88,6 +99,35 @@ public:
         vector<vector<int>> ans;
         vector<int> ds;
         sort(nums.begin(), nums.end()); // sort to group duplicates
+        findSubsets(0, nums, ds, ans);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void findSubsets(int ind, int[] nums, int[] ds, int[][] ans) {
+        ans.add(ds); // record subset at current node
+        
+        for (int i = ind; i < nums.length; i++) {
+            // Skip duplicates at the same tree depth
+            if (i > ind && nums[i] == nums[i - 1]) continue;
+            
+            ds.add(nums[i]);
+            findSubsets(i + 1, nums, ds, ans);
+            ds.remove(); // backtrack
+        }
+    }
+
+    int[][] subsetsWithDup(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        Arrays.sort(nums); // sort to group duplicates
         findSubsets(0, nums, ds, ans);
         return ans;
     }

@@ -1,6 +1,6 @@
 # Sort a LinkedList (Merge Sort on LL) (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sort a LinkedList (Merge Sort on LL)](https://takeuforward.org/data-structure/sort-a-linked-list/)
 - **Difficulty**: Medium
@@ -44,6 +44,22 @@ Node* sortArray(Node* head) {
     sort(v.begin(), v.end());
     c = head;
     for (int x : v) { c->data = x; c = c->next; }
+    return head;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node { int data; Node  next; };
+Node  sortArray(Node  head) {
+    List<Integer> v = new ArrayList<>();
+    Node  c = head;
+    while (c) { v.add(c.data); c = c.next; }
+    Arrays.sort(v);
+    c = head;
+    for (int x : v) { c.data = x; c = c.next; }
     return head;
 }
 ```
@@ -116,6 +132,64 @@ public:
         // 2. Recursively sort halves
         Node* left = sortList(head);
         Node* right = sortList(rightHead);
+        
+        // 3. Merge sorted halves
+        return merge(left, right);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  findMid(Node  head) {
+        Node  slow = head;
+        Node  fast = head.next; // stops slow at first middle
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    
+    Node  merge(Node  l1, Node  l2) {
+        Node dummy(0);
+        Node  tail = &dummy;
+        
+        while (l1 && l2) {
+            if (l1.data <= l2.data) {
+                tail.next = l1;
+                l1 = l1.next;
+            } else {
+                tail.next = l2;
+                l2 = l2.next;
+            }
+            tail = tail.next;
+        }
+        tail.next = (l1) ? l1 : l2;
+        return dummy.next;
+    }
+
+    Node  sortList(Node  head) {
+        if (!head || !head.next) return head;
+        
+        // 1. Split list at middle
+        Node  mid = findMid(head);
+        Node  rightHead = mid.next;
+        mid.next = null; // break link
+        
+        // 2. Recursively sort halves
+        Node  left = sortList(head);
+        Node  right = sortList(rightHead);
         
         // 3. Merge sorted halves
         return merge(left, right);

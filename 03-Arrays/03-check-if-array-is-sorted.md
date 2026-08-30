@@ -1,6 +1,6 @@
 # Check if Array Is Sorted and Rotated (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/check-if-an-array-is-sorted/
 - **Difficulty**: Easy
@@ -53,6 +53,24 @@ bool checkBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    boolean checkBrute(int[] nums) {
+        int[] s = nums; Arrays.sort(s);
+        int n = nums.length;
+        for (int k = 0; k < n; k++) {
+            boolean ok = true;
+            for (int i = 0; i < n; i++) if (nums[(i+k)%n] != s[i]) { ok = false; break; }
+            if (ok) return true;
+        }
+        return false;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(n)
@@ -86,6 +104,19 @@ bool checkOptimal(const vector<int>& nums) {
         if (nums[i] > nums[(i + 1) % n]) countDrops++;
     }
     return countDrops <= 1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    boolean checkOptimal(int[] nums) {
+        int countDrops = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > nums[(i + 1) % n]) countDrops++;
+        }
+        return countDrops <= 1;
+    }
 }
 ```
 

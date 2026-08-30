@@ -1,6 +1,6 @@
 # Check for Balanced Parentheses (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check for Balanced Parentheses](https://takeuforward.org/data-structure/check-for-balanced-parentheses/)
 - **Difficulty**: Easy
@@ -42,6 +42,20 @@ bool isValidStringReplace(string s) {
         else s.erase(s.find("[]"), 2);
     }
     return s.empty();
+}
+```
+
+### Java Code
+```java
+class Solution {
+    boolean isValidStringReplace(String s) {
+        while (s.find("()") != String::npos || s.find("{}") != String::npos || s.find("[]") != String::npos) {
+            if (s.find("()") != String::npos) s.remove(s.find("()"), 2);
+            else if (s.find("{}") != String::npos) s.remove(s.find("{}"), 2);
+            else s.remove(s.find("[]"), 2);
+        }
+        return s.isEmpty();
+    }
 }
 ```
 
@@ -92,6 +106,37 @@ public:
         }
         
         return st.empty();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean isValid(String s) {
+        Stack<Character> st = new Stack<>();
+        
+        for (char c : s) {
+            if (c == '(' || c == '{' || c == '[') {
+                st.push(c);
+            } else {
+                if (st.isEmpty()) return false; // unmatched closing bracket
+                
+                char top = st.peek();
+                if ((c == ')' && top == '(') ||
+                    (c == '}' && top == '{') ||
+                    (c == ']' && top == '[')) {
+                    st.pop();
+                } else {
+                    return false; // mismatch
+                }
+            }
+        }
+        
+        return st.isEmpty();
     }
 };
 ```

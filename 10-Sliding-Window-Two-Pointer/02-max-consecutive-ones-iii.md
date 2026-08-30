@@ -1,6 +1,6 @@
 # Max Consecutive Ones III (At most K zeroes flipped) (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Max Consecutive Ones III (At most K zeroes flipped)](https://takeuforward.org/data-structure/max-consecutive-ones-iii/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Nested loops counting zeros for all $N^2$ subarrays in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute force
 ```
 
@@ -80,6 +86,35 @@ public:
             }
             
             maxLen = max(maxLen, right - left + 1);
+        }
+        
+        return maxLen;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int longestOnes(int[] nums, int k) {
+        int left = 0, zeroCount = 0, maxLen = 0;
+        int n = nums.length;
+        
+        for (int right = 0; right < n; right++) {
+            if (nums[right] == 0) {
+                zeroCount++;
+            }
+            
+            // Shrink window if zeros exceed budget k
+            while (zeroCount > k) {
+                if (nums[left] == 0) {
+                    zeroCount--;
+                }
+                left++;
+            }
+            
+            maxLen = Math.max(maxLen, right - left + 1);
         }
         
         return maxLen;

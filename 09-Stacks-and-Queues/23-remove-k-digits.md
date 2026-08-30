@@ -1,6 +1,6 @@
 # Remove K Digits to make Smallest Number (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Remove K Digits to make Smallest Number](https://takeuforward.org/data-structure/remove-k-digits/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate $\binom{N}{k}$ combinations in exponential time.
 
 ### C++17 Code
 ```cpp
+// Combination search
+```
+
+### Java Code
+```java
+// Java equivalent
 // Combination search
 ```
 
@@ -87,6 +93,40 @@ public:
         
         string ans = st.substr(startIdx);
         return ans.empty() ? "0" : ans;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String removeKdigits(String num, int k) {
+        String st = ""; // use String as monotonic stack
+        
+        for (char digit : num) {
+            // Greedily pop larger preceding digits while budget k allows
+            while (!st.isEmpty() && k > 0 && st.peekLast() > digit) {
+                st.remove();
+                k--;
+            }
+            st.add(digit);
+        }
+        
+        // If k still > 0, pop trailing digits
+        while (k > 0 && !st.isEmpty()) {
+            st.remove();
+            k--;
+        }
+        
+        // Strip leading zeros
+        int startIdx = 0;
+        while (startIdx < st.length() && st[startIdx] == '0') {
+            startIdx++;
+        }
+        
+        String ans = st.substring(startIdx);
+        return ans.isEmpty() ? "0" : ans;
     }
 };
 ```

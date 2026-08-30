@@ -1,6 +1,6 @@
 # Print Root to Node Path in Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print Root to Node Path in Binary Tree](https://takeuforward.org/data-structure/print-root-to-node-path-in-a-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate all root-to-leaf paths, then search for target in each path in $\mathca
 
 ### C++17 Code
 ```cpp
+// All paths search
+```
+
+### Java Code
+```java
+// Java equivalent
 // All paths search
 ```
 
@@ -91,6 +97,47 @@ public:
     vector<int> solve(TreeNode* root, int B) {
         vector<int> path;
         if (root == nullptr) return path;
+        getPath(root, path, B);
+        return path;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    boolean getPath(TreeNode  root, int[] path, int target) {
+        if (root == null) return false;
+        
+        // Include current node in path
+        path.add(root.val);
+        
+        // Target found!
+        if (root.val == target) return true;
+        
+        // Check left or right subtree
+        if (getPath(root.left, path, target) || getPath(root.right, path, target)) {
+            return true;
+        }
+        
+        // Backtrack: target not found in this subtree
+        path.remove();
+        return false;
+    }
+
+    int[] solve(TreeNode  root, int B) {
+        List<Integer> path = new ArrayList<>();
+        if (root == null) return path;
         getPath(root, path, B);
         return path;
     }

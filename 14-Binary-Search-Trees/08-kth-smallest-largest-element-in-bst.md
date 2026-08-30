@@ -1,6 +1,6 @@
 # Find K-th Smallest / Largest Element in BST (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find K-th Smallest / Largest Element in BST](https://takeuforward.org/data-structure/kth-largest-smallest-element-in-binary-search-tree-bst/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Dump full inorder into a vector and return `v[k - 1]` in $\mathcal{O}(N)$ memory
 // Vector inorder dump
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Vector inorder dump
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ vector.
@@ -61,6 +67,24 @@ int kthSmallestIter(TreeNode* root, int k) {
         curr = st.top(); st.pop();
         if (--k == 0) return curr->val;
         curr = curr->right;
+    }
+    return -1;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode { int val; TreeNode left, right; };
+int kthSmallestIter(TreeNode  root, int k) {
+    Stack<TreeNode> st = new Stack<>();
+    TreeNode  curr = root;
+    while (curr || !st.isEmpty()) {
+        while (curr) { st.push(curr); curr = curr.left; }
+        curr = st.peek(); st.pop();
+        if (--k == 0) return curr.val;
+        curr = curr.right;
     }
     return -1;
 }
@@ -113,6 +137,50 @@ public:
                     count++;
                     if (count == k) result = curr->val;
                     curr = curr->right;
+                }
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int kthSmallest(TreeNode  root, int k) {
+        int count = 0;
+        int result = -1;
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (curr.left == null) {
+                count++;
+                if (count == k) result = curr.val;
+                curr = curr.right;
+            } else {
+                TreeNode  prev = curr.left;
+                while (prev.right != null && prev.right != curr) {
+                    prev = prev.right;
+                }
+                
+                if (prev.right == null) {
+                    prev.right = curr;
+                    curr = curr.left;
+                } else {
+                    prev.right = null;
+                    count++;
+                    if (count == k) result = curr.val;
+                    curr = curr.right;
                 }
             }
         }

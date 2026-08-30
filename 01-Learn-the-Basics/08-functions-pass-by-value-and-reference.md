@@ -1,6 +1,6 @@
 # Functions (Pass by Value & Reference) in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Functions (Pass by Value & Reference) in C++](https://takeuforward.org/c/functions-in-c/)
 - **Difficulty**: Easy
@@ -38,6 +38,18 @@ long long sumVectorSlow(vector<int> vec) {
     long long sum = 0;
     for (int x : vec) sum += x;
     return sum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // Inefficient: copies entire vector of size N on every function call!
+    long sumVectorSlow(int[] vec) {
+        long sum = 0;
+        for (int x : vec) sum += x;
+        return sum;
+    }
 }
 ```
 
@@ -89,6 +101,36 @@ int main() {
     cout << "Sum: " << sumVectorFast(data) << "\n"; // Zero memory copied!
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // 1. Pass by Reference: modifies original variables in-place
+    void swapValues(int a, int b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+    
+    // 2. Pass by Const Reference: Zero-copy, read-only safety
+    long sumVectorFast(int[] vec) {
+        long total = 0;
+        for (int x : vec) total += x;
+        return total;
+    }
+    
+    int main() {
+        int x = 10, y = 20;
+        swapValues(x, y);
+        System.out.print("Swapped: x = " << x << ", y = " << y << "\n"); // x=20, y=10
+        
+        int[] data = new int[1000000];
+        System.out.print("Sum: " << sumVectorFast(data) << "\n"); // Zero memory copied!
+        
+        return 0;
+    }
 }
 ```
 

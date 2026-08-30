@@ -1,6 +1,6 @@
 # Best Time to Buy and Sell Stock with Cooldown (Step 16.5 — DP on Stocks)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Best Time to Buy and Sell Stock with Cooldown](https://takeuforward.org/data-structure/buy-and-sell-stocks-with-cooldown-dp-39/)
 - **Difficulty**: Medium
@@ -54,6 +54,21 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int buy, int[] p) {
+        if (i >= p.length) return 0;
+        if (buy) return Math.max(-p[i] + solve(i + 1, 0, p), solve(i + 1, 1, p));
+        return Math.max(+p[i] + solve(i + 2, 1, p), solve(i + 1, 0, p));
+    }
+
+    int maxProfit(int[] prices) {
+        return solve(0, 1, prices);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -81,6 +96,23 @@ public:
         for (int i = n - 1; i >= 0; i--) {
             dp[i][1] = max(-prices[i] + dp[i + 1][0], dp[i + 1][1]);
             dp[i][0] = max(+prices[i] + dp[i + 2][1], dp[i + 1][0]);
+        }
+        return dp[0][1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n + 2][2];
+        
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i][1] = Math.max(-prices[i] + dp[i + 1][0], dp[i + 1][1]);
+            dp[i][0] = Math.max(+prices[i] + dp[i + 2][1], dp[i + 1][0]);
         }
         return dp[0][1];
     }
@@ -122,6 +154,36 @@ public:
             
             // Option 2: Can sell today (jumping to day i + 2 due to cooldown)
             cur[0] = max(+prices[i] + front2[1], front1[0]);
+            
+            // Roll state variables backwards
+            front2 = front1;
+            front1 = cur;
+        }
+        
+        return cur[1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxProfit(int[] prices) {
+        int n = prices.length;
+        if (n <= 1) return 0;
+        
+        // front2 corresponds to dp[i + 2], front1 corresponds to dp[i + 1]
+        int[] front2 = new int[2];
+        int[] front1 = new int[2];
+        int[] cur = new int[2];
+        
+        for (int i = n - 1; i >= 0; i--) {
+            // Option 1: Can buy today (or skip)
+            cur[1] = Math.max(-prices[i] + front1[0], front1[1]);
+            
+            // Option 2: Can sell today (jumping to day i + 2 due to cooldown)
+            cur[0] = Math.max(+prices[i] + front2[1], front1[0]);
             
             // Roll state variables backwards
             front2 = front1;

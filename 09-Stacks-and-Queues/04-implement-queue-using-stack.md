@@ -1,6 +1,6 @@
 # Implement Queue using Stacks (Amortized O(1)) (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Queue using Stacks (Amortized O(1))](https://takeuforward.org/data-structure/implement-queue-using-stack/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Transferring all elements to auxiliary stack on EVERY push in $\mathcal{O}(N)$ t
 
 ### C++17 Code
 ```cpp
+// Push O(N) transfer approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Push O(N) transfer approach
 ```
 
@@ -94,6 +100,48 @@ public:
     
     bool empty() {
         return input.empty() && output.empty();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class MyQueue {
+
+    Stack<Integer> input = new Stack<>();
+    Stack<Integer> output = new Stack<>();
+    
+    void transferIfEmpty() {
+        if (output.isEmpty()) {
+            while (!input.isEmpty()) {
+                output.push(input.peek());
+                input.pop();
+            }
+        }
+    }
+
+    MyQueue() {}
+    
+    void push(int x) {
+        input.push(x); // O(1)
+    }
+    
+    int pop() {
+        transferIfEmpty();
+        int val = output.peek();
+        output.pop();
+        return val; // Amortized O(1)
+    }
+    
+    int peek() {
+        transferIfEmpty();
+        return output.peek(); // Amortized O(1)
+    }
+    
+    boolean empty() {
+        return input.isEmpty() && output.isEmpty();
     }
 };
 ```

@@ -1,6 +1,6 @@
 # Two Sum (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/two-sum-check-if-a-pair-with-given-sum-exists-in-array/
 - **Difficulty**: Easy
@@ -50,6 +50,19 @@ vector<int> twoSumBrute(vector<int>& nums, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] twoSumBrute(int[] nums, int target) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j < n; j++)
+                if (nums[i] + nums[j] == target) return {i, j};
+        return {};
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -89,6 +102,33 @@ vector<int> twoSumBetter(vector<int>& nums, int target) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] twoSumBetter(int[] nums, int target) {
+        int n = nums.length;
+        List<int[]> indexedNums(n);
+        for (int i = 0; i < n; i++) indexedNums[i] = {nums[i], i};
+        
+        Arrays.sort(indexedNums);
+        int left = 0, right = n - 1;
+        while (left < right) {
+            int sum = indexedNums[left].first + indexedNums[right].first;
+            if (sum == target) {
+                return {indexedNums[left].second, indexedNums[right].second};
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return {};
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \log n)$ — dominated by sorting the pair array.
 - **Space Complexity**: $\mathcal{O}(n)$ — pair array to preserve original indices.
@@ -118,6 +158,23 @@ vector<int> twoSumOptimal(vector<int>& nums, int target) {
         seen[nums[i]] = i;
     }
     return {};
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] twoSumOptimal(int[] nums, int target) {
+        Map<Integer, Integer> seen = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int comp = target - nums[i];
+            if (seen.contains(comp)) return {seen[comp], i};
+            seen[nums[i]] = i;
+        }
+        return {};
+    }
 }
 ```
 

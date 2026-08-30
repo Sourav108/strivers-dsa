@@ -1,6 +1,6 @@
 # Next Greater Element II (Circular Array) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Next Greater Element II (Circular Array)](https://takeuforward.org/data-structure/next-greater-element-ii/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Loop circularly $N$ times for each element in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) circular loop
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) circular loop
 ```
 
@@ -77,6 +83,37 @@ public:
             
             if (i < n) {
                 nge[idx] = st.empty() ? -1 : st.top();
+            }
+            
+            st.push(nums[idx]);
+        }
+        
+        return nge;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
+        int[] nge = new int[n];
+        Stack<Integer> st = new Stack<>();
+        
+        // Traverse virtual 2n array backwards
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            int idx = i % n;
+            
+            while (!st.isEmpty() && st.peek() <= nums[idx]) {
+                st.pop();
+            }
+            
+            if (i < n) {
+                nge[idx] = st.isEmpty() ? -1 : st.peek();
             }
             
             st.push(nums[idx]);

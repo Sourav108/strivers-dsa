@@ -1,6 +1,6 @@
 # Wildcard Matching ('?' and '*' pattern matching) (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Wildcard Matching ('?' and '*' pattern matching)](https://takeuforward.org/data-structure/wildcard-matching-dp-34/)
 - **Difficulty**: Hard
@@ -50,6 +50,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(2^(N+M)) recursive wildcard search
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^{N+M})$ time.
 - **Space Complexity**: $\mathcal{O}(N + M)$ recursion stack.
@@ -73,6 +80,31 @@ public:
     bool isMatch(string s, string p) {
         int n = p.size(), m = s.size();
         vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, false));
+        dp[0][0] = true;
+        for (int i = 1; i <= n; i++) {
+            if (p[i - 1] == '*') dp[i][0] = dp[i - 1][0];
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (p[i - 1] == s[j - 1] || p[i - 1] == '?') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p[i - 1] == '*') {
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+                }
+            }
+        }
+        return dp[n][m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    boolean isMatch(String s, String p) {
+        int n = p.length, m = s.length;
+        boolean[][] dp = new boolean[n + 1][m + 1];
         dp[0][0] = true;
         for (int i = 1; i <= n; i++) {
             if (p[i - 1] == '*') dp[i][0] = dp[i - 1][0];
@@ -126,6 +158,47 @@ public:
             if (p[i - 1] == '*') {
                 cur[0] = prev[0];
             } else {
+                cur[0] = false;
+            }
+            
+            for (int j = 1; j <= m; j++) {
+                if (p[i - 1] == s[j - 1] || p[i - 1] == '?') {
+                    cur[j] = prev[j - 1];
+                } else if (p[i - 1] == '*') {
+                    // Star matches 0 chars (prev[j]) OR 1+ chars (cur[j - 1])
+                    cur[j] = prev[j] || cur[j - 1];
+                } else {
+                    cur[j] = false;
+                }
+            }
+            
+            prev = cur;
+        }
+        
+        return prev[m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isMatch(String s, String p) {
+        int n = p.length; // Pattern length
+        int m = s.length; // String length
+        
+        // prev[j] denotes whether pattern prefix matches s[0 ... j - 1]
+        boolean[] prev = new boolean[m + 1];
+        prev[0] = true; // Base case: empty pattern matches empty String
+        
+        for (int i = 1; i <= n; i++) {
+            boolean[] cur = new boolean[m + 1];
+            
+            // Base case for empty public String(j = 0) { /* initialized: true only if all preceding pattern chars are '*'
+            if (p[i - 1] == '*')  */ 
+                cur[0] = prev[0];
+             } else {
                 cur[0] = false;
             }
             

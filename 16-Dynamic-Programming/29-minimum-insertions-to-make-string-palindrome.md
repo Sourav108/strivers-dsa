@@ -1,6 +1,6 @@
 # Minimum Insertions to Make String Palindrome (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Insertions to Make String Palindrome](https://takeuforward.org/data-structure/minimum-insertions-to-make-string-palindrome-dp-29/)
 - **Difficulty**: Medium
@@ -40,6 +40,13 @@ Recursively test all insertion placements at head and tail in $\mathcal{O}(2^N)$
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^N) recursion
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^N) recursion
 };
@@ -95,6 +102,42 @@ public:
     int minInsertions(string s) {
         int n = s.size();
         string rev_s = s;
+        reverse(rev_s.begin(), rev_s.end());
+        
+        int lpsLength = lcs(s, rev_s);
+        
+        // Min Insertions = Total Length - LPS Length
+        return n - lpsLength;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int lcs(String s1, String s2) {
+        int n = s1.length;
+        int m = s2.length;
+        int[] prev = new int[m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            int[] cur = new int[m + 1];
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) {
+                    cur[j] = 1 + prev[j - 1];
+                } else {
+                    cur[j] = Math.max(prev[j], cur[j - 1]);
+                }
+            }
+            prev = cur;
+        }
+        return prev[m];
+    }
+
+    int minInsertions(String s) {
+        int n = s.length;
+        String rev_s = s;
         reverse(rev_s.begin(), rev_s.end());
         
         int lpsLength = lcs(s, rev_s);

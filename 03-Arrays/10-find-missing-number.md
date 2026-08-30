@@ -1,6 +1,6 @@
 # Find Missing Number in Array (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/arrays/find-the-missing-number-in-an-array/
 - **Difficulty**: Easy
@@ -51,6 +51,20 @@ int missingBrute(const vector<int>& nums, int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int missingBrute(int[] nums, int n) {
+        for (int i = 1; i <= n; i++) {
+            boolean found = false;
+            for (int x : nums) if (x == i) { found = true; break; }
+            if (found == null) return i;
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -80,6 +94,22 @@ int findMissingBetter(const vector<int>& nums, int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findMissingBetter(int[] nums, int n) {
+        int[] freq = new int[n + 1];
+        for (int x : nums) {
+            freq[x] = 1;
+        }
+        for (int i = 1; i <= n; i++) {
+            if (freq[i] == 0) return i;
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2n) = \mathcal{O}(n)$ — two linear scans.
 - **Space Complexity**: $\mathcal{O}(n)$ — frequency array of size $n+1$.
@@ -106,6 +136,18 @@ int missingOptimal(const vector<int>& nums, int n) {
     for (int i = 1; i <= n; i++) xorAll ^= i;
     for (int x : nums) xorAll ^= x;
     return xorAll;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int missingOptimal(int[] nums, int n) {
+        int xorAll = 0;
+        for (int i = 1; i <= n; i++) xorAll ^= i;
+        for (int x : nums) xorAll ^= x;
+        return xorAll;
+    }
 }
 ```
 

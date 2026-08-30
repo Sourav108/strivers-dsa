@@ -1,6 +1,6 @@
 # Find Eventual Safe States & Alien Dictionary (Step 15.3 — Topological Sort and Kahn's Algorithm)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Eventual Safe States & Alien Dictionary](https://takeuforward.org/data-structure/alien-dictionary/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ For each node in Safe States, run complete DFS path search with cycle checks; fo
 
 ### C++17 Code
 ```cpp
+// Naive DFS path exploration
+```
+
+### Java Code
+```java
+// Java equivalent
 // Naive DFS path exploration
 ```
 
@@ -71,6 +77,31 @@ public:
             if (state[i] == 0) dfs(i, graph, state);
         for (int i = 0; i < n; i++)
             if (state[i] == 2) safe.push_back(i);
+        return safe;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionSafeStatesDFS {
+    boolean dfs(int node, int[][] graph, int[] state) {
+        state[node] = 1; // In stack
+        for (int neighbor : graph[node]) {
+            if (state[neighbor] == 1) return true; // Cycle found
+            if (state[neighbor] == 0 && dfs(neighbor, graph, state)) return true;
+        }
+        state[node] = 2; // Safe
+        return false;
+    }
+
+    int[] eventualSafeNodes(int[][] graph) {
+        int n = graph.length;
+        int[] state(n, 0), safe;
+        for (int i = 0; i < n; i++)
+            if (state[i] == 0) dfs(i, graph, state);
+        for (int i = 0; i < n; i++)
+            if (state[i] == 2) safe.add(i);
         return safe;
     }
 };
@@ -186,6 +217,104 @@ public:
         
         // If order contains all k characters -> valid DAG; else cycle detected
         return (order.length() == (size_t)k) ? order : "";
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    // 1. Eventual Safe States (LeetCode 802) via Edge Reversal Kahn's BFS
+    int[] eventualSafeNodes(int[][] graph) {
+        int V = graph.length;
+        int[][] revAdj(V);
+        int[] inDegree = new int[V];
+        
+        // Reverse graph edges: u . v becomes v . u
+        for (int u = 0; u < V; u++) {
+            for (int v : graph[u]) {
+                revAdj[v].add(u);
+                inDegree[u]++; // out-degree in original becomes in-degree in reversed
+            }
+        }
+        
+        // Push original terminal nodes (now in-degree 0)
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < V; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        List<Integer> safeNodes = new ArrayList<>();
+        while (!q.isEmpty()) {
+            int node = q.peek();
+            q.pop();
+            safeNodes.add(node);
+            
+            for (int parent : revAdj[node]) {
+                inDegree[parent]--;
+                if (inDegree[parent] == 0) {
+                    q.push(parent);
+                }
+            }
+        }
+        
+        Arrays.sort(safeNodes);
+        return safeNodes;
+    }
+
+    // 2. Alien Dictionary (LeetCode 269 / GFG) via Character DAG Topo Sort
+    String findOrder(String[] words, int k) {
+        int[][] adj(k);
+        int[] inDegree = new int[k];
+        
+        // Compare adjacent words to build character ordering DAG
+        for (int i = 0; i < words.length - 1; i++) {
+            String w1 = words[i];
+            String w2 = words[i + 1];
+            
+            // Edge case: invalid prefix ordering (e.g. "apple" before "app")
+            if (w1.length() > w2.length() && w1.rfind(w2, 0) == 0) {
+                return ""; // Invalid lexicographical dictionary
+            }
+            
+            int len = Math.min(w1.length(), w2.length());
+            for (int j = 0; j < len; j++) {
+                if (w1[j] != w2[j]) {
+                    adj[w1[j] - 'a'].add(w2[j] - 'a');
+                    inDegree[w2[j] - 'a']++;
+                    break; // Only the first mismatching character determines order
+                }
+            }
+        }
+        
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < k; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        String order = "";
+        while (!q.isEmpty()) {
+            int u = q.peek();
+            q.pop();
+            order += (char)(u + 'a');
+            
+            for (int v : adj[u]) {
+                inDegree[v]--;
+                if (inDegree[v] == 0) {
+                    q.push(v);
+                }
+            }
+        }
+        
+        // If order contains all k characters . valid DAG; else cycle detected
+        return (order.length() == (int)k) ? order : "";
     }
 };
 ```

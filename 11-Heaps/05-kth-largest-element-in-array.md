@@ -1,6 +1,6 @@
 # Kth Largest Element in an Array (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kth Largest Element in an Array](https://takeuforward.org/data-structure/kth-largest-smallest-element-in-an-array/)
 - **Difficulty**: Medium
@@ -42,6 +42,18 @@ int findKthLargestSort(vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int findKthLargestSort(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \log N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -80,6 +92,26 @@ public:
         }
         
         return minHeap.top(); // kth largest
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findKthLargest(int[] nums, int k) {
+        // Min-heap to maintain the k largest elements
+        priority_queue<int, int[], greater<int>> minHeap;
+        
+        for (int num : nums) {
+            minHeap.push(num);
+            if (minHeap.length > k) {
+                minHeap.pop(); // discard smallest of the (k+1) elements
+            }
+        }
+        
+        return minHeap.peek(); // kth largest
     }
 };
 ```

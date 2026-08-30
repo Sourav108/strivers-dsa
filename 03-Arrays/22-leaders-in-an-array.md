@@ -1,6 +1,6 @@
 # Leaders in an Array (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/leaders-in-an-array/
 - **Difficulty**: Easy
@@ -52,6 +52,23 @@ vector<int> leadersBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] leadersBrute(int[] nums) {
+        List<Integer> res = new ArrayList<>(); int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            boolean leader = true;
+            for (int j = i + 1; j < n; j++) if (nums[j] >= nums[i]) { leader = false; break; }
+            if (leader) res.add(nums[i]);
+        }
+        return res;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -90,6 +107,26 @@ vector<int> leadersOptimal(const vector<int>& nums) {
     }
     reverse(res.begin(), res.end());
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] leadersOptimal(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        int maxFromRight = Integer.MIN_VALUE, n = nums.length;
+        for (int i = n - 1; i >= 0; i--) {
+            if (nums[i] > maxFromRight) {
+                res.add(nums[i]);
+                maxFromRight = nums[i];
+            }
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
 }
 ```
 

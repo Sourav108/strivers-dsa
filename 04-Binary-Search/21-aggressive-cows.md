@@ -1,6 +1,6 @@
 # Aggressive Cows (Minimise Maximum Distance) (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Aggressive Cows (Minimise Maximum Distance)](https://takeuforward.org/data-structure/aggressive-cows-detailed-solution/)
 - **Difficulty**: Hard
@@ -63,6 +63,37 @@ int aggressiveCowsLinear(vector<int>& stalls, int k) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    boolean canPlaceCows(int[] stalls, int dist, int k) {
+        int countCows = 1;
+        int lastPos = stalls[0];
+        for (int i = 1; i < stalls.length; i++) {
+            if (stalls[i] - lastPos >= dist) {
+                countCows++;
+                lastPos = stalls[i];
+            }
+            if (countCows >= k) return true;
+        }
+        return false;
+    }
+    
+    int aggressiveCowsLinear(int[] stalls, int k) {
+        Arrays.sort(stalls);
+        int maxDist = stalls.peekLast() - stalls.peek();
+        int ans = 1;
+        for (int d = 1; d <= maxDist; d++) {
+            if (canPlaceCows(stalls, d, k)) ans = d;
+            else break;
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \log n + (\text{maxDist}) \times n)$ — linear distance scan takes up to $10^9 \times 10^5 = 10^{14}$ operations $\implies$ TLE.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -107,6 +138,50 @@ public:
     int aggressiveCows(vector<int>& stalls, int k) {
         sort(stalls.begin(), stalls.end());
         int n = stalls.size();
+        
+        int low = 1;
+        int high = stalls[n - 1] - stalls[0];
+        int ans = 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (canPlaceCows(stalls, mid, k)) {
+                ans = mid;       // distance feasible, try to maximize further
+                low = mid + 1;
+            } else {
+                high = mid - 1;  // distance too large, reduce distance
+            }
+        }
+        
+        return ans; // or high at loop termination
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean canPlaceCows(int[] stalls, int dist, int k) {
+        int countCows = 1;
+        int lastPos = stalls[0];
+        
+        for (int i = 1; i < stalls.length; i++) {
+            if (stalls[i] - lastPos >= dist) {
+                countCows++;
+                lastPos = stalls[i];
+            }
+            if (countCows >= k) return true;
+        }
+        return false;
+    }
+
+    int aggressiveCows(int[] stalls, int k) {
+        Arrays.sort(stalls);
+        int n = stalls.length;
         
         int low = 1;
         int high = stalls[n - 1] - stalls[0];

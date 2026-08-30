@@ -1,6 +1,6 @@
 # Reverse a Doubly LinkedList (Step 6.2 — Learn Doubly LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse a Doubly LinkedList](https://takeuforward.org/data-structure/reverse-a-doubly-linked-list/)
 - **Difficulty**: Medium
@@ -42,6 +42,21 @@ Node* reverseDLLStack(Node* head) {
     while (curr) { st.push(curr->data); curr = curr->next; }
     curr = head;
     while (curr) { curr->data = st.top(); st.pop(); curr = curr->next; }
+    return head;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node { int data; Node  next; Node  prev; };
+Node  reverseDLLStack(Node  head) {
+    Stack<Integer> st = new Stack<>();
+    Node  curr = head;
+    while (curr) { st.push(curr.data); curr = curr.next; }
+    curr = head;
+    while (curr) { curr.data = st.peek(); st.pop(); curr = curr.next; }
     return head;
 }
 ```
@@ -98,6 +113,41 @@ public:
         
         // After loop, 'last->prev' points to the new head node
         return last->prev;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+};
+
+class Solution {
+
+    Node  reverseDLL(Node  head) {
+        if (!head || !head.next) return head;
+        
+        Node  curr = head;
+        Node  last = null;
+        
+        while (curr != null) {
+            // Track last visited node to retrieve new head
+            last = curr.prev;
+            
+            // Swap next and prev pointers
+            curr.prev = curr.next;
+            curr.next = last;
+            
+            // Advance to next node in original list (which is now curr.prev!)
+            curr = curr.prev;
+        }
+        
+        // After loop, 'last.prev' points to the new head node
+        return last.prev;
     }
 };
 ```

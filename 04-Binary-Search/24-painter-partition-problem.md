@@ -1,6 +1,6 @@
 # Painter's Partition Problem (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Painter's Partition Problem](https://takeuforward.org/binary-search/painters-partition-problem/)
 - **Difficulty**: Hard
@@ -62,6 +62,33 @@ int findLargestMinDistanceLinear(vector<int>& boards, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int countPainters(int[] boards, int maxTime) {
+        int painters = 1, currentTime = 0;
+        for (int b : boards) {
+            if (currentTime + b > maxTime) {
+                painters++;
+                currentTime = b;
+            } else {
+                currentTime += b;
+            }
+        }
+        return painters;
+    }
+    
+    int findLargestMinDistanceLinear(int[] boards, int k) {
+        int low = max_element(boards.begin(), boards.end());
+        int high = accumulate(boards.begin(), boards.end(), 0);
+        for (int time = low; time <= high; time++) {
+            if (countPainters(boards, time) <= k) return time;
+        }
+        return low;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((\sum - \max) \times n)$ — linear range scan causes TLE.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -112,6 +139,46 @@ public:
         
         while (low <= high) {
             long long mid = low + (high - low) / 2;
+            
+            if (countPainters(boards, mid) <= k) {
+                ans = mid;        // feasible workload, try to minimize further
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // too many painters needed, increase allowed workload
+            }
+        }
+        
+        return ans; // or low at termination
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countPainters(int[] boards, long maxTime) {
+        int painters = 1;
+        long currentLoad = 0;
+        
+        for (int b : boards) {
+            if (currentLoad + b > maxTime) {
+                painters++;
+                currentLoad = b;
+            } else {
+                currentLoad += b;
+            }
+        }
+        return painters;
+    }
+
+    int findLargestMinDistance(int[] boards, int k) {
+        int low = max_element(boards.begin(), boards.end());
+        long high = accumulate(boards.begin(), boards.end(), 0LL);
+        int ans = low;
+        
+        while (low <= high) {
+            long mid = low + (high - low) / 2;
             
             if (countPainters(boards, mid) <= k) {
                 ans = mid;        // feasible workload, try to minimize further

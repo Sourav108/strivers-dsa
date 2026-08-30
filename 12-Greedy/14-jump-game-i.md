@@ -1,6 +1,6 @@
 # Jump Game I (Can Reach End) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Jump Game I (Can Reach End)](https://takeuforward.org/data-structure/jump-game-i/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Recursion trying all jumps from $1$ to $nums[i]$ in $\mathcal{O}(2^N)$ time.
 // O(2^N) recursion
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(2^N) recursion
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -50,6 +56,12 @@ Dynamic Programming (Bottom-Up) in O(N^2) time.
 
 ### C++17 Code
 ```cpp
+// DP O(N^2) approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // DP O(N^2) approach
 ```
 
@@ -84,6 +96,33 @@ public:
             }
             
             maxReach = max(maxReach, i + nums[i]);
+            
+            // Early exit if destination is already reachable
+            if (maxReach >= n - 1) {
+                return true;
+            }
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean canJump(int[] nums) {
+        int maxReach = 0;
+        int n = nums.length;
+        
+        for (int i = 0; i < n; i++) {
+            // If current index is beyond the maximum reach so far
+            if (i > maxReach) {
+                return false;
+            }
+            
+            maxReach = Math.max(maxReach, i + nums[i]);
             
             // Early exit if destination is already reachable
             if (maxReach >= n - 1) {

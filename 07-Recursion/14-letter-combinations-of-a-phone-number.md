@@ -1,6 +1,6 @@
 # Letter Combinations of a Phone Number (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Letter Combinations of a Phone Number](https://takeuforward.org/recursion/letter-combinations-of-a-phone-number/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Nested loops for up to 4 digits.
 
 ### C++17 Code
 ```cpp
+// 4 nested loops
+```
+
+### Java Code
+```java
+// Java equivalent
 // 4 nested loops
 ```
 
@@ -86,6 +92,41 @@ public:
         
         vector<string> result;
         string current = "";
+        backtrack(0, digits, current, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    String mapping[10] = {
+        "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+    };
+    
+    void backtrack(int index, String digits, String current, String[] result) {
+        if (index == digits.length()) {
+            result.add(current);
+            return;
+        }
+        
+        String letters = mapping[digits[index] - '0'];
+        for (char ch : letters) {
+            current.add(ch);
+            backtrack(index + 1, digits, current, result);
+            current.remove(); // backtrack
+        }
+    }
+
+    String[] letterCombinations(String digits) {
+        if (digits.isEmpty()) return {};
+        
+        List<String> result = new ArrayList<>();
+        String current = "";
         backtrack(0, digits, current, result);
         return result;
     }

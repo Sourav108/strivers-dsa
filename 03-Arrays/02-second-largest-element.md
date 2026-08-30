@@ -1,6 +1,6 @@
 # Second Largest Element in an Array (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/find-second-smallest-and-second-largest-element-in-an-array/
 - **Difficulty**: Easy
@@ -51,6 +51,22 @@ int secLargestBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int secLargestBrute(int[] nums) {
+        Arrays.sort(nums);
+        int largest = nums.peekLast();
+        for (int i = nums.length-2; i >= 0; i--) {
+            if (nums[i] != largest) return nums[i];
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(1)
@@ -83,6 +99,24 @@ int secondLargestBetter(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int secondLargestBetter(int[] nums) {
+        int largest = Integer.MIN_VALUE, secondLargest = -1;
+        for (int x : nums) {
+            if (x > largest) largest = x;
+        }
+        for (int x : nums) {
+            if (x > secondLargest && x < largest) {
+                secondLargest = x;
+            }
+        }
+        return secondLargest;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2n) = \mathcal{O}(n)$ — two sequential linear passes over the array.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant scalar variables.
@@ -111,6 +145,20 @@ int secLargestOptimal(const vector<int>& nums) {
         else if (x > sec && x < largest) { sec = x; }
     }
     return sec;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int secLargestOptimal(int[] nums) {
+        int largest = Integer.MIN_VALUE, sec = -1;
+        for (int x : nums) {
+            if (x > largest) { sec = largest; largest = x; }
+            else if (x > sec && x < largest) { sec = x; }
+        }
+        return sec;
+    }
 }
 ```
 

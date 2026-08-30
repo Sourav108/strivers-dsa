@@ -1,6 +1,6 @@
 # Inserting a Node in LinkedList (Head, Tail, Kth pos) (Step 6.1 — Learn 1D LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Inserting a Node in LinkedList (Head, Tail, Kth pos)](https://takeuforward.org/data-structure/insert-node-at-beginning-of-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Copying to array, inserting element, reconstructing LL.
 
 ### C++17 Code
 ```cpp
+// Inefficient array copy approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Inefficient array copy approach
 ```
 
@@ -89,6 +95,45 @@ Node* insertAtK(Node* head, int val, int k) {
     Node* newNode = new Node(val);
     newNode->next = curr->next;
     curr->next = newNode;
+    return head;
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+// 1. Insert at Head: O(1) time
+Node  insertHead(Node  head, int val) {
+    Node  newNode = new Node(val);
+    newNode.next = head;
+    return newNode;
+}
+
+// 2. Insert at Tail: O(N) time
+Node  insertTail(Node  head, int val) {
+    if (head == null) return new Node(val);
+    Node  curr = head;
+    while (curr.next != null) curr = curr.next;
+    curr.next = new Node(val);
+    return head;
+}
+
+// 3. Insert at K-th Position (1-indexed)
+Node  insertAtK(Node  head, int val, int k) {
+    if (k == 1) return insertHead(head, val);
+    Node  curr = head;
+    for (int i = 1; i < k - 1 && curr != null; i++) {
+        curr = curr.next;
+    }
+    if (curr == null) return head; // k out of bounds
+    Node  newNode = new Node(val);
+    newNode.next = curr.next;
+    curr.next = newNode;
     return head;
 }
 ```

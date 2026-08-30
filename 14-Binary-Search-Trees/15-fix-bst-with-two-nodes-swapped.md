@@ -1,6 +1,6 @@
 # Recover BST: Correct BST with Two Nodes Swapped (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Recover BST: Correct BST with Two Nodes Swapped](https://takeuforward.org/data-structure/fix-bst-with-two-nodes-swapped/)
 - **Difficulty**: Hard
@@ -36,6 +36,12 @@ Inorder traversal into vector, sort values, and copy sorted values back into tre
 // O(N) vector sort approach
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N) vector sort approach
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \log N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ vector.
@@ -68,6 +74,30 @@ public:
         inorder(root);
         if (first && last) swap(first->val, last->val);
         else if (first && middle) swap(first->val, middle->val);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+class SolutionRec {
+    TreeNode first = null, prev = null, middle = null, last = null;
+    void inorder(TreeNode  root) {
+        if (root == null) return;
+        inorder(root.left);
+        if (prev && root.val < prev.val) {
+            if (first == null) { first = prev; middle = root; }
+            else last = root;
+        }
+        prev = root;
+        inorder(root.right);
+    }
+
+    void recoverTree(TreeNode  root) {
+        inorder(root);
+        if (first && last) int temp = first.val; first.val = last.val; last.val = temp;
+        else if (first && middle) int temp = first.val; first.val = middle.val; middle.val = temp;
     }
 };
 ```
@@ -151,6 +181,75 @@ public:
             swap(first->val, last->val);   // Non-adjacent swapped
         } else if (first != nullptr && middle != nullptr) {
             swap(first->val, middle->val); // Adjacent swapped
+        }
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    void recoverTree(TreeNode  root) {
+        TreeNode  first = null;
+        TreeNode  middle = null;
+        TreeNode  last = null;
+        TreeNode  prev = null;
+        
+        TreeNode  curr = root;
+        
+        // Morris Inorder Traversal to detect inversions in O(1) space
+        while (curr != null) {
+            if (curr.left == null) {
+                // Process current node
+                if (prev != null && curr.val < prev.val) {
+                    if (first == null) {
+                        first = prev;
+                        middle = curr;
+                    } else {
+                        last = curr;
+                    }
+                }
+                prev = curr;
+                curr = curr.right;
+            } else {
+                TreeNode  predecessor = curr.left;
+                while (predecessor.right != null && predecessor.right != curr) {
+                    predecessor = predecessor.right;
+                }
+                
+                if (predecessor.right == null) {
+                    predecessor.right = curr; // create thread
+                    curr = curr.left;
+                } else {
+                    predecessor.right = null; // cut thread
+                    // Process current node
+                    if (prev != null && curr.val < prev.val) {
+                        if (first == null) {
+                            first = prev;
+                            middle = curr;
+                        } else {
+                            last = curr;
+                        }
+                    }
+                    prev = curr;
+                    curr = curr.right;
+                }
+            }
+        }
+        
+        // Swap values of the two faulty nodes
+        if (first != null && last != null) {
+            int temp = first.val; first.val = last.val; last.val = temp;   // Non-adjacent swapped
+        } else if (first != null && middle != null) {
+            int temp = first.val; first.val = middle.val; middle.val = temp; // Adjacent swapped
         }
     }
 };

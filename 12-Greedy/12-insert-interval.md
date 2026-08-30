@@ -1,6 +1,6 @@
 # Insert Interval (Merge new interval in sorted set) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Insert Interval (Merge new interval in sorted set)](https://takeuforward.org/data-structure/insert-interval/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Append `newInterval`, call `sort()`, and run Merge Intervals in $\mathcal{O}(N \
 
 ### C++17 Code
 ```cpp
+// O(N log N) append and sort approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N log N) append and sort approach
 ```
 
@@ -84,6 +90,42 @@ public:
         // Phase 3: Add all remaining intervals
         while (i < n) {
             result.push_back(intervals[i]);
+            i++;
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[][] insert(int[][] intervals, int[] newInterval) {
+        List<List<Integer>> result = new ArrayList<>();
+        int n = intervals.length;
+        int i = 0;
+        
+        // Phase 1: Add all intervals ending before newInterval starts
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            result.add(intervals[i]);
+            i++;
+        }
+        
+        // Phase 2: Merge all overlapping intervals with newInterval
+        while (i < n && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+            i++;
+        }
+        result.add(newInterval); // add merged interval
+        
+        // Phase 3: Add all remaining intervals
+        while (i < n) {
+            result.add(intervals[i]);
             i++;
         }
         

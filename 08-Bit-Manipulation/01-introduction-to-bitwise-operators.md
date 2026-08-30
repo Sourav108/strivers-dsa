@@ -1,6 +1,6 @@
 # Introduction to Bitwise Operators (AND, OR, XOR, NOT, Shifts) (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to Bitwise Operators (AND, OR, XOR, NOT, Shifts)](https://takeuforward.org/bit-manipulation/introduction-to-bitwise-operators/)
 - **Difficulty**: Easy
@@ -42,6 +42,17 @@ string toBinary(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    String toBinary(int n) {
+        String s = "";
+        for (int i = 31; i >= 0; i--) s += ((n >> i) & 1) ? '1' : '0';
+        return s;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(32)$ string overhead.
 - **Space Complexity**: $\mathcal{O}(32)$ memory.
@@ -77,6 +88,25 @@ void demonstrateBitwiseOperators(int a, int b) {
 int main() {
     demonstrateBitwiseOperators(5, 3); // 5 = 101_2, 3 = 011_2
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void demonstrateBitwiseOperators(int a, int b) {
+        System.out.print("a public b(AND) { /* initialized: " << (a b) << "\n");
+        System.out.print("a | b (OR):   " << (a | b) << "\n");
+        System.out.print("a ^ b (XOR):  " << (a ^ b) << "\n");
+        System.out.print("~a    (NOT):  " << (~a)    << "\n"); // Two's complement: -(a + 1)
+        System.out.print("a << 2 (x4):  " << (a << 2) << "\n"); // Multiply by 2^2
+        System.out.print("a >> 1 (/2):  " << (a >> 1) << "\n"); // Divide by 2^1
+    }
+    
+    int main()  */ 
+        demonstrateBitwiseOperators(5, 3); // 5 = 101_2, 3 = 011_2
+        return 0;
+     }
 }
 ```
 

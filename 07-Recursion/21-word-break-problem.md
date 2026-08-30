@@ -1,6 +1,6 @@
 # Word Break Problem (Backtracking / Trie / DP) (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Word Break Problem (Backtracking / Trie / DP)](https://takeuforward.org/data-structure/word-break-problem/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Naive recursion without memoization in $\mathcal{O}(2^N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(2^N) recursion without memo
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(2^N) recursion without memo
 ```
 
@@ -82,6 +88,35 @@ public:
     bool wordBreak(string s, vector<string>& wordDict) {
         unordered_set<string> dict(wordDict.begin(), wordDict.end());
         vector<int> memo(s.length(), -1);
+        return backtrack(0, s, dict, memo);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean backtrack(int start, String s, Set<String> dict, int[] memo) {
+        if (start == s.length()) return true;
+        if (memo[start] != -1) return memo[start];
+        
+        String prefix = "";
+        for (int i = start; i < s.length(); i++) {
+            prefix += s[i];
+            if (dict.contains(prefix) && backtrack(i + 1, s, dict, memo)) {
+                return memo[start] = 1;
+            }
+        }
+        
+        return memo[start] = 0;
+    }
+
+    boolean wordBreak(String s, String[] wordDict) {
+        Set<String> dict(wordDict.begin(), wordDict.end());
+        int[] memo(s.length(), -1);
         return backtrack(0, s, dict, memo);
     }
 };

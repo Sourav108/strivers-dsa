@@ -1,6 +1,6 @@
 # Maximum Subarray Sum (Kadane's Algorithm) (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array/
 - **Difficulty**: Medium
@@ -51,6 +51,20 @@ int maxSubarrayBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int maxSubarrayBrute(int[] nums) {
+        int maxS = Integer.MIN_VALUE, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) { sum += nums[j]; maxS = Math.max(maxS, sum); }
+        }
+        return maxS;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -79,6 +93,23 @@ int maxSubArrayBetter(const vector<int>& nums) {
         }
     }
     return maxSum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int maxSubArrayBetter(int[] nums) {
+        int maxSum = Integer.MIN_VALUE, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int currentSum = 0;
+            for (int j = i; j < n; j++) {
+                currentSum += nums[j];
+                if (currentSum > maxSum) maxSum = currentSum;
+            }
+        }
+        return maxSum;
+    }
 }
 ```
 
@@ -111,6 +142,21 @@ int maxSubArrayOptimal(const vector<int>& nums) {
         if (currentSum < 0) currentSum = 0;
     }
     return maxSum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int maxSubArrayOptimal(int[] nums) {
+        int maxSum = Integer.MIN_VALUE, currentSum = 0;
+        for (int x : nums) {
+            currentSum += x;
+            maxSum = Math.max(maxSum, currentSum);
+            if (currentSum < 0) currentSum = 0;
+        }
+        return maxSum;
+    }
 }
 ```
 

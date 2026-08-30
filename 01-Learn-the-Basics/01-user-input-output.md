@@ -1,6 +1,6 @@
 # User Input / Output in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [User Input / Output in C++](https://takeuforward.org/c/c-basic-structure-and-syntax/)
 - **Difficulty**: Easy
@@ -42,6 +42,20 @@ int main() {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int main() {
+        int x;
+        // Slow default I/O with implicit flushing
+        while (cin >> x) {
+            System.out.println(x); // endl flushes stream buffer every single time
+        }
+        return 0;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ I/O operations with heavy syscall flushing overhead.
 - **Space Complexity**: $\mathcal{O}(1)$ memory.
@@ -65,6 +79,19 @@ int main() {
         cout << x << '\n'; // Buffers output and flushes when buffer fills
     }
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        int x;
+        while (cin >> x) {
+            System.out.println(x); // Buffers output and flushes when buffer fills
+        }
+        return 0;
+    }
 }
 ```
 
@@ -103,6 +130,30 @@ int main() {
     }
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        // Fast I/O setup: decouple C and C++ streams and untie cin from cout
+        ios_base::sync_with_stdio(false);
+        cin.tie(null);
+        
+        int age;
+        String fullName;
+        
+        if (cin >> age) {
+            cin.ignore(); // clear newline character left in the stream buffer
+            getline(cin, fullName);
+            
+            System.out.print("Age: " << age << "\n");
+            System.out.print("Name: " << fullName << "\n");
+        }
+        
+        return 0;
+    }
 }
 ```
 

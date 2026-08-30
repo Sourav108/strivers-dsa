@@ -1,6 +1,6 @@
 # First and Last Occurrences of X in Sorted Array (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [First and Last Occurrences of X in Sorted Array](https://takeuforward.org/data-structure/first-and-last-occurrences-of-x/)
 - **Difficulty**: Easy
@@ -50,6 +50,22 @@ vector<int> searchRangeLinear(const vector<int>& nums, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] searchRangeLinear(int[] nums, int target) {
+        int first = -1, last = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                if (first == -1) first = i;
+                last = i;
+            }
+        }
+        return {first, last};
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ — full array scan.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant space.
@@ -73,6 +89,18 @@ vector<int> searchRangeSTL(const vector<int>& nums, int target) {
     if (lb == nums.end() || *lb != target) return {-1, -1};
     auto ub = upper_bound(nums.begin(), nums.end(), target);
     return {(int)(lb - nums.begin()), (int)(ub - nums.begin() - 1)};
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int[] searchRangeSTL(int[] nums, int target) {
+        var lb = lower_bound(nums.begin(), nums.end(), target);
+        if (lb == nums.end() || lb != target) return {-1, -1};
+        var ub = upper_bound(nums.begin(), nums.end(), target);
+        return {(int)(lb - nums.begin()), (int)(ub - nums.begin() - 1)};
+    }
 }
 ```
 
@@ -132,6 +160,52 @@ vector<int> searchRange(const vector<int>& nums, int target) {
     if (first == -1) return {-1, -1}; // early exit if target not present
     int last = findLast(nums, target);
     return {first, last};
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findFirst(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+        int first = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == target) {
+                first = mid;
+                high = mid - 1; // look for earlier occurrence on left
+            } else if (nums[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return first;
+    }
+    
+    int findLast(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+        int last = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == target) {
+                last = mid;
+                low = mid + 1;  // look for later occurrence on right
+            } else if (nums[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return last;
+    }
+    
+    int[] searchRange(int[] nums, int target) {
+        int first = findFirst(nums, target);
+        if (first == -1) return {-1, -1}; // early exit if target not present
+        int last = findLast(nums, target);
+        return {first, last};
+    }
 }
 ```
 

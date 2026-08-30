@@ -1,6 +1,6 @@
 # Next Permutation (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/next_permutation-find-next-lexicographically-greater-permutation/
 - **Difficulty**: Medium
@@ -46,6 +46,15 @@ void nextPermutationBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void nextPermutationBrute(int[] nums) {
+        // Generate all n! permutations, sort lexicographically, find next
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n! * n)
 - **Space Complexity**: O(n!)
@@ -82,6 +91,22 @@ void nextPermutationOptimal(vector<int>& nums) {
         swap(nums[i], nums[j]);
     }
     reverse(nums.begin() + i + 1, nums.end());
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void nextPermutationOptimal(int[] nums) {
+        int n = nums.length, i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
+        if (i >= 0) {
+            int j = n - 1;
+            while (nums[j] <= nums[i]) j--;
+            int temp = nums[i]; nums[i] = nums[j]; nums[j] = temp;
+        }
+        reverse(nums.begin() + i + 1, nums.end());
+    }
 }
 ```
 

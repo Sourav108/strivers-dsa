@@ -1,6 +1,6 @@
 # Check Armstrong Number (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check Armstrong Number](https://takeuforward.org/maths/check-if-a-number-is-armstrong-number-or-not/)
 - **Difficulty**: Easy
@@ -44,6 +44,22 @@ bool isArmstrongBrute(int n) {
         temp /= 10;
     }
     return sum == n;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    boolean isArmstrongBrute(int n) {
+        int k = (int)log10(n) + 1;
+        int temp = n, sum = 0;
+        while (temp > 0) {
+            int d = temp % 10;
+            sum += (int)Math.pow(d, k);
+            temp /= 10;
+        }
+        return sum == n;
+    }
 }
 ```
 
@@ -94,6 +110,38 @@ bool checkArmstrong(int n) {
     }
     
     return sum == n;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    long intPower(int base, int exp) {
+        long res = 1;
+        for (int i = 0; i < exp; i++) res *= base;
+        return res;
+    }
+    
+    boolean checkArmstrong(int n) {
+        if (n < 0) return false;
+        
+        // Count digits
+        int temp = n, k = 0;
+        while (temp > 0) {
+            k++;
+            temp /= 10;
+        }
+        
+        temp = n;
+        long sum = 0;
+        while (temp > 0) {
+            int d = temp % 10;
+            sum += intPower(d, k);
+            temp /= 10;
+        }
+        
+        return sum == n;
+    }
 }
 ```
 

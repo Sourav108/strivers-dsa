@@ -1,6 +1,6 @@
 # Strongly Connected Components (Kosaraju's Algorithm) (Step 15.6 — Other Graph Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Strongly Connected Components (Kosaraju's Algorithm)](https://takeuforward.org/data-structure/strongly-connected-components-kosarajus-algorithm-g-54/)
 - **Difficulty**: Hard
@@ -39,6 +39,12 @@ For every pair $(u, v)$, run BFS from $u$ to check if $v$ is reachable AND run B
 
 ### C++17 Code
 ```cpp
+// O(V^2 * (V + E)) pairwise reachability brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V^2 * (V + E)) pairwise reachability brute force
 ```
 
@@ -87,6 +93,43 @@ public:
     int tarjanSCC(int V, vector<vector<int>>& adj) {
         vector<int> tin(V, 0), low(V, 0), inStack(V, 0);
         stack<int> st;
+        for (int i = 0; i < V; i++)
+            if (tin[i] == 0) dfs(i, adj, tin, low, inStack, st);
+        return sccCount;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionTarjanSCC {
+    int timer = 1, sccCount = 0;
+    void dfs(int u, int[][] adj, int[] tin, int[] low,
+             int[] inStack, Stack<Integer> st) {
+        tin[u] = low[u] = timer++;
+        st.push(u); inStack[u] = 1;
+        for (int v : adj[u]) {
+            if (tin[v] == 0) {
+                dfs(v, adj, tin, low, inStack, st);
+                low[u] = Math.min(low[u], low[v]);
+            } else if (inStack[v]) {
+                low[u] = Math.min(low[u], tin[v]);
+            }
+        }
+        if (low[u] == tin[u]) {
+            sccCount++;
+            while (true) {
+                int node = st.peek(); st.pop(); inStack[node] = 0;
+                if (node == u) break;
+            }
+        }
+    }
+
+    int tarjanSCC(int V, int[][] adj) {
+        int[] tin(V, 0), low(V, 0), inStack(V, 0);
+        Stack<Integer> st = new Stack<>();
         for (int i = 0; i < V; i++)
             if (tin[i] == 0) dfs(i, adj, tin, low, inStack, st);
         return sccCount;
@@ -170,6 +213,75 @@ public:
                 vector<int> currentSCC;
                 dfsTranspose(node, adjT, vis2, currentSCC);
                 allSCCs.push_back(currentSCC);
+            }
+        }
+        
+        return sccCount;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    // Step 1: DFS to sort vertices by finish time onto stack
+    void dfsFinishTime(int node, int[][] adj, int[] vis, Stack<Integer> st) {
+        vis[node] = 1;
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                dfsFinishTime(neighbor, adj, vis, st);
+            }
+        }
+        st.push(node); // Push upon completion (finish time order)
+    }
+    
+    // Step 3: DFS on transposed graph to collect a single SCC
+    void dfsTranspose(int node, int[][] adjT, int[] vis, int[] currentSCC) {
+        vis[node] = 1;
+        currentSCC.add(node);
+        for (int neighbor : adjT[node]) {
+            if (!vis[neighbor]) {
+                dfsTranspose(neighbor, adjT, vis, currentSCC);
+            }
+        }
+    }
+
+    // Function to find number of strongly connected components in the graph.
+    int kosaraju(int V, int[][] adj) {
+        // Step 1: Compute finish time order
+        int[] vis = new int[V];
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfsFinishTime(i, adj, vis, st);
+            }
+        }
+        
+        // Step 2: Transpose all directed edges (u . v becomes v . u)
+        int[][] adjT(V);
+        for (int u = 0; u < V; u++) {
+            for (int v : adj[u]) {
+                adjT[v].add(u);
+            }
+        }
+        
+        // Step 3: Process nodes in decreasing finish time order on transposed graph
+        int[] vis2 = new int[V];
+        int sccCount = 0;
+        List<List<Integer>> allSCCs = new ArrayList<>(); // Stores all individual SCC components
+        
+        while (!st.isEmpty()) {
+            int node = st.peek();
+            st.pop();
+            
+            if (!vis2[node]) {
+                sccCount++;
+                List<Integer> currentSCC = new ArrayList<>();
+                dfsTranspose(node, adjT, vis2, currentSCC);
+                allSCCs.add(currentSCC);
             }
         }
         

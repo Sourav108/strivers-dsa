@@ -1,6 +1,6 @@
 # Introduction to Graphs, Degrees, and Types (Step 15.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to Graphs, Degrees, and Types](https://takeuforward.org/graph/introduction-to-graph/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Representing dense relations without formal degree tracking.
 // Basic terminology overview
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Basic terminology overview
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(1)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -64,6 +70,21 @@ class GraphBasics {
 public:
     // Handshaking Lemma: Total degree sum of undirected graph == 2 * E
     bool verifyHandshaking(int V, const vector<vector<int>>& adj, int E) {
+        int totalDegree = 0;
+        for (int u = 0; u < V; u++) {
+            totalDegree += adj[u].size();
+        }
+        return (totalDegree == 2 * E);
+    }
+};
+```
+
+### Java Code
+```java
+class GraphBasics {
+
+    // Handshaking Lemma: Total degree sum of undirected graph == 2 * E
+    boolean verifyHandshaking(int V, int[][] adj, int E) {
         int totalDegree = 0;
         for (int u = 0; u < V; u++) {
             totalDegree += adj[u].size();

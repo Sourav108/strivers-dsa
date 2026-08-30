@@ -1,6 +1,6 @@
 # Count Number of Substrings with Exactly K Distinct Characters (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Number of Substrings with Exactly K Distinct Characters](https://takeuforward.org/strings/count-number-of-substrings-with-k-distinct-characters/)
 - **Difficulty**: Medium
@@ -48,6 +48,27 @@ long long countKDistinctBrute(string s, int k) {
         }
     }
     return count;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    long countKDistinctBrute(String s, int k) {
+        long count = 0;
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            Set<Character> distinct = new HashSet<>();
+            for (int j = i; j < n; j++) {
+                distinct.add(s[j]);
+                if (distinct.length == k) count++;
+                else if (distinct.length > k) break;
+            }
+        }
+        return count;
+    }
 }
 ```
 
@@ -110,6 +131,47 @@ private:
 
 public:
     long long countSubStrings(string s, int k) {
+        return countAtMostK(s, k) - countAtMostK(s, k - 1);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    long countAtMostK(String s, int k) {
+        if (k <= 0) return 0;
+        
+        int n = s.length();
+        int freq[26] = {0};
+        int distinctCount = 0;
+        int l = 0;
+        long totalSubstrings = 0;
+        
+        for (int r = 0; r < n; r++) {
+            if (freq[s[r] - 'a'] == 0) {
+                distinctCount++;
+            }
+            freq[s[r] - 'a']++;
+            
+            // Shrink window if distinct characters exceed k
+            while (distinctCount > k) {
+                freq[s[l] - 'a']--;
+                if (freq[s[l] - 'a'] == 0) {
+                    distinctCount--;
+                }
+                l++;
+            }
+            
+            // All substrings ending at r starting between l and r are valid
+            totalSubstrings += (r - l + 1);
+        }
+        
+        return totalSubstrings;
+    }
+
+    long countSubStrings(String s, int k) {
         return countAtMostK(s, k) - countAtMostK(s, k - 1);
     }
 };

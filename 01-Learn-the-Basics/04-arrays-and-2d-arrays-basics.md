@@ -1,6 +1,6 @@
 # Arrays & 2D Arrays Basics in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Arrays & 2D Arrays Basics in C++](https://takeuforward.org/c/arrays-in-c/)
 - **Difficulty**: Easy
@@ -41,6 +41,22 @@ long long sumColumnMajor(int** mat, int rows, int cols) {
         }
     }
     return sum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // Column-major traversal: slow due to cache misses
+    long sumColumnMajor(int** mat, int rows, int cols) {
+        long sum = 0;
+        for (int j = 0; j < cols; j++) {
+            for (int i = 0; i < rows; i++) {
+                sum += mat[i][j]; // Cache miss on every iteration for large matrices!
+            }
+        }
+        return sum;
+    }
 }
 ```
 
@@ -96,6 +112,43 @@ int main() {
     cout << "dynamicMat[1][2] = " << dynamicMat[1][2] << "\n";
     
     return 0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int main() {
+        // 1D Stack Array
+        int arr[5] = {10, 20, 30, 40, 50};
+        
+        // 2D Stack Array (Row-Major: stored contiguously as [1, 2, 3, 4, 5, 6])
+        int mat[2][3] = {
+            {1, 2, 3},
+            {4, 5, 6}
+        };
+        
+        // Cache-friendly row-major traversal
+        long totalSum = 0;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 3; j++) {
+                totalSum += mat[i][j]; // Sequential memory access: fits perfectly into CPU cache line
+            }
+        }
+        
+        System.out.print("Total Sum: " << totalSum << "\n");
+        
+        // Dynamic 2D Array using vector (safe heap allocation)
+        int rows = 3, cols = 4;
+        int[][] dynamicMat = new int[rows][cols];
+        dynamicMat[1][2] = 42;
+        
+        System.out.print("dynamicMat[1][2] = " << dynamicMat[1][2] << "\n");
+        
+        return 0;
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # Zig-Zag / Spiral Level Order Traversal (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Zig-Zag / Spiral Level Order Traversal](https://takeuforward.org/data-structure/zig-zag-traversal-of-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Standard BFS level order followed by `std::reverse()` on alternate rows in $\mat
 
 ### C++17 Code
 ```cpp
+// Reverse vector approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Reverse vector approach
 ```
 
@@ -96,6 +102,53 @@ public:
             // Switch direction for next level
             leftToRight = !leftToRight;
             result.push_back(row);
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[][] zigzagLevelOrder(TreeNode  root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        boolean leftToRight = true;
+        
+        while (!q.isEmpty()) {
+            int size = q.length;
+            int[] row = new int[size];
+            
+            for (int i = 0; i < size; i++) {
+                TreeNode  curr = q.peek();
+                q.pop();
+                
+                // Direct index placement based on traversal direction
+                int index = leftToRight ? i : (size - 1 - i);
+                row[index] = curr.val;
+                
+                if (curr.left != null) q.push(curr.left);
+                if (curr.right != null) q.push(curr.right);
+            }
+            
+            // Switch direction for next level
+            leftToRight = !leftToRight;
+            result.add(row);
         }
         
         return result;

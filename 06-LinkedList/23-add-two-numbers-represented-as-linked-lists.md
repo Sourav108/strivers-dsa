@@ -1,6 +1,6 @@
 # Add Two Numbers Represented by LinkedLists (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Add Two Numbers Represented by LinkedLists](https://takeuforward.org/data-structure/add-two-numbers-represented-as-linked-lists/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Converting linked lists to BigInt, adding, and converting back to LL.
 
 ### C++17 Code
 ```cpp
+// BigInt conversion
+```
+
+### Java Code
+```java
+// Java equivalent
 // BigInt conversion
 ```
 
@@ -77,6 +83,36 @@ public:
             carry = sum / 10;
             tail->next = new Node(sum % 10);
             tail = tail->next;
+        }
+        
+        return dummy.next;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  addTwoNumbers(Node  l1, Node  l2) {
+        Node dummy(0);
+        Node  tail = &dummy;
+        int carry = 0;
+        
+        while (l1 != null || l2 != null || carry > 0) {
+            int sum = carry;
+            if (l1) { sum += l1.data; l1 = l1.next; }
+            if (l2) { sum += l2.data; l2 = l2.next; }
+            
+            carry = sum / 10;
+            tail.next = new Node(sum % 10);
+            tail = tail.next;
         }
         
         return dummy.next;

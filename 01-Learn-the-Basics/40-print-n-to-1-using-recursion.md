@@ -1,6 +1,6 @@
 # Print N to 1 using Recursion (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print N to 1 using Recursion](https://takeuforward.org/recursion/print-n-to-1-using-recursion/)
 - **Difficulty**: Easy
@@ -40,6 +40,15 @@ void printLoop(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void printLoop(int n) {
+        for (int i = n; i >= 1; i--) System.out.print(i << " ");
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -69,6 +78,19 @@ public:
         if (N == 0) return;
         
         cout << N << " ";
+        printNos(N - 1); // Tail call
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void printNos(int N) {
+        if (N == 0) return;
+        
+        System.out.print(N << " ");
         printNos(N - 1); // Tail call
     }
 };

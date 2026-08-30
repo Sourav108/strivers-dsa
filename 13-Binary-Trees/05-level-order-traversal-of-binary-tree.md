@@ -1,6 +1,6 @@
 # Level Order Traversal / BFS of Binary Tree (Step 13.1 — Traversals)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Level Order Traversal / BFS of Binary Tree](https://takeuforward.org/data-structure/level-order-traversal-of-a-binary-tree/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Compute height $H$, then call recursive `printLevel(root, d)` for $d = 1$ to $H$
 
 ### C++17 Code
 ```cpp
+// O(N^2) recursive level scans
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) recursive level scans
 ```
 
@@ -96,6 +102,53 @@ public:
             }
             
             result.push_back(currentLevel);
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[][] levelOrder(TreeNode  root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        
+        while (!q.isEmpty()) {
+            int levelSize = q.length; // number of nodes at current depth level
+            List<Integer> currentLevel = new ArrayList<>();
+            currentLevel.reserve(levelSize);
+            
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode  curr = q.peek();
+                q.pop();
+                
+                currentLevel.add(curr.val);
+                
+                if (curr.left != null) {
+                    q.push(curr.left);
+                }
+                if (curr.right != null) {
+                    q.push(curr.right);
+                }
+            }
+            
+            result.add(currentLevel);
         }
         
         return result;

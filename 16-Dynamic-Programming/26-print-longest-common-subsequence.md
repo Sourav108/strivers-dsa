@@ -1,6 +1,6 @@
 # Print Longest Common Subsequence (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print Longest Common Subsequence](https://takeuforward.org/data-structure/print-longest-common-subsequence-dp-26/)
 - **Difficulty**: Medium
@@ -41,6 +41,13 @@ Generate all $2^N$ subsequences of `s1`, filter those present in `s2`, and pick 
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^N * M) exponential subsequence generation
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^N * M) exponential subsequence generation
 };
@@ -104,6 +111,47 @@ public:
         }
         
         // Step 3: Reverse the string because backtracking traces backwards
+        reverse(lcsStr.begin(), lcsStr.end());
+        return lcsStr;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String findLCS(int n, int m, String s1, String s2) {
+        // Step 1: Build standard 2D DP Table
+        int[][] dp = new int[n + 1][m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        
+        // Step 2: Backtrack to reconstruct the LCS String
+        String lcsStr = "";
+        int i = n, j = m;
+        
+        while (i > 0 && j > 0) {
+            if (s1[i - 1] == s2[j - 1]) {
+                lcsStr.add(s1[i - 1]);
+                i--;
+                j--; // Move diagonally
+            } else if (dp[i - 1][j] > dp[i][j - 1]) {
+                i--; // Move up
+            } else {
+                j--; // Move left
+            }
+        }
+        
+        // Step 3: Reverse the String because backtracking traces backwards
         reverse(lcsStr.begin(), lcsStr.end());
         return lcsStr;
     }

@@ -1,6 +1,6 @@
 # Largest Divisible Subset (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Largest Divisible Subset](https://takeuforward.org/data-structure/largest-divisible-subset-dp-44/)
 - **Difficulty**: Medium
@@ -42,6 +42,13 @@ Recursively explore all $2^N$ subsets and check pairwise divisibility in $\mathc
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^N) subset search
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^N) subset search
 };
@@ -108,6 +115,55 @@ public:
         while (parent[lastIndex] != lastIndex) {
             lastIndex = parent[lastIndex];
             result.push_back(nums[lastIndex]);
+        }
+        
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] largestDivisibleSubset(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return {};
+        
+        // Step 1: Sort array to enable transitive divisibility
+        Arrays.sort(nums);
+        
+        int[] dp = new int[n];
+        int[] parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+        
+        int maxLen = 1;
+        int lastIndex = 0;
+        
+        // Step 2: 1D LIS DP with divisibility check
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] % nums[j] == 0 && 1 + dp[j] > dp[i]) {
+                    dp[i] = 1 + dp[j];
+                    parent[i] = j;
+                }
+            }
+            if (dp[i] > maxLen) {
+                maxLen = dp[i];
+                lastIndex = i;
+            }
+        }
+        
+        // Step 3: Reconstruct the divisible subset
+        List<Integer> result = new ArrayList<>();
+        result.add(nums[lastIndex]);
+        
+        while (parent[lastIndex] != lastIndex) {
+            lastIndex = parent[lastIndex];
+            result.add(nums[lastIndex]);
         }
         
         reverse(result.begin(), result.end());

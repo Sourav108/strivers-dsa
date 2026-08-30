@@ -1,6 +1,6 @@
 # Tarjan's Algorithm for Strongly Connected Components (Step 15.6 — Other Graph Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Tarjan's Algorithm for Strongly Connected Components](https://takeuforward.org/data-structure/tarjans-algorithm-for-strongly-connected-components/)
 - **Difficulty**: Hard
@@ -44,6 +44,12 @@ Kosaraju's 2-pass algorithm with graph edge transposition in $\mathcal{O}(V + E)
 
 ### C++17 Code
 ```cpp
+// Kosaraju's 2-pass algorithm
+```
+
+### Java Code
+```java
+// Java equivalent
 // Kosaraju's 2-pass algorithm
 ```
 
@@ -129,6 +135,71 @@ public:
         
         // Sort SCCs by their first element for standardized presentation
         sort(allSCCs.begin(), allSCCs.end());
+        return allSCCs;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int timer = 1;
+    
+    void dfs(int u, int[] adj[], int[] tin, int[] low,
+             int[] inStack, Stack<Integer> st, int[][] allSCCs) {
+        
+        tin[u] = low[u] = timer++;
+        st.push(u);
+        inStack[u] = 1;
+        
+        for (int v : adj[u]) {
+            if (tin[v] == -1) {
+                // Forward tree edge
+                dfs(v, adj, tin, low, inStack, st, allSCCs);
+                low[u] = Math.min(low[u], low[v]);
+            } 
+            else if (inStack[v]) {
+                // Back-edge to an active SCC ancestor
+                low[u] = Math.min(low[u], tin[v]);
+            }
+            // If tin[v] != -1 && !inStack[v], then v belongs to an already closed SCC . ignore
+        }
+        
+        // Root of an SCC found!
+        if (low[u] == tin[u]) {
+            List<Integer> currentSCC = new ArrayList<>();
+            while (true) {
+                int node = st.peek();
+                st.pop();
+                inStack[node] = 0;
+                currentSCC.add(node);
+                if (node == u) break;
+            }
+            // Optional: sort individual SCC component for standardized output
+            Arrays.sort(currentSCC);
+            allSCCs.add(currentSCC);
+        }
+    }
+
+    // Function to return a list of lists of integers denoting the SCCs in the graph.
+    int[][] tarjans(int V, int[] adj[]) {
+        int[] tin = new int[V];
+        int[] low = new int[V];
+        int[] inStack = new int[V];
+        Stack<Integer> st = new Stack<>();
+        List<List<Integer>> allSCCs = new ArrayList<>();
+        
+        for (int i = 0; i < V; i++) {
+            if (tin[i] == -1) {
+                dfs(i, adj, tin, low, inStack, st, allSCCs);
+            }
+        }
+        
+        // Sort SCCs by their first element for standardized presentation
+        Arrays.sort(allSCCs);
         return allSCCs;
     }
 };

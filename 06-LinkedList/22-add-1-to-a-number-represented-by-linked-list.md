@@ -1,6 +1,6 @@
 # Add 1 to a Number Represented by LinkedList (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Add 1 to a Number Represented by LinkedList](https://takeuforward.org/data-structure/add-1-to-a-number-represented-by-linked-list/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Reverse list, add 1 iteratively with carry, reverse back in $\mathcal{O}(3N)$ ti
 
 ### C++17 Code
 ```cpp
+// Double reversal approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Double reversal approach
 ```
 
@@ -81,6 +87,40 @@ public:
         if (carry == 1) {
             Node* newHead = new Node(1);
             newHead->next = head;
+            return newHead;
+        }
+        
+        return head;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    int addCarryHelper(Node  curr) {
+        if (curr == null) return 1; // base carry = 1 to add
+        
+        int carry = addCarryHelper(curr.next);
+        int sum = curr.data + carry;
+        curr.data = sum % 10;
+        return sum / 10; // return new carry
+    }
+
+    Node  addOne(Node head) {
+        int carry = addCarryHelper(head);
+        
+        // If carry remains at most significant digit (e.g. 999 . 1000)
+        if (carry == 1) {
+            Node  newHead = new Node(1);
+            newHead.next = head;
             return newHead;
         }
         

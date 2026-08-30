@@ -1,6 +1,6 @@
 # Flood Fill Algorithm (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Flood Fill Algorithm](https://takeuforward.org/data-structure/flood-fill-algorithm/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Queue BFS storing coordinate pairs.
 
 ### C++17 Code
 ```cpp
+// BFS Flood Fill
+```
+
+### Java Code
+```java
+// Java equivalent
 // BFS Flood Fill
 ```
 
@@ -83,6 +89,43 @@ private:
 
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int initialColor = image[sr][sc];
+        
+        // Critical edge case: if starting pixel already has the new color, return immediately
+        if (initialColor != color) {
+            dfs(sr, sc, image, initialColor, color);
+        }
+        
+        return image;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void dfs(int r, int c, int[][] image, int initialColor, int newColor) {
+        // Change current pixel color
+        image[r][c] = newColor;
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        int n = image.length;
+        int m = image[0].size();
+        
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dRow[i];
+            int nc = c + dCol[i];
+            
+            // Check grid bounds and matching initial color
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && image[nr][nc] == initialColor) {
+                dfs(nr, nc, image, initialColor, newColor);
+            }
+        }
+    }
+
+    int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int initialColor = image[sr][sc];
         
         // Critical edge case: if starting pixel already has the new color, return immediately

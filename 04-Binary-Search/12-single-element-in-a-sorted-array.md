@@ -1,6 +1,6 @@
 # Single Element in a Sorted Array (Index Parity Check) (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Single Element in a Sorted Array (Index Parity Check)](https://takeuforward.org/data-structure/search-single-element-in-a-sorted-array/)
 - **Difficulty**: Medium
@@ -45,6 +45,17 @@ int singleNonDuplicateXOR(const vector<int>& nums) {
     int xorSum = 0;
     for (int x : nums) xorSum ^= x;
     return xorSum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int singleNonDuplicateXOR(int[] nums) {
+        int xorSum = 0;
+        for (int x : nums) xorSum ^= x;
+        return xorSum;
+    }
 }
 ```
 
@@ -99,6 +110,41 @@ int singleNonDuplicate(const vector<int>& nums) {
     }
     
     return -1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int singleNonDuplicate(int[] nums) {
+        int n = nums.length;
+        
+        // Boundary checks for single element or ends
+        if (n == 1) return nums[0];
+        if (nums[0] != nums[1]) return nums[0];
+        if (nums[n - 1] != nums[n - 2]) return nums[n - 1];
+        
+        int low = 1, high = n - 2;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            // If nums[mid] is not equal to left and right neighbor, it is the single element
+            if (nums[mid] != nums[mid - 1] && nums[mid] != nums[mid + 1]) {
+                return nums[mid];
+            }
+            
+            // Check if we are in the left half:
+            // (even, odd) pair . (mid is odd equals mid-1) OR (mid is even equals mid+1)
+            if ((mid % 2 == 1 && nums[mid] == nums[mid - 1]) ||
+                (mid % 2 == 0 && nums[mid] == nums[mid + 1])) {
+                low = mid + 1;  // Single element is in right half
+            } else {
+                high = mid - 1; // Single element is in left half
+            }
+        }
+        
+        return -1;
+    }
 }
 ```
 

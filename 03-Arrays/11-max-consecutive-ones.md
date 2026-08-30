@@ -1,6 +1,6 @@
 # Max Consecutive Ones (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/count-maximum-consecutive-ones-in-the-array/
 - **Difficulty**: Easy
@@ -54,6 +54,23 @@ int findMaxConsecutiveOnesBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findMaxConsecutiveOnesBrute(int[] nums) {
+        int maxCnt = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int cnt = 0;
+            for (int j = i; j < nums.length; j++) {
+                if (nums[j] == 1) cnt++; else break;
+            }
+            maxCnt = Math.max(maxCnt, cnt);
+        }
+        return maxCnt;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -92,6 +109,24 @@ int findMaxConsecutiveOnesOptimal(const vector<int>& nums) {
         }
     }
     return maxCnt;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findMaxConsecutiveOnesOptimal(int[] nums) {
+        int maxCnt = 0, currentCnt = 0;
+        for (int x : nums) {
+            if (x == 1) {
+                currentCnt++;
+                maxCnt = Math.max(maxCnt, currentCnt);
+            } else {
+                currentCnt = 0;
+            }
+        }
+        return maxCnt;
+    }
 }
 ```
 

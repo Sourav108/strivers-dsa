@@ -1,6 +1,6 @@
 # Kth Smallest Element in an Array (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kth Smallest Element in an Array](https://takeuforward.org/data-structure/kth-largest-smallest-element-in-an-array/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Sort array in $\mathcal{O}(N \log N)$, return `arr[k - 1]`.
 
 ### C++17 Code
 ```cpp
+// Sort approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Sort approach
 ```
 
@@ -74,6 +80,28 @@ public:
         }
         
         return maxHeap.top(); // kth smallest
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int kthSmallest(int arr[], int l, int r, int k) {
+        // Max-heap to maintain the k smallest elements
+        PriorityQueue<Integer> maxHeap;
+        
+        for (int i = l; i <= r; i++) {
+            maxHeap.push(arr[i]);
+            if (maxHeap.length > k) {
+                maxHeap.pop(); // discard largest element
+            }
+        }
+        
+        return maxHeap.peek(); // kth smallest
     }
 };
 ```

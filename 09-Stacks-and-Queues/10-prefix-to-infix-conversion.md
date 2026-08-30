@@ -1,6 +1,6 @@
 # Prefix to Infix Conversion (Step 9.2 — Prefix, Infix, Postfix Expressions)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Prefix to Infix Conversion](https://takeuforward.org/data-structure/prefix-to-infix/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Syntax tree parsing.
 
 ### C++17 Code
 ```cpp
+// Tree approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Tree approach
 ```
 
@@ -82,6 +88,35 @@ public:
         }
         
         return st.top();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    String preToInfix(String pre_exp) {
+        Stack<String> st;
+        int n = pre_exp.length();
+        
+        // Scan right to left
+        for (int i = n - 1; i >= 0; i--) {
+            char c = pre_exp[i];
+            
+            if (isalnum(c)) {
+                st.push(String(1, c));
+            } else {
+                String op1 = st.peek(); st.pop();
+                String op2 = st.peek(); st.pop();
+                String combined = "(" + op1 + c + op2 + ")";
+                st.push(combined);
+            }
+        }
+        
+        return st.peek();
     }
 };
 ```

@@ -1,6 +1,6 @@
 # Move Zeroes to End (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/move-all-zeros-to-the-end-of-the-array/
 - **Difficulty**: Easy
@@ -49,6 +49,20 @@ void moveZeroesBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    void moveZeroesBrute(int[] nums) {
+        List<Integer> nonZero = new ArrayList<>();
+        for (int x : nums) if (x != 0) nonZero.add(x);
+        for (int i = 0; i < nonZero.length; i++) nums[i] = nonZero[i];
+        for (int i = nonZero.length; i < nums.length; i++) nums[i] = 0;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
@@ -86,6 +100,25 @@ void moveZeroesOptimal(vector<int>& nums) {
         if (nums[i] != 0) {
             swap(nums[i], nums[j]);
             j++;
+        }
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void moveZeroesOptimal(int[] nums) {
+        int j = -1, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) { j = i; break; }
+        }
+        if (j == -1) return; // No zeroes
+        for (int i = j + 1; i < n; i++) {
+            if (nums[i] != 0) {
+                int temp = nums[i]; nums[i] = nums[j]; nums[j] = temp;
+                j++;
+            }
         }
     }
 }

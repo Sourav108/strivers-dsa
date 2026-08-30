@@ -1,6 +1,6 @@
 # Minimum Add to Make Parentheses Valid (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Add to Make Parentheses Valid](https://takeuforward.org/strings/minimum-add-to-make-parentheses-valid/)
 - **Difficulty**: Medium
@@ -65,6 +65,27 @@ public:
 };
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class SolutionStack {
+
+    int minAddToMakeValid(String s) {
+        Stack<Character> st = new Stack<>();
+        for (char c : s) {
+            if (c == '(') {
+                st.push(c);
+            } else {
+                if (!st.isEmpty() && st.peek() == '(') st.pop();
+                else st.push(c);
+            }
+        }
+        return st.length;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack space.
@@ -103,6 +124,32 @@ public:
                     openCount--; // Matched with an available '('
                 } else {
                     insertions++; // No matching '(' available -> must insert one
+                }
+            }
+        }
+        
+        // Total insertions = (missing '(' for stray ')') + (missing ')' for stray '(')
+        return insertions + openCount;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minAddToMakeValid(String s) {
+        int openCount = 0;   // Count of currently unmatched '('
+        int insertions = 0;  // Count of required inserted '('
+        
+        for (char c : s) {
+            if (c == '(') {
+                openCount++;
+            } else { // c == ')'
+                if (openCount > 0) {
+                    openCount--; // Matched with an available '('
+                } else {
+                    insertions++; // No matching '(' available . must insert one
                 }
             }
         }

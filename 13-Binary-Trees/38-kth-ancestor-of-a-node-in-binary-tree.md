@@ -1,6 +1,6 @@
 # Kth Ancestor of a Node in Binary Tree (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kth Ancestor of a Node in Binary Tree](https://takeuforward.org/data-structure/kth-ancestor-of-a-node-in-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Step up parent pointers one by one in $\mathcal{O}(K)$ per query (times out on $
 
 ### C++17 Code
 ```cpp
+// O(K) linear stepping
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(K) linear stepping
 ```
 
@@ -69,6 +75,48 @@ public:
     TreeAncestor(int n, vector<int>& parent) {
         maxLog = 20; // 2^19 > 500,000 nodes
         up.assign(n, vector<int>(maxLog, -1));
+        
+        // Base case: 2^0 = 1st ancestor is direct parent
+        for (int i = 0; i < n; i++) {
+            up[i][0] = parent[i];
+        }
+        
+        // Binary lifting DP transition
+        for (int j = 1; j < maxLog; j++) {
+            for (int i = 0; i < n; i++) {
+                if (up[i][j - 1] != -1) {
+                    up[i][j] = up[up[i][j - 1]][j - 1];
+                } else {
+                    up[i][j] = -1;
+                }
+            }
+        }
+    }
+    
+    int getKthAncestor(int node, int k) {
+        for (int j = 0; j < maxLog; j++) {
+            // If the j-th bit of k is set, jump 2^j steps
+            if (k & (1 << j)) {
+                node = up[node][j];
+                if (node == -1) return -1; // reached beyond root
+            }
+        }
+        return node;
+    }
+};
+```
+
+### Java Code
+```java
+class TreeAncestor {
+
+    // up[node][j] stores the 2^j-th ancestor of node
+    int[][] up;
+    int maxLog;
+
+    TreeAncestor(int n, int[] parent) {
+        maxLog = 20; // 2^19 > 500,000 nodes
+        up.assign(n, int[](maxLog, -1));
         
         // Base case: 2^0 = 1st ancestor is direct parent
         for (int i = 0; i < n; i++) {

@@ -1,6 +1,6 @@
 # Shortest Path in Directed Acyclic Graph (DAG) using Topo Sort (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Shortest Path in Directed Acyclic Graph (DAG) using Topo Sort](https://takeuforward.org/data-structure/shortest-path-in-directed-acyclic-graph-dag/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Standard Dijkstra Algorithm with Priority Queue in $\mathcal{O}((V + E) \log V)$
 
 ### C++17 Code
 ```cpp
+// O((V + E) log V) Dijkstra alternative
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((V + E) log V) Dijkstra alternative
 ```
 
@@ -104,6 +110,75 @@ public:
             // Only relax outgoing edges if node itself is reachable
             if (dist[node] != 1e9) {
                 for (const auto& edge : adj[node]) {
+                    int v = edge.first;
+                    int wt = edge.second;
+                    
+                    if (dist[node] + wt < dist[v]) {
+                        dist[v] = dist[node] + wt;
+                    }
+                }
+            }
+        }
+        
+        // 4. Mark unreachable nodes as -1
+        for (int i = 0; i < N; i++) {
+            if (dist[i] == 1e9) {
+                dist[i] = -1;
+            }
+        }
+        
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void topoDFS(int node, vector<List<int[]>> adj, int[] vis, Stack<Integer> st) {
+        vis[node] = 1;
+        for (var edge : adj[node]) {
+            int v = edge.first;
+            if (!vis[v]) {
+                topoDFS(v, adj, vis, st);
+            }
+        }
+        st.push(node);
+    }
+
+    int[] shortestPath(int N, int M, int[][] edges) {
+        // 1. Build weighted directed adjacency list
+        vector<List<int[]>> adj(N);
+        for (int i = 0; i < M; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            adj[u].add({v, wt});
+        }
+        
+        // 2. Compute Topological Sort of the DAG
+        int[] vis = new int[N];
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < N; i++) {
+            if (!vis[i]) {
+                topoDFS(i, adj, vis, st);
+            }
+        }
+        
+        // 3. Relax edges in Topological Order starting from source (0)
+        int[] dist = new int[N];
+        dist[0] = 0; // Source is node 0
+        
+        while (!st.isEmpty()) {
+            int node = st.peek();
+            st.pop();
+            
+            // Only relax outgoing edges if node itself is reachable
+            if (dist[node] != 1e9) {
+                for (var edge : adj[node]) {
                     int v = edge.first;
                     int wt = edge.second;
                     

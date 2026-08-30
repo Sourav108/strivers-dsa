@@ -1,6 +1,6 @@
 # Reverse a Stack using Recursion (Step 7.1 — Get a Strong Hold)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse a Stack using Recursion](https://takeuforward.org/recursion/reverse-a-stack-using-recursion/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Using an auxiliary queue or array in $\mathcal{O}(N)$ memory.
 
 ### C++17 Code
 ```cpp
+// Queue approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Queue approach
 ```
 
@@ -78,6 +84,39 @@ public:
         if (st.empty()) return;
         
         int topElement = st.top();
+        st.pop();
+        
+        // Reverse remaining stack
+        reverseStack(st);
+        
+        // Insert popped element at the bottom
+        insertAtBottom(st, topElement);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void insertAtBottom(Stack<Integer> st, int element) {
+        if (st.isEmpty()) {
+            st.push(element);
+            return;
+        }
+        
+        int topElement = st.peek();
+        st.pop();
+        insertAtBottom(st, element);
+        st.push(topElement);
+    }
+
+    void reverseStack(Stack<Integer> st) {
+        if (st.isEmpty()) return;
+        
+        int topElement = st.peek();
         st.pop();
         
         // Reverse remaining stack

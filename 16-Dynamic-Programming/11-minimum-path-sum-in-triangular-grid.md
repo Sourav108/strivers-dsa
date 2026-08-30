@@ -1,6 +1,6 @@
 # Minimum Path Sum in Triangular Grid (Triangle) (Step 16.2 — 2D/3D DP and DP on Grids)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Path Sum in Triangular Grid (Triangle)](https://takeuforward.org/data-structure/minimum-path-sum-in-triangular-grid-dp-11/)
 - **Difficulty**: Medium
@@ -54,6 +54,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, int n, int[][] t) {
+        if (i == n - 1) return t[n - 1][j];
+        int down = t[i][j] + solve(i + 1, j, n, t);
+        int diag = t[i][j] + solve(i + 1, j + 1, n, t);
+        return Math.min(down, diag);
+    }
+
+    int minimumTotal(int[][] triangle) {
+        return solve(0, 0, triangle.length, triangle);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -81,6 +97,24 @@ public:
         for (int i = n - 2; i >= 0; i--) {
             for (int j = 0; j <= i; j++) {
                 dp[i][j] = triangle[i][j] + min(dp[i + 1][j], dp[i + 1][j + 1]);
+            }
+        }
+        return dp[0][0];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int minimumTotal(int[][] triangle) {
+        int n = triangle.length;
+        int[][] dp = new int[n][n];
+        for (int j = 0; j < n; j++) dp[n - 1][j] = triangle[n - 1][j];
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                dp[i][j] = triangle[i][j] + Math.min(dp[i + 1][j], dp[i + 1][j + 1]);
             }
         }
         return dp[0][0];
@@ -119,6 +153,31 @@ public:
             vector<int> cur(i + 1, 0);
             for (int j = 0; j <= i; j++) {
                 cur[j] = triangle[i][j] + min(prev[j], prev[j + 1]);
+            }
+            prev = cur;
+        }
+        
+        // Apex holds the minimum path sum
+        return prev[0];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minimumTotal(int[][] triangle) {
+        int n = triangle.length;
+        
+        // 1D array initialized to the bottom base row of the triangle
+        int[] prev = triangle[n - 1];
+        
+        // Iterate upward from second-last row down to the top apex
+        for (int i = n - 2; i >= 0; i--) {
+            int[] cur = new int[i + 1];
+            for (int j = 0; j <= i; j++) {
+                cur[j] = triangle[i][j] + Math.min(prev[j], prev[j + 1]);
             }
             prev = cur;
         }

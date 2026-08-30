@@ -1,6 +1,6 @@
 # Largest Element in an Array (Step 3.1 — Easy Array Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [TakeUForward - Largest Element](https://takeuforward.org/data-structure/find-the-largest-element-in-an-array/)
 - **Difficulty**: Easy
@@ -46,6 +46,26 @@ int findLargestBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findLargestBrute(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            boolean isMax = true;
+            for (int j = 0; j < n; j++) {
+                if (nums[j] > nums[i]) {
+                    isMax = false;
+                    break;
+                }
+            }
+            if (isMax) return nums[i];
+        }
+        return nums[0];
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n^2)$ — for each of the $n$ elements, we compare against up to $n$ other elements in the array.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant auxiliary memory.
@@ -67,6 +87,18 @@ using namespace std;
 int findLargestBetter(vector<int> nums) { // pass-by-value prevents mutating caller array
     sort(nums.begin(), nums.end());
     return nums.back();
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int findLargestBetter(int[] nums) { // pass-by-value prevents mutating caller array
+        Arrays.sort(nums);
+        return nums.peekLast();
+    }
 }
 ```
 
@@ -99,6 +131,24 @@ int findLargestOptimal(const vector<int>& nums) {
         }
     }
     return maxVal;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findLargestOptimal(int[] nums) {
+        if (nums.isEmpty()) {
+            throw invalid_argument("Array must not be empty.");
+        }
+        int maxVal = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > maxVal) {
+                maxVal = nums[i];
+            }
+        }
+        return maxVal;
+    }
 }
 ```
 

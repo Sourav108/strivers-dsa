@@ -1,6 +1,6 @@
 # Making a Large Island (Flip 0 to 1 with DSU Size Lookup) (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Making a Large Island (Flip 0 to 1 with DSU Size Lookup)](https://takeuforward.org/data-structure/making-a-large-island-dsu-g-52/)
 - **Difficulty**: Hard
@@ -42,6 +42,12 @@ For every `0`, flip it to `1`, run a full matrix BFS/DFS to measure the resultin
 
 ### C++17 Code
 ```cpp
+// O(N^4) naive BFS per cell flip
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^4) naive BFS per cell flip
 ```
 
@@ -106,6 +112,59 @@ public:
                         }
                     }
                     maxIsland = max(maxIsland, cur);
+                }
+            }
+        }
+        return maxIsland;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionColoring {
+    int dfs(int r, int c, int id, int[][] grid, int n) {
+        grid[r][c] = id;
+        int size = 1;
+        int dr[] = {-1, 0, 1, 0}, dc[] = {0, 1, 0, -1};
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dr[i], nc = c + dc[i];
+            if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 1) {
+                size += dfs(nr, nc, id, grid, n);
+            }
+        }
+        return size;
+    }
+
+    int largestIsland(int[][] grid) {
+        int n = grid.length;
+        Map<Integer, Integer> islandSize = new HashMap<>();
+        int colorId = 2, maxIsland = 0;
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 1) {
+                    islandSize[colorId] = dfs(r, c, colorId, grid, n);
+                    maxIsland = Math.max(maxIsland, islandSize[colorId]);
+                    colorId++;
+                }
+            }
+        }
+        int dr[] = {-1, 0, 1, 0}, dc[] = {0, 1, 0, -1};
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 0) {
+                    Set<Integer> seen = new HashSet<>();
+                    int cur = 1;
+                    for (int i = 0; i < 4; i++) {
+                        int nr = r + dr[i], nc = c + dc[i];
+                        if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] > 1) {
+                            int id = grid[nr][nc];
+                            if (seen.add(id).second) cur += islandSize[id];
+                        }
+                    }
+                    maxIsland = Math.max(maxIsland, cur);
                 }
             }
         }
@@ -222,6 +281,106 @@ public:
         
         // 3. Step 3: Handle edge case where grid is all 1s
         if (!hasZero) {
+            return n * n;
+        }
+        
+        return maxIsland;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+
+    int[] parent, size;
+    DisjointSet(int n) {
+        parent.resize(n);
+        size.resize(n, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    void unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        if (rootU == rootV) return;
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+    }
+};
+
+class Solution {
+
+    int largestIsland(int[][] grid) {
+        int n = grid.length;
+        DisjointSet dsu(n * n);
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        // 1. Step 1: Connect all existing 1s into DSU components
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 1) {
+                    int node = r * n + c;
+                    
+                    for (int i = 0; i < 4; i++) {
+                        int nr = r + dRow[i];
+                        int nc = c + dCol[i];
+                        
+                        if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 1) {
+                            int adjNode = nr * n + nc;
+                            dsu.unionBySize(node, adjNode);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // 2. Step 2: Try flipping each 0 to 1 and bridge surrounding components
+        int maxIsland = 0;
+        boolean hasZero = false;
+        
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 0) {
+                    hasZero = true;
+                    Set<Integer> uniqueRoots = new HashSet<>();
+                    
+                    // Check 4 adjacent directions
+                    for (int i = 0; i < 4; i++) {
+                        int nr = r + dRow[i];
+                        int nc = c + dCol[i];
+                        
+                        if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 1) {
+                            int adjNode = nr * n + nc;
+                            uniqueRoots.add(dsu.findUPar(adjNode));
+                        }
+                    }
+                    
+                    // Flipped cell itself counts as size 1
+                    int currentTotal = 1;
+                    for (int root : uniqueRoots) {
+                        currentTotal += dsu.size[root];
+                    }
+                    
+                    maxIsland = Math.max(maxIsland, currentTotal);
+                }
+            }
+        }
+        
+        // 3. Step 3: Handle edge case where grid is all 1s
+        if (hasZero == null) {
             return n * n;
         }
         

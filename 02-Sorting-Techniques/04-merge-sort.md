@@ -1,6 +1,6 @@
 # Merge Sort Algorithm (Step 2.2 — Sorting-II)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Merge Sort Algorithm](https://takeuforward.org/data-structure/merge-sort-algorithm/)
 - **Difficulty**: Medium
@@ -58,6 +58,31 @@ vector<int> mergeSortNaive(vector<int> nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    // Merge sort is inherently O(n log n).
+    // Naive implementation allocates new vectors in each recursive level:
+    int[] mergeSortNaive(int[] nums) {
+        if (nums.length <= 1) return nums;
+        int mid = nums.length / 2;
+        int[] left(nums.begin(), nums.begin() + mid);
+        int[] right(nums.begin() + mid, nums.end());
+        left = mergeSortNaive(left);
+        right = mergeSortNaive(right);
+        int[] res;
+        int i = 0, j = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) res.add(left[i++]);
+            else res.add(right[j++]);
+        }
+        while (i < left.length) res.add(left[i++]);
+        while (j < right.length) res.add(right[j++]);
+        return res;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \log n)$ time.
 - **Space Complexity**: $\mathcal{O}(n \log n)$ — allocates temporary subvectors at every recursion level.
@@ -111,6 +136,43 @@ void mergeSort(vector<int>& nums) {
     if (nums.size() <= 1) return;
     vector<int> temp(nums.size());
     mergeSortHelper(nums, 0, (int)nums.size() - 1, temp);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void merge(int[] arr, int low, int mid, int high, int[] temp) {
+        int left = low, right = mid + 1, k = low;
+        
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                temp[k++] = arr[left++];
+            } else {
+                temp[k++] = arr[right++];
+            }
+        }
+        while (left <= mid) temp[k++] = arr[left++];
+        while (right <= high) temp[k++] = arr[right++];
+        
+        for (int i = low; i <= high; i++) {
+            arr[i] = temp[i];
+        }
+    }
+    
+    void mergeSortHelper(int[] arr, int low, int high, int[] temp) {
+        if (low >= high) return;
+        int mid = low + (high - low) / 2;
+        mergeSortHelper(arr, low, mid, temp);
+        mergeSortHelper(arr, mid + 1, high, temp);
+        merge(arr, low, mid, high, temp);
+    }
+    
+    void mergeSort(int[] nums) {
+        if (nums.length <= 1) return;
+        int[] temp(nums.length);
+        mergeSortHelper(nums, 0, nums.length - 1, temp);
+    }
 }
 ```
 

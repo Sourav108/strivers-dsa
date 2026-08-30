@@ -1,6 +1,6 @@
 # Binary Search to Find X in Sorted Array (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #704 - Binary Search](https://leetcode.com/problems/binary-search/) | [TakeUForward](https://takeuforward.org/data-structure/binary-search-explained/)
 - **Difficulty**: Easy
@@ -65,6 +65,25 @@ int searchLinear(const vector<int>& nums, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int searchLinear(int[] nums, int target) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == target) {
+                return i;
+            }
+            // Since array is sorted, early exit if current element exceeds target
+            if (nums[i] > target) {
+                break;
+            }
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ in the worst case (when `target` is at the end or not present).
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -106,6 +125,32 @@ int searchRecursive(const vector<int>& nums, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int searchRecursiveHelper(int[] nums, int low, int high, int target) {
+        if (low > high) {
+            return -1;
+        }
+        
+        // Prevent integer overflow
+        int mid = low + (high - low) / 2;
+        
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            return searchRecursiveHelper(nums, mid + 1, high, target);
+        } else {
+            return searchRecursiveHelper(nums, low, mid - 1, target);
+        }
+    }
+    
+    int searchRecursive(int[] nums, int target) {
+        return searchRecursiveHelper(nums, 0, nums.length - 1, target);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log_2 n)$ — the recurrence relation is $T(n) = T(n/2) + \mathcal{O}(1)$, which evaluates to $\mathcal{O}(\log n)$ by the Master Theorem.
 - **Space Complexity**: $\mathcal{O}(\log_2 n)$ auxiliary stack memory due to recursive call frames.
@@ -141,6 +186,31 @@ int search(const vector<int>& nums, int target) {
     }
     
     return -1; // Target not found
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int search(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+        
+        while (low <= high) {
+            // Safe midpoint calculation avoiding integer overflow
+            int mid = low + (high - low) / 2;
+            
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                low = mid + 1;  // Target lies in the right subarray
+            } else {
+                high = mid - 1; // Target lies in the left subarray
+            }
+        }
+        
+        return -1; // Target not found
+    }
 }
 ```
 

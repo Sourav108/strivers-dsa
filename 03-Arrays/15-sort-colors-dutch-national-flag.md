@@ -1,6 +1,6 @@
 # Sort Colors (0s, 1s, 2s) (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/sort-an-array-of-0s-1s-and-2s/
 - **Difficulty**: Medium
@@ -44,6 +44,15 @@ using namespace std;
 void sortColorsBrute(vector<int>& nums) { sort(nums.begin(), nums.end()); }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    void sortColorsBrute(int[] nums) { Arrays.sort(nums); }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(1)
@@ -72,6 +81,24 @@ void sortColorsBetter(vector<int>& nums) {
     while (count0--) nums[idx++] = 0;
     while (count1--) nums[idx++] = 1;
     while (count2--) nums[idx++] = 2;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void sortColorsBetter(int[] nums) {
+        int count0 = 0, count1 = 0, count2 = 0;
+        for (int x : nums) {
+            if (x == 0) count0++;
+            else if (x == 1) count1++;
+            else count2++;
+        }
+        int idx = 0;
+        while (count0--) nums[idx++] = 0;
+        while (count1--) nums[idx++] = 1;
+        while (count2--) nums[idx++] = 2;
+    }
 }
 ```
 
@@ -107,6 +134,26 @@ void sortColorsOptimal(vector<int>& nums) {
         } else {
             swap(nums[mid], nums[high]);
             high--;
+        }
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void sortColorsOptimal(int[] nums) {
+        int low = 0, mid = 0, high = nums.length - 1;
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                int temp = nums[low]; nums[low] = nums[mid]; nums[mid] = temp;
+                low++; mid++;
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else {
+                int temp = nums[mid]; nums[mid] = nums[high]; nums[high] = temp;
+                high--;
+            }
         }
     }
 }

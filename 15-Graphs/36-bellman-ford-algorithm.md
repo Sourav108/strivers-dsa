@@ -1,6 +1,6 @@
 # Bellman-Ford Algorithm (Negative Weights & Negative Cycle Detection) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Bellman-Ford Algorithm (Negative Weights & Negative Cycle Detection)](https://takeuforward.org/data-structure/bellman-ford-algorithm-g-41/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Floyd-Warshall all-pairs algorithm in $\mathcal{O}(V^3)$ time to check diagonal 
 // O(V^3) Floyd Warshall
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(V^3) Floyd Warshall
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V^3)$ time.
 - **Space Complexity**: $\mathcal{O}(V^2)$.
@@ -63,6 +69,34 @@ public:
         while (!q.empty()) {
             int u = q.front(); q.pop(); inQueue[u] = 0;
             for (auto& edge : adj[u]) {
+                int v = edge.first, w = edge.second;
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    if (!inQueue[v]) {
+                        q.push(v); inQueue[v] = 1; count[v]++;
+                        if (count[v] >= V) return {-1}; // Negative cycle!
+                    }
+                }
+            }
+        }
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionSPFA {
+
+    int[] spfa(int V, vector<List<int[]>> adj, int S) {
+        int[] dist(V, 1e8), count(V, 0), inQueue(V, 0);
+        Queue<Integer> q = new LinkedList<>();
+        dist[S] = 0; q.push(S); inQueue[S] = 1;
+        while (!q.isEmpty()) {
+            int u = q.peek(); q.pop(); inQueue[u] = 0;
+            for (var edge : adj[u]) {
                 int v = edge.first, w = edge.second;
                 if (dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w;
@@ -127,6 +161,54 @@ public:
         
         // 2. N-th relaxation to detect Negative Weight Cycles
         for (const auto& edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int wt = edge[2];
+            
+            if (dist[u] != 1e8 && dist[u] + wt < dist[v]) {
+                return {-1}; // Negative cycle detected!
+            }
+        }
+        
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    /*  Function to implement Bellman Ford
+    *   edges: vector of vectors which represents the graph
+    *   S: source vertex
+    *   V: number of vertices
+    */
+    int[] bellman_ford(int V, int[][] edges, int S) {
+        int[] dist = new int[V];
+        dist[S] = 0;
+        
+        // 1. Relax all edges (V - 1) times
+        for (int i = 0; i < V - 1; i++) {
+            boolean anyRelaxed = false;
+            
+            for (var edge : edges) {
+                int u = edge[0];
+                int v = edge[1];
+                int wt = edge[2];
+                
+                if (dist[u] != 1e8 && dist[u] + wt < dist[v]) {
+                    dist[v] = dist[u] + wt;
+                    anyRelaxed = true;
+                }
+            }
+            
+            // Early-exit optimization: if no distance changed, we have already converged!
+            if (anyRelaxed == null) break;
+        }
+        
+        // 2. N-th relaxation to detect Negative Weight Cycles
+        for (var edge : edges) {
             int u = edge[0];
             int v = edge[1];
             int wt = edge[2];

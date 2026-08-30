@@ -1,6 +1,6 @@
 # Binary Subarrays With Sum (Exact goal sum via atMost(K) - atMost(K-1)) (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Binary Subarrays With Sum (Exact goal sum via atMost(K) - atMost(K-1))](https://takeuforward.org/data-structure/binary-subarrays-with-sum/)
 - **Difficulty**: Medium
@@ -46,6 +46,25 @@ int numSubarraysWithSumHash(vector<int>& nums, int goal) {
         mp[sum]++;
     }
     return count;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int numSubarraysWithSumHash(int[] nums, int goal) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        mp[0] = 1;
+        int sum = 0, count = 0;
+        for (int x : nums) {
+            sum += x;
+            if (mp.contains(sum - goal)) count += mp[sum - goal];
+            mp[sum]++;
+        }
+        return count;
+    }
 }
 ```
 
@@ -97,6 +116,37 @@ private:
 
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return countAtMost(nums, goal) - countAtMost(nums, goal - 1);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countAtMost(int[] nums, int goal) {
+        if (goal < 0) return 0;
+        
+        int left = 0, count = 0, currentSum = 0;
+        int n = nums.length;
+        
+        for (int right = 0; right < n; right++) {
+            currentSum += nums[right];
+            
+            while (currentSum > goal) {
+                currentSum -= nums[left];
+                left++;
+            }
+            
+            // All subarrays ending at 'right' starting from [left..right] have sum <= goal
+            count += (right - left + 1);
+        }
+        
+        return count;
+    }
+
+    int numSubarraysWithSum(int[] nums, int goal) {
         return countAtMost(nums, goal) - countAtMost(nums, goal - 1);
     }
 };

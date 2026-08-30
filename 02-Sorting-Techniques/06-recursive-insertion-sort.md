@@ -1,6 +1,6 @@
 # Recursive Insertion Sort (Step 2.2 — Sorting-II)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Recursive Insertion Sort](https://takeuforward.org/data-structure/recursive-insertion-sort-algorithm/)
 - **Difficulty**: Easy
@@ -51,6 +51,24 @@ void recursiveInsertionSort(vector<int>& nums, int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void recursiveInsertionSort(int[] nums, int n) {
+        if (n <= 1) return;
+        recursiveInsertionSort(nums, n - 1);
+        
+        int key = nums[n - 1];
+        int j = n - 2;
+        while (j >= 0 && nums[j] > key) {
+            nums[j + 1] = nums[j];
+            j--;
+        }
+        nums[j + 1] = key;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: Best Case: $\mathcal{O}(n)$. Worst/Avg Case: $\mathcal{O}(n^2)$.
 - **Space Complexity**: $\mathcal{O}(n)$ recursion stack frames.
@@ -90,6 +108,29 @@ void recursiveInsertionSort(vector<int>& nums, int n) {
         j--;
     }
     nums[j + 1] = key;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void recursiveInsertionSort(int[] nums, int n) {
+        // Base Case: 1 element is already sorted
+        if (n <= 1) return;
+        
+        // Sort first n - 1 elements
+        recursiveInsertionSort(nums, n - 1);
+        
+        // Insert last element at its correct position in sorted array
+        int key = nums[n - 1];
+        int j = n - 2;
+        
+        while (j >= 0 && nums[j] > key) {
+            nums[j + 1] = nums[j];
+            j--;
+        }
+        nums[j + 1] = key;
+    }
 }
 ```
 

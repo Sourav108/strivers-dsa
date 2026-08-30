@@ -1,6 +1,6 @@
 # Rearrange Array Elements by Sign (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/arrays/rearrange-array-elements-by-sign/
 - **Difficulty**: Medium
@@ -53,6 +53,22 @@ vector<int> rearrangeBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] rearrangeBrute(int[] nums) {
+        int[] pos, neg;
+        for (int x : nums) if (x > 0) pos.add(x); else neg.add(x);
+        int[] res(nums.length);
+        for (int i = 0; i < pos.length; i++) {
+            res[2 * i] = pos[i];
+            res[2 * i + 1] = neg[i];
+        }
+        return res;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(2n) = O(n)
 - **Space Complexity**: O(n)
@@ -93,6 +109,26 @@ vector<int> rearrangeOptimal(const vector<int>& nums) {
         }
     }
     return res;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int[] rearrangeOptimal(int[] nums) {
+        int n = nums.length, posIdx = 0, negIdx = 1;
+        int[] res = new int[n];
+        for (int x : nums) {
+            if (x > 0) {
+                res[posIdx] = x;
+                posIdx += 2;
+            } else {
+                res[negIdx] = x;
+                negIdx += 2;
+            }
+        }
+        return res;
+    }
 }
 ```
 

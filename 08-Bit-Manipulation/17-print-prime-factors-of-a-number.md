@@ -1,6 +1,6 @@
 # Print Prime Factors of a Given Number (Trial Division) (Step 8.3 — Advanced Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print Prime Factors of a Given Number (Trial Division)](https://takeuforward.org/data-structure/prime-factorisation/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Loop $2$ to $N$, check `isPrime(i)` and `N % i == 0` in $\mathcal{O}(N \sqrt{N})
 
 ### C++17 Code
 ```cpp
+// O(N sqrt(N)) naive check
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N sqrt(N)) naive check
 ```
 
@@ -81,6 +87,39 @@ public:
         // If remaining N > 1, it must be prime
         if (N > 1) {
             primeFactors.push_back(N);
+        }
+        
+        return primeFactors;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] AllPrimeFactors(int N) {
+        List<Integer> primeFactors = new ArrayList<>();
+        
+        // Check for factor 2
+        if (N % 2 == 0) {
+            primeFactors.add(2);
+            while (N % 2 == 0) N /= 2;
+        }
+        
+        // Check odd factors up to Math.sqrt(N)
+        for (int i = 3; (long)i * i <= N; i += 2) {
+            if (N % i == 0) {
+                primeFactors.add(i);
+                while (N % i == 0) N /= i;
+            }
+        }
+        
+        // If remaining N > 1, it must be prime
+        if (N > 1) {
+            primeFactors.add(N);
         }
         
         return primeFactors;

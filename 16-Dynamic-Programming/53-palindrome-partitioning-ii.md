@@ -1,6 +1,6 @@
 # Palindrome Partitioning II (Minimum Cuts for Palindromic Substrings) (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Palindrome Partitioning II (Minimum Cuts for Palindromic Substrings)](https://takeuforward.org/data-structure/palindrome-partitioning-ii-front-partition-dp-53/)
 - **Difficulty**: Hard
@@ -48,6 +48,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(2^N) recursion
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -81,6 +88,31 @@ public:
             for (int j = i; j < n; j++) {
                 if (isPalindrome(i, j, s)) {
                     minCuts = min(minCuts, 1 + dp[j + 1]);
+                }
+            }
+            dp[i] = minCuts;
+        }
+        return dp[0] - 1;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionN3 {
+    boolean isPalindrome(int i, int j, String s) {
+        while (i < j) if (s[i++] != s[j--]) return false;
+        return true;
+    }
+
+    int minCut(String s) {
+        int n = s.length;
+        int[] dp = new int[n + 1];
+        for (int i = n - 1; i >= 0; i--) {
+            int minCuts = 1e9;
+            for (int j = i; j < n; j++) {
+                if (isPalindrome(i, j, s)) {
+                    minCuts = Math.min(minCuts, 1 + dp[j + 1]);
                 }
             }
             dp[i] = minCuts;
@@ -137,6 +169,47 @@ public:
             for (int j = i; j < n; j++) {
                 if (isPalin[i][j]) {
                     minCuts = min(minCuts, 1 + dp[j + 1]);
+                }
+            }
+            dp[i] = minCuts;
+        }
+        
+        // Subtract 1 because the last piece doesn't require a cut
+        return dp[0] - 1;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minCut(String s) {
+        int n = s.length;
+        if (n <= 1) return 0;
+        
+        // Step 1: Precompute all palindromic substrings in O(N^2)
+        boolean[][] isPalin = new boolean[n][n];
+        for (int i = 0; i < n; i++) isPalin[i][i] = true;
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (s[i] == s[j]) {
+                    isPalin[i][j] = (len == 2) ? true : isPalin[i + 1][j - 1];
+                }
+            }
+        }
+        
+        // Step 2: 1D Front Partition DP
+        // dp[i] stores min cuts needed for suffix s[i ... n - 1]
+        int[] dp = new int[n + 1];
+        dp[n] = 0; // Base case: 0 cuts for empty String
+        
+        for (int i = n - 1; i >= 0; i--) {
+            int minCuts = 1e9;
+            for (int j = i; j < n; j++) {
+                if (isPalin[i][j]) {
+                    minCuts = Math.min(minCuts, 1 + dp[j + 1]);
                 }
             }
             dp[i] = minCuts;

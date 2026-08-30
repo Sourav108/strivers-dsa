@@ -1,6 +1,6 @@
 # Implement Trie II (Prefix Tree) (countWordsEqualTo, countWordsStartingWith, erase) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Trie II (Prefix Tree) (countWordsEqualTo, countWordsStartingWith, erase)](https://takeuforward.org/data-structure/implement-trie-ii/)
 - **Difficulty**: Medium
@@ -69,6 +69,37 @@ public:
         if (wordCounts[word] > 0) wordCounts[word]--;
         for (auto it = allWords.begin(); it != allWords.end(); ++it) {
             if (*it == word) { allWords.erase(it); break; }
+        }
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class TrieIINaive {
+    Map<String, Integer> wordCounts = new HashMap<>();
+    List<String> allWords = new ArrayList<>();
+
+    void insert(String word) {
+        wordCounts[word]++;
+        allWords.add(word);
+    }
+    int countWordsEqualTo(String word) {
+        return wordCounts[word];
+    }
+    int countWordsStartingWith(String prefix) {
+        int cnt = 0;
+        for (String w : allWords) {
+            if (w.rfind(prefix, 0) == 0) cnt++; // O(N * L) linear prefix scanning
+        }
+        return cnt;
+    }
+    void erase(String word) {
+        if (wordCounts[word] > 0) wordCounts[word]--;
+        for (var it = allWords.begin(); it != allWords.end(); ++it) {
+            if (it == word) { allWords.remove(it); break; }
         }
     }
 };
@@ -198,6 +229,111 @@ public:
             node->reducePrefix();
         }
         node->deleteEnd();
+    }
+};
+```
+
+### Java Code
+```java
+// Frequency-Augmented Trie Node
+static class Node {
+    Node  links[26];
+    int cntEndsWith = 0; // Number of words ending at this node
+    int cntPrefix = 0;   // Number of words sharing this prefix
+    
+    boolean containsKey(char ch) {
+        return links[ch - 'a'] != null;
+    }
+    
+    Node  get(char ch) {
+        return links[ch - 'a'];
+    }
+    
+    void put(char ch, Node  node) {
+        links[ch - 'a'] = node;
+    }
+    
+    void increaseEnd() {
+        cntEndsWith++;
+    }
+    
+    void increasePrefix() {
+        cntPrefix++;
+    }
+    
+    void deleteEnd() {
+        cntEndsWith--;
+    }
+    
+    void reducePrefix() {
+        cntPrefix--;
+    }
+    
+    int getEnd() {
+        return cntEndsWith;
+    }
+    
+    int getPrefix() {
+        return cntPrefix;
+    }
+};
+
+class Trie {
+
+    Node  root;
+
+    Trie() {
+        root = new Node();
+    }
+    
+    // Inserts a word, updating both prefix and end counters in O(L)
+    void insert(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                node.put(ch, new Node());
+            }
+            node = node.get(ch);
+            node.increasePrefix();
+        }
+        node.increaseEnd();
+    }
+    
+    // Returns exact frequency of word in O(L)
+    int countWordsEqualTo(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                return 0;
+            }
+            node = node.get(ch);
+        }
+        return node.getEnd();
+    }
+    
+    // Returns count of words starting with prefix in O(L)
+    int countWordsStartingWith(String prefix) {
+        Node  node = root;
+        for (char ch : prefix) {
+            if (!node.containsKey(ch)) {
+                return 0;
+            }
+            node = node.get(ch);
+        }
+        return node.getPrefix();
+    }
+    
+    // Erases one occurrence of word in O(L)
+    void erase(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                return; // Word does not exist
+            }
+            node = node.get(ch);
+            node.reducePrefix();
+        }
+        node.deleteEnd();
     }
 };
 ```

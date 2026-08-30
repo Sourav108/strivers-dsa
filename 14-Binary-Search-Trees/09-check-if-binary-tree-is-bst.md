@@ -1,6 +1,6 @@
 # Check if a Binary Tree is BST or Not (Valid BST range [min, max]) (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if a Binary Tree is BST or Not (Valid BST range [min, max])](https://takeuforward.org/data-structure/check-if-a-tree-is-a-bst-or-bt/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ For every node, check if max in left subtree < val and min in right subtree > va
 // O(N^2) max/min checks
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N^2) max/min checks
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$.
 - **Space Complexity**: $\mathcal{O}(H)$.
@@ -62,6 +68,22 @@ public:
         if (prev && root->val <= prev->val) return false;
         prev = root;
         return isValidBST(root->right);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+class SolutionInorder {
+    TreeNode  prev = null;
+
+    boolean isValidBST(TreeNode  root) {
+        if (root == null) return true;
+        if (!isValidBST(root.left)) return false;
+        if (prev && root.val <= prev.val) return false;
+        prev = root;
+        return isValidBST(root.right);
     }
 };
 ```
@@ -109,6 +131,37 @@ private:
 public:
     bool isValidBST(TreeNode* root) {
         return validate(root, LLONG_MIN, LLONG_MAX);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    boolean validate(TreeNode  node, long minVal, long maxVal) {
+        if (node == null) return true;
+        
+        // Node value must be strictly within (minVal, maxVal)
+        if (node.val <= minVal || node.val >= maxVal) {
+            return false;
+        }
+        
+        // Left child: range becomes (minVal, node.val)
+        // Right child: range becomes (node.val, maxVal)
+        return validate(node.left, minVal, node.val) &&
+               validate(node.right, node.val, maxVal);
+    }
+
+    boolean isValidBST(TreeNode  root) {
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 };
 ```

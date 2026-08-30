@@ -1,6 +1,6 @@
 # Longest Common Prefix (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Common Prefix](https://takeuforward.org/data-structure/longest-common-prefix/)
 - **Difficulty**: Easy
@@ -49,6 +49,23 @@ string lcpHorizontal(vector<string>& strs) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    String lcpHorizontal(String[] strs) {
+        if (strs.isEmpty()) return "";
+        String prefix = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].find(prefix) != 0) {
+                prefix = prefix.substring(0, 0 + prefix.length() - 1);
+                if (prefix.isEmpty()) return "";
+            }
+        }
+        return prefix;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times L)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -87,6 +104,32 @@ public:
         string ans = "";
         
         for (size_t i = 0; i < min(first.length(), last.length()); i++) {
+            if (first[i] != last[i]) break;
+            ans += first[i];
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    String longestCommonPrefix(String[] strs) {
+        if (strs.isEmpty()) return "";
+        
+        // Lexicographically sort array
+        Arrays.sort(strs);
+        
+        String first = strs.peek();
+        String last = strs.peekLast();
+        String ans = "";
+        
+        for (int i = 0; i < Math.min(first.length(), last.length()); i++) {
             if (first[i] != last[i]) break;
             ans += first[i];
         }

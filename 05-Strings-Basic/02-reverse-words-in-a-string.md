@@ -1,6 +1,6 @@
 # Reverse Words in a Given String (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse Words in a Given String](https://takeuforward.org/data-structure/reverse-words-in-a-string/)
 - **Difficulty**: Medium
@@ -50,6 +50,25 @@ string reverseWordsStream(string s) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    String reverseWordsStream(String s) {
+        stringstream ss(s);
+        String word, ans = "";
+        List<String> words = new ArrayList<>();
+        while (ss >> word) words.add(word);
+        for (int i = words.length - 1; i >= 0; i--) {
+            ans += words[i];
+            if (i > 0) ans += " ";
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ vector storage.
@@ -93,6 +112,33 @@ public:
         s.resize(r); // trim trailing space
         
         // Step 2: Reverse the entire sanitized string
+        reverse(s.begin(), s.end());
+        return s;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String reverseWords(String s) {
+        int n = s.length();
+        int i = 0, r = 0;
+        
+        // Step 1: In-place clean multiple spaces
+        while (i < n) {
+            while (i < n && s[i] == ' ') i++; // skip leading/multiple spaces
+            if (i < n) {
+                if (r > 0) s[r++] = ' ';       // insert single space separator
+                int start = r;
+                while (i < n && s[i] != ' ') s[r++] = s[i++];
+                reverse(s.begin() + start, s.begin() + r); // reverse individual word
+            }
+        }
+        s.resize(r); // trim trailing space
+        
+        // Step 2: Reverse the entire sanitized String
         reverse(s.begin(), s.end());
         return s;
     }

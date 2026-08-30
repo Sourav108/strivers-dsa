@@ -1,6 +1,6 @@
 # Check if a String is Palindrome using Recursion (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if a String is Palindrome using Recursion](https://takeuforward.org/data-structure/check-if-the-given-string-is-palindrome-or-not/)
 - **Difficulty**: Easy
@@ -43,6 +43,17 @@ bool isPalSlow(string s) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean isPalSlow(String s) {
+        String rev = s;
+        reverse(rev.begin(), rev.end());
+        return s == rev;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ string memory.
@@ -76,6 +87,22 @@ private:
 
 public:
     bool isPalindrome(const string& s) {
+        return isPalHelper(s, 0, s.length());
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isPalHelper(String s, int i, int n) {
+        if (i >= n / 2) return true;
+        if (s[i] != s[n - 1 - i]) return false;
+        return isPalHelper(s, i + 1, n);
+    }
+
+    boolean isPalindrome(String s) {
         return isPalHelper(s, 0, s.length());
     }
 };

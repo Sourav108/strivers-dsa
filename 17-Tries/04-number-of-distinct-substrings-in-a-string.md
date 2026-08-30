@@ -1,6 +1,6 @@
 # Number of Distinct Substrings in a String (Trie based O(N^2)) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Distinct Substrings in a String (Trie based O(N^2))](https://takeuforward.org/data-structure/number-of-distinct-substrings-in-a-string-using-trie/)
 - **Difficulty**: Medium
@@ -64,6 +64,27 @@ public:
             }
         }
         return distinctSubs.size() + 1; // +1 for empty substring
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionNaive {
+
+    int countDistinctSubstring(String s) {
+        Set<String> distinctSubs = new HashSet<>();
+        int n = s.length;
+        for (int i = 0; i < n; i++) {
+            String current = "";
+            for (int j = i; j < n; j++) {
+                current += s[j]; // O(N) String copy
+                distinctSubs.add(current); // O(N) hash check
+            }
+        }
+        return distinctSubs.length + 1; // +1 for empty substring
     }
 };
 ```
@@ -132,6 +153,57 @@ public:
                 }
                 
                 node = node->get(ch);
+            }
+        }
+        
+        // Return count + 1 (including the empty substring "")
+        return count + 1;
+    }
+};
+```
+
+### Java Code
+```java
+// Trie Node Definition
+static class Node {
+    Node  links[26];
+    
+    boolean containsKey(char ch) {
+        return links[ch - 'a'] != null;
+    }
+    
+    Node  get(char ch) {
+        return links[ch - 'a'];
+    }
+    
+    void put(char ch, Node  node) {
+        links[ch - 'a'] = node;
+    }
+};
+
+class Solution {
+
+    int countDistinctSubstring(String s) {
+        int n = s.length;
+        Node  root = new Node();
+        
+        // Count of distinct substrings (initialize to 1 if empty String is included, else 0)
+        // Standard GFG problem includes empty String: +1
+        int count = 0;
+        
+        // Insert all suffixes s[i ... n-1] into the Trie
+        for (int i = 0; i < n; i++) {
+            Node  node = root;
+            for (int j = i; j < n; j++) {
+                char ch = s[j];
+                
+                // If character path does not exist, this represents a NEW DISTINCT SUBSTRING!
+                if (!node.containsKey(ch)) {
+                    count++;
+                    node.put(ch, new Node());
+                }
+                
+                node = node.get(ch);
             }
         }
         

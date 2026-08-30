@@ -1,6 +1,6 @@
 # Clone a LinkedList with Random and Next Pointer (O(1) space) (Step 6.5 — Hard Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Clone a LinkedList with Random and Next Pointer (O(1) space)](https://takeuforward.org/data-structure/clone-linked-list-with-random-and-next-pointer/)
 - **Difficulty**: Hard
@@ -46,6 +46,26 @@ Node* copyRandomListHash(Node* head) {
         mp[curr]->next = mp[curr->next];
         mp[curr]->random = mp[curr->random];
         curr = curr->next;
+    }
+    return mp[head];
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node { int val; Node  next; Node  random; public Node(int v) { /* initialized: val(v), next(null), random(null) */  } };
+Node  copyRandomListHash(Node  head) {
+    if (head == null) return null;
+    unordered_map<Node , Node > mp;
+    Node  curr = head;
+    while (curr) { mp[curr] = new Node(curr.val); curr = curr.next; }
+    curr = head;
+    while (curr) {
+        mp[curr].next = mp[curr.next];
+        mp[curr].random = mp[curr.random];
+        curr = curr.next;
     }
     return mp[head];
 }
@@ -113,6 +133,59 @@ public:
             }
             curr = curr->next;
             copyCurr = copyCurr->next;
+        }
+        
+        return cloneHead;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int val;
+    Node  next;
+    Node  random;
+    public Node(int _val) { /* initialized: val(_val), next(null), random(null)  */  }
+};
+
+class Solution {
+
+    Node  copyRandomList(Node  head) {
+        if (head == null) return null;
+        
+        // Pass 1: Create cloned nodes and interweave: A . A' . B . B'
+        Node  curr = head;
+        while (curr != null) {
+            Node  copy = new Node(curr.val);
+            copy.next = curr.next;
+            curr.next = copy;
+            curr = copy.next;
+        }
+        
+        // Pass 2: Connect random pointers for cloned nodes
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+        
+        // Pass 3: Separate original list and cloned list
+        curr = head;
+        Node  cloneHead = head.next;
+        Node  copyCurr = cloneHead;
+        
+        while (curr != null) {
+            curr.next = curr.next.next;
+            if (copyCurr.next != null) {
+                copyCurr.next = copyCurr.next.next;
+            }
+            curr = curr.next;
+            copyCurr = copyCurr.next;
         }
         
         return cloneHead;

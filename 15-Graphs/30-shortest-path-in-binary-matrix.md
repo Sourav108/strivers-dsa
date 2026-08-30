@@ -1,6 +1,6 @@
 # Shortest Path in Binary Matrix (Maze BFS) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Shortest Path in Binary Matrix (Maze BFS)](https://takeuforward.org/data-structure/g-36-shortest-distance-in-a-binary-maze/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ DFS backtracking all 8-direction paths taking $\mathcal{O}(8^{N^2})$ exponential
 // O(8^(N^2)) DFS backtracking
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(8^(N^2)) DFS backtracking
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(8^{N^2})$ time.
 - **Space Complexity**: $\mathcal{O}(N^2)$ recursion stack.
@@ -65,6 +71,37 @@ public:
         pq.push({1, {0, 0}});
         while (!pq.empty()) {
             auto [d, cell] = pq.top(); pq.pop();
+            int r = cell.first, c = cell.second;
+            if (r == n - 1 && c == n - 1) return d;
+            for (int dr = -1; dr <= 1; dr++) {
+                for (int dc = -1; dc <= 1; dc++) {
+                    if (dr == 0 && dc == 0) continue;
+                    int nr = r + dr, nc = c + dc;
+                    if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 0 && d + 1 < dist[nr][nc]) {
+                        dist[nr][nc] = d + 1;
+                        pq.push({d + 1, {nr, nc}});
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionDijkstraGrid {
+
+    int shortestPathBinaryMatrix(int[][] grid) {
+        int n = grid.length;
+        if (grid[0][0] != 0 || grid[n-1][n-1] != 0) return -1;
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<>> pq;
+        int[][] dist = new int[n][n];
+        dist[0][0] = 1;
+        pq.push({1, {0, 0}});
+        while (!pq.isEmpty()) {
+            var [d, cell] = pq.peek(); pq.pop();
             int r = cell.first, c = cell.second;
             if (r == n - 1 && c == n - 1) return d;
             for (int dr = -1; dr <= 1; dr++) {
@@ -127,6 +164,63 @@ public:
         
         while (!q.empty()) {
             auto front = q.front();
+            q.pop();
+            
+            int r = front.first.first;
+            int c = front.first.second;
+            int d = front.second;
+            
+            for (int i = 0; i < 8; i++) {
+                int nr = r + dRow[i];
+                int nc = c + dCol[i];
+                
+                if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] == 0) {
+                    // Early exit as soon as target is reached!
+                    if (nr == n - 1 && nc == n - 1) {
+                        return d + 1;
+                    }
+                    
+                    grid[nr][nc] = 1; // Mark visited immediately to prevent duplicate enqueues
+                    q.push({{nr, nc}, d + 1});
+                }
+            }
+        }
+        
+        return -1; // Unreachable
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int shortestPathBinaryMatrix(int[][] grid) {
+        int n = grid.length;
+        
+        // Edge cases: start or target blocked
+        if (grid[0][0] != 0 || grid[n - 1][n - 1] != 0) {
+            return -1;
+        }
+        
+        // Single cell matrix
+        if (n == 1) {
+            return 1;
+        }
+        
+        // Queue stores {row, col, distance}
+        queue<pair<pair<int, int>, int>> q;
+        q.push({{0, 0}, 1});
+        grid[0][0] = 1; // Mark visited in-place
+        
+        // 8 directional movements (horizontal, vertical, diagonal)
+        int dRow[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int dCol[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+        
+        while (!q.isEmpty()) {
+            var front = q.peek();
             q.pop();
             
             int r = front.first.first;

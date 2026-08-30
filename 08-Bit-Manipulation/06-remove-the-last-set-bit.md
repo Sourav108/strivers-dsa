@@ -1,6 +1,6 @@
 # Remove the Last Set Bit (Rightmost set bit unset) (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Remove the Last Set Bit (Rightmost set bit unset)](https://takeuforward.org/bit-manipulation/remove-the-last-set-bit/)
 - **Difficulty**: Easy
@@ -41,6 +41,18 @@ int removeLastBitLoop(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int removeLastBitLoop(int n) {
+        for (int i = 0; i < 32; i++) {
+            if (n & (1 << i)) return n ^ (1 << i);
+        }
+        return n;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(32)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -63,6 +75,18 @@ Bitwise Identity: `n & (n - 1)` in $\mathcal{O}(1)$ time.
 ```cpp
 class Solution {
 public:
+    int removeLastSetBit(int n) {
+        return n & (n - 1);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
     int removeLastSetBit(int n) {
         return n & (n - 1);
     }

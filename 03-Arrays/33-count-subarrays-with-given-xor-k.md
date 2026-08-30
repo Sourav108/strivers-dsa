@@ -1,6 +1,6 @@
 # Count Subarrays with Given XOR K (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/count-the-number-of-subarrays-with-given-xor-k/
 - **Difficulty**: Medium
@@ -51,6 +51,20 @@ int subarraysWithXorKBrute(const vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int subarraysWithXorKBrute(int[] nums, int k) {
+        int cnt = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int x = 0;
+            for (int j = i; j < n; j++) { x ^= nums[j]; if (x == k) cnt++; }
+        }
+        return cnt;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -89,6 +103,26 @@ int subarraysWithXorKOptimal(const vector<int>& nums, int k) {
         freq[xr]++;
     }
     return count;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int subarraysWithXorKOptimal(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        freq[0] = 1;
+        int xr = 0, count = 0;
+        for (int x : nums) {
+            xr ^= x;
+            int target = xr ^ k;
+            if (freq.contains(target)) count += freq[target];
+            freq[xr]++;
+        }
+        return count;
+    }
 }
 ```
 

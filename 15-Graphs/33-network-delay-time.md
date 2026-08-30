@@ -1,6 +1,6 @@
 # Network Delay Time (Signal propagation via Dijkstra) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Network Delay Time (Signal propagation via Dijkstra)](https://takeuforward.org/data-structure/network-delay-time/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Floyd-Warshall all-pairs shortest paths in $\mathcal{O}(V^3)$ time.
 
 ### C++17 Code
 ```cpp
+// O(V^3) Floyd Warshall
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V^3) Floyd Warshall
 ```
 
@@ -71,6 +77,31 @@ public:
         for (int i = 1; i <= n; i++) {
             if (dist[i] == 1e9) return -1;
             maxTime = max(maxTime, dist[i]);
+        }
+        return maxTime;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionBellmanFord {
+
+    int networkDelayTime(int[][] times, int n, int k) {
+        int[] dist = new int[n + 1];
+        dist[k] = 0;
+        for (int i = 1; i < n; i++) {
+            for (var t : times) {
+                int u = t[0], v = t[1], w = t[2];
+                if (dist[u] != 1e9 && dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                }
+            }
+        }
+        int maxTime = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == 1e9) return -1;
+            maxTime = Math.max(maxTime, dist[i]);
         }
         return maxTime;
     }
@@ -140,6 +171,61 @@ public:
                 return -1; // Node i is unreachable
             }
             maxDelay = max(maxDelay, dist[i]);
+        }
+        
+        return maxDelay;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int networkDelayTime(int[][] times, int n, int k) {
+        // 1. 1-indexed directed adjacency list: {neighbor, weight}
+        vector<List<int[]>> adj(n + 1);
+        for (var t : times) {
+            int u = t[0];
+            int v = t[1];
+            int w = t[2];
+            adj[u].add({v, w});
+        }
+        
+        // 2. Min-Heap stores {time, node}
+        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        
+        int[] dist = new int[n + 1];
+        dist[k] = 0;
+        pq.push({0, k});
+        
+        // 3. Dijkstra shortest path traversal
+        while (!pq.isEmpty()) {
+            var [time, node] = pq.peek();
+            pq.pop();
+            
+            if (time > dist[node]) continue;
+            
+            for (var edge : adj[node]) {
+                int adjNode = edge.first;
+                int weight = edge.second;
+                
+                if (time + weight < dist[adjNode]) {
+                    dist[adjNode] = time + weight;
+                    pq.push({dist[adjNode], adjNode});
+                }
+            }
+        }
+        
+        // 4. Find the bottleneck maximum time among all nodes 1...n
+        int maxDelay = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == 1e9) {
+                return -1; // Node i is unreachable
+            }
+            maxDelay = Math.max(maxDelay, dist[i]);
         }
         
         return maxDelay;

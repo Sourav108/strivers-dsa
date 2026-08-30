@@ -1,6 +1,6 @@
 # Z-Function / Z-Algorithm for Pattern Searching (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Z-Function / Z-Algorithm for Pattern Searching](https://takeuforward.org/strings/z-function-algorithm/)
 - **Difficulty**: Hard
@@ -59,6 +59,22 @@ vector<int> zAlgorithmNaive(string s) {
         }
     }
     return z;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int[] zAlgorithmNaive(String s) {
+        int n = s.length;
+        int[] z = new int[n];
+        for (int i = 1; i < n; i++) {
+            while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
+                z[i]++;
+            }
+        }
+        return z;
+    }
 }
 ```
 
@@ -137,6 +153,68 @@ public:
             if (z[i] == m) {
                 // Pattern match found: convert combined index to text 0-based index
                 occurrences.push_back(i - m - 1);
+            }
+        }
+        
+        return occurrences;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class ZAlgorithm {
+
+    // Computes Z-array for String s in strictly linear O(N) time
+    static int[] computeZ(String s) {
+        int n = s.length;
+        int[] z = new int[n];
+        
+        int l = 0, r = 0; // [l, r] defines the active Z-box
+        
+        for (int i = 1; i < n; i++) {
+            if (i <= r) {
+                // Inside Z-box: copy from mirrored prefix position k = i - l
+                z[i] = Math.min(r - i + 1, z[i - l]);
+            }
+            
+            // Try to extend match beyond the current boundary
+            while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
+                z[i]++;
+            }
+            
+            // Update [l, r] if current match extends beyond r
+            if (i + z[i] - 1 > r) {
+                l = i;
+                r = i + z[i] - 1;
+            }
+        }
+        
+        return z;
+    }
+    
+    // Pattern search using Z-algorithm in O(N + M) time
+    static int[] search(String text, String pattern) {
+        int n = text.length;
+        int m = pattern.length;
+        
+        if (m == 0 || n < m) return {};
+        
+        // Form combined String: pattern + '$' + text
+        // '$' is a sentinel delimiter not present in text or pattern
+        String combined = pattern + '$' + text;
+        int totalLen = combined.length;
+        
+        int[] z = computeZ(combined);
+        List<Integer> occurrences = new ArrayList<>();
+        
+        // Check Z-values in the text section of the combined String
+        for (int i = m + 1; i < totalLen; i++) {
+            if (z[i] == m) {
+                // Pattern match found: convert combined index to text 0-based index
+                occurrences.add(i - m - 1);
             }
         }
         

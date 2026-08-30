@@ -1,6 +1,6 @@
 # Introduction to Binary Search Trees & Inorder Invariant (Step 14.1 — Concepts)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to Binary Search Trees & Inorder Invariant](https://takeuforward.org/data-structure/binary-search-trees/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ General binary tree search scanning all $N$ nodes without exploiting BST orderin
 
 ### C++17 Code
 ```cpp
+// O(N) general search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) general search
 ```
 
@@ -75,6 +81,27 @@ public:
         printInorder(root->left);
         cout << root->val << " ";
         printInorder(root->right);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class BSTDemo {
+
+    // Inorder traversal on BST strictly visits nodes in sorted ascending order
+    void printInorder(TreeNode  root) {
+        if (root == null) return;
+        printInorder(root.left);
+        System.out.print(root.val << " ");
+        printInorder(root.right);
     }
 };
 ```

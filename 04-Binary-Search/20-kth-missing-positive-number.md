@@ -1,6 +1,6 @@
 # Kth Missing Positive Number (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #1539 - Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/) | [TakeUForward](https://takeuforward.org/binary-search/kth-missing-positive-number/)
 - **Difficulty**: Easy
@@ -80,6 +80,22 @@ int findKthPositiveLinear(const vector<int>& arr, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findKthPositiveLinear(int[] arr, int k) {
+        for (int num : arr) {
+            if (num <= k) {
+                k++; // push candidate forward for each present number <= k
+            } else {
+                break;
+            }
+        }
+        return k;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ — in the worst case, scans all $n$ elements.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -107,6 +123,25 @@ int findKthPositiveHashSet(const vector<int>& arr, int k) {
             if (k == 0) return current;
         }
         current++;
+    }
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int findKthPositiveHashSet(int[] arr, int k) {
+        Set<Integer> present(arr.begin(), arr.end());
+        int current = 1;
+        while (true) {
+            if (!present.contains(current)) {
+                k--;
+                if (k == 0) return current;
+            }
+            current++;
+        }
     }
 }
 ```
@@ -139,6 +174,32 @@ public:
     int findKthPositive(vector<int>& arr, int k) {
         int low = 0;
         int high = (int)arr.size() - 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int missing = arr[mid] - (mid + 1);
+            
+            if (missing < k) {
+                low = mid + 1;  // need more missing numbers, look right
+            } else {
+                high = mid - 1; // enough missing numbers, look left
+            }
+        }
+        
+        // At loop exit: low = high + 1
+        // ans = arr[high] + (k - missing(high)) = high + 1 + k = low + k
+        return low + k;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findKthPositive(int[] arr, int k) {
+        int low = 0;
+        int high = arr.length - 1;
         
         while (low <= high) {
             int mid = low + (high - low) / 2;

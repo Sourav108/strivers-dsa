@@ -1,6 +1,6 @@
 # Infix to Postfix Conversion using Stack (Step 9.2 — Prefix, Infix, Postfix Expressions)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Infix to Postfix Conversion using Stack](https://takeuforward.org/data-structure/infix-to-postfix/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Expression parse trees.
 
 ### C++17 Code
 ```cpp
+// Parse tree generation
+```
+
+### Java Code
+```java
+// Java equivalent
 // Parse tree generation
 ```
 
@@ -100,6 +106,56 @@ public:
         
         while (!st.empty()) {
             result += st.top();
+            st.pop();
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int precedence(char c) {
+        if (c == '^') return 3;
+        if (c == '*' || c == '/') return 2;
+        if (c == '+' || c == '-') return 1;
+        return -1;
+    }
+
+    String infixToPostfix(String s) {
+        Stack<Character> st = new Stack<>();
+        String result = "";
+        
+        for (char c : s) {
+            // If operand, add to output
+            if (isalnum(c)) {
+                result += c;
+            } else if (c == '(') {
+                st.push('(');
+            } else if (c == ')') {
+                while (!st.isEmpty() && st.peek() != '(') {
+                    result += st.peek();
+                    st.pop();
+                }
+                if (!st.isEmpty()) st.pop(); // remove '('
+            } else {
+                // Operator
+                while (!st.isEmpty() && precedence(c) <= precedence(st.peek())) {
+                    if (c == '^' && st.peek() == '^') break; // '^' is right-associative
+                    result += st.peek();
+                    st.pop();
+                }
+                st.push(c);
+            }
+        }
+        
+        while (!st.isEmpty()) {
+            result += st.peek();
             st.pop();
         }
         

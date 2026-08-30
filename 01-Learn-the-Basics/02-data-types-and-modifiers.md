@@ -1,6 +1,6 @@
 # Data Types & Modifiers in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Data Types & Modifiers in C++](https://takeuforward.org/c/data-types-in-c/)
 - **Difficulty**: Easy
@@ -38,6 +38,19 @@ int main() {
     int c = a * b; // Signed 32-bit overflow: undefined behavior / negative result
     cout << c << "\n";
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        int a = 1000000;
+        int b = 1000000;
+        int c = a * b; // Signed 32-bit overflow: undefined behavior / negative result
+        System.out.print(c << "\n");
+        return 0;
+    }
 }
 ```
 
@@ -84,6 +97,31 @@ int main() {
     cout << "LLONG_MAX: " << LLONG_MAX << "\n";
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        int32_t a = 1000000;
+        int32_t b = 1000000;
+        
+        // Explicit 64-bit cast prevents 32-bit intermediate multiplication overflow
+        long c = (long)a * b; 
+        
+        char ch = 'A';
+        double pi = 3.141592653589793;
+        boolean flag = true;
+        
+        System.out.print("64-bit Product: " << c << "\n");
+        System.out.print("Size of int: " << sizeof(int) << " bytes\n");
+        System.out.print("Size of long: " << sizeof(long) << " bytes\n");
+        System.out.print("Integer.MAX_VALUE: " << Integer.MAX_VALUE << "\n");
+        System.out.print("Long.MAX_VALUE: " << Long.MAX_VALUE << "\n");
+        
+        return 0;
+    }
 }
 ```
 

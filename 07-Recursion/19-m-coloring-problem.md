@@ -1,6 +1,6 @@
 # M-Coloring Problem (Graph vertex coloring) (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [M-Coloring Problem (Graph vertex coloring)](https://takeuforward.org/data-structure/m-coloring-problem/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Generate all $M^V$ coloring permutations and check edge conflicts in $\mathcal{O
 
 ### C++17 Code
 ```cpp
+// M^V permutation approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // M^V permutation approach
 ```
 
@@ -88,6 +94,41 @@ private:
 public:
     bool graphColoring(vector<vector<int>>& graph, int m, int n) {
         vector<int> color(n, 0);
+        return solve(0, graph, color, m, n);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isSafe(int node, int[][] graph, int[] color, int n, int col) {
+        for (int k = 0; k < n; k++) {
+            // Adjacent node with same color
+            if (k != node && graph[node][k] == 1 && color[k] == col) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    boolean solve(int node, int[][] graph, int[] color, int m, int n) {
+        if (node == n) return true; // all vertices colored
+        
+        for (int c = 1; c <= m; c++) {
+            if (isSafe(node, graph, color, n, c)) {
+                color[node] = c;
+                if (solve(node + 1, graph, color, m, n)) return true;
+                color[node] = 0; // backtrack
+            }
+        }
+        
+        return false;
+    }
+
+    boolean graphColoring(int[][] graph, int m, int n) {
+        int[] color = new int[n];
         return solve(0, graph, color, m, n);
     }
 };

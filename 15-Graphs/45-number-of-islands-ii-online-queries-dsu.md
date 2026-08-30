@@ -1,6 +1,6 @@
 # Number of Islands II (Online Dynamic Queries with DSU) (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Islands II (Online Dynamic Queries with DSU)](https://takeuforward.org/data-structure/number-of-islands-ii-online-queries-dsu-g-51/)
 - **Difficulty**: Hard
@@ -38,6 +38,12 @@ Run full grid BFS/DFS after every land query in $\mathcal{O}(k \times (n \times 
 
 ### C++17 Code
 ```cpp
+// O(k * n * m) re-running full BFS on each query
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(k * n * m) re-running full BFS on each query
 ```
 
@@ -135,6 +141,87 @@ public:
             }
             
             ans.push_back(islandCount);
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+
+    int[] parent, size;
+    DisjointSet(int n) {
+        parent.resize(n);
+        size.resize(n, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    boolean unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        if (rootU == rootV) return false;
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+        return true;
+    }
+};
+
+class Solution {
+
+    int[] numOfIslands(int n, int m, int[][] operators) {
+        DisjointSet dsu(n * m);
+        int[][] vis = new int[n][m];
+        
+        int islandCount = 0;
+        List<Integer> ans = new ArrayList<>();
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        for (var op : operators) {
+            int r = op[0];
+            int c = op[1];
+            
+            // Handle duplicate query on existing land
+            if (vis[r][c] == 1) {
+                ans.add(islandCount);
+                continue;
+            }
+            
+            vis[r][c] = 1;
+            islandCount++; // Newly created isolated land
+            
+            int node = r * m + c;
+            
+            // Check 4-directional adjacent neighbors
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dRow[i];
+                int nc = c + dCol[i];
+                
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && vis[nr][nc] == 1) {
+                    int adjNode = nr * m + nc;
+                    
+                    // If successfully united two different island components
+                    if (dsu.unionBySize(node, adjNode)) {
+                        islandCount--;
+                    }
+                }
+            }
+            
+            ans.add(islandCount);
         }
         
         return ans;

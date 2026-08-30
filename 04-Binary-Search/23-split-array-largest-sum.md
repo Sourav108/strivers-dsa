@@ -1,6 +1,6 @@
 # Split Array - Largest Sum (LeetCode 410) (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Split Array - Largest Sum (LeetCode 410)](https://takeuforward.org/binary-search/split-array-largest-sum/)
 - **Difficulty**: Hard
@@ -62,6 +62,33 @@ int splitArrayLinear(vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int countSplits(int[] nums, int maxSum) {
+        int splits = 1, currentSum = 0;
+        for (int x : nums) {
+            if (currentSum + x > maxSum) {
+                splits++;
+                currentSum = x;
+            } else {
+                currentSum += x;
+            }
+        }
+        return splits;
+    }
+    
+    int splitArrayLinear(int[] nums, int k) {
+        int low = max_element(nums.begin(), nums.end());
+        int high = accumulate(nums.begin(), nums.end(), 0);
+        for (int sum = low; sum <= high; sum++) {
+            if (countSplits(nums, sum) <= k) return sum;
+        }
+        return low;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((\sum - \max) \times n)$ — linear range scan.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -112,6 +139,46 @@ public:
         
         while (low <= high) {
             long long mid = low + (high - low) / 2;
+            
+            if (countSplits(nums, mid) <= k) {
+                ans = mid;        // valid split, try to find smaller maximum sum
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // too many splits required, increase allowed sum
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countSplits(int[] nums, long maxSum) {
+        int splits = 1;
+        long currentSum = 0;
+        
+        for (int x : nums) {
+            if (currentSum + x > maxSum) {
+                splits++;
+                currentSum = x;
+            } else {
+                currentSum += x;
+            }
+        }
+        return splits;
+    }
+
+    int splitArray(int[] nums, int k) {
+        int low = max_element(nums.begin(), nums.end());
+        long high = accumulate(nums.begin(), nums.end(), 0LL);
+        int ans = low;
+        
+        while (low <= high) {
+            long mid = low + (high - low) / 2;
             
             if (countSplits(nums, mid) <= k) {
                 ans = mid;        // valid split, try to find smaller maximum sum

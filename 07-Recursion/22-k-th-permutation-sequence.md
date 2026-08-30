@@ -1,6 +1,6 @@
 # K-th Permutation Sequence (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [K-th Permutation Sequence](https://takeuforward.org/data-structure/find-k-th-permutation-sequence/)
 - **Difficulty**: Hard
@@ -43,6 +43,18 @@ string getPermutationBrute(int n, int k) {
     for (int i = 1; i <= n; i++) s += to_string(i);
     for (int i = 1; i < k; i++) next_permutation(s.begin(), s.end());
     return s;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    String getPermutationBrute(int n, int k) {
+        String s = "";
+        for (int i = 1; i <= n; i++) s += String.valueOf(i);
+        for (int i = 1; i < k; i++) next_permutation(s.begin(), s.end());
+        return s;
+    }
 }
 ```
 
@@ -95,6 +107,42 @@ public:
             
             k = k % fact;
             fact = fact / numbers.size();
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    String getPermutation(int n, int k) {
+        int fact = 1;
+        List<Integer> numbers = new ArrayList<>();
+        
+        // Compute (n-1)! and fill numbers vector [1, 2, ..., n]
+        for (int i = 1; i < n; i++) {
+            fact *= i;
+            numbers.add(i);
+        }
+        numbers.add(n);
+        
+        String ans = "";
+        k = k - 1; // convert to 0-indexed
+        
+        while (true) {
+            int index = k / fact;
+            ans += String.valueOf(numbers[index]);
+            numbers.remove(numbers.begin() + index); // O(N) erase
+            
+            if (numbers.isEmpty()) break;
+            
+            k = k % fact;
+            fact = fact / numbers.length;
         }
         
         return ans;

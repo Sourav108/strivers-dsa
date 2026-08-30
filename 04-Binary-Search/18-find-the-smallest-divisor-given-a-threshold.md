@@ -1,6 +1,6 @@
 # Find the Smallest Divisor Given a Threshold (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #1283 - Find the Smallest Divisor Given a Threshold](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/) | [TakeUForward](https://takeuforward.org/binary-search/find-the-smallest-divisor-given-a-threshold/)
 - **Difficulty**: Medium
@@ -71,6 +71,26 @@ int smallestDivisorLinear(const vector<int>& nums, int threshold) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int smallestDivisorLinear(int[] nums, int threshold) {
+        int maxVal = max_element(nums.begin(), nums.end());
+        
+        for (int d = 1; d <= maxVal; d++) {
+            long sum = 0;
+            for (int x : nums) {
+                sum += (x + d - 1) / d; // integer ceiling
+            }
+            if (sum <= threshold) {
+                return d;
+            }
+        }
+        return maxVal;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\max(\text{nums}) \times n)$ — with $\max = 10^6$ and $n = 5 \times 10^4$, this takes $5 \times 10^{10}$ operations, triggering Time Limit Exceeded.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -109,6 +129,32 @@ int smallestDivisorBetter(const vector<int>& nums, int threshold) {
         }
     }
     return maxVal;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int smallestDivisorBetter(int[] nums, int threshold) {
+        long totalSum = 0;
+        int maxVal = 0;
+        for (int x : nums) {
+            totalSum += x;
+            maxVal = Math.max(maxVal, x);
+        }
+        
+        int startD = Math.max(1LL, totalSum / threshold);
+        for (int d = startD; d <= maxVal; d++) {
+            long sum = 0;
+            for (int x : nums) {
+                sum += (x + d - 1) / d;
+            }
+            if (sum <= threshold) {
+                return d;
+            }
+        }
+        return maxVal;
+    }
 }
 ```
 
@@ -172,6 +218,43 @@ public:
 };
 ```
 
+### Java Code
+```java
+class Solution {
+
+    long calculateSum(int[] nums, int divisor, int threshold) {
+        long sum = 0;
+        for (int x : nums) {
+            // Integer ceiling division: ceil(x / divisor) = (x + divisor - 1) / divisor
+            sum += ((long)x + divisor - 1) / divisor;
+            
+            // Early exit optimization: stop immediately if running sum exceeds threshold
+            if (sum > threshold) return sum;
+        }
+        return sum;
+    }
+
+    int smallestDivisor(int[] nums, int threshold) {
+        int low = 1;
+        int high = max_element(nums.begin(), nums.end());
+        int ans = high;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (calculateSum(nums, mid, threshold) <= threshold) {
+                ans = mid;        // valid divisor, try to find smaller on left
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // sum exceeds threshold, divisor too small
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \cdot \log_2(\max(\text{nums})))$ — binary search takes $\log_2(10^6) \approx 20$ iterations. In each iteration, we scan $n = 5 \times 10^4$ elements. Total operations: $20 \times 5 \times 10^4 = 10^6$, executing in $\approx 8\text{ms}$.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary memory.
@@ -209,13 +292,18 @@ public:
 ## 8. Follow-Up Questions (Interview Style)
 
 - **Q1: Why is this problem mathematically isomorphic to Koko Eating Bananas (LeetCode 875)?**  
-  **A**: In Koko Eating Bananas, $piles[i]$ represents banana count, $k$ is eating speed, and $h$ is total hours: $\sum \lceil piles[i] / k ceil \le h$. In Smallest Divisor, $nums[i]$ is the array element, $divisor$ is $d$, and $threshold$ is $T$: $\sum \lceil nums[i] / d ceil \le T$. The mathematical models and binary search proofs are 100% identical.
+  **A**: In Koko Eating Bananas, $piles[i]$ represents banana count, $k$ is eating speed, and $h$ is total hours: $\sum \lceil piles[i] / k 
+ceil \le h$. In Smallest Divisor, $nums[i]$ is the array element, $divisor$ is $d$, and $threshold$ is $T$: $\sum \lceil nums[i] / d 
+ceil \le T$. The mathematical models and binary search proofs are 100% identical.
 
 - **Q2: How can we implement early termination in the validation helper?**  
-  **A**: While summing $\sum \lceil x / d ceil$, if `runningSum > threshold`, we can break the loop immediately without inspecting remaining elements. This provides a $2	imes - 3	imes$ constant factor speedup in practice.
+  **A**: While summing $\sum \lceil x / d 
+ceil$, if `runningSum > threshold`, we can break the loop immediately without inspecting remaining elements. This provides a $2	imes - 3	imes$ constant factor speedup in practice.
 
 - **Q3: What is the theoretical minimum divisor possible?**  
-  **A**: By the inequality $\sum \lceil x_i / d ceil \ge (\sum x_i) / d$, any valid divisor must satisfy $d \ge \lceil (\sum x_i) / 	ext{threshold} ceil$.
+  **A**: By the inequality $\sum \lceil x_i / d 
+ceil \ge (\sum x_i) / d$, any valid divisor must satisfy $d \ge \lceil (\sum x_i) / 	ext{threshold} 
+ceil$.
 
 - **Q4: What if `nums` can contain negative numbers?**  
   **A**: If elements can be negative, integer division truncation rules in C++ round toward zero, which is different from mathematical ceiling. We would need `floor` / `ceil` sign adjustments.

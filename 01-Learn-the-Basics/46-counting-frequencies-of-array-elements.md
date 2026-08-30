@@ -1,6 +1,6 @@
 # Counting Frequencies of Array Elements (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Counting Frequencies of Array Elements](https://takeuforward.org/data-structure/count-frequency-of-each-element-in-the-array/)
 - **Difficulty**: Easy
@@ -48,6 +48,23 @@ void countFreqBrute(const vector<int>& arr) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void countFreqBrute(int[] arr) {
+        int n = arr.length;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (visited[i]) continue;
+            int count = 1;
+            for (int j = i + 1; j < n; j++) {
+                if (arr[i] == arr[j]) { visited[j] = true; count++; }
+            }
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ visited array.
@@ -76,6 +93,22 @@ class Solution {
 public:
     unordered_map<int, int> countFrequencies(const vector<int>& arr) {
         unordered_map<int, int> freqMap;
+        for (int x : arr) {
+            freqMap[x]++;
+        }
+        return freqMap;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    Map<Integer, Integer> countFrequencies(int[] arr) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
         for (int x : arr) {
             freqMap[x]++;
         }

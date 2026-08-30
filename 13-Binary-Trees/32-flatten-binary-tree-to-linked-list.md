@@ -1,6 +1,6 @@
 # Flatten Binary Tree to LinkedList (In-place pointer rewire) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Flatten Binary Tree to LinkedList (In-place pointer rewire)](https://takeuforward.org/data-structure/flatten-binary-tree-to-linked-list/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Preorder traversal into a vector, then rebuild linked list in $\mathcal{O}(N)$ m
 // Vector reconstruction approach
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Vector reconstruction approach
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ extra space.
@@ -62,6 +68,23 @@ public:
         flatten(root->left);
         root->right = prev;
         root->left = nullptr;
+        prev = root;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+class SolutionRec {
+    TreeNode  prev = null;
+
+    void flatten(TreeNode  root) {
+        if (root == null) return;
+        flatten(root.right);
+        flatten(root.left);
+        root.right = prev;
+        root.left = null;
         prev = root;
     }
 };
@@ -111,6 +134,43 @@ public:
             
             // Move to the next node in the flattened chain
             curr = curr->right;
+        }
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    void flatten(TreeNode  root) {
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (curr.left != null) {
+                // Find the rightmost node in the left subtree
+                TreeNode  prev = curr.left;
+                while (prev.right != null) {
+                    prev = prev.right;
+                }
+                
+                // Connect right subtree of curr to the right of prev
+                prev.right = curr.right;
+                
+                // Move left subtree to right, and set left to null
+                curr.right = curr.left;
+                curr.left = null;
+            }
+            
+            // Move to the next node in the flattened chain
+            curr = curr.right;
         }
     }
 };

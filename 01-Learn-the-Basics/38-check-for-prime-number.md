@@ -1,6 +1,6 @@
 # Check for Prime Number O(sqrt(N)) (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check for Prime Number O(sqrt(N))](https://takeuforward.org/data-structure/check-if-a-number-is-prime-or-not/)
 - **Difficulty**: Easy
@@ -42,6 +42,19 @@ bool isPrimeBrute(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean isPrimeBrute(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -62,6 +75,19 @@ bool isPrimeSqrt(int n) {
         if (n % i == 0) return false;
     }
     return true;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    boolean isPrimeSqrt(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; (long)i * i <= n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
 }
 ```
 
@@ -96,6 +122,28 @@ bool isPrime(int n) {
     }
     
     return true;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    boolean isPrime(int n) {
+        if (n <= 1) return false;
+        if (n <= 3) return true; // 2 and 3 are prime
+        
+        // Eliminate multiples of 2 and 3
+        if (n % 2 == 0 || n % 3 == 0) return false;
+        
+        // Check numbers of form 6k +/- 1 up to Math.sqrt(n)
+        for (int i = 5; (long)i * i <= n; i += 6) {
+            if (n % i == 0 || n % (i + 2) == 0) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 }
 ```
 

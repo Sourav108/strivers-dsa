@@ -1,6 +1,6 @@
 # Fruit Into Baskets (At most 2 distinct fruits) (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Fruit Into Baskets (At most 2 distinct fruits)](https://takeuforward.org/data-structure/fruit-into-baskets/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Check all subarrays with a set in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute search
 ```
 
@@ -80,6 +86,36 @@ public:
             }
             
             maxFruits = max(maxFruits, right - left + 1);
+        }
+        
+        return maxFruits;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int totalFruit(int[] fruits) {
+        Map<Integer, Integer> basket = new HashMap<>(); // at most 3 elements at any time
+        int left = 0, maxFruits = 0;
+        int n = fruits.length;
+        
+        for (int right = 0; right < n; right++) {
+            basket[fruits[right]]++;
+            
+            while (basket.length > 2) {
+                basket[fruits[left]]--;
+                if (basket[fruits[left]] == 0) {
+                    basket.remove(fruits[left]);
+                }
+                left++;
+            }
+            
+            maxFruits = Math.max(maxFruits, right - left + 1);
         }
         
         return maxFruits;

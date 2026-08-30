@@ -1,6 +1,6 @@
 # Climbing Stairs (Step 16.1 — Introduction to DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Climbing Stairs](https://takeuforward.org/data-structure/dynamic-programming-climbing-stairs/)
 - **Difficulty**: Easy
@@ -44,6 +44,17 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    int climbStairs(int n) {
+        if (n <= 1) return 1;
+        return climbStairs(n - 1) + climbStairs(n - 2);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -76,6 +87,23 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionTabulation {
+
+    int climbStairs(int n) {
+        if (n <= 1) return 1;
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ vector.
@@ -92,6 +120,27 @@ Space-Optimized Fibonacci Rolling Variables in $\mathcal{O}(N)$ time and $\mathc
 ```cpp
 class Solution {
 public:
+    int climbStairs(int n) {
+        if (n <= 1) return 1;
+        
+        int prev2 = 1; // ways(0)
+        int prev = 1;  // ways(1)
+        
+        for (int i = 2; i <= n; i++) {
+            int cur = prev + prev2;
+            prev2 = prev;
+            prev = cur;
+        }
+        
+        return prev;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int climbStairs(int n) {
         if (n <= 1) return 1;
         

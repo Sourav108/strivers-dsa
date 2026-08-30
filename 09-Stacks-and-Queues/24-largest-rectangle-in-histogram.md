@@ -1,6 +1,6 @@
 # Largest Rectangle in Histogram (Single Pass) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Largest Rectangle in Histogram (Single Pass)](https://takeuforward.org/data-structure/calculate-the-max-area-of-rectangle-in-a-histogram/)
 - **Difficulty**: Hard
@@ -36,6 +36,12 @@ For every bar $i$, expand left and right to find boundaries in $\mathcal{O}(N^2)
 // O(N^2) expansion
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N^2) expansion
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -50,6 +56,12 @@ Two-pass with precomputed NSE and PSE arrays.
 
 ### C++17 Code
 ```cpp
+// 2-pass approach with PSE and NSE arrays
+```
+
+### Java Code
+```java
+// Java equivalent
 // 2-pass approach with PSE and NSE arrays
 ```
 
@@ -90,6 +102,38 @@ public:
                 // Width = (NSE index - PSE index - 1)
                 int width = st.empty() ? i : (i - st.top() - 1);
                 maxArea = max(maxArea, h * width);
+            }
+            
+            st.push(i);
+        }
+        
+        return maxArea;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        Stack<Integer> st = new Stack<>(); // stores indices in monotonic increasing height
+        int maxArea = 0;
+        
+        for (int i = 0; i <= n; i++) {
+            // Virtual 0 height at i = n to pop all remaining elements
+            int currentHeight = (i == n) ? 0 : heights[i];
+            
+            while (!st.isEmpty() && heights[st.peek()] >= currentHeight) {
+                int h = heights[st.peek()];
+                st.pop();
+                
+                // Width = (NSE index - PSE index - 1)
+                int width = st.isEmpty() ? i : (i - st.peek() - 1);
+                maxArea = Math.max(maxArea, h * width);
             }
             
             st.push(i);

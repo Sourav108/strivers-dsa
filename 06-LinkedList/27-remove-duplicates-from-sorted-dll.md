@@ -1,6 +1,6 @@
 # Remove Duplicates from Sorted DLL (Step 6.4 — Medium Problems of DLL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Remove Duplicates from Sorted DLL](https://takeuforward.org/data-structure/remove-duplicates-from-sorted-dll/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Hash set of visited values in $\mathcal{O}(N)$ space.
 
 ### C++17 Code
 ```cpp
+// Hash set approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Hash set approach
 ```
 
@@ -85,6 +91,44 @@ public:
             }
             
             curr = curr->next;
+        }
+        
+        return head;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+};
+
+class Solution {
+
+    Node  removeDuplicates(Node  head) {
+        Node  curr = head;
+        
+        while (curr != null && curr.next != null) {
+            Node  nextNode = curr.next;
+            
+            // Delete all contiguous nodes with identical values
+            while (nextNode != null && nextNode.data == curr.data) {
+                Node  duplicate = nextNode;
+                nextNode = nextNode.next;
+                delete duplicate; // prevent memory leak
+            }
+            
+            // Re-link
+            curr.next = nextNode;
+            if (nextNode != null) {
+                nextNode.prev = curr;
+            }
+            
+            curr = curr.next;
         }
         
         return head;

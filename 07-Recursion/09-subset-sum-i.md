@@ -1,6 +1,6 @@
 # Subset Sum I (Sum of all subsets) (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Subset Sum I (Sum of all subsets)](https://takeuforward.org/data-structure/subset-sum-sum-of-all-subsets/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Generate all subset vectors, compute sum for each in $\mathcal{O}(N \cdot 2^N)$.
 
 ### C++17 Code
 ```cpp
+// Generate subsets and sum
+```
+
+### Java Code
+```java
+// Java equivalent
 // Generate subsets and sum
 ```
 
@@ -80,6 +86,34 @@ public:
         vector<int> ans;
         subsetSumsHelper(0, 0, arr, n, ans);
         sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void subsetSumsHelper(int ind, int sum, int[] arr, int n, int[] ans) {
+        if (ind == n) {
+            ans.add(sum);
+            return;
+        }
+        
+        // Element is picked
+        subsetSumsHelper(ind + 1, sum + arr[ind], arr, n, ans);
+        
+        // Element is not picked
+        subsetSumsHelper(ind + 1, sum, arr, n, ans);
+    }
+
+    int[] subsetSums(int[] arr, int n) {
+        List<Integer> ans = new ArrayList<>();
+        subsetSumsHelper(0, 0, arr, n, ans);
+        Arrays.sort(ans);
         return ans;
     }
 };

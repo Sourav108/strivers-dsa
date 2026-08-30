@@ -1,6 +1,6 @@
 # Find the Nth Root of an Integer M (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [GeeksforGeeks - Nth Root of a Number](https://practice.geeksforgeeks.org/problems/find-nth-root-of-m5843/1) | [TakeUForward](https://takeuforward.org/data-structure/nth-root-of-a-number-using-binary-search/)
 - **Difficulty**: Easy
@@ -74,6 +74,28 @@ int nthRootLinear(int n, int m) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int nthRootLinear(int n, int m) {
+        for (int i = 1; i <= m; i++) {
+            long val = 1;
+            boolean exceeded = false;
+            for (int j = 1; j <= n; j++) {
+                val *= i;
+                if (val > m) {
+                    exceeded = true;
+                    break;
+                }
+            }
+            if (val == m) return i;
+            if (exceeded) break;
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(M^{1/N} \cdot N)$ — in the worst case (when $N = 1$), this requires $\mathcal{O}(M)$ steps, which takes $10^9$ operations and triggers Time Limit Exceeded.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary memory.
@@ -104,6 +126,26 @@ int nthRootBuiltin(int n, int m) {
     }
     
     return (ans == m) ? candidate : -1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int nthRootBuiltin(int n, int m) {
+        if (m == 1 || n == 1) return m;
+        
+        int candidate = (int)round(Math.pow(m, 1.0 / n));
+        
+        // Verification pass to avoid floating-point precision errors
+        long ans = 1;
+        for (int i = 1; i <= n; i++) {
+            ans *= candidate;
+            if (ans > m) break;
+        }
+        
+        return (ans == m) ? candidate : -1;
+    }
 }
 ```
 
@@ -158,6 +200,41 @@ int NthRoot(int n, int m) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    // Helper: 1 if mid^n == m, 2 if mid^n > m, 0 if mid^n < m
+    int checkPower(int mid, int n, int m) {
+        long ans = 1;
+        for (int i = 1; i <= n; i++) {
+            ans = ans * mid;
+            if (ans > m) return 2; // overflow/excess early exit
+        }
+        if (ans == m) return 1;
+        return 0;
+    }
+    
+    int NthRoot(int n, int m) {
+        int low = 1, high = m;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int state = checkPower(mid, n, m);
+            
+            if (state == 1) {
+                return mid;       // exact N-th root found!
+            } else if (state == 0) {
+                low = mid + 1;    // mid^n < m . search right
+            } else {
+                high = mid - 1;   // mid^n > m . search left
+            }
+        }
+        
+        return -1; // no integer N-th root exists
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \cdot \log_2 M)$ — binary search takes $\log_2 M \le 30$ iterations, and each iteration does at most $N$ multiplications with early exit. Total operations $\approx 30 \times 30 = 900$, running in $< 1\text{ms}$.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -198,7 +275,8 @@ int NthRoot(int n, int m) {
 
 ### Common Bugs to Avoid
 - **Integer Overflow in Power Function**: Using standard `pow(mid, n)` or multiplying without checking `if (ans > m) return 2;`, which overflows 64-bit signed/unsigned types.
-- **Returning Truncated Root instead of `-1`**: Unlike `mySqrt` which asks for $\lfloor \sqrt{n} floor$, Nth Root specifically requires an *exact integer root* or `-1`.
+- **Returning Truncated Root instead of `-1`**: Unlike `mySqrt` which asks for $\lfloor \sqrt{n} 
+floor$, Nth Root specifically requires an *exact integer root* or `-1`.
 
 ---
 
@@ -217,7 +295,8 @@ int NthRoot(int n, int m) {
   **A**: Yes, for $N \ge 2$, $\sqrt[N]{M} \le \sqrt{M} \le M/2$ (for $M \ge 4$). Also, since $2^{30} > 10^9$, for $N \ge 30$ the only possible answers are $1$ or $2$.
 
 - **Q5: What is the relationship between this and Newton's generalized N-th root method?**  
-  **A**: Newton's method generalizes to $x_{k+1} = rac{1}{N} \left( (N-1)x_k + rac{M}{x_k^{N-1}} ight)$, which converges in $\mathcal{O}(\log \log M)$ steps.
+  **A**: Newton's method generalizes to $x_{k+1} = rac{1}{N} \left( (N-1)x_k + rac{M}{x_k^{N-1}} 
+ight)$, which converges in $\mathcal{O}(\log \log M)$ steps.
 
 ---
 

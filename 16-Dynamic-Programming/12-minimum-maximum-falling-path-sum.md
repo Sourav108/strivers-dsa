@@ -1,6 +1,6 @@
 # Minimum / Maximum Falling Path Sum (Variable start/end points) (Step 16.2 — 2D/3D DP and DP on Grids)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum / Maximum Falling Path Sum (Variable start/end points)](https://takeuforward.org/data-structure/minimum-maximum-falling-path-sum-dp-12/)
 - **Difficulty**: Medium
@@ -58,6 +58,26 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, int n, int[][] m) {
+        if (j < 0 || j >= n) return 1e9;
+        if (i == 0) return m[0][j];
+        int up = solve(i - 1, j, n, m);
+        int left = solve(i - 1, j - 1, n, m);
+        int right = solve(i - 1, j + 1, n, m);
+        return m[i][j] + Math.min({up, left, right});
+    }
+
+    int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length, ans = 1e9;
+        for (int j = 0; j < n; j++) ans = Math.min(ans, solve(n - 1, j, n, matrix));
+        return ans;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \cdot 3^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -92,6 +112,29 @@ public:
         }
         int ans = 1e9;
         for (int j = 0; j < n; j++) ans = min(ans, dp[n - 1][j]);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int[][] dp = new int[n][n];
+        for (int j = 0; j < n; j++) dp[0][j] = matrix[0][j];
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int up = dp[i - 1][j];
+                int left = (j > 0) ? dp[i - 1][j - 1] : 1e9;
+                int right = (j < n - 1) ? dp[i - 1][j + 1] : 1e9;
+                dp[i][j] = matrix[i][j] + Math.min({up, left, right});
+            }
+        }
+        int ans = 1e9;
+        for (int j = 0; j < n; j++) ans = Math.min(ans, dp[n - 1][j]);
         return ans;
     }
 };
@@ -139,6 +182,39 @@ public:
         int minSum = 1e9;
         for (int j = 0; j < n; j++) {
             minSum = min(minSum, prev[j]);
+        }
+        
+        return minSum;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        
+        // prev[j] stores minimum falling path sum to reach (previous_row, j)
+        int[] prev = matrix[0];
+        
+        for (int i = 1; i < n; i++) {
+            int[] cur = new int[n];
+            for (int j = 0; j < n; j++) {
+                int up = prev[j];
+                int left = (j > 0) ? prev[j - 1] : 1e9;
+                int right = (j < n - 1) ? prev[j + 1] : 1e9;
+                
+                cur[j] = matrix[i][j] + Math.min({up, left, right});
+            }
+            prev = cur;
+        }
+        
+        // Find minimum among all column endings in the last row
+        int minSum = 1e9;
+        for (int j = 0; j < n; j++) {
+            minSum = Math.min(minSum, prev[j]);
         }
         
         return minSum;

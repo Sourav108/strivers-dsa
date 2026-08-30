@@ -1,6 +1,6 @@
 # Recursive Bubble Sort (Step 2.2 — Sorting-II)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Recursive Bubble Sort](https://takeuforward.org/data-structure/recursive-bubble-sort-algorithm/)
 - **Difficulty**: Easy
@@ -49,6 +49,21 @@ void recursiveBubbleSortBrute(vector<int>& nums, int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void recursiveBubbleSortBrute(int[] nums, int n) {
+        if (n <= 1) return;
+        for (int j = 0; j < n - 1; j++) {
+            if (nums[j] > nums[j + 1]) {
+                int temp = nums[j]; nums[j] = nums[j + 1]; nums[j + 1] = temp;
+            }
+        }
+        recursiveBubbleSortBrute(nums, n - 1);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n^2)$ time.
 - **Space Complexity**: $\mathcal{O}(n)$ call stack depth.
@@ -91,6 +106,31 @@ void recursiveBubbleSort(vector<int>& nums, int n) {
     
     // Recurse for remaining n - 1 elements
     recursiveBubbleSort(nums, n - 1);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void recursiveBubbleSort(int[] nums, int n) {
+        // Base Case: 1 element is already sorted
+        if (n <= 1) return;
+        
+        boolean swapped = false;
+        // One pass of bubble sort to fix largest element at index n - 1
+        for (int j = 0; j < n - 1; j++) {
+            if (nums[j] > nums[j + 1]) {
+                int temp = nums[j]; nums[j] = nums[j + 1]; nums[j + 1] = temp;
+                swapped = true;
+            }
+        }
+        
+        // If no swaps occurred, array is already sorted
+        if (swapped == null) return;
+        
+        // Recurse for remaining n - 1 elements
+        recursiveBubbleSort(nums, n - 1);
+    }
 }
 ```
 

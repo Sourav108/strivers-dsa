@@ -1,6 +1,6 @@
 # Check for Balanced Binary Tree (O(N) check) (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check for Balanced Binary Tree (O(N) check)](https://takeuforward.org/data-structure/check-for-balanced-binary-tree/)
 - **Difficulty**: Easy
@@ -45,6 +45,21 @@ bool isBalancedBrute(TreeNode* root) {
     int lh = getHeight(root->left), rh = getHeight(root->right);
     if (abs(lh - rh) > 1) return false;
     return isBalancedBrute(root->left) && isBalancedBrute(root->right);
+}
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+int getHeight(TreeNode  root) {
+    if (root == null) return 0;
+    return 1 + Math.max(getHeight(root.left), getHeight(root.right));
+}
+boolean isBalancedBrute(TreeNode  root) {
+    if (root == null) return true;
+    int lh = getHeight(root.left), rh = getHeight(root.right);
+    if (Math.abs(lh - rh) > 1) return false;
+    return isBalancedBrute(root.left) && isBalancedBrute(root.right);
 }
 ```
 
@@ -99,6 +114,39 @@ private:
 
 public:
     bool isBalanced(TreeNode* root) {
+        return checkHeight(root) != -1;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int checkHeight(TreeNode  root) {
+        if (root == null) return 0;
+        
+        int leftHeight = checkHeight(root.left);
+        if (leftHeight == -1) return -1; // left subtree is unbalanced
+        
+        int rightHeight = checkHeight(root.right);
+        if (rightHeight == -1) return -1; // right subtree is unbalanced
+        
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return -1; // current node violates balance property
+        }
+        
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    boolean isBalanced(TreeNode  root) {
         return checkHeight(root) != -1;
     }
 };

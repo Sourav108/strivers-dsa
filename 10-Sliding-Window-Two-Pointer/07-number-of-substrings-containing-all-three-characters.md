@@ -1,6 +1,6 @@
 # Number of Substrings Containing All Three Characters (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Substrings Containing All Three Characters](https://takeuforward.org/data-structure/number-of-substrings-containing-all-three-characters/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Nested loops checking if substring contains 'a', 'b', and 'c' in $\mathcal{O}(N^
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute force
 ```
 
@@ -74,6 +80,30 @@ public:
             // If all 3 characters have been seen at least once
             if (lastSeen[0] != -1 && lastSeen[1] != -1 && lastSeen[2] != -1) {
                 int minIdx = min({lastSeen[0], lastSeen[1], lastSeen[2]});
+                totalSubstrings += (1 + minIdx);
+            }
+        }
+        
+        return totalSubstrings;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int numberOfSubstrings(String s) {
+        int[] lastSeen = new int[3];
+        int totalSubstrings = 0;
+        int n = s.length();
+        
+        for (int i = 0; i < n; i++) {
+            lastSeen[s[i] - 'a'] = i;
+            
+            // If all 3 characters have been seen at least once
+            if (lastSeen[0] != -1 && lastSeen[1] != -1 && lastSeen[2] != -1) {
+                int minIdx = Math.min({lastSeen[0], lastSeen[1], lastSeen[2]});
                 totalSubstrings += (1 + minIdx);
             }
         }

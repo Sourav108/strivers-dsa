@@ -1,6 +1,6 @@
 # Merge Intervals (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Merge Intervals](https://takeuforward.org/data-structure/merge-overlapping-sub-intervals/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Nested loops checking overlaps for every pair of intervals in $\mathcal{O}(N^2)$
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute merge
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute merge
 ```
 
@@ -77,6 +83,35 @@ public:
                 merged.back()[1] = max(merged.back()[1], intervals[i][1]);
             } else {
                 merged.push_back(intervals[i]);
+            }
+        }
+        
+        return merged;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[][] merge(int[][] intervals) {
+        if (intervals.isEmpty()) return {};
+        
+        // Sort intervals by start time
+        Arrays.sort(intervals);
+        
+        List<List<Integer>> merged = new ArrayList<>();
+        merged.add(intervals[0]);
+        
+        for (int i = 1; i < intervals.length; i++) {
+            // Check if current interval overlaps with previous merged interval
+            if (intervals[i][0] <= merged.peekLast()[1]) {
+                merged.peekLast()[1] = Math.max(merged.peekLast()[1], intervals[i][1]);
+            } else {
+                merged.add(intervals[i]);
             }
         }
         

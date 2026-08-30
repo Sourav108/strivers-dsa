@@ -1,6 +1,6 @@
 # Insertion Sort Algorithm (Step 2.1 — Sorting-I)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Insertion Sort Algorithm](https://takeuforward.org/data-structure/insertion-sort-algorithm/)
 - **Difficulty**: Easy
@@ -52,6 +52,24 @@ void insertionSortSwapBased(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    // Insertion sort naturally operates by shifting.
+    // Naive swap-based insertion does multiple full swaps instead of shifts:
+    void insertionSortSwapBased(int[] nums) {
+        int n = nums.length;
+        for (int i = 1; i < n; i++) {
+            int j = i;
+            while (j > 0 && nums[j - 1] > nums[j]) {
+                int temp = nums[j - 1]; nums[j - 1] = nums[j]; nums[j] = temp;
+                j--;
+            }
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n^2)$ worst case, $\mathcal{O}(n)$ best case.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -87,6 +105,26 @@ void insertionSort(vector<int>& nums) {
             j--;
         }
         nums[j + 1] = key;
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void insertionSort(int[] nums) {
+        int n = nums.length;
+        for (int i = 1; i < n; i++) {
+            int key = nums[i];
+            int j = i - 1;
+            
+            // Shift elements of nums[0..i-1] that are greater than key to one position ahead
+            while (j >= 0 && nums[j] > key) {
+                nums[j + 1] = nums[j];
+                j--;
+            }
+            nums[j + 1] = key;
+        }
     }
 }
 ```

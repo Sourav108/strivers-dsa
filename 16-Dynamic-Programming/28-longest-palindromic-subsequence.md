@@ -1,6 +1,6 @@
 # Longest Palindromic Subsequence (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Palindromic Subsequence](https://takeuforward.org/data-structure/longest-palindromic-subsequence-dp-28/)
 - **Difficulty**: Medium
@@ -51,6 +51,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, String s) {
+        if (i > j) return 0;
+        if (i == j) return 1;
+        if (s[i] == s[j]) return 2 + solve(i + 1, j - 1, s);
+        return Math.max(solve(i + 1, j, s), solve(i, j - 1, s));
+    }
+
+    int longestPalindromeSubseq(String s) {
+        return solve(0, s.length - 1, s);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -81,6 +97,26 @@ public:
                 int j = i + len - 1;
                 if (s[i] == s[j]) dp[i][j] = 2 + (len == 2 ? 0 : dp[i + 1][j - 1]);
                 else dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+        return dp[0][n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionIntervalDP {
+
+    int longestPalindromeSubseq(String s) {
+        int n = s.length;
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n; i++) dp[i][i] = 1;
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (s[i] == s[j]) dp[i][j] = 2 + (len == 2 ? 0 : dp[i + 1][j - 1]);
+                else dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
             }
         }
         return dp[0][n - 1];
@@ -133,6 +169,41 @@ private:
 public:
     int longestPalindromeSubseq(string s) {
         string rev_s = s;
+        reverse(rev_s.begin(), rev_s.end());
+        
+        // LPS(s) = LCS(s, reverse(s))
+        return lcs(s, rev_s);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    // Helper function computing LCS of two strings in O(M) space
+    int lcs(String s1, String s2) {
+        int n = s1.length;
+        int m = s2.length;
+        int[] prev = new int[m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            int[] cur = new int[m + 1];
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) {
+                    cur[j] = 1 + prev[j - 1];
+                } else {
+                    cur[j] = Math.max(prev[j], cur[j - 1]);
+                }
+            }
+            prev = cur;
+        }
+        
+        return prev[m];
+    }
+
+    int longestPalindromeSubseq(String s) {
+        String rev_s = s;
         reverse(rev_s.begin(), rev_s.end());
         
         // LPS(s) = LCS(s, reverse(s))

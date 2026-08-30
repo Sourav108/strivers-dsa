@@ -1,6 +1,6 @@
 # 0/1 Matrix (Distance of Nearest Cell having 1 / 0) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [0/1 Matrix (Distance of Nearest Cell having 1 / 0)](https://takeuforward.org/data-structure/distance-of-nearest-cell-having-1/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Launch a separate BFS/DFS from every cell in $\mathcal{O}((N \times M)^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O((N*M)^2) individual BFS per cell
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((N*M)^2) individual BFS per cell
 ```
 
@@ -77,6 +83,39 @@ public:
             for (int j = m - 1; j >= 0; j--) {
                 if (i < n - 1) dist[i][j] = min(dist[i][j], dist[i + 1][j] + 1);
                 if (j < m - 1) dist[i][j] = min(dist[i][j], dist[i][j + 1] + 1);
+            }
+        }
+        
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionDP {
+
+    int[][] updateMatrix(int[][] mat) {
+        int n = mat.length, m = mat[0].size();
+        int INF = n + m;
+        int[][] dist = new int[n][m];
+        
+        // Pass 1: Top-Left to Bottom-Right (check Top and Left)
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (mat[i][j] == 0) dist[i][j] = 0;
+                else {
+                    if (i > 0) dist[i][j] = Math.min(dist[i][j], dist[i - 1][j] + 1);
+                    if (j > 0) dist[i][j] = Math.min(dist[i][j], dist[i][j - 1] + 1);
+                }
+            }
+        }
+        
+        // Pass 2: Bottom-Right to Top-Left (check Bottom and Right)
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = m - 1; j >= 0; j--) {
+                if (i < n - 1) dist[i][j] = Math.min(dist[i][j], dist[i + 1][j] + 1);
+                if (j < m - 1) dist[i][j] = Math.min(dist[i][j], dist[i][j + 1] + 1);
             }
         }
         
@@ -131,6 +170,63 @@ public:
         // 2. Multi-source BFS expansion
         while (!q.empty()) {
             auto curr = q.front();
+            q.pop();
+            
+            int r = curr.first.first;
+            int c = curr.first.second;
+            int d = curr.second;
+            
+            dist[r][c] = d;
+            
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dRow[i];
+                int nc = c + dCol[i];
+                
+                // If within bounds and not yet visited by an earlier/closer source
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc]) {
+                    vis[nr][nc] = 1;
+                    q.push({{nr, nc}, d + 1});
+                }
+            }
+        }
+        
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[][] updateMatrix(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].size();
+        
+        int[][] dist = new int[n][m];
+        int[][] vis = new int[n][m];
+        
+        // Queue stores tuple: {{row, col}, distance}
+        queue<pair<pair<int, int>, int>> q;
+        
+        // 1. Enqueue all 0s with initial distance 0 (Sources)
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (mat[i][j] == 0) {
+                    q.push({{i, j}, 0});
+                    vis[i][j] = 1;
+                }
+            }
+        }
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        // 2. Multi-source BFS expansion
+        while (!q.isEmpty()) {
+            var curr = q.peek();
             q.pop();
             
             int r = curr.first.first;

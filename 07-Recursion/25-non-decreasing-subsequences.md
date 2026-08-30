@@ -1,6 +1,6 @@
 # Non-Decreasing Subsequences (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Non-Decreasing Subsequences](https://takeuforward.org/recursion/non-decreasing-subsequences/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate all $2^N$ subsequences and filter with `std::set<vector<int>>`.
 
 ### C++17 Code
 ```cpp
+// Slow set filtering
+```
+
+### Java Code
+```java
+// Java equivalent
 // Slow set filtering
 ```
 
@@ -87,6 +93,42 @@ public:
     vector<vector<int>> findSubsequences(vector<int>& nums) {
         vector<vector<int>> result;
         vector<int> current;
+        backtrack(0, nums, current, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void backtrack(int index, int[] nums, int[] current, int[][] result) {
+        if (current.length >= 2) {
+            result.add(current);
+        }
+        
+        Set<Integer> usedAtThisLevel = new HashSet<>(); // deduplicates choices at current tree depth
+        
+        for (int i = index; i < nums.length; i++) {
+            // Check non-decreasing condition
+            if (!current.isEmpty() && nums[i] < current.peekLast()) continue;
+            
+            // Check if this number was already picked at current depth
+            if (usedAtThisLevel.contains(nums[i])) continue;
+            usedAtThisLevel.add(nums[i]);
+            
+            current.add(nums[i]);
+            backtrack(i + 1, nums, current, result);
+            current.remove(); // backtrack
+        }
+    }
+
+    int[][] findSubsequences(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
         backtrack(0, nums, current, result);
         return result;
     }

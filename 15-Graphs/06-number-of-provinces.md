@@ -1,6 +1,6 @@
 # Number of Provinces (Connected Components in Disjoint Graph) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Provinces (Connected Components in Disjoint Graph)](https://takeuforward.org/data-structure/number-of-provinces/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Build explicit adjacency list first, then run DFS.
 
 ### C++17 Code
 ```cpp
+// List conversion + DFS
+```
+
+### Java Code
+```java
+// Java equivalent
 // List conversion + DFS
 ```
 
@@ -75,6 +81,30 @@ int findCircleNumDSU(vector<vector<int>>& isConnected) {
 }
 ```
 
+### Java Code
+```java
+class DSU {
+    int[] parent;
+    int count;
+
+    public DSU(int n) { /* initialized: parent(n), count(n)  */  iota(parent.begin(), parent.end(), 0);  }
+    int find(int i) { return parent[i] == i ? i : parent[i] = find(parent[i]); }
+    void unite(int i, int j) {
+        int rootI = find(i), rootJ = find(j);
+        if (rootI != rootJ) { parent[rootI] = rootJ; count--; }
+    }
+    int getCount() { return count; }
+};
+int findCircleNumDSU(int[][] isConnected) {
+    int n = isConnected.length;
+    DSU dsu(n);
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++)
+            if (isConnected[i][j]) dsu.unite(i, j);
+    return dsu.getCount();
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V^2 \cdot \alpha(V))$ time.
 - **Space Complexity**: $\mathcal{O}(V)$ DSU parent array.
@@ -108,6 +138,37 @@ public:
     int findCircleNum(vector<vector<int>>& isConnected) {
         int n = isConnected.size();
         vector<int> vis(n, 0);
+        int provinces = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                provinces++;
+                dfs(i, isConnected, vis);
+            }
+        }
+        
+        return provinces;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void dfs(int node, int[][] isConnected, int[] vis) {
+        vis[node] = 1;
+        
+        for (int neighbor = 0; neighbor < isConnected.length; neighbor++) {
+            if (isConnected[node][neighbor] == 1 && !vis[neighbor]) {
+                dfs(neighbor, isConnected, vis);
+            }
+        }
+    }
+
+    int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length;
+        int[] vis = new int[n];
         int provinces = 0;
         
         for (int i = 0; i < n; i++) {

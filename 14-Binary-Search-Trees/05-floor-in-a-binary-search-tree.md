@@ -1,6 +1,6 @@
 # Floor in a Binary Search Tree (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Floor in a Binary Search Tree](https://takeuforward.org/data-structure/floor-in-a-binary-search-tree-bst/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Inorder traversal finding the last element $\le X$ in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N) inorder traversal
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) inorder traversal
 ```
 
@@ -79,6 +85,39 @@ public:
                 curr = curr->right;   // try to find a larger valid value
             } else {
                 curr = curr->left;    // too large, must go left
+            }
+        }
+        
+        return floorVal;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int floor(TreeNode  root, int x) {
+        int floorVal = -1;
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (curr.val == x) {
+                return curr.val; // exact match
+            }
+            
+            if (curr.val < x) {
+                floorVal = curr.val; // valid candidate (<= x)
+                curr = curr.right;   // try to find a larger valid value
+            } else {
+                curr = curr.left;    // too large, must go left
             }
         }
         

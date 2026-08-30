@@ -1,6 +1,6 @@
 # Best Time to Buy and Sell Stock (Single transaction) (Step 16.5 — DP on Stocks)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Best Time to Buy and Sell Stock (Single transaction)](https://takeuforward.org/data-structure/stock-buy-and-sell/)
 - **Difficulty**: Easy
@@ -56,6 +56,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    int maxProfit(int[] prices) {
+        int n = prices.length, maxP = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                maxP = Math.max(maxP, prices[j] - prices[i]);
+            }
+        }
+        return maxP;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -93,6 +109,28 @@ public:
             int currentProfit = prices[i] - minPrice;
             maxProfit = max(maxProfit, currentProfit);
             minPrice = min(minPrice, prices[i]);
+        }
+        
+        return maxProfit;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxProfit(int[] prices) {
+        int n = prices.length;
+        if (n <= 1) return 0;
+        
+        int minPrice = prices[0]; // Minimum price seen so far
+        int maxProfit = 0;        // Maximum profit achievable
+        
+        for (int i = 1; i < n; i++) {
+            int currentProfit = prices[i] - minPrice;
+            maxProfit = Math.max(maxProfit, currentProfit);
+            minPrice = Math.min(minPrice, prices[i]);
         }
         
         return maxProfit;

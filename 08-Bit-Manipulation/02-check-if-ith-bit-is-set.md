@@ -1,6 +1,6 @@
 # Check if the i-th bit is set or not (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if the i-th bit is set or not](https://takeuforward.org/data-structure/check-if-the-i-th-bit-is-set-or-not/)
 - **Difficulty**: Easy
@@ -39,6 +39,16 @@ bool checkBitLoop(int n, int i) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean checkBitLoop(int n, int i) {
+        for (int step = 0; step < i; step++) n /= 2;
+        return (n % 2 == 1);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(i)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -62,6 +72,20 @@ Bitwise Left Shift Masking in $\mathcal{O}(1)$ time.
 class Solution {
 public:
     bool checkKthBit(int n, int i) {
+        // Method 1: Left shift mask
+        return (n & (1 << i)) != 0;
+        
+        // Method 2: Right shift
+        // return ((n >> i) & 1) == 1;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean checkKthBit(int n, int i) {
         // Method 1: Left shift mask
         return (n & (1 << i)) != 0;
         

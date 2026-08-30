@@ -1,6 +1,6 @@
 # Deleting a Node in LinkedList (Head, Tail, Value) (Step 6.1 — Learn 1D LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Deleting a Node in LinkedList (Head, Tail, Value)](https://takeuforward.org/data-structure/delete-node-in-a-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Reconstructing entire list into new memory.
 
 ### C++17 Code
 ```cpp
+// Array copy-reconstruction
+```
+
+### Java Code
+```java
+// Java equivalent
 // Array copy-reconstruction
 ```
 
@@ -107,6 +113,63 @@ void deleteNodeWithoutHead(Node* node) {
     Node* nextNode = node->next;
     node->data = nextNode->data;     // copy next node's data
     node->next = nextNode->next;     // bypass next node
+    delete nextNode;                 // free bypassed node
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+// 1. Delete Head: O(1)
+Node  deleteHead(Node  head) {
+    if (head == null) return null;
+    Node  temp = head;
+    head = head.next;
+    delete temp; // prevent memory leak
+    return head;
+}
+
+// 2. Delete Tail: O(N)
+Node  deleteTail(Node  head) {
+    if (!head || !head.next) {
+        delete head;
+        return null;
+    }
+    Node  curr = head;
+    while (curr.next.next != null) curr = curr.next;
+    delete curr.next;
+    curr.next = null;
+    return head;
+}
+
+// 3. Delete by Value: O(N)
+Node  deleteValue(Node  head, int val) {
+    if (head == null) return null;
+    if (head.data == val) return deleteHead(head);
+    
+    Node  curr = head;
+    Node  prev = null;
+    while (curr && curr.data != val) {
+        prev = curr;
+        curr = curr.next;
+    }
+    if (curr) {
+        prev.next = curr.next;
+        delete curr;
+    }
+    return head;
+}
+
+// 4. Delete Node in O(1) given only pointer to that node (LeetCode 237)
+void deleteNodeWithoutHead(Node  node) {
+    Node  nextNode = node.next;
+    node.data = nextNode.data;     // copy next node's data
+    node.next = nextNode.next;     // bypass next node
     delete nextNode;                 // free bypassed node
 }
 ```

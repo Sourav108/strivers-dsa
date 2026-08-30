@@ -1,6 +1,6 @@
 # Number of Operations to Make Network Connected (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Operations to Make Network Connected](https://takeuforward.org/data-structure/number-of-operations-to-make-network-connected-dsu-g-49/)
 - **Difficulty**: Medium
@@ -34,6 +34,12 @@ Standard DFS/BFS connected component counting after checking `edges.size() >= n 
 
 ### C++17 Code
 ```cpp
+// DFS component counting alternative
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS component counting alternative
 ```
 
@@ -109,6 +115,79 @@ public:
         int extraEdges = 0;
         
         for (const auto& conn : connections) {
+            int u = conn[0];
+            int v = conn[1];
+            
+            // If union fails, this edge is redundant inside an already-connected component
+            if (!dsu.unionBySize(u, v)) {
+                extraEdges++;
+            }
+        }
+        
+        int requiredCables = dsu.components - 1;
+        
+        // If extra cables can bridge all separate components
+        if (extraEdges >= requiredCables) {
+            return requiredCables;
+        }
+        
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+
+    int[] parent, size;
+    int components;
+    
+    DisjointSet(int n) {
+        parent.resize(n);
+        size.resize(n, 1);
+        components = n;
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    
+    boolean unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        
+        if (rootU == rootV) return false; // Redundant extra edge!
+        
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+        
+        components--;
+        return true;
+    }
+};
+
+class Solution {
+
+    int makeConnected(int n, int[][] connections) {
+        // Condition for tree spanning: at least n - 1 total edges required
+        if (connections.length < n - 1) {
+            return -1;
+        }
+        
+        DisjointSet dsu(n);
+        int extraEdges = 0;
+        
+        for (var conn : connections) {
             int u = conn[0];
             int v = conn[1];
             

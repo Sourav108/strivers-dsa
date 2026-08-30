@@ -1,6 +1,6 @@
 # Min Heap and Max Heap Implementation (Push, Pop, Heapify) (Step 11.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Min Heap and Max Heap Implementation (Push, Pop, Heapify)](https://takeuforward.org/data-structure/min-heap-and-max-heap-implementation/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Sorted vector with binary search insertion in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N) shift insertion
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) shift insertion
 ```
 
@@ -122,6 +128,74 @@ public:
     
     bool empty() {
         return heap.empty();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class MinHeap {
+
+    List<Integer> heap = new ArrayList<>();
+    
+    int parent(int i) { return (i - 1) / 2; }
+    int left(int i) { return 2 * i + 1; }
+    int right(int i) { return 2 * i + 2; }
+    
+    void siftUp(int i) {
+        while (i > 0 && heap[i] < heap[parent(i)]) {
+            int temp = heap[i]; heap[i] = heap[parent(i)]; heap[parent(i)] = temp;
+            i = parent(i);
+        }
+    }
+    
+    void siftDown(int i) {
+        int smallest = i;
+        int l = left(i);
+        int r = right(i);
+        int n = heap.length;
+        
+        if (l < n && heap[l] < heap[smallest]) smallest = l;
+        if (r < n && heap[r] < heap[smallest]) smallest = r;
+        
+        if (smallest != i) {
+            int temp = heap[i]; heap[i] = heap[smallest]; heap[smallest] = temp;
+            siftDown(smallest); // recurse down
+        }
+    }
+
+    MinHeap() {}
+    
+    void push(int val) {
+        heap.add(val);
+        siftUp(heap.length - 1);
+    }
+    
+    int pop() {
+        if (heap.isEmpty()) return -1;
+        int rootVal = heap[0];
+        heap[0] = heap.peekLast();
+        heap.remove();
+        
+        if (!heap.isEmpty()) {
+            siftDown(0);
+        }
+        return rootVal;
+    }
+    
+    int top() {
+        if (heap.isEmpty()) return -1;
+        return heap[0];
+    }
+    
+    int size() {
+        return heap.length;
+    }
+    
+    boolean empty() {
+        return heap.isEmpty();
     }
 };
 ```

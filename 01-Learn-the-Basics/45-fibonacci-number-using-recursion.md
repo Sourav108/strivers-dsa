@@ -1,6 +1,6 @@
 # Fibonacci Number (Recursion Tree & Dynamic Programming) (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Fibonacci Number (Recursion Tree & Dynamic Programming)](https://takeuforward.org/data-structure/print-fibonacci-series-up-to-nth-term/)
 - **Difficulty**: Easy
@@ -39,6 +39,16 @@ int fibNaive(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int fibNaive(int n) {
+        if (n <= 1) return n;
+        return fibNaive(n - 1) + fibNaive(n - 2); // Exponential O(2^N) recursion tree!
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ exponential time — $N = 45$ takes billions of operations.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -62,6 +72,17 @@ int fibMemo(int n, vector<int>& dp) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int fibMemo(int n, int[] dp) {
+        if (n <= 1) return n;
+        if (dp[n] != -1) return dp[n];
+        return dp[n] = fibMemo(n - 1, dp) + fibMemo(n - 2, dp);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ memo table + stack.
@@ -78,6 +99,27 @@ Space-Optimized Iterative DP with two scalar variables.
 ```cpp
 class Solution {
 public:
+    int fib(int n) {
+        if (n <= 1) return n;
+        
+        int prev2 = 0;
+        int prev = 1;
+        
+        for (int i = 2; i <= n; i++) {
+            int curr = prev + prev2;
+            prev2 = prev;
+            prev = curr;
+        }
+        
+        return prev;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int fib(int n) {
         if (n <= 1) return n;
         

@@ -1,6 +1,6 @@
 # Matrix Median in a Row-Wise Sorted Matrix (Step 4.3 — BS on 2D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Matrix Median in a Row-Wise Sorted Matrix](https://takeuforward.org/data-structure/median-of-row-wise-sorted-matrix/)
 - **Difficulty**: Hard
@@ -62,6 +62,25 @@ int matrixMedianBrute(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int matrixMedianBrute(int[][] mat) {
+        int r = mat.length, c = mat[0].size();
+        List<Integer> flat = new ArrayList<>();
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                flat.add(mat[i][j]);
+            }
+        }
+        Arrays.sort(flat);
+        return flat[(r * c) / 2];
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(R \cdot C \log(R \cdot C))$ time.
 - **Space Complexity**: $\mathcal{O}(R \cdot C)$ memory.
@@ -103,6 +122,48 @@ public:
         for (int i = 0; i < R; i++) {
             low = min(low, matrix[i][0]);
             high = max(high, matrix[i][C - 1]);
+        }
+        
+        int required = (R * C) / 2;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            // Count elements <= mid across all rows
+            int count = 0;
+            for (int i = 0; i < R; i++) {
+                count += countSmallerOrEqual(matrix[i], mid);
+            }
+            
+            if (count <= required) {
+                low = mid + 1; // median must be strictly greater
+            } else {
+                high = mid - 1; // candidate found, try to find smaller on left
+            }
+        }
+        
+        return low;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countSmallerOrEqual(int[] row, int x) {
+        // upper_bound returns iterator to first element > x, index equals count of elements <= x
+        return upper_bound(row.begin(), row.end(), x) - row.begin();
+    }
+
+    int median(int[][] matrix, int R, int C) {
+        int low = Integer.MAX_VALUE;
+        int high = Integer.MIN_VALUE;
+        
+        // Find minimum element (in column 0) and maximum element (in column C - 1)
+        for (int i = 0; i < R; i++) {
+            low = Math.min(low, matrix[i][0]);
+            high = Math.max(high, matrix[i][C - 1]);
         }
         
         int required = (R * C) / 2;

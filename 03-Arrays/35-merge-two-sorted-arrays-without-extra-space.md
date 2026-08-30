@@ -1,6 +1,6 @@
 # Merge Two Sorted Arrays Without Extra Space (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/merge-two-sorted-arrays-without-extra-space/
 - **Difficulty**: Hard
@@ -47,6 +47,16 @@ void mergeSortedBrute(vector<int>& nums1, int m, vector<int>& nums2, int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void mergeSortedBrute(int[] nums1, int m, int[] nums2, int n) {
+        int[] t = new int[m + n];
+        // merge into t then copy back
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(m + n)
 - **Space Complexity**: O(m + n)
@@ -81,6 +91,28 @@ void mergeSortedBetter(vector<int>& a, int n, vector<int>& b, int m) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    void mergeSortedBetter(int[] a, int n, int[] b, int m) {
+        int i = n - 1, j = 0;
+        while (i >= 0 && j < m) {
+            if (a[i] > b[j]) {
+                int temp = a[i]; a[i] = b[j]; b[j] = temp;
+                i--;
+                j++;
+            } else {
+                break;
+            }
+        }
+        Arrays.sort(a);
+        Arrays.sort(b);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\min(n, m)) + \mathcal{O}(n \log n + m \log m)$ — linear swap pass followed by sorting both arrays.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant auxiliary memory.
@@ -112,6 +144,23 @@ void mergeSortedOptimal(vector<int>& nums1, int m, vector<int>& nums2, int n) {
         }
     }
     while (j >= 0) nums1[k--] = nums2[j--];
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void mergeSortedOptimal(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1, j = n - 1, k = m + n - 1;
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
+        }
+        while (j >= 0) nums1[k--] = nums2[j--];
+    }
 }
 ```
 

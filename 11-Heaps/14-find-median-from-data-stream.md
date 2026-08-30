@@ -1,6 +1,6 @@
 # Find Median from Data Stream (Max-Heap + Min-Heap Two Balance) (Step 11.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Median from Data Stream (Max-Heap + Min-Heap Two Balance)](https://takeuforward.org/data-structure/find-median-from-data-stream/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Insertion sort into a vector in $\mathcal{O}(N)$ per addition.
 
 ### C++17 Code
 ```cpp
+// O(N) insertion into vector
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) insertion into vector
 ```
 
@@ -92,6 +98,47 @@ public:
             return maxHeap.top(); // odd total count
         } else {
             return (maxHeap.top() + minHeap.top()) / 2.0; // even count
+        }
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class MedianFinder {
+
+    // Left half: max-heap (holds smaller values)
+    PriorityQueue<Integer> maxHeap;
+    // Right half: min-heap (holds larger values)
+    priority_queue<int, int[], greater<int>> minHeap;
+
+    MedianFinder() {}
+    
+    void addNum(int num) {
+        // Step 1: Add to maxHeap
+        if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+            maxHeap.push(num);
+        } else {
+            minHeap.push(num);
+        }
+        
+        // Step 2: Balance sizes so maxHeap has at most 1 more element than minHeap
+        if (maxHeap.length > minHeap.length + 1) {
+            minHeap.push(maxHeap.peek());
+            maxHeap.pop();
+        } else if (minHeap.length > maxHeap.length) {
+            maxHeap.push(minHeap.peek());
+            minHeap.pop();
+        }
+    }
+    
+    double findMedian() {
+        if (maxHeap.length > minHeap.length) {
+            return maxHeap.peek(); // odd total count
+        } else {
+            return (maxHeap.peek() + minHeap.peek()) / 2.0; // even count
         }
     }
 };

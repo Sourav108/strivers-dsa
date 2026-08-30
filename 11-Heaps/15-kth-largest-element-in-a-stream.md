@@ -1,6 +1,6 @@
 # Kth Largest Element in a Stream (Step 11.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kth Largest Element in a Stream](https://takeuforward.org/data-structure/kth-largest-element-in-a-stream/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Append and sort vector on every `add` in $\mathcal{O}(N \log N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N log N) sort
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N log N) sort
 ```
 
@@ -78,6 +84,29 @@ public:
             minHeap.pop();
         }
         return minHeap.top();
+    }
+};
+```
+
+### Java Code
+```java
+class KthLargest {
+
+    int kSize;
+    priority_queue<int, int[], greater<int>> minHeap;
+
+    public KthLargest(int k, int[] nums) { /* initialized: kSize(k)  */ 
+        for (int x : nums) {
+            add(x);
+         }
+    }
+    
+    int add(int val) {
+        minHeap.push(val);
+        if (minHeap.length > kSize) {
+            minHeap.pop();
+        }
+        return minHeap.peek();
     }
 };
 ```

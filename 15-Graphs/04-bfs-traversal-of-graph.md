@@ -1,6 +1,6 @@
 # Breadth First Search (BFS) Traversal (Step 15.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Breadth First Search (BFS) Traversal](https://takeuforward.org/data-structure/breadth-first-search-bfs-level-order-traversal/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Recursive simulation with full distance arrays.
 
 ### C++17 Code
 ```cpp
+// Recursive BFS simulation
+```
+
+### Java Code
+```java
+// Java equivalent
 // Recursive BFS simulation
 ```
 
@@ -75,6 +81,40 @@ public:
             int node = q.front();
             q.pop();
             bfs.push_back(node);
+            
+            // Explore all unvisited adjacent neighbors
+            for (int neighbor : adj[node]) {
+                if (!vis[neighbor]) {
+                    vis[neighbor] = 1; // Mark immediately upon enqueuing
+                    q.push(neighbor);
+                }
+            }
+        }
+        
+        return bfs;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] bfsOfGraph(int V, int[][] adj) {
+        List<Integer> bfs = new ArrayList<>();
+        int[] vis = new int[V];
+        Queue<Integer> q = new LinkedList<>();
+        
+        // Push source vertex 0 and mark visited
+        vis[0] = 1;
+        q.push(0);
+        
+        while (!q.isEmpty()) {
+            int node = q.peek();
+            q.pop();
+            bfs.add(node);
             
             // Explore all unvisited adjacent neighbors
             for (int neighbor : adj[node]) {

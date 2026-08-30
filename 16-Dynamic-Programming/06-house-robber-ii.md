@@ -1,6 +1,6 @@
 # House Robber II (Circular Street) (Step 16.1 — Introduction to DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [House Robber II (Circular Street)](https://takeuforward.org/data-structure/dynamic-programming-house-robber-dp-6/)
 - **Difficulty**: Medium
@@ -49,6 +49,18 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    int rob(int[] nums) {
+        if (nums.length == 1) return nums[0];
+        // O(2^N) circular recursive search
+        return 0;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack.
@@ -87,6 +99,32 @@ public:
         vector<int> arr1(nums.begin(), nums.end() - 1);
         vector<int> arr2(nums.begin() + 1, nums.end());
         return max(robLinear(arr1), robLinear(arr2));
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionTabulation {
+    int robLinear(int[] arr) {
+        int n = arr.length;
+        if (n == 0) return 0;
+        if (n == 1) return arr[0];
+        int[] dp = new int[n];
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0], arr[1]);
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.max(arr[i] + dp[i - 2], dp[i - 1]);
+        }
+        return dp[n - 1];
+    }
+
+    int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        int[] arr1(nums.begin(), nums.end() - 1);
+        int[] arr2(nums.begin() + 1, nums.end());
+        return Math.max(robLinear(arr1), robLinear(arr2));
     }
 };
 ```
@@ -140,6 +178,42 @@ public:
         int loot2 = robLinear(nums, 1, n - 1);
         
         return max(loot1, loot2);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    // Helper function to solve linear House Robber I in O(1) space
+    int robLinear(int[] nums, int start, int end) {
+        int prev2 = 0; // dp[i - 2]
+        int prev = 0;  // dp[i - 1]
+        
+        for (int i = start; i <= end; i++) {
+            int pick = nums[i] + prev2;
+            int notPick = prev;
+            
+            int cur = Math.max(pick, notPick);
+            prev2 = prev;
+            prev = cur;
+        }
+        
+        return prev;
+    }
+
+    int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0]; // Single house base case
+        
+        // Case 1: Rob from 0 to n - 2 (leave last house)
+        int loot1 = robLinear(nums, 0, n - 2);
+        
+        // Case 2: Rob from 1 to n - 1 (leave first house)
+        int loot2 = robLinear(nums, 1, n - 1);
+        
+        return Math.max(loot1, loot2);
     }
 };
 ```

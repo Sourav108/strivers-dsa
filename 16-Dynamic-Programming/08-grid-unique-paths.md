@@ -1,6 +1,6 @@
 # Grid Unique Paths (Combinatorics vs DP) (Step 16.2 — 2D/3D DP and DP on Grids)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Grid Unique Paths (Combinatorics vs DP)](https://takeuforward.org/data-structure/grid-unique-paths-dp-on-grids-dp8/)
 - **Difficulty**: Medium
@@ -55,6 +55,21 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int countPaths(int i, int j, int m, int n) {
+        if (i == m - 1 && j == n - 1) return 1;
+        if (i >= m || j >= n) return 0;
+        return countPaths(i + 1, j, m, n) + countPaths(i, j + 1, m, n);
+    }
+
+    int uniquePaths(int m, int n) {
+        return countPaths(0, 0, m, n);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^{M+N})$ time.
 - **Space Complexity**: $\mathcal{O}(M + N)$ recursion stack.
@@ -89,6 +104,25 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionDP {
+
+    int uniquePaths(int m, int n) {
+        int[] prev = new int[n]; // Row 0 has 1 way for each column
+        
+        for (int i = 1; i < m; i++) {
+            int[] cur = new int[n];
+            for (int j = 1; j < n; j++) {
+                cur[j] = cur[j - 1] + prev[j];
+            }
+            prev = cur;
+        }
+        return prev[n - 1];
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(M \times N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ space.
@@ -108,6 +142,26 @@ public:
     int uniquePaths(int m, int n) {
         int N = m + n - 2;
         int r = min(m - 1, n - 1); // Choose smaller value to minimize multiplications
+        
+        double res = 1;
+        
+        // Compute NCr = (N * (N-1) * ... * (N-r+1)) / (1 * 2 * ... * r)
+        for (int i = 1; i <= r; i++) {
+            res = res * (N - r + i) / i;
+        }
+        
+        return (int)(res + 0.5); // Round to avoid precision issues
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int uniquePaths(int m, int n) {
+        int N = m + n - 2;
+        int r = Math.min(m - 1, n - 1); // Choose smaller value to minimize multiplications
         
         double res = 1;
         

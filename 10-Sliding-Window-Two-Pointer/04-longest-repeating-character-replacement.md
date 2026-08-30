@@ -1,6 +1,6 @@
 # Longest Repeating Character Replacement (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Repeating Character Replacement](https://takeuforward.org/data-structure/longest-repeating-character-replacement/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Check all $N^2$ substrings computing frequency counts in $\mathcal{O}(26 N^2)$ t
 
 ### C++17 Code
 ```cpp
+// O(26*N^2) brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(26*N^2) brute force
 ```
 
@@ -79,6 +85,33 @@ public:
             }
             
             maxLen = max(maxLen, right - left + 1);
+        }
+        
+        return maxLen;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int characterReplacement(String s, int k) {
+        int[] count = new int[26];
+        int left = 0, maxFreq = 0, maxLen = 0;
+        int n = s.length();
+        
+        for (int right = 0; right < n; right++) {
+            count[s[right] - 'A']++;
+            maxFreq = Math.max(maxFreq, count[s[right] - 'A']);
+            
+            // If replacements needed (windowLen - maxFreq) exceed budget k, shrink left
+            while ((right - left + 1) - maxFreq > k) {
+                count[s[left] - 'A']--;
+                left++;
+            }
+            
+            maxLen = Math.max(maxLen, right - left + 1);
         }
         
         return maxLen;

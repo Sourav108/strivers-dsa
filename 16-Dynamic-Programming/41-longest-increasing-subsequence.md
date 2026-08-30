@@ -1,6 +1,6 @@
 # Longest Increasing Subsequence (LIS) (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Increasing Subsequence (LIS)](https://takeuforward.org/data-structure/longest-increasing-subsequence-dp-41/)
 - **Difficulty**: Medium
@@ -57,6 +57,25 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int prevIdx, int[] nums) {
+        if (i == nums.length) return 0;
+        int notTake = solve(i + 1, prevIdx, nums);
+        int take = 0;
+        if (prevIdx == -1 || nums[i] > nums[prevIdx]) {
+            take = 1 + solve(i + 1, i, nums);
+        }
+        return Math.max(notTake, take);
+    }
+
+    int lengthOfLIS(int[] nums) {
+        return solve(0, -1, nums);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -88,6 +107,28 @@ public:
                     take = 1 + dp[i + 1][i + 1];
                 }
                 dp[i][prev + 1] = max(notTake, take);
+            }
+        }
+        return dp[0][0];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[][] dp = new int[n + 1][n + 1];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int prev = i - 1; prev >= -1; prev--) {
+                int notTake = dp[i + 1][prev + 1];
+                int take = 0;
+                if (prev == -1 || nums[i] > nums[prev]) {
+                    take = 1 + dp[i + 1][i + 1];
+                }
+                dp[i][prev + 1] = Math.max(notTake, take);
             }
         }
         return dp[0][0];
@@ -130,6 +171,32 @@ public:
                 }
             }
             maxLIS = max(maxLIS, dp[i]);
+        }
+        
+        return maxLIS;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        
+        // dp[i] stores the length of LIS ending strictly at index i
+        int[] dp = new int[n];
+        int maxLIS = 1;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], 1 + dp[j]);
+                }
+            }
+            maxLIS = Math.max(maxLIS, dp[i]);
         }
         
         return maxLIS;

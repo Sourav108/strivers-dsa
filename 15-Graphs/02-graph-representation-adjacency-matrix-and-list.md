@@ -1,6 +1,6 @@
 # Graph Representation in C++ (Adjacency Matrix & Adjacency List) (Step 15.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Graph Representation in C++ (Adjacency Matrix & Adjacency List)](https://takeuforward.org/graph/graph-representation-in-c/)
 - **Difficulty**: Easy
@@ -46,6 +46,23 @@ vector<vector<int>> buildMatrix(int V, const vector<pair<int, int>>& edges) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    // O(V^2) Matrix Representation
+    int[][] buildMatrix(int V, List<int[]> edges) {
+        int[][] adj = new int[V + 1][V + 1];
+        for (var edge : edges) {
+            adj[edge.first][edge.second] = 1;
+            adj[edge.second][edge.first] = 1; // undirected
+        }
+        return adj;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V^2)$ initialization time.
 - **Space Complexity**: $\mathcal{O}(V^2)$ memory.
@@ -87,6 +104,33 @@ vector<vector<pair<int, int>>> buildWeightedAdjList(int V, const vector<tuple<in
         adj[v].push_back({u, w}); // undirected
     }
     return adj;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    // Unweighted Undirected Graph
+    int[][] buildAdjList(int V, List<int[]> edges) {
+        int[][] adj(V);
+        for (var [u, v] : edges) {
+            adj[u].add(v);
+            adj[v].add(u); // Remove this line for Directed Graph
+        }
+        return adj;
+    }
+    
+    // Weighted Graph: stores pair<neighbor, weight>
+    vector<List<int[]>> buildWeightedAdjList(int V, vector<tuple<int, int, int>> edges) {
+        vector<List<int[]>> adj(V);
+        for (var [u, v, w] : edges) {
+            adj[u].add({v, w});
+            adj[v].add({u, w}); // undirected
+        }
+        return adj;
+    }
 }
 ```
 

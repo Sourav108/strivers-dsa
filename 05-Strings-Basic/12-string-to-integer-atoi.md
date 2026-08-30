@@ -1,6 +1,6 @@
 # Implement Atoi (String to Integer conversion) (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Atoi (String to Integer conversion)](https://takeuforward.org/strings/implement-atoi/)
 - **Difficulty**: Medium
@@ -41,6 +41,18 @@ int atoiSS(string s) {
     int x = 0;
     ss >> x;
     return x;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int atoiSS(String s) {
+        stringstream ss(s);
+        int x = 0;
+        ss >> x;
+        return x;
+    }
 }
 ```
 
@@ -92,6 +104,43 @@ public:
             // Check overflow before result * 10
             if (result > INT_MAX / 10 || (result == INT_MAX / 10 && digit > 7)) {
                 return (sign == 1) ? INT_MAX : INT_MIN;
+            }
+            
+            result = result * 10 + digit;
+            i++;
+        }
+        
+        return result * sign;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int myAtoi(String s) {
+        int i = 0, n = s.length();
+        
+        // 1. Skip leading whitespaces
+        while (i < n && s[i] == ' ') i++;
+        if (i == n) return 0;
+        
+        // 2. Check sign
+        int sign = 1;
+        if (s[i] == '-' || s[i] == '+') {
+            if (s[i] == '-') sign = -1;
+            i++;
+        }
+        
+        // 3. Parse digits with overflow clamping
+        int result = 0;
+        while (i < n && isdigit(s[i])) {
+            int digit = s[i] - '0';
+            
+            // Check overflow before result * 10
+            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
             
             result = result * 10 + digit;

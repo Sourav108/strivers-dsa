@@ -1,6 +1,6 @@
 # Majority Element II (> n/3 times) (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/majority-elementsn-3-times-find-the-elements-that-appears-more-than-n-3-times-in-the-array/
 - **Difficulty**: Medium
@@ -49,6 +49,20 @@ vector<int> majority2Brute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] majority2Brute(int[] nums) {
+        Map<Integer, Integer> mp = new HashMap<>(); List<Integer> res = new ArrayList<>();
+        for (int x : nums) mp[x]++;
+        for (var [v, c] : mp) if (c > nums.length/3) res.add(v);
+        return res;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
@@ -77,6 +91,25 @@ vector<int> majorityElement2Better(const vector<int>& nums) {
         if (count > threshold) res.push_back(val);
     }
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] majorityElement2Better(int[] nums) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        int threshold = nums.length / 3;
+        for (int x : nums) freq[x]++;
+        
+        List<Integer> res = new ArrayList<>();
+        for (var [val, count] : freq) {
+            if (count > threshold) res.add(val);
+        }
+        return res;
+    }
 }
 ```
 
@@ -120,6 +153,34 @@ vector<int> majorityElement2Optimal(const vector<int>& nums) {
     if (c1 > thresh) res.push_back(el1);
     if (c2 > thresh) res.push_back(el2);
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] majorityElement2Optimal(int[] nums) {
+        int c1 = 0, c2 = 0, el1 = 0, el2 = 1;
+        for (int x : nums) {
+            if (x == el1) c1++;
+            else if (x == el2) c2++;
+            else if (c1 == 0) { el1 = x; c1 = 1; }
+            else if (c2 == 0) { el2 = x; c2 = 1; }
+            else { c1--; c2--; }
+        }
+        c1 = c2 = 0;
+        for (int x : nums) {
+            if (x == el1) c1++;
+            else if (x == el2) c2++;
+        }
+        List<Integer> res = new ArrayList<>();
+        int thresh = nums.length / 3;
+        if (c1 > thresh) res.add(el1);
+        if (c2 > thresh) res.add(el2);
+        return res;
+    }
 }
 ```
 

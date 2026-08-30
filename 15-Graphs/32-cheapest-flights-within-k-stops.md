@@ -1,6 +1,6 @@
 # Cheapest Flights Within K Stops (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Cheapest Flights Within K Stops](https://takeuforward.org/data-structure/g-38-cheapest-flights-within-k-stops/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ DFS backtracking with stops tracking in $\mathcal{O}(V!)$ time.
 // O(V!) DFS all paths with stops count
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(V!) DFS all paths with stops count
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V!)$ time.
 - **Space Complexity**: $\mathcal{O}(V)$ stack.
@@ -64,6 +70,30 @@ public:
         for (int i = 0; i <= k; i++) {
             vector<int> temp = dist;
             for (const auto& f : flights) {
+                int u = f[0], v = f[1], price = f[2];
+                if (dist[u] != 1e9 && dist[u] + price < temp[v]) {
+                    temp[v] = dist[u] + price;
+                }
+            }
+            dist = temp;
+        }
+        return dist[dst] == 1e9 ? -1 : dist[dst];
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionBellmanFord {
+
+    int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] dist = new int[n];
+        dist[src] = 0;
+        
+        // Relax all edges exactly (k + 1) times
+        for (int i = 0; i <= k; i++) {
+            int[] temp = dist;
+            for (var f : flights) {
                 int u = f[0], v = f[1], price = f[2];
                 if (dist[u] != 1e9 && dist[u] + price < temp[v]) {
                     temp[v] = dist[u] + price;
@@ -125,6 +155,57 @@ public:
             if (stops > k) continue;
             
             for (const auto& edge : adj[node]) {
+                int adjNode = edge.first;
+                int price = edge.second;
+                
+                // Relaxation step
+                if (cost + price < dist[adjNode] && stops <= k) {
+                    dist[adjNode] = cost + price;
+                    q.push({stops + 1, {adjNode, cost + price}});
+                }
+            }
+        }
+        
+        return dist[dst] == 1e9 ? -1 : dist[dst];
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        // 1. Build adjacency list: {neighbor, price}
+        vector<List<int[]>> adj(n);
+        for (var flight : flights) {
+            int u = flight[0];
+            int v = flight[1];
+            int price = flight[2];
+            adj[u].add({v, price});
+        }
+        
+        // 2. Queue stores {stops, {node, cost}}
+        // Monotonically increasing stops ensures FIFO queue acts as a level-order frontier
+        queue<pair<int, pair<int, int>>> q;
+        q.push({0, {src, 0}});
+        
+        int[] dist = new int[n];
+        dist[src] = 0;
+        
+        while (!q.isEmpty()) {
+            var [stops, nodeInfo] = q.peek();
+            q.pop();
+            
+            int node = nodeInfo.first;
+            int cost = nodeInfo.second;
+            
+            // If stops exceed k, do not expand further
+            if (stops > k) continue;
+            
+            for (var edge : adj[node]) {
                 int adjNode = edge.first;
                 int price = edge.second;
                 

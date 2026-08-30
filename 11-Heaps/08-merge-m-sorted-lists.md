@@ -1,6 +1,6 @@
 # Merge M Sorted Lists (Min-Heap optimization) (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Merge M Sorted Lists (Min-Heap optimization)](https://takeuforward.org/data-structure/merge-m-sorted-lists/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Dump all nodes into a vector, sort, and rebuild list in $\mathcal{O}(N \log N)$ 
 
 ### C++17 Code
 ```cpp
+// Vector dump and sort
+```
+
+### Java Code
+```java
+// Java equivalent
 // Vector dump and sort
 ```
 
@@ -96,6 +102,54 @@ public:
             
             if (smallest->next != nullptr) {
                 minHeap.push(smallest->next);
+            }
+        }
+        
+        return dummy.next;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class ListNode {
+    int val;
+    ListNode next;
+    public ListNode(int x) { /* initialized: val(x), next(null)  */  }
+};
+
+static class CompareNode {
+    boolean operator()(ListNode  a, ListNode  b) {
+        return a.val > b.val; // Min-heap comparator
+    }
+};
+
+class Solution {
+
+    ListNode  mergeKLists(List<ListNode> lists) {
+        priority_queue<ListNode , List<ListNode>, CompareNode> minHeap;
+        
+        // Push initial head of each non-empty list
+        for (ListNode  head : lists) {
+            if (head != null) {
+                minHeap.push(head);
+            }
+        }
+        
+        ListNode dummy(0);
+        ListNode  tail = &dummy;
+        
+        while (!minHeap.isEmpty()) {
+            ListNode  smallest = minHeap.peek();
+            minHeap.pop();
+            
+            tail.next = smallest;
+            tail = tail.next;
+            
+            if (smallest.next != null) {
+                minHeap.push(smallest.next);
             }
         }
         

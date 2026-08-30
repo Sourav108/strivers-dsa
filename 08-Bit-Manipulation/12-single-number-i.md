@@ -1,6 +1,6 @@
 # Find the Only Odd Appearing Number (Single Number I) (Step 8.2 — Interview Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Only Odd Appearing Number (Single Number I)](https://takeuforward.org/arrays/find-the-number-that-appears-once-and-the-other-numbers-twice/)
 - **Difficulty**: Easy
@@ -44,6 +44,20 @@ int singleNumberHash(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int singleNumberHash(int[] nums) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int x : nums) mp[x]++;
+        for (var [x, count] : mp) if (count == 1) return x;
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ hash map space.
@@ -70,6 +84,20 @@ using namespace std;
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
+        int xorSum = 0;
+        for (int num : nums) {
+            xorSum ^= num;
+        }
+        return xorSum;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int singleNumber(int[] nums) {
         int xorSum = 0;
         for (int num : nums) {
             xorSum ^= num;

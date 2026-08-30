@@ -1,6 +1,6 @@
 # Longest Bitonic Subsequence (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Bitonic Subsequence](https://takeuforward.org/data-structure/longest-bitonic-subsequence-dp-46/)
 - **Difficulty**: Medium
@@ -43,6 +43,13 @@ For every pivot $i$, recursively compute LIS on prefix and LDS on suffix in $\ma
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(N * 2^N) brute force
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(N * 2^N) brute force
 };
@@ -102,6 +109,45 @@ public:
             // Optional: If strictly bitonic requires both increasing and decreasing parts:
             // if (dp1[i] > 1 && dp2[i] > 1)
             maxBitonic = max(maxBitonic, dp1[i] + dp2[i] - 1);
+        }
+        
+        return maxBitonic;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int LongestBitonicSequence(int n, int[] nums) {
+        if (n <= 1) return n;
+        
+        // dp1[i] stores length of LIS ending at index i (left to right)
+        int[] dp1 = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i] && 1 + dp1[j] > dp1[i]) {
+                    dp1[i] = 1 + dp1[j];
+                }
+            }
+        }
+        
+        // dp2[i] stores length of LDS starting at index i (right to left)
+        int[] dp2 = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = n - 1; j > i; j--) {
+                if (nums[j] < nums[i] && 1 + dp2[j] > dp2[i]) {
+                    dp2[i] = 1 + dp2[j];
+                }
+            }
+        }
+        
+        int maxBitonic = 0;
+        for (int i = 0; i < n; i++) {
+            // Optional: If strictly bitonic requires both increasing and decreasing parts:
+            // if (dp1[i] > 1 && dp2[i] > 1)
+            maxBitonic = Math.max(maxBitonic, dp1[i] + dp2[i] - 1);
         }
         
         return maxBitonic;

@@ -1,6 +1,6 @@
 # Check if Subtree of Another Tree (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if Subtree of Another Tree](https://takeuforward.org/data-structure/subtree-of-another-tree/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Standard recursive subtree matching in $\mathcal{O}(N \times M)$ time.
 // O(N * M) recursive matching
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N * M) recursive matching
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times M)$ time.
 - **Space Complexity**: $\mathcal{O}(H_N)$.
@@ -50,6 +56,12 @@ Merkle Tree Subtree Hashing in O(N + M) time.
 
 ### C++17 Code
 ```cpp
+// Merkle tree hashing O(N+M)
+```
+
+### Java Code
+```java
+// Java equivalent
 // Merkle tree hashing O(N+M)
 ```
 
@@ -96,6 +108,40 @@ public:
         
         // Check left or right child
         return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    boolean isSameTree(TreeNode  p, TreeNode  q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        if (p.val != q.val) return false;
+        
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    boolean isSubtree(TreeNode  root, TreeNode  subRoot) {
+        if (subRoot == null) return true;
+        if (root == null) return false;
+        
+        // If current subtree matches subRoot
+        if (isSameTree(root, subRoot)) {
+            return true;
+        }
+        
+        // Check left or right child
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 };
 ```

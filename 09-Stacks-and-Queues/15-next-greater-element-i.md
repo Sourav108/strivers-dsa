@@ -1,6 +1,6 @@
 # Next Greater Element I (Right side lookup) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Next Greater Element I (Right side lookup)](https://takeuforward.org/data-structure/next-greater-element-using-stack/)
 - **Difficulty**: Medium
@@ -50,6 +50,27 @@ vector<int> nextGreaterBrute(vector<int>& nums1, vector<int>& nums2) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] nextGreaterBrute(int[] nums1, int[] nums2) {
+        List<Integer> ans = new ArrayList<>();
+        for (int x : nums1) {
+            int idx = 0;
+            while (nums2[idx] != x) idx++;
+            int nge = -1;
+            for (int j = idx + 1; j < nums2.length; j++) {
+                if (nums2[j] > x) { nge = nums2[j]; break; }
+            }
+            ans.add(nge);
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N_1 \times N_2)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -95,6 +116,37 @@ public:
         ans.reserve(nums1.size());
         for (int x : nums1) {
             ans.push_back(ngeMap[x]);
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> ngeMap = new HashMap<>();
+        Stack<Integer> st = new Stack<>(); // stores elements in monotonic decreasing order
+        
+        // Traverse nums2 from right to left
+        for (int i = nums2.length - 1; i >= 0; i--) {
+            while (!st.isEmpty() && st.peek() <= nums2[i]) {
+                st.pop();
+            }
+            
+            ngeMap[nums2[i]] = st.isEmpty() ? -1 : st.peek();
+            st.push(nums2[i]);
+        }
+        
+        List<Integer> ans = new ArrayList<>();
+        ans.reserve(nums1.length);
+        for (int x : nums1) {
+            ans.add(ngeMap[x]);
         }
         
         return ans;

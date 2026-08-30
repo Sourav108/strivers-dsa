@@ -1,6 +1,6 @@
 # Maximum Sum of Non-Adjacent Elements (House Robber I) (Step 16.1 — Introduction to DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum Sum of Non-Adjacent Elements (House Robber I)](https://takeuforward.org/data-structure/maximum-sum-of-non-adjacent-elements-dp-5/)
 - **Difficulty**: Medium
@@ -56,6 +56,23 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int[] nums) {
+        if (i == 0) return nums[0];
+        if (i < 0) return 0;
+        int pick = nums[i] + solve(i - 2, nums);
+        int notPick = solve(i - 1, nums);
+        return Math.max(pick, notPick);
+    }
+
+    int rob(int[] nums) {
+        return solve(nums.length - 1, nums);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -86,6 +103,26 @@ public:
             int pick = nums[i] + dp[i - 2];
             int notPick = dp[i - 1];
             dp[i] = max(pick, notPick);
+        }
+        return dp[n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionTabulation {
+
+    int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 1) return nums[0];
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < n; i++) {
+            int pick = nums[i] + dp[i - 2];
+            int notPick = dp[i - 1];
+            dp[i] = Math.max(pick, notPick);
         }
         return dp[n - 1];
     }
@@ -125,6 +162,32 @@ public:
             int notPick = prev;
             
             int cur = max(pick, notPick);
+            prev2 = prev;
+            prev = cur;
+        }
+        
+        return prev;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+        
+        int prev2 = 0;       // dp[i - 2]
+        int prev = nums[0];  // dp[i - 1]
+        
+        for (int i = 1; i < n; i++) {
+            int pick = nums[i] + prev2;
+            int notPick = prev;
+            
+            int cur = Math.max(pick, notPick);
             prev2 = prev;
             prev = cur;
         }

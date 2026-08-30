@@ -1,6 +1,6 @@
 # Selection Sort Algorithm (Step 2.1 — Sorting-I)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Selection Sort Algorithm](https://takeuforward.org/sorting/selection-sort-algorithm/)
 - **Difficulty**: Easy
@@ -59,6 +59,31 @@ vector<int> selectionSortNaive(vector<int> nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    // Selection sort has a fixed deterministic comparison structure.
+    // Naive implementation creates a new array and repeatedly finds/removes minimums:
+    int[] selectionSortNaive(int[] nums) {
+        int n = nums.length;
+        int[] sortedArr;
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            int minVal = Integer.MAX_VALUE, minIdx = -1;
+            for (int j = 0; j < n; j++) {
+                if (!visited[j] && nums[j] < minVal) {
+                    minVal = nums[j];
+                    minIdx = j;
+                }
+            }
+            visited[minIdx] = true;
+            sortedArr.add(minVal);
+        }
+        return sortedArr;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n^2)$ — $n$ passes finding minimum in $n$ elements.
 - **Space Complexity**: $\mathcal{O}(n)$ — auxiliary array and visited vector.
@@ -94,6 +119,26 @@ void selectionSort(vector<int>& nums) {
         }
         if (minIdx != i) {
             swap(nums[i], nums[minIdx]);
+        }
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void selectionSort(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIdx = i;
+            for (int j = i + 1; j < n; j++) {
+                if (nums[j] < nums[minIdx]) {
+                    minIdx = j;
+                }
+            }
+            if (minIdx != i) {
+                int temp = nums[i]; nums[i] = nums[minIdx]; nums[minIdx] = temp;
+            }
         }
     }
 }

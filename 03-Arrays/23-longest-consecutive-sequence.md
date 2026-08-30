@@ -1,6 +1,6 @@
 # Longest Consecutive Sequence (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/longest-consecutive-sequence-in-an-array/
 - **Difficulty**: Medium
@@ -53,6 +53,22 @@ int longestConsecutiveBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int longestConsecutiveBrute(int[] nums) {
+        if (nums.isEmpty()) return 0;
+        int maxLen = 1;
+        for (int x : nums) {
+            int curr = x, cnt = 1;
+            while (find(nums.begin(), nums.end(), curr + 1) != nums.end()) { curr++; cnt++; }
+            maxLen = Math.max(maxLen, cnt);
+        }
+        return maxLen;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -88,6 +104,29 @@ int longestConsecutiveBetter(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int longestConsecutiveBetter(int[] nums) {
+        if (nums.isEmpty()) return 0;
+        Arrays.sort(nums);
+        int maxLen = 1, currentStreak = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) continue; // skip duplicates
+            if (nums[i] == nums[i - 1] + 1) {
+                currentStreak++;
+            } else {
+                maxLen = Math.max(maxLen, currentStreak);
+                currentStreak = 1;
+            }
+        }
+        return Math.max(maxLen, currentStreak);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \log n)$ — dominated by sorting.
 - **Space Complexity**: $\mathcal{O}(1)$ or $\mathcal{O}(\log n)$ sorting stack space.
@@ -120,6 +159,26 @@ int longestConsecutiveOptimal(const vector<int>& nums) {
         }
     }
     return maxLen;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int longestConsecutiveOptimal(int[] nums) {
+        Set<Integer> st(nums.begin(), nums.end());
+        int maxLen = 0;
+        for (int x : st) {
+            if (!st.contains(x - 1)) { // sequence start
+                int curr = x, cnt = 1;
+                while (st.contains(curr + 1)) { curr++; cnt++; }
+                maxLen = Math.max(maxLen, cnt);
+            }
+        }
+        return maxLen;
+    }
 }
 ```
 

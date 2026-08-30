@@ -1,6 +1,6 @@
 # Subset Sum Equal to Target (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Subset Sum Equal to Target](https://takeuforward.org/data-structure/subset-sum-equal-to-target-dp-14/)
 - **Difficulty**: Medium
@@ -57,6 +57,24 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    boolean solve(int i, int target, int[] arr) {
+        if (target == 0) return true;
+        if (i == 0) return arr[0] == target;
+        boolean notTake = solve(i - 1, target, arr);
+        boolean take = false;
+        if (target >= arr[i]) take = solve(i - 1, target - arr[i], arr);
+        return notTake || take;
+    }
+
+    boolean isSubsetSum(int[] arr, int target) {
+        return solve(arr.length - 1, target, arr);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -86,6 +104,28 @@ public:
             for (int k = 1; k <= target; k++) {
                 bool notTake = dp[i - 1][k];
                 bool take = (k >= arr[i]) ? dp[i - 1][k - arr[i]] : false;
+                dp[i][k] = notTake || take;
+            }
+        }
+        return dp[n - 1][target];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    boolean isSubsetSum(int[] arr, int target) {
+        int n = arr.length;
+        boolean[][] dp = new boolean[n][target + 1];
+        for (int i = 0; i < n; i++) dp[i][0] = true;
+        if (arr[0] <= target) dp[0][arr[0]] = true;
+        
+        for (int i = 1; i < n; i++) {
+            for (int k = 1; k <= target; k++) {
+                boolean notTake = dp[i - 1][k];
+                boolean take = (k >= arr[i]) ? dp[i - 1][k - arr[i]] : false;
                 dp[i][k] = notTake || take;
             }
         }
@@ -133,6 +173,42 @@ public:
             for (int k = 1; k <= target; k++) {
                 bool notTake = prev[k];
                 bool take = (k >= arr[i]) ? prev[k - arr[i]] : false;
+                
+                cur[k] = notTake || take;
+            }
+            
+            prev = cur;
+        }
+        
+        return prev[target];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isSubsetSum(int[] arr, int target) {
+        int n = arr.length;
+        
+        // prev[k] is true if a subset sum of k is achievable
+        boolean[] prev = new boolean[target + 1];
+        
+        // Base case: Sum of 0 is always possible with an empty subset
+        prev[0] = true;
+        
+        if (arr[0] <= target) {
+            prev[arr[0]] = true;
+        }
+        
+        for (int i = 1; i < n; i++) {
+            boolean[] cur = new boolean[target + 1];
+            cur[0] = true; // Base case for new row
+            
+            for (int k = 1; k <= target; k++) {
+                boolean notTake = prev[k];
+                boolean take = (k >= arr[i]) ? prev[k - arr[i]] : false;
                 
                 cur[k] = notTake || take;
             }

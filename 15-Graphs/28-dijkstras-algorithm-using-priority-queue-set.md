@@ -1,6 +1,6 @@
 # Dijkstra's Algorithm using Priority Queue / Set (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Dijkstra's Algorithm using Priority Queue / Set](https://takeuforward.org/data-structure/dijkstras-algorithm-using-priority-queue-g-32/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Array-based linear minimum distance scan in $\mathcal{O}(V^2 + E)$ time (suitabl
 
 ### C++17 Code
 ```cpp
+// O(V^2) array-based scan for dense graphs
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V^2) array-based scan for dense graphs
 ```
 
@@ -88,6 +94,44 @@ public:
 };
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class SolutionSet {
+
+    int[] dijkstra(int V, int[][] adj[], int S) {
+        set<pair<int, int>> st;
+        int[] dist = new int[V];
+        
+        dist[S] = 0;
+        st.add({0, S});
+        
+        while (!st.isEmpty()) {
+            var it = *(st.begin());
+            int d = it.first;
+            int node = it.second;
+            st.remove(it);
+            
+            for (var edge : adj[node]) {
+                int adjNode = edge[0];
+                int edgeWeight = edge[1];
+                
+                if (d + edgeWeight < dist[adjNode]) {
+                    // Erase existing stale distance pair if already present
+                    if (dist[adjNode] != 1e9) {
+                        st.remove({dist[adjNode], adjNode});
+                    }
+                    dist[adjNode] = d + edgeWeight;
+                    st.add({dist[adjNode], adjNode});
+                }
+            }
+        }
+        return dist;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((V + E) \log V)$ time.
 - **Space Complexity**: $\mathcal{O}(V)$ set storage.
@@ -126,6 +170,46 @@ public:
             if (d > dist[node]) continue;
             
             for (const auto& edge : adj[node]) {
+                int adjNode = edge[0];
+                int edgeWeight = edge[1];
+                
+                // Relaxation step
+                if (d + edgeWeight < dist[adjNode]) {
+                    dist[adjNode] = d + edgeWeight;
+                    pq.push({dist[adjNode], adjNode});
+                }
+            }
+        }
+        
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    // Function to find the shortest distance of all the vertices
+    // from the source vertex S.
+    int[] dijkstra(int V, int[][] adj[], int S) {
+        // Min-heap stores {distance, node}
+        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        
+        int[] dist = new int[V];
+        dist[S] = 0;
+        pq.push({0, S});
+        
+        while (!pq.isEmpty()) {
+            var [d, node] = pq.peek();
+            pq.pop();
+            
+            // Lazy deletion optimization: skip if a shorter distance to node was already found
+            if (d > dist[node]) continue;
+            
+            for (var edge : adj[node]) {
                 int adjNode = edge[0];
                 int edgeWeight = edge[1];
                 

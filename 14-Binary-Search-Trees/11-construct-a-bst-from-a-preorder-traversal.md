@@ -1,6 +1,6 @@
 # Construct a BST from a Preorder Traversal in O(N) (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Construct a BST from a Preorder Traversal in O(N)](https://takeuforward.org/data-structure/construct-a-bst-from-a-preorder-traversal/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Insert elements one by one into BST using standard insertion in $\mathcal{O}(N^2
 // O(N^2) insertion per element
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N^2) insertion per element
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ on sorted preorder.
 - **Space Complexity**: $\mathcal{O}(H)$.
@@ -50,6 +56,12 @@ Sort preorder to obtain inorder, then run Preorder+Inorder construction in O(N l
 
 ### C++17 Code
 ```cpp
+// O(N log N) sort + build
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N log N) sort + build
 ```
 
@@ -100,6 +112,40 @@ public:
     TreeNode* bstFromPreorder(vector<int>& preorder) {
         int i = 0;
         return build(preorder, i, INT_MAX);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  build(int[] preorder, int i, int bound) {
+        // Stop if all elements consumed or next element exceeds upper bound
+        if (i == preorder.length || preorder[i] > bound) {
+            return null;
+        }
+        
+        TreeNode  root = new TreeNode(preorder[i++]);
+        
+        // Left subtree must have upper bound equal to current root's value
+        root.left = build(preorder, i, root.val);
+        // Right subtree inherits the parent's upper bound
+        root.right = build(preorder, i, bound);
+        
+        return root;
+    }
+
+    TreeNode  bstFromPreorder(int[] preorder) {
+        int i = 0;
+        return build(preorder, i, Integer.MAX_VALUE);
     }
 };
 ```

@@ -1,6 +1,6 @@
 # Sum of Subarray Minimums (Monotonic Stack contribution) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sum of Subarray Minimums (Monotonic Stack contribution)](https://takeuforward.org/data-structure/sum-of-subarray-minimums/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Nested loops finding minimum of every subarray in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute force
 ```
 
@@ -94,6 +100,52 @@ public:
         for (int i = 0; i < n; i++) {
             long long count = (1LL * ple[i] * nle[i]) % MOD;
             long long contribution = (count * arr[i]) % MOD;
+            totalSum = (totalSum + contribution) % MOD;
+        }
+        
+        return totalSum;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int sumSubarrayMins(int[] arr) {
+        int n = arr.length;
+        int MOD = 1e9 + 7;
+        
+        int[] ple(n), nle(n);
+        Stack<Integer> st = new Stack<>();
+        
+        // Find Previous Less Element (PLE) - strictly less
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && arr[st.peek()] > arr[i]) {
+                st.pop();
+            }
+            ple[i] = st.isEmpty() ? (i + 1) : (i - st.peek());
+            st.push(i);
+        }
+        
+        while (!st.isEmpty()) st.pop();
+        
+        // Find Next Less Element (NLE) - less or equal (handles duplicates)
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] >= arr[i]) {
+                st.pop();
+            }
+            nle[i] = st.isEmpty() ? (n - i) : (st.peek() - i);
+            st.push(i);
+        }
+        
+        // Compute total sum of contributions
+        long totalSum = 0;
+        for (int i = 0; i < n; i++) {
+            long count = (1LL * ple[i] * nle[i]) % MOD;
+            long contribution = (count * arr[i]) % MOD;
             totalSum = (totalSum + contribution) % MOD;
         }
         

@@ -1,6 +1,6 @@
 # Delete a Node in DLL (Head, Tail, Target) (Step 6.2 — Learn Doubly LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Delete a Node in DLL (Head, Tail, Target)](https://takeuforward.org/data-structure/delete-node-in-doubly-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Reconstruction via array.
 
 ### C++17 Code
 ```cpp
+// Array copy
+```
+
+### Java Code
+```java
+// Java equivalent
 // Array copy
 ```
 
@@ -95,6 +101,51 @@ void deleteNodeDLL(Node* node) {
     
     node->next = nullptr;
     node->prev = nullptr;
+    delete node;
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+};
+
+// 1. Delete Head: O(1)
+Node  deleteHeadDLL(Node  head) {
+    if (!head || !head.next) { delete head; return null; }
+    Node  nextNode = head.next;
+    nextNode.prev = null;
+    head.next = null;
+    delete head;
+    return nextNode;
+}
+
+// 2. Delete Tail: O(N)
+Node  deleteTailDLL(Node  head) {
+    if (!head || !head.next) { delete head; return null; }
+    Node  tail = head;
+    while (tail.next != null) tail = tail.next;
+    Node  prevNode = tail.prev;
+    prevNode.next = null;
+    tail.prev = null;
+    delete tail;
+    return head;
+}
+
+// 3. Delete given node in O(1) time without head pointer
+void deleteNodeDLL(Node  node) {
+    Node  prevNode = node.prev;
+    Node  nextNode = node.next;
+    
+    if (prevNode) prevNode.next = nextNode;
+    if (nextNode) nextNode.prev = prevNode;
+    
+    node.next = null;
+    node.prev = null;
     delete node;
 }
 ```

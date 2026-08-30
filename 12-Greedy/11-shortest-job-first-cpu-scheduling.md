@@ -1,6 +1,6 @@
 # Shortest Job First (SJF) CPU Scheduling (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Shortest Job First (SJF) CPU Scheduling](https://takeuforward.org/greedy/shortest-job-first/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Test all $N!$ scheduling permutations in $\mathcal{O}(N!)$ time.
 // O(N!) permutation search
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N!) permutation search
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N!)$.
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -68,6 +74,29 @@ public:
         long long totalWaitTime = 0;
         long long currentWaitTime = 0;
         int n = bt.size();
+        
+        for (int i = 0; i < n; i++) {
+            totalWaitTime += currentWaitTime;
+            currentWaitTime += bt[i];
+        }
+        
+        return totalWaitTime / n; // integer average
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    long solve(int[] bt) {
+        Arrays.sort(bt);
+        
+        long totalWaitTime = 0;
+        long currentWaitTime = 0;
+        int n = bt.length;
         
         for (int i = 0; i < n; i++) {
             totalWaitTime += currentWaitTime;

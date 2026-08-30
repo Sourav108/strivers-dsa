@@ -1,6 +1,6 @@
 # Longest Substring with At Most K Distinct Characters (Step 10.2 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Substring with At Most K Distinct Characters](https://takeuforward.org/data-structure/longest-substring-with-at-most-k-distinct-characters/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Check all $N^2$ substrings with set in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute search
 ```
 
@@ -82,6 +88,38 @@ public:
             }
             
             maxLen = max(maxLen, right - left + 1);
+        }
+        
+        return maxLen;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int kDistinctChars(int k, String s) {
+        if (k == 0 || s.isEmpty()) return 0;
+        
+        Map<Character, Integer> mp = new HashMap<>();
+        int left = 0, maxLen = 0;
+        int n = s.length();
+        
+        for (int right = 0; right < n; right++) {
+            mp[s[right]]++;
+            
+            while (mp.length > k) {
+                mp[s[left]]--;
+                if (mp[s[left]] == 0) {
+                    mp.remove(s[left]);
+                }
+                left++;
+            }
+            
+            maxLen = Math.max(maxLen, right - left + 1);
         }
         
         return maxLen;

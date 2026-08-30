@@ -1,6 +1,6 @@
 # Search an Element in a LinkedList (Step 6.1 — Learn 1D LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Search an Element in a LinkedList](https://takeuforward.org/data-structure/search-an-element-in-a-linked-list/)
 - **Difficulty**: Easy
@@ -41,6 +41,16 @@ bool searchRecursive(Node* head, int target) {
 }
 ```
 
+### Java Code
+```java
+static class Node { int data; Node  next; };
+boolean searchRecursive(Node  head, int target) {
+    if (head == null) return false;
+    if (head.data == target) return true;
+    return searchRecursive(head.next, target);
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack space.
@@ -74,6 +84,26 @@ bool searchKey(Node* head, int target) {
             return true; // early exit
         }
         curr = curr->next;
+    }
+    return false;
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+boolean searchKey(Node  head, int target) {
+    Node  curr = head;
+    while (curr != null) {
+        if (curr.data == target) {
+            return true; // early exit
+        }
+        curr = curr.next;
     }
     return false;
 }

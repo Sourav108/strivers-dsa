@@ -1,6 +1,6 @@
 # Maximum XOR With an Element From Array (Offline Query Sorting + Trie) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum XOR With an Element From Array (Offline Query Sorting + Trie)](https://takeuforward.org/data-structure/maximum-xor-queries-trie/)
 - **Difficulty**: Hard
@@ -58,6 +58,26 @@ public:
                 if (num <= m) maxVal = max(maxVal, x ^ num);
             }
             ans.push_back(maxVal);
+        }
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionNaive {
+
+    int[] maximizeXor(int[] nums, int[][] queries) {
+        List<Integer> ans = new ArrayList<>();
+        for (var q : queries) {
+            int x = q[0], m = q[1], maxVal = -1;
+            for (int num : nums) {
+                if (num <= m) maxVal = Math.max(maxVal, x ^ num);
+            }
+            ans.add(maxVal);
         }
         return ans;
     }
@@ -181,6 +201,118 @@ public:
             // Insert all nums <= m into Trie (each num is inserted at most once across all queries!)
             while (idx < n && nums[idx] <= m) {
                 trie.insert(nums[idx]);
+                idx++;
+            }
+            
+            // If no element was inserted (all nums > m), answer remains -1
+            if (idx == 0) {
+                ans[qIndex] = -1;
+            } else {
+                ans[qIndex] = trie.getMax(x);
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+// 2-Way Binary Trie Node
+static class Node {
+    Node  links[2];
+    
+    Node() {
+        links[0] = null;
+        links[1] = null;
+    }
+    
+    boolean containsKey(int bit) {
+        return links[bit] != null;
+    }
+    
+    Node  get(int bit) {
+        return links[bit];
+    }
+    
+    void put(int bit, Node  node) {
+        links[bit] = node;
+    }
+};
+
+class Trie {
+
+    Node  root;
+
+    Trie() {
+        root = new Node();
+    }
+    
+    // Inserts a number into the Trie in O(32)
+    void insert(int num) {
+        Node  node = root;
+        for (int i = 31; i >= 0; i--) {
+            int bit = (num >> i) & 1;
+            if (!node.containsKey(bit)) {
+                node.put(bit, new Node());
+            }
+            node = node.get(bit);
+        }
+    }
+    
+    // Finds max XOR with num in O(32)
+    int getMax(int num) {
+        Node  node = root;
+        int maxNum = 0;
+        
+        for (int i = 31; i >= 0; i--) {
+            int bit = (num >> i) & 1;
+            int oppositeBit = 1 - bit;
+            
+            if (node.containsKey(oppositeBit)) {
+                maxNum |= (1 << i);
+                node = node.get(oppositeBit);
+            } else {
+                node = node.get(bit);
+            }
+        }
+        
+        return maxNum;
+    }
+};
+
+class Solution {
+
+    int[] maximizeXor(int[] nums, int[][] queries) {
+        int n = nums.length;
+        int q = queries.length;
+        
+        // Step 1: Sort nums array in ascending order
+        Arrays.sort(nums);
+        
+        // Step 2: Store queries with original indices and sort by m_i: {m_i, x_i, query_index}
+        vector<pair<int, pair<int, int>>> sortedQueries;
+        for (int i = 0; i < q; i++) {
+            sortedQueries.add({queries[i][1], {queries[i][0], i}});
+        }
+        Arrays.sort(sortedQueries);
+        
+        // Step 3: Process queries offline
+        Trie trie;
+        int[] ans = new int[q];
+        int idx = 0; // Pointer into nums array
+        
+        for (int i = 0; i < q; i++) {
+            int m = sortedQueries[i].first;
+            int x = sortedQueries[i].second.first;
+            int qIndex = sortedQueries[i].second.second;
+            
+            // Insert all nums <= m into Trie (each num is inserted at most once across all queries!)
+            while (idx < n && nums[idx] <= m) {
+                trie.add(nums[idx]);
                 idx++;
             }
             

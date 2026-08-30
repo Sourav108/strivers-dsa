@@ -1,6 +1,6 @@
 # Longest Common Substring (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Common Substring](https://takeuforward.org/data-structure/longest-common-substring-dp-27/)
 - **Difficulty**: Medium
@@ -44,6 +44,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(N^3) brute substring check
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^3)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -73,6 +80,28 @@ public:
                 if (s1[i - 1] == s2[j - 1]) {
                     dp[i][j] = 1 + dp[i - 1][j - 1];
                     maxLen = max(maxLen, dp[i][j]);
+                } else {
+                    dp[i][j] = 0; // Strict contiguity reset
+                }
+            }
+        }
+        return maxLen;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int longestCommonSubstr(String s1, String s2) {
+        int n = s1.length, m = s2.length, maxLen = 0;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                    maxLen = Math.max(maxLen, dp[i][j]);
                 } else {
                     dp[i][j] = 0; // Strict contiguity reset
                 }
@@ -118,6 +147,36 @@ public:
                 if (s1[i - 1] == s2[j - 1]) {
                     cur[j] = 1 + prev[j - 1];
                     maxLen = max(maxLen, cur[j]);
+                } else {
+                    cur[j] = 0; // Reset contiguity on character mismatch
+                }
+            }
+            prev = cur;
+        }
+        
+        return maxLen;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int longestCommonSubstr(String s1, String s2) {
+        int n = s1.length;
+        int m = s2.length;
+        
+        // prev[j] stores matching substring length ending at s2[j - 1]
+        int[] prev = new int[m + 1];
+        int maxLen = 0;
+        
+        for (int i = 1; i <= n; i++) {
+            int[] cur = new int[m + 1];
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) {
+                    cur[j] = 1 + prev[j - 1];
+                    maxLen = Math.max(maxLen, cur[j]);
                 } else {
                     cur[j] = 0; // Reset contiguity on character mismatch
                 }

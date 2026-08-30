@@ -1,6 +1,6 @@
 # Partition Set Into 2 Subsets With Min Absolute Sum Difference (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Partition Set Into 2 Subsets With Min Absolute Sum Difference](https://takeuforward.org/data-structure/partition-set-into-2-subsets-with-min-absolute-sum-diff-dp-16/)
 - **Difficulty**: Hard
@@ -49,6 +49,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(2^N) recursive partition search
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack.
@@ -91,6 +98,37 @@ public:
         for (int s1 = 0; s1 <= totalSum / 2; s1++) {
             if (dp[n - 1][s1]) {
                 minDiff = min(minDiff, totalSum - 2 * s1);
+            }
+        }
+        return minDiff;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int minSubsetSumDifference(int[] arr, int n) {
+        int totalSum = 0;
+        for (int x : arr) totalSum += x;
+        
+        boolean[][] dp = new boolean[n][totalSum + 1];
+        for (int i = 0; i < n; i++) dp[i][0] = true;
+        if (arr[0] <= totalSum) dp[0][arr[0]] = true;
+        
+        for (int i = 1; i < n; i++) {
+            for (int k = 1; k <= totalSum; k++) {
+                boolean notTake = dp[i - 1][k];
+                boolean take = (k >= arr[i]) ? dp[i - 1][k - arr[i]] : false;
+                dp[i][k] = notTake || take;
+            }
+        }
+        
+        int minDiff = 1e9;
+        for (int s1 = 0; s1 <= totalSum / 2; s1++) {
+            if (dp[n - 1][s1]) {
+                minDiff = Math.min(minDiff, totalSum - 2 * s1);
             }
         }
         return minDiff;
@@ -154,6 +192,52 @@ public:
             if (prev[s1]) {
                 int s2 = totalSum - s1;
                 minDiff = min(minDiff, abs(s2 - s1));
+            }
+        }
+        
+        return minDiff;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minSubsetSumDifference(int[] arr, int n) {
+        int totalSum = 0;
+        for (int x : arr) {
+            totalSum += x;
+        }
+        
+        // prev[k] is true if a subset sum of k is achievable
+        boolean[] prev = new boolean[totalSum + 1];
+        prev[0] = true; // Base case: sum 0 is always achievable
+        
+        if (arr[0] <= totalSum) {
+            prev[arr[0]] = true;
+        }
+        
+        for (int i = 1; i < n; i++) {
+            boolean[] cur = new boolean[totalSum + 1];
+            cur[0] = true;
+            
+            for (int k = 1; k <= totalSum; k++) {
+                boolean notTake = prev[k];
+                boolean take = (k >= arr[i]) ? prev[k - arr[i]] : false;
+                
+                cur[k] = notTake || take;
+            }
+            
+            prev = cur;
+        }
+        
+        // Scan the reachable sums up to totalSum / 2
+        int minDiff = 1e9;
+        for (int s1 = 0; s1 <= totalSum / 2; s1++) {
+            if (prev[s1]) {
+                int s2 = totalSum - s1;
+                minDiff = Math.min(minDiff, Math.abs(s2 - s1));
             }
         }
         

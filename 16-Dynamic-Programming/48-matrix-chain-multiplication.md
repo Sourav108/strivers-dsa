@@ -1,6 +1,6 @@
 # Matrix Chain Multiplication (MCM Partition Template) (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Matrix Chain Multiplication (MCM Partition Template)](https://takeuforward.org/data-structure/matrix-chain-multiplication-dp-48/)
 - **Difficulty**: Hard
@@ -62,6 +62,25 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, int[] arr) {
+        if (i == j) return 0;
+        int minOps = 1e9;
+        for (int k = i; k < j; k++) {
+            int ops = solve(i, k, arr) + solve(k + 1, j, arr) + arr[i - 1] * arr[k] * arr[j];
+            minOps = Math.min(minOps, ops);
+        }
+        return minOps;
+    }
+
+    int matrixMultiplication(int N, int[] arr) {
+        return solve(1, N - 1, arr);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ (Catalan number $C_N = \frac{1}{N+1}\binom{2N}{N}$).
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -95,6 +114,28 @@ class SolutionMemo {
 public:
     int matrixMultiplication(int N, vector<int>& arr) {
         vector<vector<int>> dp(N, vector<int>(N, -1));
+        return memo(1, N - 1, arr, dp);
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionMemo {
+    int memo(int i, int j, int[] arr, int[][] dp) {
+        if (i == j) return 0;
+        if (dp[i][j] != -1) return dp[i][j];
+        
+        int minOps = 1e9;
+        for (int k = i; k < j; k++) {
+            int ops = memo(i, k, arr, dp) + memo(k + 1, j, arr, dp) + arr[i - 1] * arr[k] * arr[j];
+            minOps = Math.min(minOps, ops);
+        }
+        return dp[i][j] = minOps;
+    }
+
+    int matrixMultiplication(int N, int[] arr) {
+        int[][] dp = new int[N][N];
         return memo(1, N - 1, arr, dp);
     }
 };
@@ -143,6 +184,39 @@ private:
 public:
     int matrixMultiplication(int N, vector<int>& arr) {
         vector<vector<int>> dp(N, vector<int>(N, -1));
+        
+        // Matrices are indexed from 1 to N - 1
+        return solve(1, N - 1, arr, dp);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int solve(int i, int j, int[] arr, int[][] dp) {
+        // Base case: A single matrix has 0 multiplication cost
+        if (i == j) return 0;
+        
+        if (dp[i][j] != -1) return dp[i][j];
+        
+        int minCost = 1e9;
+        
+        // Partition interval [i ... j] at every pivot k
+        for (int k = i; k < j; k++) {
+            int steps = solve(i, k, arr, dp) 
+                      + solve(k + 1, j, arr, dp) 
+                      + arr[i - 1] * arr[k] * arr[j];
+                      
+            minCost = Math.min(minCost, steps);
+        }
+        
+        return dp[i][j] = minCost;
+    }
+
+    int matrixMultiplication(int N, int[] arr) {
+        int[][] dp = new int[N][N];
         
         // Matrices are indexed from 1 to N - 1
         return solve(1, N - 1, arr, dp);

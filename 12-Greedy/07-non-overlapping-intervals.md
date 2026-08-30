@@ -1,6 +1,6 @@
 # Non-overlapping Intervals (Min interval removals) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Non-overlapping Intervals (Min interval removals)](https://takeuforward.org/data-structure/non-overlapping-intervals/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Recursion exploring remove vs keep for each interval in $\mathcal{O}(2^N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(2^N) recursion
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(2^N) recursion
 ```
 
@@ -74,6 +80,36 @@ public:
         int lastEnd = intervals[0][1];
         
         for (size_t i = 1; i < intervals.size(); i++) {
+            if (intervals[i][0] < lastEnd) {
+                // Overlap: greedily remove current interval
+                removals++;
+            } else {
+                // No overlap: keep interval and update lastEnd
+                lastEnd = intervals[i][1];
+            }
+        }
+        
+        return removals;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int eraseOverlapIntervals(int[][] intervals) {
+        if (intervals.isEmpty()) return 0;
+        
+        // Sort by end time ascending
+        sort(intervals.begin(), intervals.end(), [](int[] a, int[] b) {
+            return a[1] < b[1];
+        });
+        
+        int removals = 0;
+        int lastEnd = intervals[0][1];
+        
+        for (int i = 1; i < intervals.length; i++) {
             if (intervals[i][0] < lastEnd) {
                 // Overlap: greedily remove current interval
                 removals++;

@@ -1,6 +1,6 @@
 # Jump Game II (Minimum Jumps to Reach End) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Jump Game II (Minimum Jumps to Reach End)](https://takeuforward.org/data-structure/jump-game-ii/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Dynamic Programming `dp[i] = 1 + min(dp[i+j])` in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// DP O(N^2) approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // DP O(N^2) approach
 ```
 
@@ -73,6 +79,36 @@ public:
         // Loop up to n - 2 (we don't need to jump from the last index)
         for (int i = 0; i < n - 1; i++) {
             farthest = max(farthest, i + nums[i]);
+            
+            // Reached the end of current jump range
+            if (i == curEnd) {
+                jumps++;
+                curEnd = farthest;
+                
+                if (curEnd >= n - 1) break; // reached destination
+            }
+        }
+        
+        return jumps;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int jump(int[] nums) {
+        int n = nums.length;
+        if (n <= 1) return 0;
+        
+        int jumps = 0;
+        int curEnd = 0;
+        int farthest = 0;
+        
+        // Loop up to n - 2 (we don't need to jump from the last index)
+        for (int i = 0; i < n - 1; i++) {
+            farthest = Math.max(farthest, i + nums[i]);
             
             // Reached the end of current jump range
             if (i == curEnd) {

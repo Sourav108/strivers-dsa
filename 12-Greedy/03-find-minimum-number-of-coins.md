@@ -1,6 +1,6 @@
 # Find Minimum Number of Coins (Greedy Indian Denominations) (Step 12.1 — Easy)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Minimum Number of Coins (Greedy Indian Denominations)](https://takeuforward.org/data-structure/find-minimum-number-of-coins/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Recursion testing all combinations in exponential time.
 
 ### C++17 Code
 ```cpp
+// Exponential recursion
+```
+
+### Java Code
+```java
+// Java equivalent
 // Exponential recursion
 ```
 
@@ -70,6 +76,30 @@ public:
             while (V >= coins[i]) {
                 V -= coins[i];
                 ans.push_back(coins[i]);
+            }
+            if (V == 0) break;
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] minPartition(int V) {
+        int coins[] = {2000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
+        int n = sizeof(coins) / sizeof(coins[0]);
+        List<Integer> ans = new ArrayList<>();
+        
+        for (int i = 0; i < n; i++) {
+            while (V >= coins[i]) {
+                V -= coins[i];
+                ans.add(coins[i]);
             }
             if (V == 0) break;
         }

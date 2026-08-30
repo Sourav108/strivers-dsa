@@ -1,6 +1,6 @@
 # Check if one String is a Rotation of Another (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if one String is a Rotation of Another](https://takeuforward.org/strings/check-if-one-string-is-a-rotation-of-another/)
 - **Difficulty**: Easy
@@ -45,6 +45,20 @@ bool rotateStringBrute(string s, string goal) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean rotateStringBrute(String s, String goal) {
+        if (s.length() != goal.length()) return false;
+        for (int i = 0; i < s.length(); i++) {
+            s = s.substring(1) + s[0];
+            if (s == goal) return true;
+        }
+        return false;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ substring memory.
@@ -76,6 +90,20 @@ public:
         // All rotations of s exist as substrings within (s + s)
         string doubled = s + s;
         return doubled.find(goal) != string::npos;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean rotateString(String s, String goal) {
+        if (s.length() != goal.length()) return false;
+        
+        // All rotations of s exist as substrings within (s + s)
+        String doubled = s + s;
+        return doubled.find(goal) != String::npos;
     }
 };
 ```

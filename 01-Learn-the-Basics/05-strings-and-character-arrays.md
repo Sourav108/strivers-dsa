@@ -1,6 +1,6 @@
 # Strings & Character Arrays in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Strings & Character Arrays in C++](https://takeuforward.org/c/strings-in-c/)
 - **Difficulty**: Easy
@@ -40,6 +40,20 @@ string buildStringSlow(int n) {
         s = s + to_string(i); // O(N^2) total copies
     }
     return s;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // Inefficient: creates new String and copies all characters on every +=
+    String buildStringSlow(int n) {
+        String s = "";
+        for (int i = 0; i < n; i++) {
+            s = s + String.valueOf(i); // O(N^2) total copies
+        }
+        return s;
+    }
 }
 ```
 
@@ -90,6 +104,35 @@ int main() {
     cout << "Length: " << len << "\n";
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        // String instantiation
+        String s = "Hello, World!";
+        
+        // In-place mutation (O(1) access)
+        s[0] = 'h';
+        
+        // Append in-place
+        s += " C++17";
+        
+        // Common operations
+        int len = s.length();
+        String sub = s.substring(0, 0 + 5); // extracts "hello"
+        
+        // Reverse in-place
+        reverse(s.begin(), s.end());
+        
+        System.out.print("Original reversed: " << s << "\n");
+        System.out.print("Substring: " << sub << "\n");
+        System.out.print("Length: " << len << "\n");
+        
+        return 0;
+    }
 }
 ```
 

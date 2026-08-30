@@ -1,6 +1,6 @@
 # Disjoint Set Union (DSU by Rank & Size with Path Compression) (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Disjoint Set Union (DSU by Rank & Size with Path Compression)](https://takeuforward.org/data-structure/disjoint-set-union-by-rank-union-by-size-path-compression-g-46/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Naive DSU without path compression and without union by rank/size (trees degener
 // O(N) naive chained DSU without optimizations
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N) naive chained DSU without optimizations
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ per query (linear search).
 - **Space Complexity**: $\mathcal{O}(N)$ array.
@@ -60,6 +66,30 @@ public:
     DisjointSetRank(int n) : rank(n + 1, 0), parent(n + 1) {
         iota(parent.begin(), parent.end(), 0);
     }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]); // Path compression
+    }
+    void unionByRank(int u, int v) {
+        int ulp_u = findUPar(u), ulp_v = findUPar(v);
+        if (ulp_u == ulp_v) return;
+        if (rank[ulp_u] < rank[ulp_v]) parent[ulp_u] = ulp_v;
+        else if (rank[ulp_v] < rank[ulp_u]) parent[ulp_v] = ulp_u;
+        else { parent[ulp_v] = ulp_u; rank[ulp_u]++; }
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSetRank {
+    int[] rank, parent;
+
+    public DisjointSetRank(int n) { /* initialized: rank(n + 1, 0), parent(n + 1)  */ 
+        iota(parent.begin(), parent.end(), 0);
+     }
     int findUPar(int node) {
         if (node == parent[node]) return node;
         return parent[node] = findUPar(parent[node]); // Path compression
@@ -163,6 +193,86 @@ public:
     
     // Checks if two nodes belong to the same component
     bool isConnected(int u, int v) {
+        return findUPar(u) == findUPar(v);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+
+    int[] parent, size, rank;
+    int numComponents;
+    
+    // 1-indexed constructor supporting up to n elements
+    DisjointSet(int n) {
+        parent.resize(n + 1);
+        size.resize(n + 1, 1);
+        rank.resize(n + 1, 0);
+        numComponents = n;
+        
+        // Initially each element is its own parent
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    // Find representative root with recursive Path Compression
+    int findUPar(int node) {
+        if (node == parent[node]) {
+            return node;
+        }
+        // Path compression: points node directly to ultimate parent
+        return parent[node] = findUPar(parent[node]);
+    }
+    
+    // Union by Size (Attaches smaller tree under larger tree root)
+    boolean unionBySize(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        
+        if (ulp_u == ulp_v) return false; // Already in the same component
+        
+        if (size[ulp_u] < size[ulp_v]) {
+            parent[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        } else {
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+        
+        numComponents--;
+        return true;
+    }
+    
+    // Union by Rank (Attaches smaller rank tree under larger rank tree root)
+    boolean unionByRank(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        
+        if (ulp_u == ulp_v) return false;
+        
+        if (rank[ulp_u] < rank[ulp_v]) {
+            parent[ulp_u] = ulp_v;
+        } else if (rank[ulp_v] < rank[ulp_u]) {
+            parent[ulp_v] = ulp_u;
+        } else {
+            parent[ulp_v] = ulp_u;
+            rank[ulp_u]++;
+        }
+        
+        numComponents--;
+        return true;
+    }
+    
+    // Returns the size of the connected component containing node
+    int getComponentSize(int node) {
+        return size[findUPar(node)];
+    }
+    
+    // Checks if two nodes belong to the same component
+    boolean isConnected(int u, int v) {
         return findUPar(u) == findUPar(v);
     }
 };

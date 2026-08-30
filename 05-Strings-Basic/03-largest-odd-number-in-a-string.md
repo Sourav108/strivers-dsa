@@ -1,6 +1,6 @@
 # Largest Odd Number in a String (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Largest Odd Number in a String](https://takeuforward.org/strings/largest-odd-number-in-a-string/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Generate all substrings and check odd parity.
 // O(N^2) substring generation
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N^2) substring generation
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$.
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -67,6 +73,23 @@ public:
             int digit = num[i] - '0';
             if (digit % 2 != 0) {
                 return num.substr(0, i + 1); // longest odd prefix found
+            }
+        }
+        return "";
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String largestOddNumber(String num) {
+        // Scan backwards from the last character
+        for (int i = num.length() - 1; i >= 0; i--) {
+            int digit = num[i] - '0';
+            if (digit % 2 != 0) {
+                return num.substring(0, 0 + i + 1); // longest odd prefix found
             }
         }
         return "";

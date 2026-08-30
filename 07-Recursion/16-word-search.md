@@ -1,6 +1,6 @@
 # Word Search (Exist on Grid) (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Word Search (Exist on Grid)](https://takeuforward.org/data-structure/word-search-leetcode/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Maintaining an auxiliary $M \times N$ visited boolean matrix on every search.
 
 ### C++17 Code
 ```cpp
+// Visited matrix approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Visited matrix approach
 ```
 
@@ -92,6 +98,54 @@ private:
 public:
     bool exist(vector<vector<char>>& board, string word) {
         int m = board.size();
+        int n = board[0].size();
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == word[0] && dfs(i, j, 0, board, word)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean dfs(int r, int c, int index, char[][] board, String word) {
+        if (index == word.length()) return true;
+        
+        int m = board.length;
+        int n = board[0].size();
+        
+        // Boundary and mismatch check
+        if (r < 0 || r >= m || c < 0 || c >= n || board[r][c] != word[index]) {
+            return false;
+        }
+        
+        // In-place mark visited
+        char temp = board[r][c];
+        board[r][c] = '#';
+        
+        // Explore 4 directions
+        boolean found = dfs(r + 1, c, index + 1, board, word) ||
+                     dfs(r - 1, c, index + 1, board, word) ||
+                     dfs(r, c + 1, index + 1, board, word) ||
+                     dfs(r, c - 1, index + 1, board, word);
+        
+        // Backtrack (restore original character)
+        board[r][c] = temp;
+        
+        return found;
+    }
+
+    boolean exist(char[][] board, String word) {
+        int m = board.length;
         int n = board[0].size();
         
         for (int i = 0; i < m; i++) {

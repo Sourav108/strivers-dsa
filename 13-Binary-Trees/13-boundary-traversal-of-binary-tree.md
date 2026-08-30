@@ -1,6 +1,6 @@
 # Boundary Traversal of Binary Tree (Anti-Clockwise) (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Boundary Traversal of Binary Tree (Anti-Clockwise)](https://takeuforward.org/data-structure/boundary-traversal-of-a-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Complex full-tree boundary graph construction in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// Graph perimeter search
+```
+
+### Java Code
+```java
+// Java equivalent
 // Graph perimeter search
 ```
 
@@ -113,6 +119,72 @@ public:
         
         // Add root if not leaf
         if (!isLeaf(root)) res.push_back(root->val);
+        
+        addLeftBoundary(root, res);
+        addLeaves(root, res);
+        addRightBoundary(root, res);
+        
+        return res;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    boolean isLeaf(TreeNode  node) {
+        return node.left == null && node.right == null;
+    }
+    
+    void addLeftBoundary(TreeNode  root, int[] res) {
+        TreeNode  curr = root.left;
+        while (curr != null) {
+            if (!isLeaf(curr)) res.add(curr.val);
+            if (curr.left != null) curr = curr.left;
+            else curr = curr.right;
+        }
+    }
+    
+    void addLeaves(TreeNode  root, int[] res) {
+        if (root == null) return;
+        if (isLeaf(root)) {
+            res.add(root.val);
+            return;
+        }
+        addLeaves(root.left, res);
+        addLeaves(root.right, res);
+    }
+    
+    void addRightBoundary(TreeNode  root, int[] res) {
+        TreeNode  curr = root.right;
+        List<Integer> temp = new ArrayList<>();
+        while (curr != null) {
+            if (!isLeaf(curr)) temp.add(curr.val);
+            if (curr.right != null) curr = curr.right;
+            else curr = curr.left;
+        }
+        // Append in reverse order (bottom-up)
+        for (int i = temp.length - 1; i >= 0; i--) {
+            res.add(temp[i]);
+        }
+    }
+
+    int[] boundary(TreeNode  root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+        
+        // Add root if not leaf
+        if (!isLeaf(root)) res.add(root.val);
         
         addLeftBoundary(root, res);
         addLeaves(root, res);

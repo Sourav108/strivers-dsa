@@ -1,6 +1,6 @@
 # Quick Sort Algorithm (Step 2.2 — Sorting-II)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Quick Sort Algorithm](https://takeuforward.org/data-structure/quick-sort-algorithm/)
 - **Difficulty**: Medium
@@ -55,6 +55,28 @@ vector<int> quickSortNaive(vector<int> nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    // Quick sort with extra auxiliary memory:
+    int[] quickSortNaive(int[] nums) {
+        if (nums.length <= 1) return nums;
+        int pivot = nums[0];
+        int[] left, equal, right;
+        for (int x : nums) {
+            if (x < pivot) left.add(x);
+            else if (x == pivot) equal.add(x);
+            else right.add(x);
+        }
+        int[] sortedLeft = quickSortNaive(left);
+        int[] sortedRight = quickSortNaive(right);
+        sortedLeft.add(sortedLeft.end(), equal.begin(), equal.end());
+        sortedLeft.add(sortedLeft.end(), sortedRight.begin(), sortedRight.end());
+        return sortedLeft;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \log n)$ average, $\mathcal{O}(n^2)$ worst case.
 - **Space Complexity**: $\mathcal{O}(n \log n)$ auxiliary vector allocations.
@@ -104,6 +126,38 @@ void quickSortHelper(vector<int>& arr, int low, int high) {
 void quickSort(vector<int>& nums) {
     if (nums.size() <= 1) return;
     quickSortHelper(nums, 0, (int)nums.size() - 1);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int partition(int[] arr, int low, int high) {
+        int pivot = arr[low];
+        int i = low;
+        int j = high;
+        
+        while (i < j) {
+            while (i <= high - 1 && arr[i] <= pivot) i++;
+            while (j >= low + 1 && arr[j] > pivot) j--;
+            if (i < j) int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+        }
+        int temp = arr[low]; arr[low] = arr[j]; arr[j] = temp; // place pivot at partition index
+        return j;
+    }
+    
+    void quickSortHelper(int[] arr, int low, int high) {
+        if (low < high) {
+            int pIndex = partition(arr, low, high);
+            quickSortHelper(arr, low, pIndex - 1);
+            quickSortHelper(arr, pIndex + 1, high);
+        }
+    }
+    
+    void quickSort(int[] nums) {
+        if (nums.length <= 1) return;
+        quickSortHelper(nums, 0, nums.length - 1);
+    }
 }
 ```
 

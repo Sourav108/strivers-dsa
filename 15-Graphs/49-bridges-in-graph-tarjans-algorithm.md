@@ -1,6 +1,6 @@
 # Bridges in Graph (Tarjan's Algorithm / Critical Connections in a Network) (Step 15.6 — Other Graph Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Bridges in Graph (Tarjan's Algorithm / Critical Connections in a Network)](https://takeuforward.org/data-structure/bridges-in-graph-using-tarjans-algorithm-g-55/)
 - **Difficulty**: Hard
@@ -44,6 +44,12 @@ For every edge $e \in E$: temporarily remove $e$, run full BFS/DFS to check if t
 
 ### C++17 Code
 ```cpp
+// O(E * (V + E)) edge removal brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(E * (V + E)) edge removal brute force
 ```
 
@@ -117,6 +123,68 @@ public:
         vector<int> tin(n, 0);
         vector<int> low(n, 0);
         vector<vector<int>> bridges;
+        
+        // 2. Perform DFS traversal (handles disconnected graph components)
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                dfs(i, -1, adj, vis, tin, low, bridges);
+            }
+        }
+        
+        return bridges;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int timer = 1;
+    
+    void dfs(int node, int parent, int[][] adj, 
+             int[] vis, int[] tin, int[] low, 
+             int[][] bridges) {
+        
+        vis[node] = 1;
+        tin[node] = low[node] = timer++;
+        
+        for (int neighbor : adj[node]) {
+            // Ignore the direct parent edge in undirected graph
+            if (neighbor == parent) continue;
+            
+            if (!vis[neighbor]) {
+                // Forward tree edge
+                dfs(neighbor, node, adj, vis, tin, low, bridges);
+                
+                // Propagate low-link value back to current node
+                low[node] = Math.min(low[node], low[neighbor]);
+                
+                // Bridge invariant: neighbor cannot reach node or any of its ancestors
+                if (low[neighbor] > tin[node]) {
+                    bridges.add({node, neighbor});
+                }
+            } else {
+                // Back-edge to an already visited ancestor
+                low[node] = Math.min(low[node], tin[neighbor]);
+            }
+        }
+    }
+
+    int[][] criticalConnections(int n, int[][] connections) {
+        // 1. Build undirected adjacency list
+        int[][] adj(n);
+        for (var edge : connections) {
+            adj[edge[0]].add(edge[1]);
+            adj[edge[1]].add(edge[0]);
+        }
+        
+        int[] vis = new int[n];
+        int[] tin = new int[n];
+        int[] low = new int[n];
+        List<List<Integer>> bridges = new ArrayList<>();
         
         // 2. Perform DFS traversal (handles disconnected graph components)
         for (int i = 0; i < n; i++) {

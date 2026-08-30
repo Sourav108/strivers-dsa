@@ -1,6 +1,6 @@
 # Count the Number of Set Bits (Brian Kernighan's Algorithm) (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count the Number of Set Bits (Brian Kernighan's Algorithm)](https://takeuforward.org/data-structure/count-number-of-bits-to-be-flipped-to-convert-a-to-b/)
 - **Difficulty**: Easy
@@ -40,6 +40,19 @@ int countSetBitsLinear(int n) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int countSetBitsLinear(int n) {
+        int count = 0;
+        while (n > 0) { count += (n 1); n >>= 1; }
+        return count;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log N)$ time (runs for total bit length).
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -64,6 +77,22 @@ int countSetBitsKernighan(int n) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int countSetBitsKernighan(int n) {
+        int count = 0;
+        while (n > 0) {
+            n = n & (n - 1);
+            count++;
+        }
+        return count;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(K)$ where $K = \text{set bits}$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -83,6 +112,27 @@ using namespace std;
 
 class Solution {
 public:
+    int setBits(int N) {
+        // Method 1: Hardware POPCNT instruction O(1)
+        return __builtin_popcount(N);
+        
+        // Method 2: Brian Kernighan's algorithm O(K)
+        /*
+        int count = 0;
+        while (N > 0) {
+            N = N & (N - 1);
+            count++;
+        }
+        return count;
+        */
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int setBits(int N) {
         // Method 1: Hardware POPCNT instruction O(1)
         return __builtin_popcount(N);

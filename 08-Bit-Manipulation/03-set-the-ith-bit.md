@@ -1,6 +1,6 @@
 # Set the i-th bit (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Set the i-th bit](https://takeuforward.org/bit-manipulation/set-the-ith-bit/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Converting to binary string, replacing character at index, parsing back.
 // String conversion approach
 ```
 
+### Java Code
+```java
+// Java equivalent
+// String conversion approach
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(32)$.
 - **Space Complexity**: $\mathcal{O}(32)$.
@@ -58,6 +64,16 @@ Bitwise OR Mask: `n | (1 << i)`.
 ```cpp
 class Solution {
 public:
+    int setKthBit(int n, int i) {
+        return n | (1 << i);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int setKthBit(int n, int i) {
         return n | (1 << i);
     }

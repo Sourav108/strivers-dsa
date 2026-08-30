@@ -1,6 +1,6 @@
 # Best Time to Buy and Sell Stock II (Unlimited transactions) (Step 16.5 — DP on Stocks)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Best Time to Buy and Sell Stock II (Unlimited transactions)](https://takeuforward.org/data-structure/buy-and-sell-stock-ii-dp-36/)
 - **Difficulty**: Medium
@@ -54,6 +54,21 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int buy, int[] p) {
+        if (i == p.length) return 0;
+        if (buy) return Math.max(-p[i] + solve(i + 1, 0, p), solve(i + 1, 1, p));
+        return Math.max(+p[i] + solve(i + 1, 1, p), solve(i + 1, 0, p));
+    }
+
+    int maxProfit(int[] prices) {
+        return solve(0, 1, prices);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -89,6 +104,25 @@ public:
 };
 ```
 
+### Java Code
+```java
+class Solution2D {
+
+    int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n + 1][2];
+        
+        for (int i = n - 1; i >= 0; i--) {
+            // buy == 1
+            dp[i][1] = Math.max(-prices[i] + dp[i + 1][0], dp[i + 1][1]);
+            // buy == 0
+            dp[i][0] = Math.max(+prices[i] + dp[i + 1][1], dp[i + 1][0]);
+        }
+        return dp[0][1];
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ space.
@@ -118,6 +152,29 @@ public:
         for (int i = n - 1; i >= 0; i--) {
             int curBuy = max(-prices[i] + aheadNotBuy, aheadBuy);
             int curNotBuy = max(+prices[i] + aheadBuy, aheadNotBuy);
+            
+            aheadBuy = curBuy;
+            aheadNotBuy = curNotBuy;
+        }
+        
+        return aheadBuy;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxProfit(int[] prices) {
+        int n = prices.length;
+        
+        int aheadBuy = 0;    // dp[i + 1][1]
+        int aheadNotBuy = 0; // dp[i + 1][0]
+        
+        for (int i = n - 1; i >= 0; i--) {
+            int curBuy = Math.max(-prices[i] + aheadNotBuy, aheadBuy);
+            int curNotBuy = Math.max(+prices[i] + aheadBuy, aheadNotBuy);
             
             aheadBuy = curBuy;
             aheadNotBuy = curNotBuy;

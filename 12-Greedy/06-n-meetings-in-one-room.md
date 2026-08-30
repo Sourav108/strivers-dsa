@@ -1,6 +1,6 @@
 # N Meetings in One Room (Activity Selection) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [N Meetings in One Room (Activity Selection)](https://takeuforward.org/data-structure/n-meetings-in-one-room/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Generate all $2^N$ subsets of meetings, checking for non-overlapping feasibility
 
 ### C++17 Code
 ```cpp
+// O(2^N) brute subset search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(2^N) brute subset search
 ```
 
@@ -76,6 +82,43 @@ public:
         
         // Sort by end time ascending
         sort(meetings.begin(), meetings.end(), [](const Meeting& a, const Meeting& b) {
+            if (a.end != b.end) return a.end < b.end;
+            return a.pos < b.pos;
+        });
+        
+        int count = 1;
+        int lastEndTime = meetings[0].end;
+        
+        for (int i = 1; i < n; i++) {
+            if (meetings[i].start > lastEndTime) {
+                count++;
+                lastEndTime = meetings[i].end;
+            }
+        }
+        
+        return count;
+    }
+};
+```
+
+### Java Code
+```java
+static class Meeting {
+    int start;
+    int end;
+    int pos;
+};
+
+class Solution {
+
+    int maxMeetings(int start[], int end[], int n) {
+        vector<Meeting> meetings(n);
+        for (int i = 0; i < n; i++) {
+            meetings[i] = {start[i], end[i], i + 1};
+        }
+        
+        // Sort by end time ascending
+        sort(meetings.begin(), meetings.end(), [](Meeting a, Meeting b) {
             if (a.end != b.end) return a.end < b.end;
             return a.pos < b.pos;
         });

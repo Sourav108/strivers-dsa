@@ -1,6 +1,6 @@
 # Eulerian Circuit and Path in Undirected and Directed Graphs (Step 15.6 — Other Graph Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Eulerian Circuit and Path in Undirected and Directed Graphs](https://takeuforward.org/data-structure/euler-circuit-and-path-in-undirected-graph/)
 - **Difficulty**: Hard
@@ -45,6 +45,12 @@ Backtracking DFS testing all $E!$ permutations of edges in factorial time.
 // O(E!) permutation search
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(E!) permutation search
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(E!)$ time.
 - **Space Complexity**: $\mathcal{O}(E)$ stack.
@@ -59,6 +65,12 @@ Fleury's Algorithm for Eulerian Trail Reconstruction in O(E^2) time (checks brid
 
 ### C++17 Code
 ```cpp
+// Fleury's algorithm overview with bridge checks
+```
+
+### Java Code
+```java
+// Java equivalent
 // Fleury's algorithm overview with bridge checks
 ```
 
@@ -152,6 +164,90 @@ public:
                 st.push(v);
             } else {
                 trail.push_back(u);
+                st.pop();
+            }
+        }
+        
+        reverse(trail.begin(), trail.end());
+        return trail;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    // DFS to verify that all non-zero degree vertices belong to a single component
+    void dfs(int node, int[] vis, int[] adj[]) {
+        vis[node] = 1;
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                dfs(neighbor, vis, adj);
+            }
+        }
+    }
+
+    /* Returns:
+     * 2 : Eulerian Circuit
+     * 1 : Eulerian Path
+     * 0 : Neither
+     */
+    int isEulerCircuit(int V, int[] adj[]) {
+        // 1. Check Connectivity of non-zero degree vertices
+        int[] vis = new int[V];
+        int nonZeroNode = -1;
+        
+        for (int i = 0; i < V; i++) {
+            if (!adj[i].isEmpty()) {
+                nonZeroNode = i;
+                break;
+            }
+        }
+        
+        // Graph with 0 edges has an Eulerian circuit trivially
+        if (nonZeroNode == -1) return 2;
+        
+        // Start DFS from the first active node
+        dfs(nonZeroNode, vis, adj);
+        
+        // If any vertex with non-zero degree was NOT visited, graph is disconnected
+        for (int i = 0; i < V; i++) {
+            if (!vis[i] && !adj[i].isEmpty()) {
+                return 0;
+            }
+        }
+        
+        // 2. Count vertices with odd degrees
+        int oddCount = 0;
+        for (int i = 0; i < V; i++) {
+            if (adj[i].size() % 2 != 0) {
+                oddCount++;
+            }
+        }
+        
+        // 3. Apply Euler's Theorem
+        if (oddCount == 0) return 2; // Eulerian Circuit
+        if (oddCount == 2) return 1; // Eulerian Path
+        return 0;                    // Neither
+    }
+    
+    // Hierholzer's Algorithm for Trail Reconstruction (Directed / Undirected)
+    int[] reconstructEulerianTrail(int startNode, int[][] adj) {
+        List<Integer> trail = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        st.push(startNode);
+        
+        while (!st.isEmpty()) {
+            int u = st.peek();
+            if (!adj[u].isEmpty()) {
+                int v = adj[u].peekLast();
+                adj[u].remove();
+                st.push(v);
+            } else {
+                trail.add(u);
                 st.pop();
             }
         }

@@ -1,6 +1,6 @@
 # Number of Ways to Arrive at Destination (Modulo Dijkstra Counting) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Ways to Arrive at Destination (Modulo Dijkstra Counting)](https://takeuforward.org/data-structure/g-40-number-of-ways-to-arrive-at-destination/)
 - **Difficulty**: Medium
@@ -35,6 +35,12 @@ DFS backtracking all simple paths to find minimum path length and count frequenc
 
 ### C++17 Code
 ```cpp
+// O(V!) DFS all paths
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V!) DFS all paths
 ```
 
@@ -99,6 +105,64 @@ public:
             for (const auto& edge : adj[node]) {
                 int adjNode = edge.first;
                 long long time = edge.second;
+                
+                // Case 1: Found a strictly shorter path to adjNode
+                if (d + time < dist[adjNode]) {
+                    dist[adjNode] = d + time;
+                    ways[adjNode] = ways[node]; // Inherit path count
+                    pq.push({dist[adjNode], adjNode});
+                }
+                // Case 2: Found another path with the EXACT SAME minimum distance
+                else if (d + time == dist[adjNode]) {
+                    ways[adjNode] = (ways[adjNode] + ways[node]) % MOD; // Accumulate paths
+                }
+            }
+        }
+        
+        return ways[n - 1] % MOD;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countPaths(int n, int[][] roads) {
+        // 1. Build adjacency list: {neighbor, time}
+        vector<vector<pair<int, long>>> adj(n);
+        for (var r : roads) {
+            int u = r[0];
+            int v = r[1];
+            long time = r[2];
+            adj[u].add({v, time});
+            adj[v].add({u, time});
+        }
+        
+        int MOD = 1e9 + 7;
+        
+        // Min-heap stores {distance, node}
+        priority_queue<pair<long, int>, 
+                       vector<pair<long, int>>, 
+                       greater<pair<long, int>>> pq;
+        
+        // Use long for distances to prevent 32-bit overflow
+        long[] dist = new long[n];
+        int[] ways = new int[n];
+        
+        dist[0] = 0;
+        ways[0] = 1;
+        pq.push({0, 0});
+        
+        while (!pq.isEmpty()) {
+            var [d, node] = pq.peek();
+            pq.pop();
+            
+            if (d > dist[node]) continue;
+            
+            for (var edge : adj[node]) {
+                int adjNode = edge.first;
+                long time = edge.second;
                 
                 // Case 1: Found a strictly shorter path to adjNode
                 if (d + time < dist[adjNode]) {

@@ -1,6 +1,6 @@
 # Implement Stack using LinkedList (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Stack using LinkedList](https://takeuforward.org/data-structure/implement-stack-using-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Inserting and deleting at TAIL of SLL in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// Tail insertion SLL O(N)
+```
+
+### Java Code
+```java
+// Java equivalent
 // Tail insertion SLL O(N)
 ```
 
@@ -104,6 +110,61 @@ public:
     
     bool isEmpty() {
         return head == nullptr;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val, Node  nextNode = null) { /* initialized: data(val), next(nextNode)  */  }
+};
+
+class LinkedListStack {
+
+    Node  head;
+    int currentSize;
+
+    public LinkedListStack() { /* initialized: head(null), currentSize(0)  */  }
+    
+    ~LinkedListStack() {
+        while (head != null) {
+            Node  temp = head;
+            head = head.next;
+            delete temp;
+        }
+    }
+    
+    void push(int x) {
+        head = new Node(x, head);
+        currentSize++;
+    }
+    
+    int pop() {
+        if (isEmpty()) return -1;
+        Node  temp = head;
+        int val = temp.data;
+        head = head.next;
+        delete temp;
+        currentSize--;
+        return val;
+    }
+    
+    int top() {
+        if (isEmpty()) return -1;
+        return head.data;
+    }
+    
+    int size() {
+        return currentSize;
+    }
+    
+    boolean isEmpty() {
+        return head == null;
     }
 };
 ```

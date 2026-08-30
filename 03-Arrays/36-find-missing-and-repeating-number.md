@@ -1,6 +1,6 @@
 # Find Missing and Repeating Number (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/find-the-repeating-and-missing-numbers/
 - **Difficulty**: Hard
@@ -53,6 +53,22 @@ vector<int> findMissingRepeatingBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] findMissingRepeatingBrute(int[] nums) {
+        int n = nums.length, rep = -1, mis = -1;
+        for (int i = 1; i <= n; i++) {
+            int cnt = 0;
+            for (int x : nums) if (x == i) cnt++;
+            if (cnt == 2) rep = i;
+            else if (cnt == 0) mis = i;
+        }
+        return {rep, mis};
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -81,6 +97,24 @@ vector<int> findMissingRepeatingBetter(const vector<int>& nums) {
         else if (freq[i] == 0) missing = i;
     }
     return {repeating, missing};
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int[] findMissingRepeatingBetter(int[] nums) {
+        int n = nums.length;
+        int[] freq = new int[n + 1];
+        for (int x : nums) freq[x]++;
+        
+        int repeating = -1, missing = -1;
+        for (int i = 1; i <= n; i++) {
+            if (freq[i] == 2) repeating = i;
+            else if (freq[i] == 0) missing = i;
+        }
+        return {repeating, missing};
+    }
 }
 ```
 
@@ -119,6 +153,27 @@ vector<int> findMissingRepeatingOptimal(const vector<int>& nums) {
     long long A = (val1 + val2) / 2;
     long long B = val2 - A;
     return {(int)A, (int)B};
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int[] findMissingRepeatingOptimal(int[] nums) {
+        long n = nums.length;
+        long SN = n * (n + 1) / 2;
+        long S2N = n * (n + 1) * (2 * n + 1) / 6;
+        long S = 0, S2 = 0;
+        for (int x : nums) {
+            S += x;
+            S2 += (long)x * x;
+        }
+        long val1 = S - SN; // A - B
+        long val2 = (S2 - S2N) / val1; // A + B
+        long A = (val1 + val2) / 2;
+        long B = val2 - A;
+        return {(int)A, (int)B};
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # For Loops & Nested Loops in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [For Loops & Nested Loops in C++](https://takeuforward.org/c/for-loops-in-c/)
 - **Difficulty**: Easy
@@ -38,6 +38,18 @@ void processStringsSlow(const vector<string>& vec) {
     // By-value range-for copies every string!
     for (string s : vec) {
         cout << s << " ";
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void processStringsSlow(String[] vec) {
+        // By-value range-for copies every String!
+        for (String s : vec) {
+            System.out.print(s << " ");
+        }
     }
 }
 ```
@@ -90,6 +102,36 @@ int main() {
     }
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int main() {
+        // Standard 3-expression for loop
+        for (int i = 0; i < 5; ++i) {
+            System.out.print(i << " ");
+        }
+        System.out.print("\n");
+        
+        // Nested loops: Matrix coordinate traversal
+        int n = 3;
+        for (int r = 0; r < n; ++r) {
+            for (int c = 0; c < n; ++c) {
+                System.out.print("(" << r << "," << c << ") ");
+            }
+            System.out.print("\n");
+        }
+        
+        // C++17 Range-based for loop with reference (Zero-copy)
+        String[] names = {"Alice", "Bob", "Charlie"};
+        for (var name : names) {
+            System.out.print(name << "\n");
+        }
+        
+        return 0;
+    }
 }
 ```
 

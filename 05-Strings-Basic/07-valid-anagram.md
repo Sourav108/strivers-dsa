@@ -1,6 +1,6 @@
 # Check if two Strings are Anagrams of each other (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if two Strings are Anagrams of each other](https://takeuforward.org/data-structure/check-if-two-strings-are-anagrams-of-each-other/)
 - **Difficulty**: Easy
@@ -44,6 +44,20 @@ bool isAnagramSort(string s, string t) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    boolean isAnagramSort(String s, String t) {
+        if (s.length() != t.length()) return false;
+        Arrays.sort(s);
+        Arrays.sort(t);
+        return s == t;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \log N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -75,6 +89,29 @@ public:
         int freq[26] = {0};
         
         for (size_t i = 0; i < s.length(); i++) {
+            freq[s[i] - 'a']++;
+            freq[t[i] - 'a']--;
+        }
+        
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] != 0) return false;
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+        
+        int freq[26] = {0};
+        
+        for (int i = 0; i < s.length(); i++) {
             freq[s[i] - 'a']++;
             freq[t[i] - 'a']--;
         }

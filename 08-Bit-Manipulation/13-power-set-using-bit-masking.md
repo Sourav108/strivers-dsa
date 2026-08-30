@@ -1,6 +1,6 @@
 # Power Set (Print all subsequences using Bit Masking) (Step 8.2 — Interview Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Power Set (Print all subsequences using Bit Masking)](https://takeuforward.org/data-structure/power-set-print-all-subsequences/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Recursive backtracking.
 
 ### C++17 Code
 ```cpp
+// Recursive tree approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Recursive tree approach
 ```
 
@@ -75,6 +81,33 @@ public:
                 }
             }
             result.push_back(subset);
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[][] subsets(int[] nums) {
+        int n = nums.length;
+        int totalSubsets = 1 << n; // 2^n
+        List<List<Integer>> result = new ArrayList<>();
+        result.reserve(totalSubsets);
+        
+        for (int mask = 0; mask < totalSubsets; mask++) {
+            List<Integer> subset = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if (mask & (1 << i)) {
+                    subset.add(nums[i]);
+                }
+            }
+            result.add(subset);
         }
         
         return result;

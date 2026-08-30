@@ -1,6 +1,6 @@
 # Check if LinkedList is Palindrome (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if LinkedList is Palindrome](https://takeuforward.org/data-structure/check-if-given-linked-list-is-palindrome/)
 - **Difficulty**: Easy
@@ -40,6 +40,20 @@ bool isPalArray(Node* head) {
     vector<int> v;
     while (head) { v.push_back(head->data); head = head->next; }
     int l = 0, r = v.size() - 1;
+    while (l < r) if (v[l++] != v[r--]) return false;
+    return true;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node { int data; Node  next; };
+boolean isPalArray(Node  head) {
+    List<Integer> v = new ArrayList<>();
+    while (head) { v.add(head.data); head = head.next; }
+    int l = 0, r = v.length - 1;
     while (l < r) if (v[l++] != v[r--]) return false;
     return true;
 }
@@ -116,6 +130,66 @@ public:
         
         // 4. Restore original list
         slow->next = reverseList(secondHalfHead);
+        
+        return isPal;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  reverseList(Node  head) {
+        Node  prev = null;
+        Node  curr = head;
+        while (curr) {
+            Node  front = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = front;
+        }
+        return prev;
+    }
+
+    boolean isPalindrome(Node  head) {
+        if (!head || !head.next) return true;
+        
+        // 1. Find midpoint (first middle for even length)
+        Node  slow = head;
+        Node  fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // 2. Reverse second half
+        Node  secondHalfHead = reverseList(slow.next);
+        
+        // 3. Compare halves
+        Node  firstHalf = head;
+        Node  secondHalf = secondHalfHead;
+        boolean isPal = true;
+        
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                isPal = false;
+                break;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+        
+        // 4. Restore original list
+        slow.next = reverseList(secondHalfHead);
         
         return isPal;
     }

@@ -1,6 +1,6 @@
 # Postorder Traversal of Binary Tree (1 Stack & 2 Stacks) (Step 13.1 — Traversals)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Postorder Traversal of Binary Tree (1 Stack & 2 Stacks)](https://takeuforward.org/data-structure/post-order-traversal-of-binary-tree/)
 - **Difficulty**: Easy
@@ -44,6 +44,17 @@ void postorderRec(TreeNode* root, vector<int>& ans) {
 }
 ```
 
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+void postorderRec(TreeNode  root, int[] ans) {
+    if (root == null) return;
+    postorderRec(root.left, ans);
+    postorderRec(root.right, ans);
+    ans.add(root.val);
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(H)$ call stack space.
@@ -74,6 +85,27 @@ vector<int> postorder2Stacks(TreeNode* root) {
         if (curr->right) st1.push(curr->right);
     }
     while (!st2.empty()) { ans.push_back(st2.top()->val); st2.pop(); }
+    return ans;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode { int val; TreeNode left, right; };
+int[] postorder2Stacks(TreeNode  root) {
+    List<Integer> ans = new ArrayList<>();
+    if (root == null) return ans;
+    Stack<TreeNode> st1, st2;
+    st1.push(root);
+    while (!st1.isEmpty()) {
+        TreeNode  curr = st1.peek(); st1.pop();
+        st2.push(curr);
+        if (curr.left) st1.push(curr.left);
+        if (curr.right) st1.push(curr.right);
+    }
+    while (!st2.isEmpty()) { ans.add(st2.peek().val); st2.pop(); }
     return ans;
 }
 ```
@@ -125,6 +157,50 @@ public:
                     curr = topNode->right;
                 } else {
                     postorder.push_back(topNode->val);
+                    lastVisited = topNode;
+                    st.pop();
+                }
+            }
+        }
+        
+        return postorder;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] postorderTraversal(TreeNode  root) {
+        List<Integer> postorder = new ArrayList<>();
+        if (root == null) return postorder;
+        
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode  curr = root;
+        TreeNode  lastVisited = null;
+        
+        while (curr != null || !st.isEmpty()) {
+            if (curr != null) {
+                st.push(curr);
+                curr = curr.left; // dive left
+            } else {
+                TreeNode  topNode = st.peek();
+                
+                // If right child exists and has not been processed yet, move right
+                if (topNode.right != null && lastVisited != topNode.right) {
+                    curr = topNode.right;
+                } else {
+                    postorder.add(topNode.val);
                     lastVisited = topNode;
                     st.pop();
                 }

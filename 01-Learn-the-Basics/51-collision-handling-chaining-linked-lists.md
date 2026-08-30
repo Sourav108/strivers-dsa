@@ -1,6 +1,6 @@
 # Collision Handling: Chaining with Linked Lists (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Collision Handling: Chaining with Linked Lists](https://takeuforward.org/data-structure/separate-chaining-in-hashing/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Single linked list without hash buckets in $\mathcal{O}(N)$ search time.
 
 ### C++17 Code
 ```cpp
+// Plain linked list search O(N)
+```
+
+### Java Code
+```java
+// Java equivalent
 // Plain linked list search O(N)
 ```
 
@@ -98,6 +104,47 @@ int main() {
     ht.insert("Alice", 95);
     ht.insert("Bob", 88);
     cout << "Alice Score: " << ht.get("Alice") << "\n";
+    return 0;
+}
+```
+
+### Java Code
+```java
+class SeparateChainingHashTable {
+
+    int numBuckets;
+    vector<list<pair<String, int>>> table;
+    
+    int hashFunction(String key) {
+        unsigned long hash = 5381;
+        for (char c : key) hash = ((hash << 5) + hash) + c; // djb2 hash
+        return hash % numBuckets;
+    }
+
+    public SeparateChainingHashTable(int buckets = 101) { /* initialized: numBuckets(buckets), table(buckets)  */  }
+    
+    void insert(String key, int val) {
+        int idx = hashFunction(key);
+        for (var entry : table[idx]) {
+            if (entry.first == key) { entry.second = val; return; }
+        }
+        table[idx].add({key, val});
+    }
+    
+    int get(String key) {
+        int idx = hashFunction(key);
+        for (var entry : table[idx]) {
+            if (entry.first == key) return entry.second;
+        }
+        return -1; // key not found
+    }
+};
+
+int main() {
+    SeparateChainingHashTable ht(10);
+    ht.add("Alice", 95);
+    ht.add("Bob", 88);
+    System.out.print("Alice Score: " << ht.get("Alice") << "\n");
     return 0;
 }
 ```

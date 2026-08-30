@@ -1,6 +1,6 @@
 # Book Allocation Problem (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Book Allocation Problem](https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/)
 - **Difficulty**: Hard
@@ -63,6 +63,34 @@ int findPagesLinear(vector<int>& arr, int n, int m) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int countStudents(int[] arr, int maxPages) {
+        int students = 1, pagesStudent = 0;
+        for (int p : arr) {
+            if (pagesStudent + p > maxPages) {
+                students++;
+                pagesStudent = p;
+            } else {
+                pagesStudent += p;
+            }
+        }
+        return students;
+    }
+    
+    int findPagesLinear(int[] arr, int n, int m) {
+        if (m > n) return -1;
+        int low = max_element(arr.begin(), arr.end());
+        int high = accumulate(arr.begin(), arr.end(), 0);
+        for (int pages = low; pages <= high; pages++) {
+            if (countStudents(arr, pages) <= m) return pages;
+        }
+        return low;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((\sum - \max) \times n)$ — linear range scan causes TLE.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -116,6 +144,49 @@ public:
         
         while (low <= high) {
             long long mid = low + (high - low) / 2;
+            
+            if (countStudents(arr, mid) <= m) {
+                ans = mid;        // feasible, try to find smaller maximum
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // too many students needed, increase page capacity
+            }
+        }
+        
+        return ans; // or low at termination
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countStudents(int[] arr, int maxPages) {
+        int students = 1;
+        long pagesStudent = 0;
+        
+        for (int p : arr) {
+            if (pagesStudent + p > maxPages) {
+                students++;
+                pagesStudent = p;
+            } else {
+                pagesStudent += p;
+            }
+        }
+        return students;
+    }
+
+    int findPages(int[] arr, int n, int m) {
+        // Book allocation is impossible if students exceed books
+        if (m > n) return -1;
+        
+        int low = max_element(arr.begin(), arr.end());
+        long high = accumulate(arr.begin(), arr.end(), 0LL);
+        int ans = -1;
+        
+        while (low <= high) {
+            long mid = low + (high - low) / 2;
             
             if (countStudents(arr, mid) <= m) {
                 ans = mid;        // feasible, try to find smaller maximum

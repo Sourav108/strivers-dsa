@@ -1,6 +1,6 @@
 # Best Time to Buy and Sell Stock IV (At most K transactions) (Step 16.5 — DP on Stocks)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Best Time to Buy and Sell Stock IV (At most K transactions)](https://takeuforward.org/data-structure/buy-and-sell-stocks-iv-dp-38/)
 - **Difficulty**: Hard
@@ -46,6 +46,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(2^N) recursion
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -75,6 +82,27 @@ public:
                 for (int cap = 1; cap <= k; cap++) {
                     if (buy) dp[i][buy][cap] = max(-prices[i] + dp[i + 1][0][cap], dp[i + 1][1][cap]);
                     else dp[i][buy][cap] = max(+prices[i] + dp[i + 1][1][cap - 1], dp[i + 1][0][cap]);
+                }
+            }
+        }
+        return dp[0][1][k];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution3D {
+
+    int maxProfit(int k, int[] prices) {
+        int n = prices.length;
+        if (n <= 1 || k == 0) return 0;
+        vector<int[][]> dp(n + 1, int[][](2, int[](k + 1, 0)));
+        for (int i = n - 1; i >= 0; i--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                for (int cap = 1; cap <= k; cap++) {
+                    if (buy) dp[i][buy][cap] = Math.max(-prices[i] + dp[i + 1][0][cap], dp[i + 1][1][cap]);
+                    else dp[i][buy][cap] = Math.max(+prices[i] + dp[i + 1][1][cap - 1], dp[i + 1][0][cap]);
                 }
             }
         }
@@ -130,6 +158,49 @@ public:
                         cur[buy][cap] = max(-prices[i] + ahead[0][cap], ahead[1][cap]);
                     } else {
                         cur[buy][cap] = max(+prices[i] + ahead[1][cap - 1], ahead[0][cap]);
+                    }
+                }
+            }
+            
+            ahead = cur;
+        }
+        
+        return ahead[1][k];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxProfit(int k, int[] prices) {
+        int n = prices.length;
+        if (n <= 1 || k == 0) return 0;
+        
+        // Optimization: If k >= n / 2, equivalent to unlimited transactions
+        if (k >= n / 2) {
+            int maxP = 0;
+            for (int i = 1; i < n; i++) {
+                if (prices[i] > prices[i - 1]) {
+                    maxP += prices[i] - prices[i - 1];
+                }
+            }
+            return maxP;
+        }
+        
+        // ahead[buy][cap] stores max profit from day (i + 1)
+        int[][] ahead = new int[2][k + 1];
+        
+        for (int i = n - 1; i >= 0; i--) {
+            int[][] cur = new int[2][k + 1];
+            
+            for (int buy = 0; buy <= 1; buy++) {
+                for (int cap = 1; cap <= k; cap++) {
+                    if (buy == 1) {
+                        cur[buy][cap] = Math.max(-prices[i] + ahead[0][cap], ahead[1][cap]);
+                    } else {
+                        cur[buy][cap] = Math.max(+prices[i] + ahead[1][cap - 1], ahead[0][cap]);
                     }
                 }
             }

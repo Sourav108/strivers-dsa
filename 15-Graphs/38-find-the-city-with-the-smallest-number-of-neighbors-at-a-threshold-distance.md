@@ -1,6 +1,6 @@
 # Find the City with the Smallest Number of Neighbors at a Threshold Distance (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the City with the Smallest Number of Neighbors at a Threshold Distance](https://takeuforward.org/data-structure/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance-g-43/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS/BFS from each city without memoization in $\mathcal{O}(N \times V!)$ time.
 
 ### C++17 Code
 ```cpp
+// Naive DFS search
+```
+
+### Java Code
+```java
+// Java equivalent
 // Naive DFS search
 ```
 
@@ -71,6 +77,46 @@ public:
                 auto [d, u] = pq.top(); pq.pop();
                 if (d > dist[u]) continue;
                 for (auto& [v, wt] : adj[u]) {
+                    if (d + wt < dist[v]) {
+                        dist[v] = d + wt;
+                        pq.push({dist[v], v});
+                    }
+                }
+            }
+            int count = 0;
+            for (int j = 0; j < n; j++)
+                if (i != j && dist[j] <= distanceThreshold) count++;
+            if (count <= minReachable) {
+                minReachable = count;
+                bestCity = i;
+            }
+        }
+        return bestCity;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionDijkstraN {
+
+    int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        vector<List<int[]>> adj(n);
+        for (var e : edges) {
+            adj[e[0]].add({e[1], e[2]});
+            adj[e[1]].add({e[0], e[2]});
+        }
+        int minReachable = n, bestCity = -1;
+        for (int i = 0; i < n; i++) {
+            priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+            int[] dist = new int[n];
+            dist[i] = 0; pq.push({0, i});
+            while (!pq.isEmpty()) {
+                var [d, u] = pq.peek(); pq.pop();
+                if (d > dist[u]) continue;
+                for (var [v, wt] : adj[u]) {
                     if (d + wt < dist[v]) {
                         dist[v] = d + wt;
                         pq.push({dist[v], v});
@@ -133,6 +179,62 @@ public:
                 for (int j = 0; j < n; j++) {
                     if (dist[i][k] != INF && dist[k][j] != INF) {
                         dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                    }
+                }
+            }
+        }
+        
+        // 3. Find the city with smallest reachable count (tie-breaker: greatest index)
+        int minReachableCount = n;
+        int bestCity = -1;
+        
+        for (int i = 0; i < n; i++) {
+            int reachableCount = 0;
+            for (int j = 0; j < n; j++) {
+                if (i != j && dist[i][j] <= distanceThreshold) {
+                    reachableCount++;
+                }
+            }
+            
+            // <= operator ensures that in case of a tie, the higher city index i wins!
+            if (reachableCount <= minReachableCount) {
+                minReachableCount = reachableCount;
+                bestCity = i;
+            }
+        }
+        
+        return bestCity;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int INF = 1e9;
+        int[][] dist = new int[n][n];
+        
+        // 1. Initialize distance matrix
+        for (int i = 0; i < n; i++) {
+            dist[i][i] = 0;
+        }
+        
+        for (var edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int wt = edge[2];
+            dist[u][v] = wt;
+            dist[v][u] = wt;
+        }
+        
+        // 2. Floyd-Warshall DP: intermediate pivot k
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (dist[i][k] != INF && dist[k][j] != INF) {
+                        dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
                     }
                 }
             }

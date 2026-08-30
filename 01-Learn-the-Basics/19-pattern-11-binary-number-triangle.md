@@ -1,6 +1,6 @@
 # Pattern-11: Binary Number Triangle (Step 1.2 — Build-up Logical Thinking (Patterns))
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Pattern-11: Binary Number Triangle](https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-must-do-questions)
 - **Difficulty**: Easy
@@ -45,6 +45,22 @@ void pattern11(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void pattern11(int n) {
+        for (int i = 0; i < n; i++) {
+            int start = (i % 2 == 0) ? 1 : 0;
+            for (int j = 0; j <= i; j++) {
+                System.out.print(start << " ");
+                start = 1 - start;
+            }
+            System.out.print("\n");
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ — prints $N \times N$ grid cells.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -84,6 +100,28 @@ int main() {
     int n = 4;
     pattern11(n);
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void pattern11(int n) {
+        for (int i = 0; i < n; i++) {
+            int start = (i % 2 == 0) ? 1 : 0;
+            for (int j = 0; j <= i; j++) {
+                System.out.print(start << " ");
+                start = 1 - start;
+            }
+            System.out.print("\n");
+        }
+    }
+    
+    int main() {
+        int n = 4;
+        pattern11(n);
+        return 0;
+    }
 }
 ```
 

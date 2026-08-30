@@ -1,6 +1,6 @@
 # Distinct Subsequences (Number of times string S2 occurs in S1) (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Distinct Subsequences (Number of times string S2 occurs in S1)](https://takeuforward.org/data-structure/distinct-subsequences-dp-32/)
 - **Difficulty**: Hard
@@ -60,6 +60,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, String s, String t) {
+        if (j < 0) return 1;
+        if (i < 0) return 0;
+        if (s[i] == t[j]) return solve(i - 1, j - 1, s, t) + solve(i - 1, j, s, t);
+        return solve(i - 1, j, s, t);
+    }
+
+    int numDistinct(String s, String t) {
+        return solve(s.length - 1, t.length - 1, s, t);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -83,6 +99,29 @@ public:
     int numDistinct(string s, string t) {
         int n = s.size(), m = t.size();
         vector<vector<unsigned long long>> dp(n + 1, vector<unsigned long long>(m + 1, 0));
+        for (int i = 0; i <= n; i++) dp[i][0] = 1;
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (s[i - 1] == t[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return (int)dp[n][m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int numDistinct(String s, String t) {
+        int n = s.length, m = t.length;
+        vector<vector<unsigned long>> dp(n + 1, vector<unsigned long>(m + 1, 0));
         for (int i = 0; i <= n; i++) dp[i][0] = 1;
         
         for (int i = 1; i <= n; i++) {
@@ -127,6 +166,35 @@ public:
         // Using unsigned long long to avoid intermediate integer overflow
         vector<unsigned long long> dp(m + 1, 0);
         dp[0] = 1; // Base case: 1 way to match empty string t
+        
+        for (int i = 1; i <= n; i++) {
+            // CRITICAL: Iterate j BACKWARDS from m down to 1
+            // This ensures dp[j - 1] reads the previous row's state (s[0...i-2])!
+            for (int j = m; j >= 1; j--) {
+                if (s[i - 1] == t[j - 1]) {
+                    dp[j] = dp[j - 1] + dp[j];
+                }
+                // If mismatch, dp[j] remains unchanged (dp[i][j] = dp[i-1][j])!
+            }
+        }
+        
+        return (int)dp[m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int numDistinct(String s, String t) {
+        int n = s.length;
+        int m = t.length;
+        
+        // dp[j] stores number of subsequences of s matching prefix t[0 ... j - 1]
+        // Using unsigned long to avoid intermediate integer overflow
+        vector<unsigned long> dp(m + 1, 0);
+        dp[0] = 1; // Base case: 1 way to match empty String t
         
         for (int i = 1; i <= n; i++) {
             // CRITICAL: Iterate j BACKWARDS from m down to 1

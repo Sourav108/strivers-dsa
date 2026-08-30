@@ -1,6 +1,6 @@
 # Surrounded Regions (Replace O's with X's on Board) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Surrounded Regions (Replace O's with X's on Board)](https://takeuforward.org/data-structure/surrounded-regions-replace-os-with-xs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ For every 'O' cell, launch a search to test if it can reach the boundary, taking
 
 ### C++17 Code
 ```cpp
+// O((N*M)^2) individual search per cell
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((N*M)^2) individual search per cell
 ```
 
@@ -87,6 +93,68 @@ public:
         int m = board[0].size();
         
         vector<vector<int>> vis(n, vector<int>(m, 0));
+        
+        // 1. Traverse 1st row and last row
+        for (int j = 0; j < m; j++) {
+            if (!vis[0][j] && board[0][j] == 'O') {
+                dfs(0, j, board, vis);
+            }
+            if (!vis[n - 1][j] && board[n - 1][j] == 'O') {
+                dfs(n - 1, j, board, vis);
+            }
+        }
+        
+        // 2. Traverse 1st column and last column
+        for (int i = 0; i < n; i++) {
+            if (!vis[i][0] && board[i][0] == 'O') {
+                dfs(i, 0, board, vis);
+            }
+            if (!vis[i][m - 1] && board[i][m - 1] == 'O') {
+                dfs(i, m - 1, board, vis);
+            }
+        }
+        
+        // 3. Flip all unvisited 'O's to 'X' (they are surrounded)
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!vis[i][j] && board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void dfs(int r, int c, char[][] board, int[][] vis) {
+        vis[r][c] = 1;
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        int n = board.length;
+        int m = board[0].size();
+        
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dRow[i];
+            int nc = c + dCol[i];
+            
+            // Explore unvisited connected 'O' cells
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc] && board[nr][nc] == 'O') {
+                dfs(nr, nc, board, vis);
+            }
+        }
+    }
+
+    void solve(char[][] board) {
+        int n = board.length;
+        if (n == 0) return;
+        int m = board[0].size();
+        
+        int[][] vis = new int[n][m];
         
         // 1. Traverse 1st row and last row
         for (int j = 0; j < m; j++) {

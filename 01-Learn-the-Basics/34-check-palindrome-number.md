@@ -1,6 +1,6 @@
 # Check Palindrome Number (LeetCode 9) (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check Palindrome Number (LeetCode 9)](https://takeuforward.org/data-structure/check-if-a-number-is-palindrome-or-not/)
 - **Difficulty**: Easy
@@ -46,6 +46,21 @@ bool isPalindromeString(int x) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean isPalindromeString(int x) {
+        if (x < 0) return false;
+        String s = String.valueOf(x);
+        int l = 0, r = s.length() - 1;
+        while (l < r) {
+            if (s[l++] != s[r--]) return false;
+        }
+        return true;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log_{10} X)$ time.
 - **Space Complexity**: $\mathcal{O}(\log_{10} X)$ string space.
@@ -82,6 +97,29 @@ public:
         
         // Even length: x == revertedNumber (1221 -> x=12, rev=12)
         // Odd length: x == revertedNumber / 10 (12321 -> x=12, rev=123 -> 123/10=12)
+        return x == revertedNumber || x == revertedNumber / 10;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isPalindrome(int x) {
+        // Negative numbers and non-zero numbers ending in 0 are not palindromes
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+        
+        int revertedNumber = 0;
+        while (x > revertedNumber) {
+            revertedNumber = revertedNumber * 10 + (x % 10);
+            x /= 10;
+        }
+        
+        // Even length: x == revertedNumber (1221 . x=12, rev=12)
+        // Odd length: x == revertedNumber / 10 (12321 . x=12, rev=123 . 123/10=12)
         return x == revertedNumber || x == revertedNumber / 10;
     }
 };

@@ -1,6 +1,6 @@
 # Find the Index of the First Occurrence in a String (KMP LPS Array) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Index of the First Occurrence in a String (KMP LPS Array)](https://takeuforward.org/strings/knuth-morris-pratt-kmp-algorithm/)
 - **Difficulty**: Medium
@@ -56,6 +56,22 @@ class SolutionNaive {
 public:
     int strStr(string haystack, string needle) {
         int n = haystack.size(), m = needle.size();
+        for (int i = 0; i <= n - m; i++) {
+            int j = 0;
+            while (j < m && haystack[i + j] == needle[j]) j++;
+            if (j == m) return i;
+        }
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionNaive {
+
+    int strStr(String haystack, String needle) {
+        int n = haystack.length, m = needle.length;
         for (int i = 0; i <= n - m; i++) {
             int j = 0;
             while (j < m && haystack[i + j] == needle[j]) j++;
@@ -129,6 +145,75 @@ public:
         
         // Step 1: Precompute LPS array for needle in O(M) time
         vector<int> lps = buildLPS(needle);
+        
+        // Step 2: Search pattern in text with zero text backtracking in O(N) time
+        int i = 0; // Index for haystack
+        int j = 0; // Index for needle
+        
+        while (i < n) {
+            if (haystack[i] == needle[j]) {
+                i++;
+                j++;
+            }
+            
+            // Full pattern match found
+            if (j == m) {
+                return i - m; // 0-based starting index
+            } else if (i < n && haystack[i] != needle[j]) {
+                if (j != 0) {
+                    // Fallback pattern pointer using LPS without moving i backwards
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    // Helper function to build Longest Prefix Suffix (LPS) array in O(M)
+    int[] buildLPS(String pat) {
+        int m = pat.length;
+        int[] lps = new int[m];
+        
+        int len = 0; // Length of previous longest prefix suffix
+        int i = 1;
+        
+        while (i < m) {
+            if (pat[i] == pat[len]) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    // Fallback to previous longest prefix length
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        
+        return lps;
+    }
+
+    int strStr(String haystack, String needle) {
+        int n = haystack.length;
+        int m = needle.length;
+        
+        if (m == 0) return 0;
+        if (n < m) return -1;
+        
+        // Step 1: Precompute LPS array for needle in O(M) time
+        int[] lps = buildLPS(needle);
         
         // Step 2: Search pattern in text with zero text backtracking in O(N) time
         int i = 0; // Index for haystack

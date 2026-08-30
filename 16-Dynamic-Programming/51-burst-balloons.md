@@ -1,6 +1,6 @@
 # Burst Balloons (Partition DP) (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Burst Balloons (Partition DP)](https://takeuforward.org/data-structure/burst-balloons-partition-dp-dp-51/)
 - **Difficulty**: Hard
@@ -47,6 +47,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(N!) permutation search
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N!)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -82,6 +89,30 @@ public:
         nums.insert(nums.begin(), 1);
         nums.push_back(1);
         vector<vector<int>> dp(n + 2, vector<int>(n + 2, -1));
+        return memo(1, n, nums, dp);
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionMemo {
+    int memo(int i, int j, int[] a, int[][] dp) {
+        if (i > j) return 0;
+        if (dp[i][j] != -1) return dp[i][j];
+        int maxCoins = 0;
+        for (int k = i; k <= j; k++) {
+            int coins = a[i - 1] * a[k] * a[j + 1] + memo(i, k - 1, a, dp) + memo(k + 1, j, a, dp);
+            maxCoins = Math.max(maxCoins, coins);
+        }
+        return dp[i][j] = maxCoins;
+    }
+
+    int maxCoins(int[] nums) {
+        int n = nums.length;
+        nums.add(nums.begin(), 1);
+        nums.add(1);
+        int[][] dp = new int[n + 2][n + 2];
         return memo(1, n, nums, dp);
     }
 };
@@ -131,6 +162,45 @@ public:
                               + dp[k + 1][j];
                               
                     maxCoins = max(maxCoins, coins);
+                }
+                
+                dp[i][j] = maxCoins;
+            }
+        }
+        
+        return dp[1][n];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxCoins(int[] nums) {
+        int n = nums.length;
+        
+        // Pad with 1s at both boundaries
+        int[] a = new int[n + 2];
+        for (int i = 0; i < n; i++) {
+            a[i + 1] = nums[i];
+        }
+        
+        // dp[i][j] stores max coins from bursting all balloons in interval [i ... j]
+        int[][] dp = new int[n + 2][n + 2];
+        
+        // Bottom-up iteration from bottom row to top (i from n down to 1)
+        for (int i = n; i >= 1; i--) {
+            for (int j = i; j <= n; j++) {
+                int maxCoins = 0;
+                
+                // Balloon k is the LAST balloon to burst in interval [i ... j]
+                for (int k = i; k <= j; k++) {
+                    int coins = a[i - 1] * a[k] * a[j + 1] 
+                              + dp[i][k - 1] 
+                              + dp[k + 1][j];
+                              
+                    maxCoins = Math.max(maxCoins, coins);
                 }
                 
                 dp[i][j] = maxCoins;

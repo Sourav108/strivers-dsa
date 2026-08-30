@@ -1,6 +1,6 @@
 # Find Minimum in Rotated Sorted Array (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Minimum in Rotated Sorted Array](https://takeuforward.org/data-structure/minimum-in-rotated-sorted-array/)
 - **Difficulty**: Medium
@@ -47,6 +47,17 @@ int findMinLinear(const vector<int>& nums) {
     int minVal = INT_MAX;
     for (int x : nums) minVal = min(minVal, x);
     return minVal;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findMinLinear(int[] nums) {
+        int minVal = Integer.MAX_VALUE;
+        for (int x : nums) minVal = Math.min(minVal, x);
+        return minVal;
+    }
 }
 ```
 
@@ -101,6 +112,39 @@ int findMin(const vector<int>& nums) {
     }
     
     return ans;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findMin(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        int ans = Integer.MAX_VALUE;
+        
+        while (low <= high) {
+            // If search space is already sorted, nums[low] is the minimum
+            if (nums[low] <= nums[high]) {
+                ans = Math.min(ans, nums[low]);
+                break;
+            }
+            
+            int mid = low + (high - low) / 2;
+            
+            // If left half is sorted, min of left half is nums[low]
+            if (nums[low] <= nums[mid]) {
+                ans = Math.min(ans, nums[low]);
+                low = mid + 1; // search unsorted right half
+            } 
+            // If right half is sorted, min of right half is nums[mid]
+            else {
+                ans = Math.min(ans, nums[mid]);
+                high = mid - 1; // search unsorted left half
+            }
+        }
+        
+        return ans;
+    }
 }
 ```
 

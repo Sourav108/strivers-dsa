@@ -1,6 +1,6 @@
 # Print Maximum Subarray (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array/
 - **Difficulty**: Medium
@@ -54,6 +54,23 @@ vector<int> printMaxSubarrayBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] printMaxSubarrayBrute(int[] nums) {
+        int maxS = Integer.MIN_VALUE, start = 0, end = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                if (sum > maxS) { maxS = sum; start = i; end = j; }
+            }
+        }
+        return int[](nums.begin() + start, nums.begin() + end + 1);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -95,6 +112,27 @@ vector<int> printMaxSubarrayOptimal(const vector<int>& nums) {
         if (currentSum < 0) currentSum = 0;
     }
     return vector<int>(nums.begin() + ansStart, nums.begin() + ansEnd + 1);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int[] printMaxSubarrayOptimal(int[] nums) {
+        int maxSum = Integer.MIN_VALUE, currentSum = 0;
+        int start = 0, ansStart = 0, ansEnd = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (currentSum == 0) start = i;
+            currentSum += nums[i];
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+                ansStart = start;
+                ansEnd = i;
+            }
+            if (currentSum < 0) currentSum = 0;
+        }
+        return int[](nums.begin() + ansStart, nums.begin() + ansEnd + 1);
+    }
 }
 ```
 

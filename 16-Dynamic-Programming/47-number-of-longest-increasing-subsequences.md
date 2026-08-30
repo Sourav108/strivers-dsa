@@ -1,6 +1,6 @@
 # Number of Longest Increasing Subsequences (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Longest Increasing Subsequences](https://takeuforward.org/data-structure/number-of-longest-increasing-subsequences-dp-47/)
 - **Difficulty**: Medium
@@ -43,6 +43,13 @@ Generate all subsequences, find max length, and count occurrences in $\mathcal{O
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^N) subsequence counting
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^N) subsequence counting
 };
@@ -99,6 +106,50 @@ public:
                 }
             }
             maxLen = max(maxLen, dp[i]);
+        }
+        
+        // Sum the counts of all subsequences achieving the maximum length
+        int totalNumberOfLIS = 0;
+        for (int i = 0; i < n; i++) {
+            if (dp[i] == maxLen) {
+                totalNumberOfLIS += cnt[i];
+            }
+        }
+        
+        return totalNumberOfLIS;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findNumberOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        
+        // dp[i] = length of LIS ending at index i
+        // cnt[i] = number of LIS of length dp[i] ending at index i
+        int[] dp = new int[n];
+        int[] cnt = new int[n];
+        
+        int maxLen = 1;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    if (1 + dp[j] > dp[i]) {
+                        // Found a strictly longer LIS: adopt length and reset count
+                        dp[i] = 1 + dp[j];
+                        cnt[i] = cnt[j];
+                    } else if (1 + dp[j] == dp[i]) {
+                        // Found an additional LIS of the same length: accumulate count
+                        cnt[i] += cnt[j];
+                    }
+                }
+            }
+            maxLen = Math.max(maxLen, dp[i]);
         }
         
         // Sum the counts of all subsequences achieving the maximum length

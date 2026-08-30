@@ -1,6 +1,6 @@
 # Convert Min Heap to Max Heap in O(N) (Step 11.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Convert Min Heap to Max Heap in O(N)](https://takeuforward.org/data-structure/convert-min-heap-to-max-heap/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Insert elements one by one into a new max-heap in $\mathcal{O}(N \log N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N log N) insertion into new heap
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N log N) insertion into new heap
 ```
 
@@ -78,6 +84,33 @@ private:
 
 public:
     void convertMinToMaxHeap(vector<int>& arr, int n) {
+        // Start from the last internal parent down to root
+        for (int i = (n - 2) / 2; i >= 0; i--) {
+            maxHeapify(arr, n, i);
+        }
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void maxHeapify(int[] arr, int n, int i) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        
+        if (left < n && arr[left] > arr[largest]) largest = left;
+        if (right < n && arr[right] > arr[largest]) largest = right;
+        
+        if (largest != i) {
+            int temp = arr[i]; arr[i] = arr[largest]; arr[largest] = temp;
+            maxHeapify(arr, n, largest);
+        }
+    }
+
+    void convertMinToMaxHeap(int[] arr, int n) {
         // Start from the last internal parent down to root
         for (int i = (n - 2) / 2; i >= 0; i--) {
             maxHeapify(arr, n, i);

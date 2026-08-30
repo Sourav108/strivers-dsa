@@ -1,6 +1,6 @@
 # Reverse a LinkedList (Iterative & Recursive) (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse a LinkedList (Iterative & Recursive)](https://takeuforward.org/data-structure/reverse-a-linked-list/)
 - **Difficulty**: Easy
@@ -46,6 +46,21 @@ Node* reverseStack(Node* head) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+static class Node { int data; Node  next; };
+Node  reverseStack(Node  head) {
+    Stack<Integer> st = new Stack<>();
+    Node  curr = head;
+    while (curr) { st.push(curr.data); curr = curr.next; }
+    curr = head;
+    while (curr) { curr.data = st.peek(); st.pop(); curr = curr.next; }
+    return head;
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack memory.
@@ -66,6 +81,18 @@ Node* reverseRecursive(Node* head) {
     Node* newHead = reverseRecursive(head->next);
     head->next->next = head;
     head->next = nullptr;
+    return newHead;
+}
+```
+
+### Java Code
+```java
+static class Node { int data; Node  next; };
+Node  reverseRecursive(Node  head) {
+    if (!head || !head.next) return head;
+    Node  newHead = reverseRecursive(head.next);
+    head.next.next = head;
+    head.next = null;
     return newHead;
 }
 ```
@@ -99,6 +126,34 @@ public:
         while (curr != nullptr) {
             Node* front = curr->next; // save next node
             curr->next = prev;        // reverse pointer
+            prev = curr;              // slide prev forward
+            curr = front;             // slide curr forward
+        }
+        
+        return prev; // new head of reversed list
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  reverseList(Node  head) {
+        Node  prev = null;
+        Node  curr = head;
+        
+        while (curr != null) {
+            Node  front = curr.next; // save next node
+            curr.next = prev;        // reverse pointer
             prev = curr;              // slide prev forward
             curr = front;             // slide curr forward
         }

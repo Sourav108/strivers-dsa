@@ -1,6 +1,6 @@
 # GCD / HCF using Euclidean Algorithm (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [GCD / HCF using Euclidean Algorithm](https://takeuforward.org/data-structure/find-gcd-of-two-numbers/)
 - **Difficulty**: Easy
@@ -41,6 +41,18 @@ int gcdLinear(int a, int b) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int gcdLinear(int a, int b) {
+        for (int i = Math.min(a, b); i >= 1; i--) {
+            if (a % i == 0 && b % i == 0) return i;
+        }
+        return 1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\min(a, b))$ time — $10^9$ operations causes TLE.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -76,6 +88,22 @@ int gcdEuclidean(int a, int b) {
 
 // Alternatively in C++17: std::gcd(a, b) from <numeric>
 
+```
+
+### Java Code
+```java
+class Solution {
+    int gcdEuclidean(int a, int b) {
+        while (b != 0) {
+            int rem = a % b;
+            a = b;
+            b = rem;
+        }
+        return a;
+    }
+    
+    // Alternatively in C++17: gcd(a, b) from <numeric>
+}
 ```
 
 ### Complexity Derivation

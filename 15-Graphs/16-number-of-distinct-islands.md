@@ -1,6 +1,6 @@
 # Number of Distinct Islands (DFS with shape serialization) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Distinct Islands (DFS with shape serialization)](https://takeuforward.org/data-structure/number-of-distinct-islands/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Pairwise geometric intersection checks between all discovered islands in $\mathc
 // O(K^2 * NM) pairwise comparison
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(K^2 * NM) pairwise comparison
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(K^2 \times (N \times M))$ time.
 - **Space Complexity**: $\mathcal{O}(N \times M)$ space.
@@ -65,6 +71,26 @@ class SolutionStringHash {
         for (int i = 0; i < 4; i++) {
             int nr = r + dRow[i], nc = c + dCol[i];
             if (nr >= 0 && nr < (int)grid.size() && nc >= 0 && nc < (int)grid[0].size() && !vis[nr][nc] && grid[nr][nc] == 1) {
+                dfs(nr, nc, grid, vis, path, dChar[i]);
+            }
+        }
+        path += 'B'; // Critical backtrack marker!
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionStringHash {
+    void dfs(int r, int c, int[][] grid, int[][] vis, String path, char dir) {
+        vis[r][c] = 1;
+        path += dir;
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        char dChar[] = {'U', 'R', 'D', 'L'};
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dRow[i], nc = c + dCol[i];
+            if (nr >= 0 && nr < grid.length && nc >= 0 && nc < (int)grid[0].size() && !vis[nr][nc] && grid[nr][nc] == 1) {
                 dfs(nr, nc, grid, vis, path, dChar[i]);
             }
         }
@@ -134,6 +160,56 @@ public:
         }
         
         return distinctIslands.size();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void dfs(int r, int c, int[][] grid, int[][] vis,
+             List<int[]> shape, int r0, int c0) {
+        vis[r][c] = 1;
+        // Record relative coordinate offset from origin (r0, c0)
+        shape.add({r - r0, c - c0});
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        int n = grid.length;
+        int m = grid[0].size();
+        
+        // Explore 4 directions in fixed order
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dRow[i];
+            int nc = c + dCol[i];
+            
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && !vis[nr][nc] && grid[nr][nc] == 1) {
+                dfs(nr, nc, grid, vis, shape, r0, c0);
+            }
+        }
+    }
+
+    int countDistinctIslands(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].size();
+        
+        int[][] vis = new int[n][m];
+        set<List<int[]>> distinctIslands;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!vis[i][j] && grid[i][j] == 1) {
+                    List<int[]> shape;
+                    dfs(i, j, grid, vis, shape, i, j);
+                    distinctIslands.add(shape);
+                }
+            }
+        }
+        
+        return distinctIslands.length;
     }
 };
 ```

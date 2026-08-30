@@ -1,6 +1,6 @@
 # Height / Maximum Depth of a Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Height / Maximum Depth of a Binary Tree](https://takeuforward.org/data-structure/maximum-depth-of-a-binary-tree/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ BFS level order counting depth level by level.
 
 ### C++17 Code
 ```cpp
+// BFS level count
+```
+
+### Java Code
+```java
+// Java equivalent
 // BFS level count
 ```
 
@@ -77,6 +83,30 @@ public:
         int rightHeight = maxDepth(root->right);
         
         return 1 + max(leftHeight, rightHeight);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int maxDepth(TreeNode  root) {
+        if (root == null) {
+            return 0;
+        }
+        
+        int leftHeight = maxDepth(root.left);
+        int rightHeight = maxDepth(root.right);
+        
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 };
 ```

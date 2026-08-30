@@ -1,6 +1,6 @@
 # Reverse Nodes in K-Group (LeetCode 25) (Step 6.5 — Hard Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse Nodes in K-Group (LeetCode 25)](https://takeuforward.org/data-structure/reverse-linked-list-in-groups-of-size-k/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Vector chunk reversal in $\mathcal{O}(N)$ memory.
 
 ### C++17 Code
 ```cpp
+// Vector chunking
+```
+
+### Java Code
+```java
+// Java equivalent
 // Vector chunking
 ```
 
@@ -105,6 +111,65 @@ public:
             kthNode->next = nullptr;
             
             prevGroupTail->next = reverseSublist(curr);
+            prevGroupTail = curr;
+            curr = nextGroupHead;
+        }
+        
+        return dummy.next;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  getKthNode(Node  curr, int k) {
+        k -= 1;
+        while (curr != null && k > 0) {
+            k--;
+            curr = curr.next;
+        }
+        return curr;
+    }
+    
+    Node  reverseSublist(Node  head) {
+        Node  prev = null;
+        Node  curr = head;
+        while (curr) {
+            Node  front = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = front;
+        }
+        return prev;
+    }
+
+    Node  reverseKGroup(Node  head, int k) {
+        if (!head || k <= 1) return head;
+        
+        Node dummy(0);
+        dummy.next = head;
+        Node  prevGroupTail = &dummy;
+        Node  curr = head;
+        
+        while (curr != null) {
+            Node  kthNode = getKthNode(curr, k);
+            if (kthNode == null) {
+                prevGroupTail.next = curr;
+                break;
+            }
+            
+            Node  nextGroupHead = kthNode.next;
+            kthNode.next = null;
+            
+            prevGroupTail.next = reverseSublist(curr);
             prevGroupTail = curr;
             curr = nextGroupHead;
         }

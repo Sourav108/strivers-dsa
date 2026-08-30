@@ -1,6 +1,6 @@
 # Check if Two Trees are Identical / Same Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if Two Trees are Identical / Same Tree](https://takeuforward.org/data-structure/check-if-two-trees-are-identical/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Serialize both trees to strings and compare strings in $\mathcal{O}(N)$ time and
 
 ### C++17 Code
 ```cpp
+// Tree serialization comparison
+```
+
+### Java Code
+```java
+// Java equivalent
 // Tree serialization comparison
 ```
 
@@ -77,6 +83,33 @@ public:
         
         // Check both left and right subtrees
         return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    boolean isSameTree(TreeNode  p, TreeNode  q) {
+        // Both null . structurally identical
+        if (p == null && q == null) return true;
+        
+        // One null and one non-null . structural mismatch
+        if (p == null || q == null) return false;
+        
+        // Value mismatch
+        if (p.val != q.val) return false;
+        
+        // Check both left and right subtrees
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 };
 ```

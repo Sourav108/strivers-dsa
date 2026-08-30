@@ -1,6 +1,6 @@
 # Printing Longest Increasing Subsequence (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Printing Longest Increasing Subsequence](https://takeuforward.org/data-structure/printing-longest-increasing-subsequence-dp-42/)
 - **Difficulty**: Medium
@@ -41,6 +41,13 @@ Recursively generate all $2^N$ increasing subsequences and select the longest in
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^N) subsequence search
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^N) subsequence search
 };
@@ -104,6 +111,53 @@ public:
         while (parent[lastIndex] != lastIndex) {
             lastIndex = parent[lastIndex];
             lis.push_back(nums[lastIndex]);
+        }
+        
+        // Reverse because elements were collected backwards
+        reverse(lis.begin(), lis.end());
+        return lis;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] printingLongestIncreasingSubsequence(int[] nums, int n) {
+        int[] dp = new int[n];
+        int[] parent = new int[n];
+        
+        // Initialize each node as its own parent
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+        
+        int maxLIS = 1;
+        int lastIndex = 0;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i] && 1 + dp[j] > dp[i]) {
+                    dp[i] = 1 + dp[j];
+                    parent[i] = j; // Record predecessor index
+                }
+            }
+            if (dp[i] > maxLIS) {
+                maxLIS = dp[i];
+                lastIndex = i;
+            }
+        }
+        
+        // Backtrack to reconstruct the LIS array
+        List<Integer> lis = new ArrayList<>();
+        lis.add(nums[lastIndex]);
+        
+        while (parent[lastIndex] != lastIndex) {
+            lastIndex = parent[lastIndex];
+            lis.add(nums[lastIndex]);
         }
         
         // Reverse because elements were collected backwards

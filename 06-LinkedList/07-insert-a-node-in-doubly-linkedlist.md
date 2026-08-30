@@ -1,6 +1,6 @@
 # Insert a Node in DLL (Head, Tail, Before Kth) (Step 6.2 — Learn Doubly LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Insert a Node in DLL (Head, Tail, Before Kth)](https://takeuforward.org/data-structure/insert-node-in-doubly-linked-list/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Converting to array, inserting, reconstructing.
 
 ### C++17 Code
 ```cpp
+// Array conversion
+```
+
+### Java Code
+```java
+// Java equivalent
 // Array conversion
 ```
 
@@ -94,6 +100,50 @@ Node* insertBeforeK(Node* head, int val, int k) {
     Node* newNode = new Node(val, curr, prevNode);
     prevNode->next = newNode;
     curr->prev = newNode;
+    return head;
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    Node  prev;
+    public Node(int val) { /* initialized: data(val), next(null), prev(null)  */  }
+};
+
+// 1. Insert Before Head: O(1)
+Node  insertBeforeHead(Node  head, int val) {
+    Node  newHead = new Node(val, head, null);
+    if (head) head.prev = newHead;
+    return newHead;
+}
+
+// 2. Insert Before Tail: O(N)
+Node  insertBeforeTail(Node  head, int val) {
+    if (head.next == null) return insertBeforeHead(head, val);
+    Node  tail = head;
+    while (tail.next != null) tail = tail.next;
+    
+    Node  prevNode = tail.prev;
+    Node  newNode = new Node(val, tail, prevNode);
+    prevNode.next = newNode;
+    tail.prev = newNode;
+    return head;
+}
+
+// 3. Insert Before K-th Node (1-indexed)
+Node  insertBeforeK(Node  head, int val, int k) {
+    if (k == 1) return insertBeforeHead(head, val);
+    Node  curr = head;
+    for (int i = 1; i < k && curr != null; i++) curr = curr.next;
+    if (curr == null) return head;
+    
+    Node  prevNode = curr.prev;
+    Node  newNode = new Node(val, curr, prevNode);
+    prevNode.next = newNode;
+    curr.prev = newNode;
     return head;
 }
 ```

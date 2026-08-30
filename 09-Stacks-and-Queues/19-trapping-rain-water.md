@@ -1,6 +1,6 @@
 # Trapping Rain Water (Two Pointers & Monotonic Stack) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Trapping Rain Water (Two Pointers & Monotonic Stack)](https://takeuforward.org/data-structure/trapping-rainwater/)
 - **Difficulty**: Hard
@@ -36,6 +36,12 @@ For every bar $i$, find `leftMax` and `rightMax` via two linear loops in $\mathc
 // O(N^2) brute force
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N^2) brute force
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -65,6 +71,23 @@ int trapPrefixSuffix(vector<int>& height) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int trapPrefixSuffix(int[] height) {
+        int n = height.length;
+        int[] leftMax(n), rightMax(n);
+        leftMax[0] = height[0];
+        for (int i = 1; i < n; i++) leftMax[i] = Math.max(leftMax[i-1], height[i]);
+        rightMax[n-1] = height[n-1];
+        for (int i = n - 2; i >= 0; i--) rightMax[i] = Math.max(rightMax[i+1], height[i]);
+        int water = 0;
+        for (int i = 0; i < n; i++) water += Math.min(leftMax[i], rightMax[i]) - height[i];
+        return water;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(2N)$ array space.
@@ -87,6 +110,41 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int n = height.size();
+        if (n <= 2) return 0;
+        
+        int left = 0, right = n - 1;
+        int leftMax = 0, rightMax = 0;
+        int totalWater = 0;
+        
+        while (left <= right) {
+            if (height[left] <= height[right]) {
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];
+                } else {
+                    totalWater += leftMax - height[left];
+                }
+                left++;
+            } else {
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];
+                } else {
+                    totalWater += rightMax - height[right];
+                }
+                right--;
+            }
+        }
+        
+        return totalWater;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int trap(int[] height) {
+        int n = height.length;
         if (n <= 2) return 0;
         
         int left = 0, right = n - 1;

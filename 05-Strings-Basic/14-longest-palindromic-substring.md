@@ -1,6 +1,6 @@
 # Longest Palindromic Substring (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Palindromic Substring](https://takeuforward.org/data-structure/longest-palindromic-substring/)
 - **Difficulty**: Medium
@@ -50,6 +50,25 @@ string longestPalinBrute(string s) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    String longestPalinBrute(String s) {
+        int n = s.length();
+        String best = "";
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                int l = i, r = j;
+                boolean ok = true;
+                while (l < r) if (s[l++] != s[r--]) { ok = false; break; }
+                if (ok && (j - i + 1) > best.length()) best = s.substring(i, i + j - i + 1);
+            }
+        }
+        return best;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^3)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -84,6 +103,30 @@ string longestPalinDP(string s) {
         }
     }
     return s.substr(start, maxLen);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    String longestPalinDP(String s) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        int start = 0, maxLen = 1;
+        for (int i = 0; i < n; i++) dp[i][i] = true;
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (s[i] == s[j]) {
+                    if (len == 2 || dp[i + 1][j - 1]) {
+                        dp[i][j] = true;
+                        if (len > maxLen) { start = i; maxLen = len; }
+                    }
+                }
+            }
+        }
+        return s.substring(start, start + maxLen);
+    }
 }
 ```
 
@@ -136,6 +179,42 @@ public:
         }
         
         return s.substr(start, maxLen);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int expandAroundCenter(String s, int left, int right) {
+        int n = s.length();
+        while (left >= 0 && right < n && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        // Length of palindrome: (right - 1) - (left + 1) + 1 = right - left - 1
+        return right - left - 1;
+    }
+
+    String longestPalindrome(String s) {
+        if (s.isEmpty()) return "";
+        
+        int start = 0, maxLen = 0;
+        int n = s.length();
+        
+        for (int i = 0; i < n; i++) {
+            int lenOdd  = expandAroundCenter(s, i, i);     // odd length palindrome (center at i)
+            int lenEven = expandAroundCenter(s, i, i + 1); // even length palindrome (center between i and i+1)
+            int len = Math.max(lenOdd, lenEven);
+            
+            if (len > maxLen) {
+                maxLen = len;
+                start = i - (len - 1) / 2;
+            }
+        }
+        
+        return s.substring(start, start + maxLen);
     }
 };
 ```

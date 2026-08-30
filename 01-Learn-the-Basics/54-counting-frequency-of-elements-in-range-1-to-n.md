@@ -1,6 +1,6 @@
 # Counting Frequency of Elements in Range 1 to N (O(1) Space) (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Counting Frequency of Elements in Range 1 to N (O(1) Space)](https://takeuforward.org/data-structure/frequency-of-elements/)
 - **Difficulty**: Easy
@@ -45,6 +45,20 @@ vector<int> countFreqExtraSpace(vector<int>& arr) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[] countFreqExtraSpace(int[] arr) {
+        int n = arr.length;
+        int[] freq = new int[n];
+        for (int x : arr) {
+            if (x >= 1 && x <= n) freq[x - 1]++;
+        }
+        return freq;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ time.
 - **Space Complexity**: $\mathcal{O}(n)$ auxiliary memory.
@@ -72,6 +86,33 @@ class Solution {
 public:
     // Function to count the frequency of all elements from 1 to N in-place
     void frequencyCount(vector<int>& arr, int N, int P) {
+        int K = N + 1; // Base multiplier
+        
+        // Pass 1: Encode frequencies using modulo arithmetic
+        for (int i = 0; i < N; i++) {
+            // Extract the original element value before any modifications
+            int originalVal = arr[i] % K;
+            
+            // If the element is within range [1, N], increment the count at index (originalVal - 1)
+            if (originalVal >= 1 && originalVal <= N) {
+                arr[originalVal - 1] += K;
+            }
+        }
+        
+        // Pass 2: Extract frequency counts (quotient of division by K)
+        for (int i = 0; i < N; i++) {
+            arr[i] = arr[i] / K;
+        }
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    // Function to count the frequency of all elements from 1 to N in-place
+    void frequencyCount(int[] arr, int N, int P) {
         int K = N + 1; // Base multiplier
         
         // Pass 1: Encode frequencies using modulo arithmetic

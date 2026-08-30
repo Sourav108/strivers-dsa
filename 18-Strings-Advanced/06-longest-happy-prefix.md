@@ -1,6 +1,6 @@
 # Longest Happy Prefix (Proper Prefix which is also Suffix) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Happy Prefix (Proper Prefix which is also Suffix)](https://takeuforward.org/strings/longest-happy-prefix/)
 - **Difficulty**: Hard
@@ -61,6 +61,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    String longestPrefix(String s) {
+        int n = s.length;
+        for (int len = n - 1; len >= 1; len--) {
+            if (s.substring(0, 0 + len) == s.substring(n - len, n - len + len)) {
+                return s.substring(0, 0 + len);
+            }
+        }
+        return "";
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ space.
@@ -91,6 +107,25 @@ public:
             if (prefixHash == suffixHash) maxLen = i + 1;
         }
         return s.substr(0, maxLen);
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionRollingHash {
+
+    String longestPrefix(String s) {
+        int n = s.length;
+        long prefixHash = 0, suffixHash = 0, power = 1, BASE = 31, MOD = 1e9 + 7;
+        int maxLen = 0;
+        for (int i = 0; i < n - 1; i++) {
+            prefixHash = (prefixHash * BASE + (s[i] - 'a' + 1)) % MOD;
+            suffixHash = (suffixHash + (s[n - 1 - i] - 'a' + 1) * power) % MOD;
+            power = (power * BASE) % MOD;
+            if (prefixHash == suffixHash) maxLen = i + 1;
+        }
+        return s.substring(0, 0 + maxLen);
     }
 };
 ```
@@ -143,6 +178,42 @@ public:
         // lps[n - 1] is the length of the longest happy prefix
         int happyLen = lps[n - 1];
         return s.substr(0, happyLen);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String longestPrefix(String s) {
+        int n = s.length;
+        if (n <= 1) return "";
+        
+        // lps[i] stores the length of the longest proper prefix of s[0...i] that is also a suffix
+        int[] lps = new int[n];
+        
+        int len = 0; // Length of previous longest prefix suffix
+        int i = 1;
+        
+        while (i < n) {
+            if (s[i] == s[len]) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1]; // Fallback to previous longest prefix suffix
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        
+        // lps[n - 1] is the length of the longest happy prefix
+        int happyLen = lps[n - 1];
+        return s.substring(0, 0 + happyLen);
     }
 };
 ```

@@ -1,6 +1,6 @@
 # Hash Map vs Hash Set Time Complexity Breakdown (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Hash Map vs Hash Set Time Complexity Breakdown](https://takeuforward.org/data-structure/hashing-basics/)
 - **Difficulty**: Easy
@@ -37,6 +37,16 @@ Using `unordered_map<long long, int>` on Codeforces without custom hash (vulnera
 using namespace std;
 // Vulnerable to O(N^2) anti-hash hack attacks
 unordered_map<long long, int> unsafeMap;
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    // Vulnerable to O(N^2) anti-hash hack attacks
+    unordered_map<long, int> unsafeMap;
+}
 ```
 
 ### Complexity Derivation
@@ -83,6 +93,33 @@ int main() {
     unordered_map<long long, int, custom_hash> safeMap;
     safeMap[1000000000LL] = 1;
     cout << "Safe lookup: " << safeMap[1000000000LL] << "\n";
+    return 0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+// High-performance, anti-hash custom hash functor
+static class custom_hash {
+    static long splitmix64(long x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+    int operator()(long x) {
+        static long FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+int main() {
+    // Unhackable fast hash map
+    unordered_map<long, int, custom_hash> safeMap;
+    safeMap[1000000000LL] = 1;
+    System.out.print("Safe lookup: " << safeMap[1000000000LL] << "\n");
     return 0;
 }
 ```

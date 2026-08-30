@@ -1,6 +1,6 @@
 # Find Square Root of an Integer using Binary Search (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #69 - Sqrt(x)](https://leetcode.com/problems/sqrtx/) | [TakeUForward](https://takeuforward.org/binary-search/finding-sqrt-of-a-number-using-binary-search/)
 - **Difficulty**: Easy
@@ -63,6 +63,21 @@ int mySqrtLinear(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int mySqrtLinear(int n) {
+        if (n == 0) return 0;
+        
+        int ans = 1;
+        for (long i = 1; i * i <= (long)n; i++) {
+            ans = (int)i;
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\sqrt{n})$ — the loop runs $\lfloor \sqrt{n} \rfloor$ times. For $n = 2^{31}-1 \approx 2.14 \times 10^9$, $\sqrt{n} \approx 46,340$ operations (acceptable for 32-bit $n$, but $\mathcal{O}(\sqrt{n})$ for 64-bit integers $n = 10^{18}$ takes $10^9$ operations and causes TLE).
 - **Space Complexity**: $\mathcal{O}(1)$ — uses only scalar integer variables.
@@ -89,6 +104,21 @@ int mySqrtNewton(int n) {
         x = (x + n / x) / 2;
     }
     return (int)x;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int mySqrtNewton(int n) {
+        if (n == 0) return 0;
+        
+        long x = n;
+        while (x * x > n) {
+            x = (x + n / x) / 2;
+        }
+        return (int)x;
+    }
 }
 ```
 
@@ -140,6 +170,35 @@ int mySqrt(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int mySqrt(int n) {
+        if (n == 0) return 0;
+        
+        int low = 1;
+        int high = n;
+        int ans = 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            // Use 64-bit integer to prevent arithmetic overflow in mid * mid
+            long sq = (long)mid * mid;
+            
+            if (sq <= n) {
+                ans = mid;       // candidate found, look for larger integer on right
+                low = mid + 1;
+            } else {
+                high = mid - 1;  // mid^2 > n, look on left
+            }
+        }
+        
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log_2 n)$ — search space $[1..n]$ is halved in every comparison (at most $31$ iterations for $n = 2^{31}-1$).
 - **Space Complexity**: $\mathcal{O}(1)$ — constant auxiliary memory.
@@ -158,7 +217,8 @@ Dry Run for $n = 28$:
 | **3** | `1` | `6` | `3` | `9` | `9 <= 28` (True) | `ans = 3, low = mid + 1 = 4` | `[4..6]` |
 | **4** | `4` | `6` | `5` | `25` | `25 <= 28` (True) | `ans = 5, low = mid + 1 = 6` | `[6..6]` |
 | **5** | `6` | `6` | `6` | `36` | `36 <= 28` (False) | `high = mid - 1 = 5` | `low (6) > high (5)` |
-| **Exit** | `6` | `5` | - | - | - | **Return `ans = 5`** | ✅ Correct ($\lfloor \sqrt{28} floor = 5$) |
+| **Exit** | `6` | `5` | - | - | - | **Return `ans = 5`** | ✅ Correct ($\lfloor \sqrt{28} 
+floor = 5$) |
 
 ---
 

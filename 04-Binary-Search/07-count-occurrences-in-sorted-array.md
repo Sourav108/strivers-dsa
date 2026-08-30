@@ -1,6 +1,6 @@
 # Count Occurrences of a Number in Sorted Array (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Occurrences of a Number in Sorted Array](https://takeuforward.org/data-structure/count-occurrences-in-sorted-array/)
 - **Difficulty**: Easy
@@ -47,6 +47,20 @@ int countOccurrencesLinear(const vector<int>& nums, int x) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int countOccurrencesLinear(int[] nums, int x) {
+        int cnt = 0;
+        for (int num : nums) {
+            if (num == x) cnt++;
+            else if (num > x) break;
+        }
+        return cnt;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ — linear scan.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant space.
@@ -69,6 +83,17 @@ int countOccurrencesSTL(const vector<int>& nums, int x) {
     auto lb = lower_bound(nums.begin(), nums.end(), x);
     auto ub = upper_bound(nums.begin(), nums.end(), x);
     return ub - lb;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int countOccurrencesSTL(int[] nums, int x) {
+        var lb = lower_bound(nums.begin(), nums.end(), x);
+        var ub = upper_bound(nums.begin(), nums.end(), x);
+        return ub - lb;
+    }
 }
 ```
 
@@ -120,6 +145,44 @@ int countOccurrences(const vector<int>& nums, int x) {
     if (first == -1) return 0;
     int last = findLast(nums, x);
     return last - first + 1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findFirst(int[] nums, int x) {
+        int low = 0, high = nums.length - 1, first = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == x) {
+                first = mid;
+                high = mid - 1;
+            } else if (nums[mid] < x) low = mid + 1;
+            else high = mid - 1;
+        }
+        return first;
+    }
+    
+    int findLast(int[] nums, int x) {
+        int low = 0, high = nums.length - 1, last = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] == x) {
+                last = mid;
+                low = mid + 1;
+            } else if (nums[mid] < x) low = mid + 1;
+            else high = mid - 1;
+        }
+        return last;
+    }
+    
+    int countOccurrences(int[] nums, int x) {
+        int first = findFirst(nums, x);
+        if (first == -1) return 0;
+        int last = findLast(nums, x);
+        return last - first + 1;
+    }
 }
 ```
 

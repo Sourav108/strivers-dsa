@@ -1,6 +1,6 @@
 # If-Else & Switch Statements in C++ (Step 1.1 — Things to Know in C++)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [If-Else & Switch Statements in C++](https://takeuforward.org/c/if-else-statements-in-c/)
 - **Difficulty**: Easy
@@ -41,6 +41,22 @@ string getDayNameIfElse(int day) {
     else if (day == 6) return "Saturday";
     else if (day == 7) return "Sunday";
     return "Invalid";
+}
+```
+
+### Java Code
+```java
+class Solution {
+    String getDayNameIfElse(int day) {
+        if (day == 1) return "Monday";
+        else if (day == 2) return "Tuesday";
+        else if (day == 3) return "Wednesday";
+        else if (day == 4) return "Thursday";
+        else if (day == 5) return "Friday";
+        else if (day == 6) return "Saturday";
+        else if (day == 7) return "Sunday";
+        return "Invalid";
+    }
 }
 ```
 
@@ -91,6 +107,36 @@ int main() {
     cout << "Result: " << result << "\n";
     
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    String getDayNameSwitch(int day) {
+        switch (day) {
+            case 1: return "Monday";
+            case 2: return "Tuesday";
+            case 3: return "Wednesday";
+            case 4: return "Thursday";
+            case 5: return "Friday";
+            case 6: return "Saturday";
+            case 7: return "Sunday";
+            default: return "Invalid";
+        }
+    }
+    
+    int main() {
+        int day = 3;
+        System.out.print("Day " << day << ": " << getDayNameSwitch(day) << "\n");
+        
+        // Ternary operator: concise if-else
+        int score = 85;
+        String result = (score >= 40) ? "Pass" : "Fail";
+        System.out.print("Result: " << result << "\n");
+        
+        return 0;
+    }
 }
 ```
 

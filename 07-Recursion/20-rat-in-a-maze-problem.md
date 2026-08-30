@@ -1,6 +1,6 @@
 # Rat in a Maze Problem (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Rat in a Maze Problem](https://takeuforward.org/data-structure/rat-in-a-maze/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generating random paths with visited matrix and sorting result list.
 
 ### C++17 Code
 ```cpp
+// Unordered directions with sort
+```
+
+### Java Code
+```java
+// Java equivalent
 // Unordered directions with sort
 ```
 
@@ -98,6 +104,53 @@ public:
         if (mat[0][0] == 0 || mat[n - 1][n - 1] == 0) return ans;
         
         string path = "";
+        solve(0, 0, mat, n, path, ans);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    // Lexicographical order: 'D', 'L', 'R', 'U'
+    int di[4] = {+1, 0, 0, -1};
+    int dj[4] = {0, -1, +1, 0};
+    char dirChar[4] = {'D', 'L', 'R', 'U'};
+    
+    void solve(int i, int j, int[][] mat, int n, String path, String[] ans) {
+        if (i == n - 1 && j == n - 1) {
+            ans.add(path);
+            return;
+        }
+        
+        // Mark cell visited
+        mat[i][j] = 0;
+        
+        for (int k = 0; k < 4; k++) {
+            int nextI = i + di[k];
+            int nextJ = j + dj[k];
+            
+            if (nextI >= 0 && nextI < n && nextJ >= 0 && nextJ < n && mat[nextI][nextJ] == 1) {
+                path.add(dirChar[k]);
+                solve(nextI, nextJ, mat, n, path, ans);
+                path.remove(); // backtrack
+            }
+        }
+        
+        // Restore cell (backtrack)
+        mat[i][j] = 1;
+    }
+
+    String[] findPath(int[][] mat) {
+        List<String> ans = new ArrayList<>();
+        int n = mat.length;
+        if (mat[0][0] == 0 || mat[n - 1][n - 1] == 0) return ans;
+        
+        String path = "";
         solve(0, 0, mat, n, path, ans);
         return ans;
     }

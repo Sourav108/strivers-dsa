@@ -1,6 +1,6 @@
 # Check for Symmetrical Binary Tree (Mirror Reflection) (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check for Symmetrical Binary Tree (Mirror Reflection)](https://takeuforward.org/data-structure/check-for-symmetrical-binary-tree/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Invert right subtree, then check if left subtree and inverted right subtree are 
 
 ### C++17 Code
 ```cpp
+// Invert and check identical
+```
+
+### Java Code
+```java
+// Java equivalent
 // Invert and check identical
 ```
 
@@ -78,6 +84,33 @@ public:
     bool isSymmetric(TreeNode* root) {
         if (root == nullptr) return true;
         return isMirror(root->left, root->right);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    boolean isMirror(TreeNode  t1, TreeNode  t2) {
+        if (t1 == null && t2 == null) return true;
+        if (t1 == null || t2 == null) return false;
+        
+        return (t1.val == t2.val) &&
+               isMirror(t1.left, t2.right) &&
+               isMirror(t1.right, t2.left);
+    }
+
+    boolean isSymmetric(TreeNode  root) {
+        if (root == null) return true;
+        return isMirror(root.left, root.right);
     }
 };
 ```

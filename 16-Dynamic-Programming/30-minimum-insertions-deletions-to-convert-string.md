@@ -1,6 +1,6 @@
 # Minimum Insertions/Deletions to Convert String A to String B (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Insertions/Deletions to Convert String A to String B](https://takeuforward.org/data-structure/minimum-insertions-deletions-to-convert-string-dp-30/)
 - **Difficulty**: Medium
@@ -40,6 +40,13 @@ Recursively explore all insert/delete choices in $\mathcal{O}(2^{\min(N, M)})$ t
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^(N+M)) recursion
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^(N+M)) recursion
 };
@@ -96,6 +103,44 @@ public:
     int minDistance(string word1, string word2) {
         int n = word1.size();
         int m = word2.size();
+        
+        int lcsLength = lcs(word1, word2);
+        
+        // Deletions from word1: (n - lcsLength)
+        // Insertions for word2: (m - lcsLength)
+        // Total steps = (n - lcsLength) + (m - lcsLength) = n + m - 2 * lcsLength
+        return (n - lcsLength) + (m - lcsLength);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    // Helper function to compute LCS length in O(Math.min(N, M)) space
+    int lcs(String s1, String s2) {
+        if (s1.length < s2.length) int temp = s1; s1 = s2; s2 = temp;
+        int n = s1.length, m = s2.length;
+        int[] prev = new int[m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            int[] cur = new int[m + 1];
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) {
+                    cur[j] = 1 + prev[j - 1];
+                } else {
+                    cur[j] = Math.max(prev[j], cur[j - 1]);
+                }
+            }
+            prev = cur;
+        }
+        return prev[m];
+    }
+
+    int minDistance(String word1, String word2) {
+        int n = word1.length;
+        int m = word2.length;
         
         int lcsLength = lcs(word1, word2);
         

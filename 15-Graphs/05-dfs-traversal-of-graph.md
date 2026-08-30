@@ -1,6 +1,6 @@
 # Depth First Search (DFS) Traversal (Step 15.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Depth First Search (DFS) Traversal](https://takeuforward.org/data-structure/depth-first-search-dfs-traversal-graph/)
 - **Difficulty**: Easy
@@ -53,6 +53,29 @@ vector<int> dfsIterative(int V, vector<vector<int>>& adj) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] dfsIterative(int V, int[][] adj) {
+        int[] dfs, vis(V, 0);
+        Stack<Integer> st = new Stack<>();
+        st.push(0);
+        while (!st.isEmpty()) {
+            int node = st.peek(); st.pop();
+            if (!vis[node]) {
+                vis[node] = 1;
+                dfs.add(node);
+                for (var it = adj[node].rbegin(); it != adj[node].rend(); ++it)
+                    if (!vis[it]) st.push(it);
+            }
+        }
+        return dfs;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V + 2E)$ time.
 - **Space Complexity**: $\mathcal{O}(V)$ stack.
@@ -94,6 +117,36 @@ public:
     vector<int> dfsOfGraph(int V, vector<vector<int>>& adj) {
         vector<int> dfs;
         vector<int> vis(V, 0);
+        
+        // Start DFS from vertex 0
+        dfsHelper(0, adj, vis, dfs);
+        
+        return dfs;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void dfsHelper(int node, int[][] adj, int[] vis, int[] dfs) {
+        vis[node] = 1;
+        dfs.add(node);
+        
+        // Traverse all adjacent vertices recursively
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                dfsHelper(neighbor, adj, vis, dfs);
+            }
+        }
+    }
+
+    int[] dfsOfGraph(int V, int[][] adj) {
+        List<Integer> dfs = new ArrayList<>();
+        int[] vis = new int[V];
         
         // Start DFS from vertex 0
         dfsHelper(0, adj, vis, dfs);

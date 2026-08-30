@@ -1,6 +1,6 @@
 # Pow(x, n) - Implement Binary Exponentiation Recursively (Step 7.1 — Get a Strong Hold)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Pow(x, n) - Implement Binary Exponentiation Recursively](https://takeuforward.org/data-structure/calculate-the-power-of-a-number/)
 - **Difficulty**: Medium
@@ -37,6 +37,17 @@ double powLinear(double x, int n) {
     double ans = 1.0;
     for (int i = 0; i < abs(n); i++) ans *= x;
     return (n < 0) ? 1.0 / ans : ans;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    double powLinear(double x, int n) {
+        double ans = 1.0;
+        for (int i = 0; i < Math.abs(n); i++) ans *= x;
+        return (n < 0) ? 1.0 / ans : ans;
+    }
 }
 ```
 
@@ -77,6 +88,33 @@ private:
 public:
     double myPow(double x, int n) {
         long long N = n; // safe cast for INT_MIN
+        if (N < 0) {
+            x = 1.0 / x;
+            N = -N;
+        }
+        return binaryPow(x, N);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    double binaryPow(double x, long n) {
+        if (n == 0) return 1.0;
+        
+        double half = binaryPow(x, n / 2);
+        
+        if (n % 2 == 0) {
+            return half * half;
+        } else {
+            return x * half * half;
+        }
+    }
+
+    double myPow(double x, int n) {
+        long N = n; // safe cast for Integer.MIN_VALUE
         if (N < 0) {
             x = 1.0 / x;
             N = -N;

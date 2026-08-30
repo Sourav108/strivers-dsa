@@ -1,6 +1,6 @@
 # Partition Array for Maximum Sum (Front Partition DP) (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Partition Array for Maximum Sum (Front Partition DP)](https://takeuforward.org/data-structure/partition-array-for-maximum-sum-front-partition-dp-54/)
 - **Difficulty**: Medium
@@ -59,6 +59,26 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int[] arr, int k) {
+        if (i == arr.length) return 0;
+        int maxVal = 0, maxSum = 0;
+        for (int j = i; j < Math.min(arr.length, i + k); j++) {
+            maxVal = Math.max(maxVal, arr[j]);
+            int sum = (j - i + 1) * maxVal + solve(j + 1, arr, k);
+            maxSum = Math.max(maxSum, sum);
+        }
+        return maxSum;
+    }
+
+    int maxSumAfterPartitioning(int[] arr, int k) {
+        return solve(0, arr, k);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(K^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -101,6 +121,36 @@ public:
                 
                 int currentSum = len * maxVal + dp[i + len];
                 maxPartitionSum = max(maxPartitionSum, currentSum);
+            }
+            
+            dp[i] = maxPartitionSum;
+        }
+        
+        return dp[0];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxSumAfterPartitioning(int[] arr, int k) {
+        int n = arr.length;
+        
+        // dp[i] stores maximum partitioned sum for suffix arr[i ... n - 1]
+        int[] dp = new int[n + 1];
+        
+        for (int i = n - 1; i >= 0; i--) {
+            int maxVal = 0;
+            int maxPartitionSum = 0;
+            
+            // Explore all valid partition lengths from 1 to k
+            for (int len = 1; len <= k && i + len <= n; len++) {
+                maxVal = Math.max(maxVal, arr[i + len - 1]);
+                
+                int currentSum = len * maxVal + dp[i + len];
+                maxPartitionSum = Math.max(maxPartitionSum, currentSum);
             }
             
             dp[i] = maxPartitionSum;

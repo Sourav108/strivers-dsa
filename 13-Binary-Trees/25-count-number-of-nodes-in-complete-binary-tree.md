@@ -1,6 +1,6 @@
 # Count Total Nodes in a COMPLETE Binary Tree in O((log N)^2) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Total Nodes in a COMPLETE Binary Tree in O((log N)^2)](https://takeuforward.org/data-structure/count-number-of-nodes-in-a-binary-tree/)
 - **Difficulty**: Medium
@@ -36,6 +36,16 @@ Standard recursive traversal visiting all $N$ nodes in $\mathcal{O}(N)$ time.
 int countNodesBrute(TreeNode* root) {
     if (!root) return 0;
     return 1 + countNodesBrute(root->left) + countNodesBrute(root->right);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int countNodesBrute(TreeNode  root) {
+        if (root == null) return 0;
+        return 1 + countNodesBrute(root.left) + countNodesBrute(root.right);
+    }
 }
 ```
 
@@ -100,6 +110,52 @@ public:
         
         // Otherwise at least one child subtree is guaranteed to be perfect
         return 1 + countNodes(root->left) + countNodes(root->right);
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int getLeftHeight(TreeNode  node) {
+        int height = 0;
+        while (node != null) {
+            height++;
+            node = node.left;
+        }
+        return height;
+    }
+    
+    int getRightHeight(TreeNode  node) {
+        int height = 0;
+        while (node != null) {
+            height++;
+            node = node.right;
+        }
+        return height;
+    }
+
+    int countNodes(TreeNode  root) {
+        if (root == null) return 0;
+        
+        int lh = getLeftHeight(root);
+        int rh = getRightHeight(root);
+        
+        // If leftmost height equals rightmost height, subtree is Perfect!
+        if (lh == rh) {
+            return (1 << lh) - 1; // Formula 2^h - 1
+        }
+        
+        // Otherwise at least one child subtree is guaranteed to be perfect
+        return 1 + countNodes(root.left) + countNodes(root.right);
     }
 };
 ```

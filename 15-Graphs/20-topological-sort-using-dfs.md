@@ -1,6 +1,6 @@
 # Topological Sort using DFS (Finish time stack) (Step 15.3 — Topological Sort and Kahn's Algorithm)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Topological Sort using DFS (Finish time stack)](https://takeuforward.org/data-structure/topological-sort-algorithm-dfs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Repeatedly find a vertex with in-degree 0, remove it, and repeat $V$ times with 
 
 ### C++17 Code
 ```cpp
+// O(V^2) repeated in-degree scan
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V^2) repeated in-degree scan
 ```
 
@@ -92,6 +98,49 @@ public:
         vector<int> topo;
         while (!st.empty()) {
             topo.push_back(st.top());
+            st.pop();
+        }
+        
+        return topo;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void dfs(int node, int[][] adj, int[] vis, Stack<Integer> st) {
+        vis[node] = 1;
+        
+        // Explore all outgoing directed neighbors
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                dfs(neighbor, adj, vis, st);
+            }
+        }
+        
+        // Push node onto stack ONLY after all its dependencies/descendants finish
+        st.push(node);
+    }
+
+    int[] topoSort(int V, int[][] adj) {
+        int[] vis = new int[V];
+        Stack<Integer> st = new Stack<>();
+        
+        // Multi-component loop for disconnected DAGs
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfs(i, adj, vis, st);
+            }
+        }
+        
+        // Extract topological order from stack
+        List<Integer> topo = new ArrayList<>();
+        while (!st.isEmpty()) {
+            topo.add(st.peek());
             st.pop();
         }
         

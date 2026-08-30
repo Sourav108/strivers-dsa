@@ -1,6 +1,6 @@
 # Longest String Chain (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest String Chain](https://takeuforward.org/data-structure/longest-string-chain-dp-45/)
 - **Difficulty**: Medium
@@ -43,6 +43,13 @@ Recursively check all word subsets and test valid chains in $\mathcal{O}(2^N)$ t
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^N) recursion
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^N) recursion
 };
@@ -97,6 +104,38 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionLIS2 {
+    boolean isPredecessor(String s1, String s2) {
+        if (s1.length + 1 != s2.length) return false;
+        int i = 0, j = 0;
+        while (j < s2.length) {
+            if (i < s1.length && s1[i] == s2[j]) i++;
+            j++;
+        }
+        return i == s1.length;
+    }
+
+    int longestStrChain(String[] words) {
+        sort(words.begin(), words.end(), [](String a, String b) {
+            return a.length < b.length;
+        });
+        int n = words.length, maxChain = 1;
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (isPredecessor(words[j], words[i]) && 1 + dp[j] > dp[i]) {
+                    dp[i] = 1 + dp[j];
+                }
+            }
+            maxChain = Math.max(maxChain, dp[i]);
+        }
+        return maxChain;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2 \times L)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ space.
@@ -144,6 +183,44 @@ public:
             
             dp[word] = currentChain;
             maxChain = max(maxChain, currentChain);
+        }
+        
+        return maxChain;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int longestStrChain(String[] words) {
+        // Step 1: Sort words in ascending order of their lengths
+        sort(words.begin(), words.end(), [](String a, String b) {
+            return a.length < b.length;
+        });
+        
+        // dp[word] stores the length of the longest chain ending at 'word'
+        Map<String, Integer> dp = new HashMap<>();
+        int maxChain = 1;
+        
+        for (String word : words) {
+            int currentChain = 1;
+            int len = word.length;
+            
+            // Try removing each character one by one to find predecessors
+            for (int i = 0; i < len; i++) {
+                String predecessor = word.substring(0, 0 + i) + word.substring(i + 1);
+                
+                if (dp.find(predecessor) != dp.end()) {
+                    currentChain = Math.max(currentChain, 1 + dp[predecessor]);
+                }
+            }
+            
+            dp[word] = currentChain;
+            maxChain = Math.max(maxChain, currentChain);
         }
         
         return maxChain;

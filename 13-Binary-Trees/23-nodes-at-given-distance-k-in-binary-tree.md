@@ -1,6 +1,6 @@
 # Print all Nodes at Distance K in Binary Tree (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print all Nodes at Distance K in Binary Tree](https://takeuforward.org/data-structure/nodes-at-given-distance-in-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Compute all-pairs shortest paths using Floyd-Warshall in $\mathcal{O}(N^3)$ time
 
 ### C++17 Code
 ```cpp
+// O(N^3) graph shortest path
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^3) graph shortest path
 ```
 
@@ -138,6 +144,93 @@ public:
         vector<int> result;
         while (!q.empty()) {
             result.push_back(q.front()->val);
+            q.pop();
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    void mapParents(TreeNode  root, unordered_map<TreeNode , TreeNode > parentMap) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        
+        while (!q.isEmpty()) {
+            TreeNode  curr = q.peek();
+            q.pop();
+            
+            if (curr.left != null) {
+                parentMap[curr.left] = curr;
+                q.push(curr.left);
+            }
+            if (curr.right != null) {
+                parentMap[curr.right] = curr;
+                q.push(curr.right);
+            }
+        }
+    }
+
+    int[] distanceK(TreeNode  root, TreeNode  target, int k) {
+        if (root == null || target == null) return {};
+        
+        unordered_map<TreeNode , TreeNode > parentMap;
+        mapParents(root, parentMap);
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        unordered_set<TreeNode > visited;
+        
+        q.push(target);
+        visited.add(target);
+        int currentDistance = 0;
+        
+        // Radial BFS outward from target node
+        while (!q.isEmpty()) {
+            if (currentDistance == k) break;
+            
+            int size = q.length;
+            for (int i = 0; i < size; i++) {
+                TreeNode  curr = q.peek();
+                q.pop();
+                
+                // 1. Move Left
+                if (curr.left && visited.find(curr.left) == visited.end()) {
+                    visited.add(curr.left);
+                    q.push(curr.left);
+                }
+                
+                // 2. Move Right
+                if (curr.right && visited.find(curr.right) == visited.end()) {
+                    visited.add(curr.right);
+                    q.push(curr.right);
+                }
+                
+                // 3. Move Up (Parent)
+                if (parentMap.contains(curr) && visited.find(parentMap[curr]) == visited.end()) {
+                    visited.add(parentMap[curr]);
+                    q.push(parentMap[curr]);
+                }
+            }
+            
+            currentDistance++;
+        }
+        
+        List<Integer> result = new ArrayList<>();
+        while (!q.isEmpty()) {
+            result.add(q.peek().val);
             q.pop();
         }
         

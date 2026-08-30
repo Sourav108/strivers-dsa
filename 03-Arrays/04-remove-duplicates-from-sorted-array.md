@@ -1,6 +1,6 @@
 # Remove Duplicates from Sorted Array (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/remove-duplicates-in-place-from-sorted-array/
 - **Difficulty**: Easy
@@ -48,6 +48,19 @@ int removeDuplicatesBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int removeDuplicatesBrute(int[] nums) {
+        Set<Integer> st(nums.begin(), nums.end());
+        int i = 0; for (int x : st) nums[i++] = x;
+        return i;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n log n)
 - **Space Complexity**: O(n)
@@ -85,6 +98,23 @@ int removeDuplicatesOptimal(vector<int>& nums) {
         }
     }
     return i + 1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int removeDuplicatesOptimal(int[] nums) {
+        if (nums.isEmpty()) return 0;
+        int i = 0;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] != nums[i]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
 }
 ```
 

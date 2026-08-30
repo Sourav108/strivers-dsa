@@ -1,6 +1,6 @@
 # Generate Parentheses (Valid Combinations) (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Generate Parentheses (Valid Combinations)](https://takeuforward.org/recursion/generate-parentheses/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate all $2^{2n}$ strings of `(` and `)` and validate balance with stack in 
 
 ### C++17 Code
 ```cpp
+// Generate all 2^(2n) strings
+```
+
+### Java Code
+```java
+// Java equivalent
 // Generate all 2^(2n) strings
 ```
 
@@ -88,6 +94,43 @@ public:
     vector<string> generateParenthesis(int n) {
         vector<string> result;
         string current = "";
+        backtrack(0, 0, n, current, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void backtrack(int openCount, int closeCount, int n, String current, String[] result) {
+        // Base case: length reaches 2n
+        if (current.length() == 2 * n) {
+            result.add(current);
+            return;
+        }
+        
+        // Choice 1: Add '(' if we still have available opening brackets
+        if (openCount < n) {
+            current.add('(');
+            backtrack(openCount + 1, closeCount, n, current, result);
+            current.remove(); // backtrack
+        }
+        
+        // Choice 2: Add ')' only if closing brackets are fewer than opening brackets
+        if (closeCount < openCount) {
+            current.add(')');
+            backtrack(openCount, closeCount + 1, n, current, result);
+            current.remove(); // backtrack
+        }
+    }
+
+    String[] generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        String current = "";
         backtrack(0, 0, n, current, result);
         return result;
     }

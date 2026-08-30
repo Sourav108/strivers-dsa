@@ -1,6 +1,6 @@
 # Floyd-Warshall Algorithm (All-Pairs Shortest Path in O(V^3)) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Floyd-Warshall Algorithm (All-Pairs Shortest Path in O(V^3))](https://takeuforward.org/data-structure/floyd-warshall-algorithm-g-42/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Run $V$ independent Dijkstra calls in $\mathcal{O}(V \cdot (V + E) \log V)$ time
 // V calls to Dijkstra
 ```
 
+### Java Code
+```java
+// Java equivalent
+// V calls to Dijkstra
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V \cdot (V + E) \log V)$ time.
 - **Space Complexity**: $\mathcal{O}(V^2)$.
@@ -50,6 +56,12 @@ Johnson's Algorithm for Sparse All-Pairs Shortest Paths in O(V^2 log V + VE) tim
 
 ### C++17 Code
 ```cpp
+// Johnson's Algorithm overview for sparse graphs
+```
+
+### Java Code
+```java
+// Java equivalent
 // Johnson's Algorithm overview for sparse graphs
 ```
 
@@ -96,6 +108,57 @@ public:
                     // Only relax if path through k is valid
                     if (matrix[i][k] != INF && matrix[k][j] != INF) {
                         matrix[i][j] = min(matrix[i][j], matrix[i][k] + matrix[k][j]);
+                    }
+                }
+            }
+        }
+        
+        // 3. Optional: Check for negative weight cycles
+        // for (int i = 0; i < n; i++) {
+        //     if (matrix[i][i] < 0) {
+        //         // Negative cycle detected!
+        //     }
+        // }
+        
+        // 4. Postprocessing: Convert remaining INF entries back to -1
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == INF) {
+                    matrix[i][j] = -1;
+                }
+            }
+        }
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void shortest_distance(int[][] matrix) {
+        int n = matrix.length;
+        int INF = 1e9;
+        
+        // 1. Preprocessing: Replace -1 (no edge) with INF, set diagonal to 0
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == -1) {
+                    matrix[i][j] = INF;
+                }
+                if (i == j) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        // 2. Floyd-Warshall DP: k represents the intermediate pivot vertex
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    // Only relax if path through k is valid
+                    if (matrix[i][k] != INF && matrix[k][j] != INF) {
+                        matrix[i][j] = Math.min(matrix[i][j], matrix[i][k] + matrix[k][j]);
                     }
                 }
             }

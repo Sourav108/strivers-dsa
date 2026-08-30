@@ -1,6 +1,6 @@
 # Kth Element of Two Sorted Arrays (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kth Element of Two Sorted Arrays](https://takeuforward.org/data-structure/k-th-element-of-two-sorted-arrays/)
 - **Difficulty**: Hard
@@ -65,6 +65,32 @@ int kthElementBrute(const vector<int>& arr1, const vector<int>& arr2, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int kthElementBrute(int[] arr1, int[] arr2, int k) {
+        int m = arr1.length, n = arr2.length;
+        int i = 0, j = 0, count = 0;
+        while (i < m && j < n) {
+            int val = (arr1[i] <= arr2[j]) ? arr1[i++] : arr2[j++];
+            count++;
+            if (count == k) return val;
+        }
+        while (i < m) {
+            count++;
+            if (count == k) return arr1[i];
+            i++;
+        }
+        while (j < n) {
+            count++;
+            if (count == k) return arr2[j];
+            j++;
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(k)$ — worst case $\mathcal{O}(m + n)$.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -116,6 +142,46 @@ public:
             
             if (l1 <= r2 && l2 <= r1) {
                 return max(l1, l2); // The k-th element is the maximum of the left partition
+            } else if (l1 > r2) {
+                high = px - 1;      // too many elements from arr1
+            } else {
+                low = px + 1;       // too few elements from arr1
+            }
+        }
+        
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int kthElement(int[] arr1, int[] arr2, int k) {
+        int m = arr1.length;
+        int n = arr2.length;
+        
+        // Ensure arr1 is the smaller array for O(log(Math.min(m, n)))
+        if (m > n) {
+            return kthElement(arr2, arr1, k);
+        }
+        
+        // Bounded search space for elements taken from arr1
+        int low = Math.max(0, k - n);
+        int high = Math.min(k, m);
+        
+        while (low <= high) {
+            int px = low + (high - low) / 2;
+            int py = k - px;
+            
+            int l1 = (px == 0) ? Integer.MIN_VALUE : arr1[px - 1];
+            int r1 = (px == m) ? Integer.MAX_VALUE : arr1[px];
+            int l2 = (py == 0) ? Integer.MIN_VALUE : arr2[py - 1];
+            int r2 = (py == n) ? Integer.MAX_VALUE : arr2[py];
+            
+            if (l1 <= r2 && l2 <= r1) {
+                return Math.max(l1, l2); // The k-th element is the maximum of the left partition
             } else if (l1 > r2) {
                 high = px - 1;      // too many elements from arr1
             } else {

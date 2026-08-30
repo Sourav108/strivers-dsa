@@ -1,6 +1,6 @@
 # Grid Unique Paths II (With Obstacles) (Step 16.2 — 2D/3D DP and DP on Grids)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Grid Unique Paths II (With Obstacles)](https://takeuforward.org/data-structure/grid-unique-paths-2-dp-on-grids-dp9/)
 - **Difficulty**: Medium
@@ -51,6 +51,21 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int dfs(int i, int j, int m, int n, int[][] g) {
+        if (i >= m || j >= n || g[i][j] == 1) return 0;
+        if (i == m - 1 && j == n - 1) return 1;
+        return dfs(i + 1, j, m, n, g) + dfs(i, j + 1, m, n, g);
+    }
+
+    int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        return dfs(0, 0, obstacleGrid.length, obstacleGrid[0].size(), obstacleGrid);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^{M+N})$ time.
 - **Space Complexity**: $\mathcal{O}(M + N)$ recursion stack.
@@ -76,6 +91,33 @@ public:
         if (obstacleGrid[0][0] == 1 || obstacleGrid[m - 1][n - 1] == 1) return 0;
         
         vector<vector<long long>> dp(m, vector<long long>(n, 0));
+        dp[0][0] = 1;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (obstacleGrid[i][j] == 1) {
+                    dp[i][j] = 0;
+                } else {
+                    if (i > 0) dp[i][j] += dp[i - 1][j];
+                    if (j > 0) dp[i][j] += dp[i][j - 1];
+                }
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].size();
+        if (obstacleGrid[0][0] == 1 || obstacleGrid[m - 1][n - 1] == 1) return 0;
+        
+        long[][] dp = new long[m][n];
         dp[0][0] = 1;
         
         for (int i = 0; i < m; i++) {
@@ -136,6 +178,45 @@ public:
                 } else {
                     long long up = (i > 0) ? prev[j] : 0;
                     long long left = (j > 0) ? cur[j - 1] : 0;
+                    cur[j] = up + left;
+                }
+            }
+            prev = cur;
+        }
+        
+        return prev[n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].size();
+        
+        // Base edge case: If start or destination is blocked, 0 paths exist
+        if (obstacleGrid[0][0] == 1 || obstacleGrid[m - 1][n - 1] == 1) {
+            return 0;
+        }
+        
+        // 1D array representing current row paths
+        long[] prev = new long[n];
+        prev[0] = 1; // Start cell
+        
+        for (int i = 0; i < m; i++) {
+            long[] cur = new long[n];
+            for (int j = 0; j < n; j++) {
+                // If obstacle, no paths can pass through this cell
+                if (obstacleGrid[i][j] == 1) {
+                    cur[j] = 0;
+                } else if (i == 0 && j == 0) {
+                    cur[j] = 1;
+                } else {
+                    long up = (i > 0) ? prev[j] : 0;
+                    long left = (j > 0) ? cur[j - 1] : 0;
                     cur[j] = up + left;
                 }
             }

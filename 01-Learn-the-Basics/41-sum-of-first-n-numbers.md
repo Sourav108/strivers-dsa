@@ -1,6 +1,6 @@
 # Sum of First N Numbers (Parameterized & Functional Recursion) (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sum of First N Numbers (Parameterized & Functional Recursion)](https://takeuforward.org/data-structure/sum-of-first-n-natural-numbers/)
 - **Difficulty**: Easy
@@ -40,6 +40,17 @@ long long sumLoop(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    long sumLoop(int n) {
+        long s = 0;
+        for (int i = 1; i <= n; i++) s += i;
+        return s;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -57,6 +68,16 @@ Functional recursion: return n + sumFirstN(n - 1).
 long long sumFunctional(long long n) {
     if (n == 0) return 0;
     return n + sumFunctional(n - 1);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    long sumFunctional(long n) {
+        if (n == 0) return 0;
+        return n + sumFunctional(n - 1);
+    }
 }
 ```
 
@@ -79,6 +100,17 @@ using namespace std;
 class Solution {
 public:
     long long sumOfFirstN(long long n) {
+        // Closed-form Gauss formula with 64-bit overflow safety
+        return (n * (n + 1)) / 2;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    long sumOfFirstN(long n) {
         // Closed-form Gauss formula with 64-bit overflow safety
         return (n * (n + 1)) / 2;
     }

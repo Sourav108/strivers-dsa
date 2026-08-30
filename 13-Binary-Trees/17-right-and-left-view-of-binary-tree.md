@@ -1,6 +1,6 @@
 # Right and Left View of Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Right and Left View of Binary Tree](https://takeuforward.org/data-structure/right-left-view-of-binary-tree/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ BFS level-order queue taking the last (or first) element of each level vector in
 
 ### C++17 Code
 ```cpp
+// BFS level order approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // BFS level order approach
 ```
 
@@ -101,6 +107,57 @@ public:
     
     vector<int> leftSideView(TreeNode* root) {
         vector<int> leftView;
+        getLeftViewDFS(root, 0, leftView);
+        return leftView;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    void getRightViewDFS(TreeNode  node, int level, int[] rightView) {
+        if (node == null) return;
+        
+        // First node visited at this level from the right
+        if (level == rightView.length) {
+            rightView.add(node.val);
+        }
+        
+        getRightViewDFS(node.right, level + 1, rightView); // visit Right first
+        getRightViewDFS(node.left, level + 1, rightView);  // then Left
+    }
+
+    void getLeftViewDFS(TreeNode  node, int level, int[] leftView) {
+        if (node == null) return;
+        
+        // First node visited at this level from the left
+        if (level == leftView.length) {
+            leftView.add(node.val);
+        }
+        
+        getLeftViewDFS(node.left, level + 1, leftView);   // visit Left first
+        getLeftViewDFS(node.right, level + 1, leftView);  // then Right
+    }
+
+    int[] rightSideView(TreeNode  root) {
+        List<Integer> rightView = new ArrayList<>();
+        getRightViewDFS(root, 0, rightView);
+        return rightView;
+    }
+    
+    int[] leftSideView(TreeNode  root) {
+        List<Integer> leftView = new ArrayList<>();
         getLeftViewDFS(root, 0, leftView);
         return leftView;
     }

@@ -1,6 +1,6 @@
 # String to Integer (atoi) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [String to Integer (atoi)](https://takeuforward.org/strings/implement-atoi/)
 - **Difficulty**: Medium
@@ -64,6 +64,21 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionLibrary {
+
+    int myAtoi(String s) {
+        stringstream ss(s);
+        long num = 0;
+        ss >> num;
+        if (num > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        if (num < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        return num;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stream buffer space.
@@ -120,6 +135,51 @@ public:
             // INT_MAX = 2147483647 (ends in 7), INT_MIN = -2147483648 (ends in 8)
             if (result > INT_MAX / 10 || (result == INT_MAX / 10 && digit > 7)) {
                 return (sign == 1) ? INT_MAX : INT_MIN;
+            }
+            
+            result = result * 10 + digit;
+            i++;
+        }
+        
+        return sign * result;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int myAtoi(String s) {
+        int n = s.length;
+        int i = 0;
+        
+        // Step 1: Skip leading whitespace
+        while (i < n && s[i] == ' ') {
+            i++;
+        }
+        
+        if (i == n) return 0; // String contains only whitespace
+        
+        // Step 2: Check optional sign
+        int sign = 1;
+        if (s[i] == '-') {
+            sign = -1;
+            i++;
+        } else if (s[i] == '+') {
+            sign = 1;
+            i++;
+        }
+        
+        // Step 3: Convert digits with 32-bit overflow prevention
+        int result = 0;
+        while (i < n && s[i] >= '0' && s[i] <= '9') {
+            int digit = s[i] - '0';
+            
+            // Check for potential overflow before computing result * 10 + digit
+            // Integer.MAX_VALUE = 2147483647 (ends in 7), Integer.MIN_VALUE = -2147483648 (ends in 8)
+            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && digit > 7)) {
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
             
             result = result * 10 + digit;

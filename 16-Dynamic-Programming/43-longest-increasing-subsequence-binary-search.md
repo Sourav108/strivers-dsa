@@ -1,6 +1,6 @@
 # Longest Increasing Subsequence using Binary Search (Step 16.6 — DP on LIS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Increasing Subsequence using Binary Search](https://takeuforward.org/data-structure/longest-increasing-subsequence-binary-search-dp-43/)
 - **Difficulty**: Medium
@@ -41,6 +41,12 @@ Standard $\mathcal{O}(N^2)$ DP predecessor checking.
 
 ### C++17 Code
 ```cpp
+// O(N^2) 1D DP
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) 1D DP
 ```
 
@@ -91,6 +97,37 @@ public:
         }
         
         return tails.size();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        
+        // tails[i] stores the smallest tail of an increasing subsequence of length (i + 1)
+        List<Integer> tails = new ArrayList<>();
+        
+        for (int x : nums) {
+            // Find the first element in tails >= x using binary search
+            var it = lower_bound(tails.begin(), tails.end(), x);
+            
+            if (it == tails.end()) {
+                // x extends the largest increasing subsequence
+                tails.add(x);
+            } else {
+                // Greedily replace the larger tail with smaller x
+                it = x;
+            }
+        }
+        
+        return tails.length;
     }
 };
 ```

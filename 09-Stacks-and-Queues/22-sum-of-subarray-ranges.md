@@ -1,6 +1,6 @@
 # Sum of Subarray Ranges (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sum of Subarray Ranges](https://takeuforward.org/data-structure/sum-of-subarray-ranges/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Nested loops finding min and max for all $N^2$ subarrays in $\mathcal{O}(N^2)$ t
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute loop
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute loop
 ```
 
@@ -112,6 +118,66 @@ private:
 
 public:
     long long subArrayRanges(vector<int>& nums) {
+        return sumSubarrayMaxs(nums) - sumSubarrayMins(nums);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    long sumSubarrayMins(int[] arr) {
+        int n = arr.length;
+        int[] ple(n), nle(n);
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && arr[st.peek()] > arr[i]) st.pop();
+            ple[i] = st.isEmpty() ? (i + 1) : (i - st.peek());
+            st.push(i);
+        }
+        while (!st.isEmpty()) st.pop();
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] >= arr[i]) st.pop();
+            nle[i] = st.isEmpty() ? (n - i) : (st.peek() - i);
+            st.push(i);
+        }
+        
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += 1LL * arr[i] * ple[i] * nle[i];
+        }
+        return sum;
+    }
+    
+    long sumSubarrayMaxs(int[] arr) {
+        int n = arr.length;
+        int[] pge(n), nge(n);
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && arr[st.peek()] < arr[i]) st.pop();
+            pge[i] = st.isEmpty() ? (i + 1) : (i - st.peek());
+            st.push(i);
+        }
+        while (!st.isEmpty()) st.pop();
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] <= arr[i]) st.pop();
+            nge[i] = st.isEmpty() ? (n - i) : (st.peek() - i);
+            st.push(i);
+        }
+        
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += 1LL * arr[i] * pge[i] * nge[i];
+        }
+        return sum;
+    }
+
+    long subArrayRanges(int[] nums) {
         return sumSubarrayMaxs(nums) - sumSubarrayMins(nums);
     }
 };

@@ -1,6 +1,6 @@
 # Collision Handling: Open Addressing (Linear & Quadratic Probing) (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Collision Handling: Open Addressing (Linear & Quadratic Probing)](https://takeuforward.org/data-structure/open-addressing/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Linear Probing: $h(k, i) = (h'(k) + i) \% M$ (prone to Primary Clustering).
 
 ### C++17 Code
 ```cpp
+// Linear Probing: index = (hash + i) % M
+```
+
+### Java Code
+```java
+// Java equivalent
 // Linear Probing: index = (hash + i) % M
 ```
 
@@ -110,6 +116,61 @@ int main() {
     ht.insert(10, 100);
     ht.insert(17, 200); // 10 % 7 = 3, 17 % 7 = 3 (Collision -> probes 3+1^2=4)
     cout << "Key 17 Val: " << ht.get(17) << "\n";
+    return 0;
+}
+```
+
+### Java Code
+```java
+enum CellState { EMPTY, OCCUPIED, DELETED };
+
+static class Cell {
+    int key;
+    int val;
+    CellState state = EMPTY;
+};
+
+class OpenAddressingHashTable {
+
+    int M;
+    vector<Cell> table;
+
+    public OpenAddressingHashTable(int size = 11) { /* initialized: M(size), table(size)  */  }
+    
+    boolean insert(int key, int val) {
+        int idx = key % M;
+        for (int i = 0; i < M; i++) {
+            int probe = (idx + i * i) % M; // Quadratic Probing: idx + i^2
+            if (table[probe].state == EMPTY || table[probe].state == DELETED) {
+                table[probe] = {key, val, OCCUPIED};
+                return true;
+            }
+            if (table[probe].state == OCCUPIED && table[probe].key == key) {
+                table[probe].val = val; // update existing key
+                return true;
+            }
+        }
+        return false; // Table full
+    }
+    
+    int get(int key) {
+        int idx = key % M;
+        for (int i = 0; i < M; i++) {
+            int probe = (idx + i * i) % M;
+            if (table[probe].state == EMPTY) return -1; // stop on EMPTY
+            if (table[probe].state == OCCUPIED && table[probe].key == key) {
+                return table[probe].val;
+            }
+        }
+        return -1;
+    }
+};
+
+int main() {
+    OpenAddressingHashTable ht(7);
+    ht.add(10, 100);
+    ht.add(17, 200); // 10 % 7 = 3, 17 % 7 = 3 (Collision . probes 3+1^2=4)
+    System.out.print("Key 17 Val: " << ht.get(17) << "\n");
     return 0;
 }
 ```

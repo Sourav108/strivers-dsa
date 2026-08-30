@@ -1,6 +1,6 @@
 # Expression Add Operators (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Expression Add Operators](https://takeuforward.org/recursion/expression-add-operators/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Generate all $4^{N-1}$ strings and evaluate with stack in $\mathcal{O}(N \cdot 4
 
 ### C++17 Code
 ```cpp
+// Generate and evaluate with stack
+```
+
+### Java Code
+```java
+// Java equivalent
 // Generate and evaluate with stack
 ```
 
@@ -101,6 +107,56 @@ public:
     vector<string> addOperators(string num, int target) {
         vector<string> result;
         if (num.empty()) return result;
+        backtrack(0, num, target, "", 0, 0, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void backtrack(int index, String num, int target, String path,
+                   long currRes, long prevVal, String[] result) {
+        if (index == num.length()) {
+            if (currRes == target) {
+                result.add(path);
+            }
+            return;
+        }
+        
+        String curStr = "";
+        long curVal = 0;
+        
+        for (int i = index; i < num.length(); i++) {
+            // Disallow leading zeros (e.g. "05")
+            if (i > index && num[index] == '0') break;
+            
+            curStr += num[i];
+            curVal = curVal * 10 + (num[i] - '0');
+            
+            if (index == 0) {
+                // First number (no leading operator)
+                backtrack(i + 1, num, target, curStr, curVal, curVal, result);
+            } else {
+                // Addition: + curVal
+                backtrack(i + 1, num, target, path + "+" + curStr, currRes + curVal, curVal, result);
+                
+                // Subtraction: - curVal
+                backtrack(i + 1, num, target, path + "-" + curStr, currRes - curVal, -curVal, result);
+                
+                // Multiplication: - prevVal + (prevVal * curVal)
+                backtrack(i + 1, num, target, path + "*" + curStr, currRes - prevVal + (prevVal * curVal), prevVal * curVal, result);
+            }
+        }
+    }
+
+    String[] addOperators(String num, int target) {
+        List<String> result = new ArrayList<>();
+        if (num.isEmpty()) return result;
         backtrack(0, num, target, "", 0, 0, result);
         return result;
     }

@@ -1,6 +1,6 @@
 # Division Rule & Folding Hash Functions (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Division Rule & Folding Hash Functions](https://takeuforward.org/data-structure/hashing-theory/)
 - **Difficulty**: Easy
@@ -36,6 +36,16 @@ Using power of 2 table size $M = 2^k$ with division method (ignores upper bits o
 // Bad: M = 8 ignores all bits except the last 3 bits!
 int badHash(int key) {
     return key % 8; // Only depends on lowest 3 bits!
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // Bad: M = 8 ignores all bits except the last 3 bits!
+    int badHash(int key) {
+        return key % 8; // Only depends on lowest 3 bits!
+    }
 }
 ```
 
@@ -83,6 +93,33 @@ int main() {
     cout << "Hash of 123456 (M=997): " << divisionHash(123456, 997) << "\n";
     cout << "Polynomial Hash of 'apple': " << polynomialStringHash("apple") << "\n";
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // 1. Division Hash with Prime Modulus
+    int divisionHash(int key, int primeTableSize) {
+        return (key % primeTableSize + primeTableSize) % primeTableSize;
+    }
+    
+    // 2. Polynomial Rolling Hash for Strings (Folding Method)
+    long polynomialStringHash(String s, int primeBase = 31, long primeMod = 1e9 + 7) {
+        long hashVal = 0;
+        long pPower = 1;
+        for (char ch : s) {
+            hashVal = (hashVal + (ch - 'a' + 1) * pPower) % primeMod;
+            pPower = (pPower * primeBase) % primeMod;
+        }
+        return hashVal;
+    }
+    
+    int main() {
+        System.out.print("Hash of 123456 (M=997): " << divisionHash(123456, 997) << "\n");
+        System.out.print("Polynomial Hash of 'apple': " << polynomialStringHash("apple") << "\n");
+        return 0;
+    }
 }
 ```
 

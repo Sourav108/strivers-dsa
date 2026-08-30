@@ -1,6 +1,6 @@
 # Pattern-22: Concentric Number Spiral (Step 1.2 — Build-up Logical Thinking (Patterns))
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Pattern-22: Concentric Number Spiral](https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-must-do-questions)
 - **Difficulty**: Easy
@@ -49,6 +49,26 @@ void pattern22(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void pattern22(int n) {
+        int size = 2 * n - 1;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int top = i;
+                int left = j;
+                int bottom = size - 1 - i;
+                int right = size - 1 - j;
+                int minDist = Math.min(Math.min(top, bottom), Math.min(left, right));
+                System.out.print((n - minDist) << " ");
+            }
+            System.out.print("\n");
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ — prints $N \times N$ grid cells.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -92,6 +112,32 @@ int main() {
     int n = 4;
     pattern22(n);
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void pattern22(int n) {
+        int size = 2 * n - 1;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int top = i;
+                int left = j;
+                int bottom = size - 1 - i;
+                int right = size - 1 - j;
+                int minDist = Math.min(Math.min(top, bottom), Math.min(left, right));
+                System.out.print((n - minDist) << " ");
+            }
+            System.out.print("\n");
+        }
+    }
+    
+    int main() {
+        int n = 4;
+        pattern22(n);
+        return 0;
+    }
 }
 ```
 

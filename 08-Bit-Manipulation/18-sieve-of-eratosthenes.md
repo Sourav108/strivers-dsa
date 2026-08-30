@@ -1,6 +1,6 @@
 # Sieve of Eratosthenes (Prime generation up to N in O(N log log N)) (Step 8.3 — Advanced Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sieve of Eratosthenes (Prime generation up to N in O(N log log N))](https://takeuforward.org/data-structure/sieve-of-eratosthenes/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Individual $\mathcal{O}(\sqrt{N})$ prime checks for every number $1$ to $N$ in $
 
 ### C++17 Code
 ```cpp
+// O(N sqrt(N)) prime loop
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N sqrt(N)) prime loop
 ```
 
@@ -70,6 +76,35 @@ public:
         for (int p = 2; (long long)p * p < n; p++) {
             if (isPrime[p]) {
                 // Mark multiples starting from p*p
+                for (int j = p * p; j < n; j += p) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        
+        int primeCount = 0;
+        for (int i = 2; i < n; i++) {
+            if (isPrime[i]) primeCount++;
+        }
+        
+        return primeCount;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countPrimes(int n) {
+        if (n <= 2) return 0; // primes strictly less than n
+        
+        boolean[] isPrime = new boolean[n];
+        isPrime[0] = isPrime[1] = false;
+        
+        for (int p = 2; (long)p * p < n; p++) {
+            if (isPrime[p]) {
+                // Mark multiples starting from pp
                 for (int j = p * p; j < n; j += p) {
                     isPrime[j] = false;
                 }

@@ -1,6 +1,6 @@
 # Print Shortest Path in Weighted Undirected Graph (Dijkstra Parent array) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print Shortest Path in Weighted Undirected Graph (Dijkstra Parent array)](https://takeuforward.org/data-structure/g-35-print-shortest-path-dijkstras-algorithm/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS backtracking all possible simple paths from 1 to $n$ in $\mathcal{O}(V!)$ ti
 
 ### C++17 Code
 ```cpp
+// O(V!) DFS all paths
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V!) DFS all paths
 ```
 
@@ -121,6 +127,77 @@ public:
         // Prepend total weight (for standard GFG format with weight)
         // vector<int> result = {dist[n]};
         // result.insert(result.end(), path.begin(), path.end());
+        // return result;
+        
+        return path;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] shortestPath(int n, int m, int[][] edges) {
+        // 1. 1-indexed adjacency list: {neighbor, weight}
+        vector<List<int[]>> adj(n + 1);
+        for (int i = 0; i < m; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            adj[u].add({v, wt});
+            adj[v].add({u, wt});
+        }
+        
+        // Min-heap stores {distance, node}
+        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        
+        int[] dist = new int[n + 1];
+        int[] parent = new int[n + 1];
+        for (int i = 1; i <= n; i++) parent[i] = i;
+        
+        dist[1] = 0;
+        pq.push({0, 1});
+        
+        // 2. Dijkstra's Algorithm
+        while (!pq.isEmpty()) {
+            var [d, node] = pq.peek();
+            pq.pop();
+            
+            if (d > dist[node]) continue;
+            if (node == n) break; // Reached destination with optimal distance
+            
+            for (var edge : adj[node]) {
+                int adjNode = edge.first;
+                int weight = edge.second;
+                
+                if (d + weight < dist[adjNode]) {
+                    dist[adjNode] = d + weight;
+                    pq.push({dist[adjNode], adjNode});
+                    parent[adjNode] = node; // Record optimal predecessor
+                }
+            }
+        }
+        
+        // 3. Unreachable target check
+        if (dist[n] == 1e9) return {-1};
+        
+        // 4. Backtrack from target n to source 1
+        List<Integer> path = new ArrayList<>();
+        int node = n;
+        while (parent[node] != node) {
+            path.add(node);
+            node = parent[node];
+        }
+        path.add(1); // Push source
+        
+        reverse(path.begin(), path.end());
+        
+        // Prepend total weight (for standard GFG format with weight)
+        // int[] result = {dist[n]};
+        // result.add(result.end(), path.begin(), path.end());
         // return result;
         
         return path;

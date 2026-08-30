@@ -1,6 +1,6 @@
 # Morris Inorder Traversal (Threaded Binary Tree O(1) space) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Morris Inorder Traversal (Threaded Binary Tree O(1) space)](https://takeuforward.org/data-structure/morris-inorder-traversal-of-a-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Standard recursive inorder using $\mathcal{O}(H)$ stack space.
 
 ### C++17 Code
 ```cpp
+// O(H) recursion
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(H) recursion
 ```
 
@@ -93,6 +99,53 @@ public:
                     prev->right = nullptr;
                     inorder.push_back(curr->val);
                     curr = curr->right;
+                }
+            }
+        }
+        
+        return inorder;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] getInorder(TreeNode  root) {
+        List<Integer> inorder = new ArrayList<>();
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (curr.left == null) {
+                // Case 1: No left child . Visit current node and move Right
+                inorder.add(curr.val);
+                curr = curr.right;
+            } else {
+                // Case 2: Left child exists . Find Inorder Predecessor
+                TreeNode  prev = curr.left;
+                while (prev.right != null && prev.right != curr) {
+                    prev = prev.right;
+                }
+                
+                if (prev.right == null) {
+                    // Create temporary thread back to curr
+                    prev.right = curr;
+                    curr = curr.left; // dive left
+                } else {
+                    // Thread already exists . Cut thread, visit curr, move Right
+                    prev.right = null;
+                    inorder.add(curr.val);
+                    curr = curr.right;
                 }
             }
         }

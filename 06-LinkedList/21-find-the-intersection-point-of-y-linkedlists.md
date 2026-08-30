@@ -1,6 +1,6 @@
 # Find the Intersection Point of Y LinkedLists (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Intersection Point of Y LinkedLists](https://takeuforward.org/data-structure/find-intersection-of-two-linked-lists/)
 - **Difficulty**: Medium
@@ -44,6 +44,17 @@ Node* getIntersectionNodeHash(Node *headA, Node *headB) {
 }
 ```
 
+### Java Code
+```java
+static class Node { int data; Node  next; };
+Node  getIntersectionNodeHash(Node headA, Node headB) {
+    unordered_set<Node > st;
+    while (headA) { st.add(headA); headA = headA.next; }
+    while (headB) { if (st.contains(headB)) return headB; headB = headB.next; }
+    return null;
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N + M)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ hash space.
@@ -72,6 +83,25 @@ Node* getIntersectionNodeDiff(Node *headA, Node *headB) {
         c1 = c1->next; c2 = c2->next;
     }
     return nullptr;
+}
+```
+
+### Java Code
+```java
+static class Node { int data; Node  next; };
+Node  getIntersectionNodeDiff(Node headA, Node headB) {
+    int l1 = 0, l2 = 0;
+    Node c1 = headA, c2 = headB;
+    while (c1) { l1++; c1 = c1.next; }
+    while (c2) { l2++; c2 = c2.next; }
+    c1 = headA; c2 = headB;
+    if (l1 > l2) for (int i = 0; i < l1 - l2; i++) c1 = c1.next;
+    else for (int i = 0; i < l2 - l1; i++) c2 = c2.next;
+    while (c1 && c2) {
+        if (c1 == c2) return c1;
+        c1 = c1.next; c2 = c2.next;
+    }
+    return null;
 }
 ```
 
@@ -107,6 +137,33 @@ public:
         while (pA != pB) {
             pA = (pA == nullptr) ? headB : pA->next;
             pB = (pB == nullptr) ? headA : pB->next;
+        }
+        
+        return pA;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node getIntersectionNode(Node headA, Node headB) {
+        if (!headA || !headB) return null;
+        
+        Node  pA = headA;
+        Node  pB = headB;
+        
+        // Loop terminates when pA == pB (either at intersection node or both null)
+        while (pA != pB) {
+            pA = (pA == null) ? headB : pA.next;
+            pB = (pB == null) ? headA : pB.next;
         }
         
         return pA;

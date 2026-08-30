@@ -1,6 +1,6 @@
 # Lowest Common Ancestor (LCA) in Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Lowest Common Ancestor (LCA) in Binary Tree](https://takeuforward.org/data-structure/lowest-common-ancestor-for-two-given-nodes/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Find root-to-node path for $p$ and path for $q$, then compare paths in $\mathcal
 
 ### C++17 Code
 ```cpp
+// Path comparison LCA
+```
+
+### Java Code
+```java
+// Java equivalent
 // Path comparison LCA
 ```
 
@@ -81,6 +87,37 @@ public:
         
         // Otherwise return the non-null result
         return (left != nullptr) ? left : right;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  lowestCommonAncestor(TreeNode  root, TreeNode  p, TreeNode  q) {
+        // Base case: null or found target node
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+        
+        TreeNode  left = lowestCommonAncestor(root.left, p, q);
+        TreeNode  right = lowestCommonAncestor(root.right, p, q);
+        
+        // If both left and right return non-null, root is the LCA
+        if (left != null && right != null) {
+            return root;
+        }
+        
+        // Otherwise return the non-null result
+        return (left != null) ? left : right;
     }
 };
 ```

@@ -1,6 +1,6 @@
 # Rotate Array by K Places (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/rotate-array-by-k-elements/
 - **Difficulty**: Medium
@@ -49,6 +49,18 @@ void rotateBrute(vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void rotateBrute(int[] nums, int k) {
+        int n = nums.length; k %= n;
+        int[] temp = new int[n];
+        for (int i = 0; i < n; i++) temp[(i + k) % n] = nums[i];
+        nums = temp;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n)
 - **Space Complexity**: O(n)
@@ -87,6 +99,31 @@ void rotateBetter(vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void rotateBetter(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;
+        if (k == 0) return;
+        
+        // Copy last k elements
+        int[] temp = new int[k];
+        for (int i = 0; i < k; i++) {
+            temp[i] = nums[n - k + i];
+        }
+        // Shift remaining elements rightward
+        for (int i = n - k - 1; i >= 0; i--) {
+            nums[i + k] = nums[i];
+        }
+        // Copy temp to front
+        for (int i = 0; i < k; i++) {
+            nums[i] = temp[i];
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ — copies $k$ elements, shifts $n-k$ elements, and copies $k$ elements back.
 - **Space Complexity**: $\mathcal{O}(k)$ — auxiliary space for temporary buffer.
@@ -114,6 +151,19 @@ void rotateOptimal(vector<int>& nums, int k) {
     reverse(nums.begin(), nums.end());
     reverse(nums.begin(), nums.begin() + k);
     reverse(nums.begin() + k, nums.end());
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void rotateOptimal(int[] nums, int k) {
+        int n = nums.length;
+        k %= n;
+        reverse(nums.begin(), nums.end());
+        reverse(nums.begin(), nums.begin() + k);
+        reverse(nums.begin() + k, nums.end());
+    }
 }
 ```
 

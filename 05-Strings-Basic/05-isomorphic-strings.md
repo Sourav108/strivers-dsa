@@ -1,6 +1,6 @@
 # Isomorphic Strings (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Isomorphic Strings](https://takeuforward.org/strings/isomorphic-strings/)
 - **Difficulty**: Easy
@@ -49,6 +49,25 @@ bool isIsomorphicMap(string s, string t) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    boolean isIsomorphicMap(String s, String t) {
+        if (s.length() != t.length()) return false;
+        unordered_map<char, char> m1, m2;
+        for (int i = 0; i < s.length(); i++) {
+            if (m1.contains(s[i]) && m1[s[i]] != t[i]) return false;
+            if (m2.contains(t[i]) && m2[t[i]] != s[i]) return false;
+            m1[s[i]] = t[i];
+            m2[t[i]] = s[i];
+        }
+        return true;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(256)$ hash map memory.
@@ -85,6 +104,34 @@ public:
         for (int i = 0; i < (int)s.length(); i++) {
             unsigned char c1 = s[i];
             unsigned char c2 = t[i];
+            
+            if (mapS[c1] != mapT[c2]) {
+                return false; // mismatch in previous occurrence pattern
+            }
+            
+            mapS[c1] = i + 1;
+            mapT[c2] = i + 1;
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) return false;
+        
+        // Store last seen index (+1 to distinguish from unvisited 0)
+        int mapS[256] = {0};
+        int mapT[256] = {0};
+        
+        for (int i = 0; i < s.length(); i++) {
+            int c1 = s[i];
+            int c2 = t[i];
             
             if (mapS[c1] != mapT[c2]) {
                 return false; // mismatch in previous occurrence pattern

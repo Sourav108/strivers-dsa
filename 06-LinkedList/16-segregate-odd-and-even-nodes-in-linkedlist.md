@@ -1,6 +1,6 @@
 # Segregate Odd and Even Nodes in LinkedList (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Segregate Odd and Even Nodes in LinkedList](https://takeuforward.org/data-structure/segregate-even-and-odd-nodes-in-linkedlist/)
 - **Difficulty**: Medium
@@ -54,6 +54,27 @@ Node* oddEvenBrute(Node* head) {
 }
 ```
 
+### Java Code
+```java
+static class Node { int data; Node  next; };
+Node  oddEvenBrute(Node  head) {
+    if (head == null) return null;
+    int[] odds, evens;
+    Node  curr = head;
+    int idx = 1;
+    while (curr) {
+        if (idx % 2 != 0) odds.add(curr.data);
+        else evens.add(curr.data);
+        idx++;
+        curr = curr.next;
+    }
+    curr = head;
+    for (int x : odds) { curr.data = x; curr = curr.next; }
+    for (int x : evens) { curr.data = x; curr = curr.next; }
+    return head;
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ vector storage.
@@ -99,6 +120,41 @@ public:
         
         // Connect end of odd list to head of even list
         odd->next = evenHead;
+        
+        return head;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  oddEvenList(Node  head) {
+        if (!head || !head.next) return head;
+        
+        Node  odd = head;
+        Node  even = head.next;
+        Node  evenHead = even; // save even list start
+        
+        while (even != null && even.next != null) {
+            odd.next = even.next;
+            odd = odd.next;
+            
+            even.next = odd.next;
+            even = even.next;
+        }
+        
+        // Connect end of odd list to head of even list
+        odd.next = evenHead;
         
         return head;
     }

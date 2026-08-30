@@ -1,6 +1,6 @@
 # Minimum Window Substring (Exact character match) (Step 10.2 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Window Substring (Exact character match)](https://takeuforward.org/data-structure/minimum-window-substring/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Generate all $N^2$ substrings and check $t$ frequency matching in $\mathcal{O}(N
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute search
 ```
 
@@ -103,6 +109,54 @@ public:
         }
         
         return (startIdx == -1) ? "" : s.substr(startIdx, minLen);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String minWindow(String s, String t) {
+        if (s.isEmpty() || t.isEmpty() || s.length() < t.length()) return "";
+        
+        int[] need = new int[128];
+        int requiredDistinct = 0;
+        for (char c : t) {
+            if (need[c] == 0) requiredDistinct++;
+            need[c]++;
+        }
+        
+        int[] window = new int[128];
+        int matchedDistinct = 0;
+        int left = 0, minLen = Integer.MAX_VALUE, startIdx = -1;
+        int n = s.length();
+        
+        for (int right = 0; right < n; right++) {
+            char c = s[right];
+            window[c]++;
+            
+            if (need[c] > 0 && window[c] == need[c]) {
+                matchedDistinct++;
+            }
+            
+            // Try shrinking window from the left while it remains valid
+            while (matchedDistinct == requiredDistinct) {
+                if (right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    startIdx = left;
+                }
+                
+                char leftChar = s[left];
+                if (need[leftChar] > 0 && window[leftChar] == need[leftChar]) {
+                    matchedDistinct--;
+                }
+                window[leftChar]--;
+                left++;
+            }
+        }
+        
+        return (startIdx == -1) ? "" : s.substring(startIdx, startIdx + minLen);
     }
 };
 ```

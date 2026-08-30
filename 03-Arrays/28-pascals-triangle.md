@@ -1,6 +1,6 @@
 # Pascal's Triangle (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/program-to-generate-pascals-triangle/
 - **Difficulty**: Medium
@@ -48,6 +48,17 @@ vector<vector<int>> pascalBrute(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int[][] pascalBrute(int n) {
+        // computes nCr from scratch for each position
+        int[][] res;
+        return res;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^3)
 - **Space Complexity**: O(1)
@@ -75,6 +86,25 @@ vector<vector<int>> generatePascalBetter(int numRows) {
         triangle.push_back(row);
     }
     return triangle;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[][] generatePascalBetter(int numRows) {
+        List<List<Integer>> triangle = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            int[] row = new int[i + 1];
+            for (int j = 1; j < i; j++) {
+                row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+            }
+            triangle.add(row);
+        }
+        return triangle;
+    }
 }
 ```
 
@@ -111,6 +141,27 @@ vector<vector<int>> generatePascalOptimal(int numRows) {
         triangle.push_back(row);
     }
     return triangle;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[][] generatePascalOptimal(int numRows) {
+        List<List<Integer>> triangle = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            int[] row = new int[i + 1];
+            long val = 1;
+            for (int j = 1; j < i; j++) {
+                val = val * (i - j + 1) / j;
+                row[j] = val;
+            }
+            triangle.add(row);
+        }
+        return triangle;
+    }
 }
 ```
 

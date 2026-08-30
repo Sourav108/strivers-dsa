@@ -1,6 +1,6 @@
 # Minimum Coins to Make a Target Sum (Coin Change I) (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Coins to Make a Target Sum (Coin Change I)](https://takeuforward.org/data-structure/minimum-coins-dp-20/)
 - **Difficulty**: Medium
@@ -57,6 +57,24 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int T, int[] c) {
+        if (T == 0) return 0;
+        if (i < 0 || T < 0) return 1e9;
+        int notTake = solve(i - 1, T, c);
+        int take = 1 + solve(i, T - c[i], c);
+        return Math.min(notTake, take);
+    }
+
+    int coinChange(int[] coins, int amount) {
+        int res = solve(coins.length - 1, amount, coins);
+        return (res >= 1e9) ? -1 : res;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^{\text{amount}})$ time.
 - **Space Complexity**: $\mathcal{O}(\text{amount})$ recursion stack.
@@ -95,6 +113,28 @@ public:
 };
 ```
 
+### Java Code
+```java
+class Solution2D {
+
+    int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+        int[][] dp = new int[n][amount + 1];
+        for (int t = 0; t <= amount; t++) {
+            if (t % coins[0] == 0) dp[0][t] = t / coins[0];
+        }
+        for (int i = 1; i < n; i++) {
+            for (int t = 0; t <= amount; t++) {
+                int notTake = dp[i - 1][t];
+                int take = (t >= coins[i]) ? 1 + dp[i][t - coins[i]] : 1e9;
+                dp[i][t] = Math.min(notTake, take);
+            }
+        }
+        return (dp[n - 1][amount] >= 1e9) ? -1 : dp[n - 1][amount];
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times \text{amount})$ time.
 - **Space Complexity**: $\mathcal{O}(N \times \text{amount})$ space.
@@ -126,6 +166,29 @@ public:
             // Forward iteration enables infinite reuse of current coin
             for (int t = coin; t <= amount; t++) {
                 dp[t] = min(dp[t], 1 + dp[t - coin]);
+            }
+        }
+        
+        return (dp[amount] > amount) ? -1 : dp[amount];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int coinChange(int[] coins, int amount) {
+        // dp[t] stores minimum coins needed to make amount t
+        // Initialize with amount + 1 (represents infinity)
+        int[] dp = new int[amount + 1];
+        dp[0] = 0; // Base case: 0 coins needed for 0 amount
+        
+        // Iterate through all coin denominations
+        for (int coin : coins) {
+            // Forward iteration enables infinite reuse of current coin
+            for (int t = coin; t <= amount; t++) {
+                dp[t] = Math.min(dp[t], 1 + dp[t - coin]);
             }
         }
         

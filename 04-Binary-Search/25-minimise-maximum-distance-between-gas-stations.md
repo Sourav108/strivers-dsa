@@ -1,6 +1,6 @@
 # Minimise Maximum Distance between Gas Stations (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimise Maximum Distance between Gas Stations](https://takeuforward.org/binary-search/minimise-maximum-distance-between-gas-stations/)
 - **Difficulty**: Hard
@@ -66,6 +66,38 @@ double minimiseMaxDistanceBrute(vector<int>& stations, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    double minimiseMaxDistanceBrute(int[] stations, int k) {
+        int n = stations.length;
+        int[] howMany = new int[n - 1]; // stations placed in each gap
+        
+        for (int gas = 1; gas <= k; gas++) {
+            double maxSection = -1;
+            int maxIdx = -1;
+            for (int i = 0; i < n - 1; i++) {
+                double diff = stations[i + 1] - stations[i];
+                double sectionLen = diff / (double)(howMany[i] + 1);
+                if (sectionLen > maxSection) {
+                    maxSection = sectionLen;
+                    maxIdx = i;
+                }
+            }
+            howMany[maxIdx]++;
+        }
+        
+        double maxAns = -1;
+        for (int i = 0; i < n - 1; i++) {
+            double diff = stations[i + 1] - stations[i];
+            double sectionLen = diff / (double)(howMany[i] + 1);
+            maxAns = Math.max(maxAns, sectionLen);
+        }
+        return maxAns;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(k \cdot n)$ — for each of the $k$ stations, scans all $n-1$ gaps. For $k = 10^6, n = 10^5$, operations $= 10^{11} \implies$ TLE.
 - **Space Complexity**: $\mathcal{O}(n)$ auxiliary space.
@@ -106,6 +138,35 @@ double minimiseMaxDistanceHeap(vector<int>& stations, int k) {
     }
     
     return pq.top().first;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    double minimiseMaxDistanceHeap(int[] stations, int k) {
+        int n = stations.length;
+        int[] howMany = new int[n - 1];
+        // Max-heap storing {section_length, gap_index}
+        priority_queue<pair<double, int>> pq;
+        
+        for (int i = 0; i < n - 1; i++) {
+            pq.push({(double)(stations[i + 1] - stations[i]), i});
+        }
+        
+        for (int gas = 1; gas <= k; gas++) {
+            var top = pq.peek();
+            pq.pop();
+            int secIdx = top.second;
+            
+            howMany[secIdx]++;
+            double initialDiff = stations[secIdx + 1] - stations[secIdx];
+            double newSectionLen = initialDiff / (double)(howMany[secIdx] + 1);
+            pq.push({newSectionLen, secIdx});
+        }
+        
+        return pq.peek().first;
+    }
 }
 ```
 
@@ -153,6 +214,53 @@ public:
         // Maximum initial gap is our search space upper bound
         for (int i = 0; i < n - 1; i++) {
             high = max(high, (double)(stations[i + 1] - stations[i]));
+        }
+        
+        // Precision threshold 1e-6
+        double diff = 1e-6;
+        while (high - low > diff) {
+            double mid = low + (high - low) / 2.0;
+            int count = numberOfGasStationsRequired(mid, stations);
+            
+            if (count <= k) {
+                high = mid; // feasible gap distance, try to minimize further
+            } else {
+                low = mid;  // too many stations needed, distance too small
+            }
+        }
+        
+        return high;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int numberOfGasStationsRequired(double dist, int[] stations) {
+        int count = 0;
+        for (int i = 1; i < stations.length; i++) {
+            double gap = stations[i] - stations[i - 1];
+            int numberInBetween = (int)(gap / dist);
+            
+            // If gap is exactly divisible by dist, subtract 1 (station already at boundary)
+            if (gap == numberInBetween * dist) {
+                numberInBetween--;
+            }
+            count += numberInBetween;
+        }
+        return count;
+    }
+
+    double findSmallestMaxDist(int[] stations, int k) {
+        int n = stations.length;
+        double low = 0.0;
+        double high = 0.0;
+        
+        // Maximum initial gap is our search space upper bound
+        for (int i = 0; i < n - 1; i++) {
+            high = Math.max(high, (double)(stations[i + 1] - stations[i]));
         }
         
         // Precision threshold 1e-6

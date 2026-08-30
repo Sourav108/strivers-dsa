@@ -1,6 +1,6 @@
 # Print All Subsequences / Power Set (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print All Subsequences / Power Set](https://takeuforward.org/data-structure/power-set-print-all-subsequences/)
 - **Difficulty**: Medium
@@ -49,6 +49,26 @@ vector<vector<int>> subsetsBitmask(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[][] subsetsBitmask(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int mask = 0; mask < (1 << n); mask++) {
+            List<Integer> sub = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if (mask & (1 << i)) sub.add(nums[i]);
+            }
+            ans.add(sub);
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \cdot 2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary.
@@ -93,6 +113,36 @@ public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> result;
         vector<int> current;
+        generateSubsets(0, nums, current, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void generateSubsets(int index, int[] nums, int[] current, int[][] result) {
+        if (index == nums.length) {
+            result.add(current);
+            return;
+        }
+        
+        // Choice 1: Take nums[index]
+        current.add(nums[index]);
+        generateSubsets(index + 1, nums, current, result);
+        current.remove(); // backtrack
+        
+        // Choice 2: Do Not Take nums[index]
+        generateSubsets(index + 1, nums, current, result);
+    }
+
+    int[][] subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
         generateSubsets(0, nums, current, result);
         return result;
     }

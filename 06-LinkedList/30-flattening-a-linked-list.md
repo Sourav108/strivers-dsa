@@ -1,6 +1,6 @@
 # Flattening a LinkedList (Merge two sorted lists pattern) (Step 6.5 — Hard Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Flattening a LinkedList (Merge two sorted lists pattern)](https://takeuforward.org/data-structure/flattening-a-linked-list/)
 - **Difficulty**: Hard
@@ -52,6 +52,31 @@ Node* flattenBrute(Node* root) {
     for (size_t i = 1; i < v.size(); i++) {
         curr->bottom = new Node{v[i], nullptr, nullptr};
         curr = curr->bottom;
+    }
+    return head;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node { int data; Node  next; Node  bottom; };
+Node  flattenBrute(Node  root) {
+    List<Integer> v = new ArrayList<>();
+    Node  r = root;
+    while (r) {
+        Node  b = r;
+        while (b) { v.add(b.data); b = b.bottom; }
+        r = r.next;
+    }
+    Arrays.sort(v);
+    if (v.isEmpty()) return null;
+    Node  head = new Node{v[0], null, null};
+    Node  curr = head;
+    for (int i = 1; i < v.length; i++) {
+        curr.bottom = new Node{v[i], null, null};
+        curr = curr.bottom;
     }
     return head;
 }
@@ -119,6 +144,57 @@ public:
         
         // Merge current vertical list with flattened right list
         root = mergeTwoLists(root, root->next);
+        
+        return root;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    Node  bottom;
+    public Node(int val) { /* initialized: data(val), next(null), bottom(null)  */  }
+};
+
+class Solution {
+
+    Node  mergeTwoLists(Node  a, Node  b) {
+        Node dummy(0);
+        Node  res = &dummy;
+        
+        while (a != null && b != null) {
+            if (a.data <= b.data) {
+                res.bottom = a;
+                res = a;
+                a = a.bottom;
+            } else {
+                res.bottom = b;
+                res = b;
+                b = b.bottom;
+            }
+            res.next = null; // clean next pointer
+        }
+        
+        if (a) res.bottom = a;
+        else res.bottom = b;
+        
+        return dummy.bottom;
+    }
+
+    Node flatten(Node root) {
+        // Base case: empty or single vertical list
+        if (!root || !root.next) return root;
+        
+        // Recursively flatten rightward sublists
+        root.next = flatten(root.next);
+        
+        // Merge current vertical list with flattened right list
+        root = mergeTwoLists(root, root.next);
         
         return root;
     }

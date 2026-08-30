@@ -1,6 +1,6 @@
 # Bubble Sort Algorithm (Step 2.1 — Sorting-I)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Bubble Sort Algorithm](https://takeuforward.org/data-structure/bubble-sort-algorithm/)
 - **Difficulty**: Easy
@@ -50,6 +50,22 @@ void bubbleSortBrute(vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void bubbleSortBrute(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    int temp = nums[j]; nums[j] = nums[j + 1]; nums[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n^2)$ in all cases (always executes $\frac{n(n-1)}{2}$ comparisons even on sorted arrays).
 - **Space Complexity**: $\mathcal{O}(1)$ — in-place.
@@ -86,6 +102,26 @@ void bubbleSort(vector<int>& nums) {
         }
         // If no two elements were swapped in inner loop, array is sorted
         if (!swapped) break;
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void bubbleSort(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n - 1; i++) {
+            boolean swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    int temp = nums[j]; nums[j] = nums[j + 1]; nums[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            // If no two elements were swapped in inner loop, array is sorted
+            if (swapped == null) break;
+        }
     }
 }
 ```

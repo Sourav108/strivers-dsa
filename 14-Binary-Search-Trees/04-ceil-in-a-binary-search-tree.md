@@ -1,6 +1,6 @@
 # Ceil in a Binary Search Tree (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Ceil in a Binary Search Tree](https://takeuforward.org/data-structure/ceil-in-a-binary-search-tree-bst/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Inorder traversal finding first element $\ge X$ in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N) inorder search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) inorder search
 ```
 
@@ -79,6 +85,39 @@ public:
                 curr = curr->left; // try to find a smaller valid value
             } else {
                 curr = curr->right; // too small, must go right
+            }
+        }
+        
+        return ceil;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int findCeil(TreeNode  root, int input) {
+        int ceil = -1;
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (curr.val == input) {
+                return curr.val; // exact match
+            }
+            
+            if (curr.val > input) {
+                ceil = curr.val;  // valid candidate (>= input)
+                curr = curr.left; // try to find a smaller valid value
+            } else {
+                curr = curr.right; // too small, must go right
             }
         }
         

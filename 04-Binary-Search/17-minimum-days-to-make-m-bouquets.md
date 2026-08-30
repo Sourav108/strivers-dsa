@@ -1,6 +1,6 @@
 # Minimum Days to Make M Bouquets (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #1482 - Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/) | [TakeUForward](https://takeuforward.org/binary-search/minimum-days-to-make-m-bouquets/)
 - **Difficulty**: Medium
@@ -89,6 +89,43 @@ int minDaysLinear(const vector<int>& bloomDay, int m, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean possibleOnDay(int[] bloomDay, int day, int m, int k) {
+        int count = 0;
+        int bouquets = 0;
+        for (int b : bloomDay) {
+            if (b <= day) {
+                count++;
+                if (count == k) {
+                    bouquets++;
+                    count = 0;
+                }
+            } else {
+                count = 0; // broken contiguous sequence
+            }
+        }
+        return bouquets >= m;
+    }
+    
+    int minDaysLinear(int[] bloomDay, int m, int k) {
+        int n = bloomDay.length;
+        if ((long)m * k > n) return -1;
+        
+        int minDay = min_element(bloomDay.begin(), bloomDay.end());
+        int maxDay = max_element(bloomDay.begin(), bloomDay.end());
+        
+        for (int day = minDay; day <= maxDay; day++) {
+            if (possibleOnDay(bloomDay, day, m, k)) {
+                return day;
+            }
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((\max(\text{bloomDay}) - \min(\text{bloomDay})) \times n)$ — if $\max = 10^9$ and $n = 10^5$, this takes up to $10^{14}$ operations, resulting in Time Limit Exceeded.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary memory.
@@ -119,6 +156,26 @@ int minDaysBetter(const vector<int>& bloomDay, int m, int k) {
         }
     }
     return -1;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int minDaysBetter(int[] bloomDay, int m, int k) {
+        int n = bloomDay.length;
+        if ((long)m * k > n) return -1;
+        
+        Set<Integer> uniqueDays(bloomDay.begin(), bloomDay.end());
+        for (int day : uniqueDays) {
+            if (possibleOnDay(bloomDay, day, m, k)) {
+                return day;
+            }
+        }
+        return -1;
+    }
 }
 ```
 
@@ -196,6 +253,56 @@ public:
 };
 ```
 
+### Java Code
+```java
+class Solution {
+
+    boolean canMakeBouquets(int[] bloomDay, int day, int m, int k) {
+        int count = 0;
+        int bouquets = 0;
+        
+        for (int b : bloomDay) {
+            if (b <= day) {
+                count++;
+                if (count == k) {
+                    bouquets++;
+                    count = 0; // bouquet formed, reset contiguous flower counter
+                }
+            } else {
+                count = 0;     // flower not bloomed, broken adjacency
+            }
+        }
+        return bouquets >= m;
+    }
+
+    int minDays(int[] bloomDay, int m, int k) {
+        int n = bloomDay.length;
+        
+        // 64-bit cast prevents overflow when m * k exceeds 2^31 - 1
+        if ((long)m * k > n) {
+            return -1;
+        }
+        
+        int low = min_element(bloomDay.begin(), bloomDay.end());
+        int high = max_element(bloomDay.begin(), bloomDay.end());
+        int ans = -1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (canMakeBouquets(bloomDay, mid, m, k)) {
+                ans = mid;        // valid day, try to find earlier day on left
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // cannot make m bouquets, need more days
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \cdot \log_2(\max - \min))$ — binary search takes $\log_2(10^9) \approx 30$ iterations. In each iteration, we scan the array of size $n = 10^5$ once in linear time. Total operations: $30 \times 10^5 = 3 \times 10^6$, running in $\approx 20\text{ms}$.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -233,7 +340,8 @@ Search space: `low = 7, high = 12`.
 ## 8. Follow-Up Questions (Interview Style)
 
 - **Q1: Why is the greedy choice (forming a bouquet as soon as $k$ adjacent flowers are found) provably optimal?**  
-  **A**: Suppose we have a contiguous segment of $L$ bloomed flowers. Delaying the start of a bouquet never increases the number of bouquets we can pack into $L$ (it can only leave fewer remaining flowers). By standard greedy exchange arguments, packing bouquets as early as possible within each contiguous bloomed component maximizes the total bouquet count $\sum \lfloor L_i / k floor$.
+  **A**: Suppose we have a contiguous segment of $L$ bloomed flowers. Delaying the start of a bouquet never increases the number of bouquets we can pack into $L$ (it can only leave fewer remaining flowers). By standard greedy exchange arguments, packing bouquets as early as possible within each contiguous bloomed component maximizes the total bouquet count $\sum \lfloor L_i / k 
+floor$.
 
 - **Q2: What if flowers did not need to be adjacent (any $k$ flowers could form a bouquet)?**  
   **A**: If adjacency is not required, the problem simplifies dramatically: we only need $m \times k$ total bloomed flowers anywhere. The answer is simply the $(m \times k)$-th smallest element in `bloomDay`, which can be found in $\mathcal{O}(n)$ time using **Quickselect (`std::nth_element`)** without binary search!

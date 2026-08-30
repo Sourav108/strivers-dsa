@@ -1,6 +1,6 @@
 # Minimum Window Subsequence (Step 10.2 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Window Subsequence](https://takeuforward.org/data-structure/minimum-window-subsequence/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Check all $N^2$ substrings of $s1$ verifying subsequence property in $\mathcal{O
 
 ### C++17 Code
 ```cpp
+// O(N^2 * M) brute check
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2 * M) brute check
 ```
 
@@ -98,6 +104,50 @@ public:
         }
         
         return (startIdx == -1) ? "" : s1.substr(startIdx, minLen);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String minWindow(String s1, String s2) {
+        int n = s1.length(), m = s2.length();
+        int minLen = Integer.MAX_VALUE, startIdx = -1;
+        int i = 0, j = 0;
+        
+        while (i < n) {
+            // Forward pass: find a valid window where s2 is a subsequence
+            if (s1[i] == s2[j]) {
+                j++;
+                if (j == m) {
+                    // s2 fully matched! Now shrink backwards to find tightest start
+                    int right = i;
+                    j--; // point to last character of s2
+                    
+                    while (j >= 0) {
+                        if (s1[right] == s2[j]) {
+                            j--;
+                        }
+                        right--;
+                    }
+                    right++; // tightest start position of current window
+                    
+                    if (i - right + 1 < minLen) {
+                        minLen = i - right + 1;
+                        startIdx = right;
+                    }
+                    
+                    // Restart forward search from the next character after tightest start
+                    i = right;
+                    j = 0;
+                }
+            }
+            i++;
+        }
+        
+        return (startIdx == -1) ? "" : s1.substring(startIdx, startIdx + minLen);
     }
 };
 ```

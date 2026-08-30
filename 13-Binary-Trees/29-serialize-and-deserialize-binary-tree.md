@@ -1,6 +1,6 @@
 # Serialize and Deserialize Binary Tree (String formatting) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Serialize and Deserialize Binary Tree (String formatting)](https://takeuforward.org/data-structure/serialize-and-deserialize-a-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Preorder + Inorder serialization (requires building 2 strings and running O(N lo
 
 ### C++17 Code
 ```cpp
+// Preorder + Inorder serialization
+```
+
+### Java Code
+```java
+// Java equivalent
 // Preorder + Inorder serialization
 ```
 
@@ -123,6 +129,81 @@ public:
             if (str != "#") {
                 TreeNode* rightNode = new TreeNode(stoi(str));
                 curr->right = rightNode;
+                q.push(rightNode);
+            }
+        }
+        
+        return root;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Codec {
+
+    // Encodes a tree to a single String using BFS
+    String serialize(TreeNode  root) {
+        if (root == null) return "";
+        
+        String s = "";
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        
+        while (!q.isEmpty()) {
+            TreeNode  curr = q.peek();
+            q.pop();
+            
+            if (curr == null) {
+                s.append("#,");
+            } else {
+                s.append(String.valueOf(curr.val) + ",");
+                q.push(curr.left);
+                q.push(curr.right);
+            }
+        }
+        
+        return s;
+    }
+
+    // Decodes your encoded data to tree using BFS
+    TreeNode  deserialize(String data) {
+        if (data.isEmpty()) return null;
+        
+        stringstream s(data);
+        String str;
+        getline(s, str, ',');
+        
+        TreeNode  root = new TreeNode(stoi(str));
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        
+        while (!q.isEmpty()) {
+            TreeNode  curr = q.peek();
+            q.pop();
+            
+            // 1. Process Left Child
+            getline(s, str, ',');
+            if (str != "#") {
+                TreeNode  leftNode = new TreeNode(stoi(str));
+                curr.left = leftNode;
+                q.push(leftNode);
+            }
+            
+            // 2. Process Right Child
+            getline(s, str, ',');
+            if (str != "#") {
+                TreeNode  rightNode = new TreeNode(stoi(str));
+                curr.right = rightNode;
                 q.push(rightNode);
             }
         }

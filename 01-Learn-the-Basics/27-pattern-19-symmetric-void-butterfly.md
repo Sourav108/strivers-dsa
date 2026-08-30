@@ -1,6 +1,6 @@
 # Pattern-19: Symmetric Void Butterfly (Step 1.2 — Build-up Logical Thinking (Patterns))
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Pattern-19: Symmetric Void Butterfly](https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-must-do-questions)
 - **Difficulty**: Easy
@@ -51,6 +51,28 @@ void pattern19(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void pattern19(int n) {
+        // Upper Half
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i; j++) System.out.print("*");
+            for (int j = 0; j < 2 * i; j++) System.out.print(" ");
+            for (int j = 0; j < n - i; j++) System.out.print("*");
+            System.out.print("\n");
+        }
+        // Lower Half
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) System.out.print("*");
+            for (int j = 0; j < 2 * (n - 1 - i); j++) System.out.print(" ");
+            for (int j = 0; j <= i; j++) System.out.print("*");
+            System.out.print("\n");
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ — prints $N \times N$ grid cells.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary space.
@@ -96,6 +118,34 @@ int main() {
     int n = 4;
     pattern19(n);
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void pattern19(int n) {
+        // Upper Half
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i; j++) System.out.print("*");
+            for (int j = 0; j < 2 * i; j++) System.out.print(" ");
+            for (int j = 0; j < n - i; j++) System.out.print("*");
+            System.out.print("\n");
+        }
+        // Lower Half
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) System.out.print("*");
+            for (int j = 0; j < 2 * (n - 1 - i); j++) System.out.print(" ");
+            for (int j = 0; j <= i; j++) System.out.print("*");
+            System.out.print("\n");
+        }
+    }
+    
+    int main() {
+        int n = 4;
+        pattern19(n);
+        return 0;
+    }
 }
 ```
 

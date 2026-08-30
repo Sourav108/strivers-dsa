@@ -1,6 +1,6 @@
 # Count Digits in a Number (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Digits in a Number](https://takeuforward.org/data-structure/count-digits-in-a-number/)
 - **Difficulty**: Easy
@@ -41,6 +41,16 @@ int countDigitsString(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int countDigitsString(int n) {
+        if (n == 0) return 1;
+        return String.valueOf(Math.abs(n)).length();
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log_{10} N)$ time.
 - **Space Complexity**: $\mathcal{O}(\log_{10} N)$ string allocation.
@@ -67,6 +77,22 @@ int countDigitsIterative(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int countDigitsIterative(int n) {
+        if (n == 0) return 1;
+        int count = 0;
+        n = Math.abs(n);
+        while (n > 0) {
+            count++;
+            n /= 10;
+        }
+        return count;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log_{10} N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -87,6 +113,16 @@ using namespace std;
 int countDigits(int n) {
     if (n == 0) return 1;
     return (int)log10(abs(n)) + 1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int countDigits(int n) {
+        if (n == 0) return 1;
+        return (int)log10(Math.abs(n)) + 1;
+    }
 }
 ```
 

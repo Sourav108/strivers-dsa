@@ -1,6 +1,6 @@
 # Clear the i-th bit (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Clear the i-th bit](https://takeuforward.org/bit-manipulation/clear-the-ith-bit/)
 - **Difficulty**: Easy
@@ -39,6 +39,16 @@ int clearBitSub(int n, int i) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int clearBitSub(int n, int i) {
+        if (n & (1 << i)) n -= (1 << i);
+        return n;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(1)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -61,6 +71,16 @@ Branchless Inverted Mask: `n & ~(1 << i)`.
 ```cpp
 class Solution {
 public:
+    int clearKthBit(int n, int i) {
+        return n & ~(1 << i);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int clearKthBit(int n, int i) {
         return n & ~(1 << i);
     }

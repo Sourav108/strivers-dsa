@@ -1,6 +1,6 @@
 # Search in Rotated Sorted Array I (Unique Elements) (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Search in Rotated Sorted Array I (Unique Elements)](https://takeuforward.org/data-structure/search-element-in-a-rotated-sorted-array/)
 - **Difficulty**: Medium
@@ -48,6 +48,18 @@ int searchRotatedLinear(const vector<int>& nums, int target) {
         if (nums[i] == target) return i;
     }
     return -1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int searchRotatedLinear(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) return i;
+        }
+        return -1;
+    }
 }
 ```
 
@@ -103,6 +115,42 @@ int search(const vector<int>& nums, int target) {
     }
     
     return -1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int search(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (nums[mid] == target) {
+                return mid;
+            }
+            
+            // Check if Left Half [low..mid] is sorted
+            if (nums[low] <= nums[mid]) {
+                if (nums[low] <= target && target < nums[mid]) {
+                    high = mid - 1; // target is within left sorted range
+                } else {
+                    low = mid + 1;  // target is in right half
+                }
+            } 
+            // Otherwise, Right Half [mid..high] must be sorted
+            else {
+                if (nums[mid] < target && target <= nums[high]) {
+                    low = mid + 1;  // target is within right sorted range
+                } else {
+                    high = mid - 1; // target is in left half
+                }
+            }
+        }
+        
+        return -1;
+    }
 }
 ```
 

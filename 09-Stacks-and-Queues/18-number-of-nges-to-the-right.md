@@ -1,6 +1,6 @@
 # Number of NGEs to the Right (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of NGEs to the Right](https://takeuforward.org/data-structure/number-of-nges-to-the-right/)
 - **Difficulty**: Medium
@@ -48,6 +48,25 @@ vector<int> count_NGEs_Brute(int n, vector<int>& arr, int queries, vector<int>& 
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] count_NGEs_Brute(int n, int[] arr, int queries, int[] indices) {
+        List<Integer> ans = new ArrayList<>();
+        for (int idx : indices) {
+            int count = 0;
+            for (int j = idx + 1; j < n; j++) {
+                if (arr[j] > arr[idx]) count++;
+            }
+            ans.add(count);
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(Q \times N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -85,6 +104,31 @@ public:
                 }
             }
             ans.push_back(count);
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] count_NGEs(int N, int[] arr, int queries, int[] indices) {
+        List<Integer> ans = new ArrayList<>();
+        ans.reserve(queries);
+        
+        for (int idx : indices) {
+            int count = 0;
+            for (int j = idx + 1; j < N; j++) {
+                if (arr[j] > arr[idx]) {
+                    count++;
+                }
+            }
+            ans.add(count);
         }
         
         return ans;

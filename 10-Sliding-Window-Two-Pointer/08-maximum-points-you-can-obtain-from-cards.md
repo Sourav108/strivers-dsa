@@ -1,6 +1,6 @@
 # Maximum Points You Can Obtain from Cards (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum Points You Can Obtain from Cards](https://takeuforward.org/data-structure/maximum-points-you-can-obtain-from-cards/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Recursion trying pick from left vs pick from right in $\mathcal{O}(2^k)$ time.
 
 ### C++17 Code
 ```cpp
+// O(2^k) recursion TLE
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(2^k) recursion TLE
 ```
 
@@ -83,6 +89,37 @@ public:
         for (int i = windowSize; i < n; i++) {
             currentWindowSum += cardPoints[i] - cardPoints[i - windowSize];
             minWindowSum = min(minWindowSum, currentWindowSum);
+        }
+        
+        return totalSum - minWindowSum;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int maxScore(int[] cardPoints, int k) {
+        int n = cardPoints.length;
+        int totalSum = accumulate(cardPoints.begin(), cardPoints.end(), 0);
+        
+        if (k == n) return totalSum;
+        
+        int windowSize = n - k;
+        int currentWindowSum = 0;
+        
+        // Compute sum of first window of size (n - k)
+        for (int i = 0; i < windowSize; i++) {
+            currentWindowSum += cardPoints[i];
+        }
+        
+        int minWindowSum = currentWindowSum;
+        
+        // Slide window across remaining array
+        for (int i = windowSize; i < n; i++) {
+            currentWindowSum += cardPoints[i] - cardPoints[i - windowSize];
+            minWindowSum = Math.min(minWindowSum, currentWindowSum);
         }
         
         return totalSum - minWindowSum;

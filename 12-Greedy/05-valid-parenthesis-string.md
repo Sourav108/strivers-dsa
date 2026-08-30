@@ -1,6 +1,6 @@
 # Valid Parenthesis String (Greedy Min/Max Open range) (Step 12.1 — Easy)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Valid Parenthesis String (Greedy Min/Max Open range)](https://takeuforward.org/data-structure/valid-parenthesis-string/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Recursion trying all 3 choices for each `'*'` in $\mathcal{O}(3^N)$ time.
 // O(3^N) recursion
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(3^N) recursion
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(3^N)$ exponential.
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -50,6 +56,12 @@ Recursion trying all 3 choices for each `'*'` in $\mathcal{O}(3^N)$ time.
 
 ### C++17 Code
 ```cpp
+// DP memoization O(N^2)
+```
+
+### Java Code
+```java
+// Java equivalent
 // DP memoization O(N^2)
 ```
 
@@ -95,6 +107,40 @@ public:
             
             // minOpen cannot be negative (we cannot have negative open brackets)
             minOpen = max(0, minOpen);
+        }
+        
+        // Valid if 0 open brackets is achievable within [minOpen, maxOpen]
+        return minOpen == 0;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean checkValidString(String s) {
+        int minOpen = 0; // minimum possible open brackets
+        int maxOpen = 0; // maximum possible open brackets
+        
+        for (char c : s) {
+            if (c == '(') {
+                minOpen++;
+                maxOpen++;
+            } else if (c == ')') {
+                minOpen--;
+                maxOpen--;
+            } else { // c == '*'
+                minOpen--; // treat as ')'
+                maxOpen++; // treat as '('
+                // treating as "" keeps range between (minOpen, maxOpen)
+            }
+            
+            // If maxOpen < 0, even converting all '*' to '(' cannot balance the ')'
+            if (maxOpen < 0) return false;
+            
+            // minOpen cannot be negative (we cannot have negative open brackets)
+            minOpen = Math.max(0, minOpen);
         }
         
         // Valid if 0 open brackets is achievable within [minOpen, maxOpen]

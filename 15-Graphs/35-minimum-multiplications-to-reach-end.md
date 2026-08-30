@@ -1,6 +1,6 @@
 # Minimum Multiplications to Reach End (Modulo 100,000 BFS) (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Multiplications to Reach End (Modulo 100,000 BFS)](https://takeuforward.org/data-structure/g-39-minimum-multiplications-to-reach-end/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ DFS backtracking with recursion depth limits (can loop infinitely on cyclic modu
 // Naive DFS cycle risk
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Naive DFS cycle risk
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\text{Exponential})$.
 - **Space Complexity**: $\mathcal{O}(10^5)$ stack.
@@ -64,6 +70,35 @@ public:
         pq.push({0, start});
         while (!pq.empty()) {
             auto [steps, node] = pq.top(); pq.pop();
+            if (node == end) return steps;
+            if (steps > dist[node]) continue;
+            for (int x : arr) {
+                int num = (1LL * node * x) % 100000;
+                if (steps + 1 < dist[num]) {
+                    dist[num] = steps + 1;
+                    pq.push({steps + 1, num});
+                }
+            }
+        }
+        return -1;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionDijkstra {
+
+    int minimumMultiplications(int[] arr, int start, int end) {
+        if (start == end) return 0;
+        priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+        int[] dist = new int[100000];
+        dist[start] = 0;
+        pq.push({0, start});
+        while (!pq.isEmpty()) {
+            var [steps, node] = pq.peek(); pq.pop();
             if (node == end) return steps;
             if (steps > dist[node]) continue;
             for (int x : arr) {
@@ -114,6 +149,51 @@ public:
         
         while (!q.empty()) {
             auto [node, steps] = q.front();
+            q.pop();
+            
+            for (int x : arr) {
+                int num = (1LL * node * x) % MOD;
+                
+                // Relaxation step
+                if (steps + 1 < dist[num]) {
+                    dist[num] = steps + 1;
+                    
+                    // Early exit when target is discovered
+                    if (num == end) {
+                        return steps + 1;
+                    }
+                    
+                    q.push({num, steps + 1});
+                }
+            }
+        }
+        
+        return -1; // End is unreachable
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int minimumMultiplications(int[] arr, int start, int end) {
+        // Base case
+        if (start == end) return 0;
+        
+        int MOD = 100000;
+        
+        // Queue stores {current_number, steps}
+        queue<pair<int, int>> q;
+        q.push({start, 0});
+        
+        int[] dist = new int[MOD];
+        dist[start] = 0;
+        
+        while (!q.isEmpty()) {
+            var [node, steps] = q.peek();
             q.pop();
             
             for (int x : arr) {

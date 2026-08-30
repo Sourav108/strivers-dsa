@@ -1,6 +1,6 @@
 # 0/1 Knapsack Problem (Bounded) (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [0/1 Knapsack Problem (Bounded)](https://takeuforward.org/data-structure/0-1-knapsack-dp-19/)
 - **Difficulty**: Medium
@@ -58,6 +58,26 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int w, int[] wt, int[] val) {
+        if (i == 0) {
+            if (wt[0] <= w) return val[0];
+            return 0;
+        }
+        int notTake = solve(i - 1, w, wt, val);
+        int take = 0;
+        if (wt[i] <= w) take = val[i] + solve(i - 1, w - wt[i], wt, val);
+        return Math.max(notTake, take);
+    }
+
+    int knapSack(int W, int[] wt, int[] val, int n) {
+        return solve(n - 1, W, wt, val);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -87,6 +107,26 @@ public:
                 int notTake = dp[i - 1][w];
                 int take = (w >= wt[i]) ? val[i] + dp[i - 1][w - wt[i]] : 0;
                 dp[i][w] = max(notTake, take);
+            }
+        }
+        return dp[n - 1][W];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int knapSack(int W, int[] wt, int[] val, int n) {
+        int[][] dp = new int[n][W + 1];
+        for (int w = wt[0]; w <= W; w++) dp[0][w] = val[0];
+        
+        for (int i = 1; i < n; i++) {
+            for (int w = 0; w <= W; w++) {
+                int notTake = dp[i - 1][w];
+                int take = (w >= wt[i]) ? val[i] + dp[i - 1][w - wt[i]] : 0;
+                dp[i][w] = Math.max(notTake, take);
             }
         }
         return dp[n - 1][W];
@@ -130,6 +170,34 @@ public:
             // This prevents an item from being included multiple times in the same step!
             for (int w = W; w >= wt[i]; w--) {
                 dp[w] = max(dp[w], val[i] + dp[w - wt[i]]);
+            }
+        }
+        
+        return dp[W];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    // Function to return max value that can be put in knapsack of capacity W.
+    int knapSack(int W, int[] wt, int[] val, int n) {
+        // Single 1D DP array of size W + 1
+        int[] dp = new int[W + 1];
+        
+        // Base case: Item 0
+        for (int w = wt[0]; w <= W; w++) {
+            dp[w] = val[0];
+        }
+        
+        // Iterate through remaining items
+        for (int i = 1; i < n; i++) {
+            // CRITICAL: Iterate capacity BACKWARDS from W down to wt[i]
+            // This prevents an item from being included multiple times in the same step!
+            for (int w = W; w >= wt[i]; w--) {
+                dp[w] = Math.max(dp[w], val[i] + dp[w - wt[i]]);
             }
         }
         

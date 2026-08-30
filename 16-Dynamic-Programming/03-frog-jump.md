@@ -1,6 +1,6 @@
 # Frog Jump (Geek Jump 1 or 2 steps) (Step 16.1 — Introduction to DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Frog Jump (Geek Jump 1 or 2 steps)](https://takeuforward.org/data-structure/dynamic-programming-frog-jump-dp-3/)
 - **Difficulty**: Easy
@@ -53,6 +53,23 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int[] h) {
+        if (i == 0) return 0;
+        int jumpOne = solve(i - 1, h) + Math.abs(h[i] - h[i - 1]);
+        int jumpTwo = 1e9;
+        if (i > 1) jumpTwo = solve(i - 2, h) + Math.abs(h[i] - h[i - 2]);
+        return Math.min(jumpOne, jumpTwo);
+    }
+
+    int minimumEnergy(int[] height, int n) {
+        return solve(n - 1, height);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -82,6 +99,24 @@ public:
             int ss = 1e9;
             if (i > 1) ss = dp[i - 2] + abs(height[i] - height[i - 2]);
             dp[i] = min(fs, ss);
+        }
+        return dp[n - 1];
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionTabulation {
+
+    int minimumEnergy(int[] height, int n) {
+        int[] dp = new int[n];
+        dp[0] = 0;
+        for (int i = 1; i < n; i++) {
+            int fs = dp[i - 1] + Math.abs(height[i] - height[i - 1]);
+            int ss = 1e9;
+            if (i > 1) ss = dp[i - 2] + Math.abs(height[i] - height[i - 2]);
+            dp[i] = Math.min(fs, ss);
         }
         return dp[n - 1];
     }
@@ -121,6 +156,31 @@ public:
             }
             
             int cur = min(jumpOne, jumpTwo);
+            prev2 = prev;
+            prev = cur;
+        }
+        
+        return prev;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int minimumEnergy(int[] height, int n) {
+        int prev2 = 0; // dp[i - 2]
+        int prev = 0;  // dp[i - 1]
+        
+        for (int i = 1; i < n; i++) {
+            int jumpOne = prev + Math.abs(height[i] - height[i - 1]);
+            int jumpTwo = 1e9;
+            if (i > 1) {
+                jumpTwo = prev2 + Math.abs(height[i] - height[i - 2]);
+            }
+            
+            int cur = Math.min(jumpOne, jumpTwo);
             prev2 = prev;
             prev = cur;
         }

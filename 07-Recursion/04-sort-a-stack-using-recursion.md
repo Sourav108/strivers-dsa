@@ -1,6 +1,6 @@
 # Sort a Stack using Recursion (Step 7.1 — Get a Strong Hold)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sort a Stack using Recursion](https://takeuforward.org/recursion/sort-a-stack-using-recursion/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Dump to vector, sort, push back.
 
 ### C++17 Code
 ```cpp
+// Vector sort
+```
+
+### Java Code
+```java
+// Java equivalent
 // Vector sort
 ```
 
@@ -82,6 +88,43 @@ public:
         if (st.empty()) return;
         
         int topElement = st.top();
+        st.pop();
+        
+        // Sort remaining stack
+        sortStack(st);
+        
+        // Insert top element in sorted stack
+        sortedInsert(st, topElement);
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void sortedInsert(Stack<Integer> st, int element) {
+        // Base condition: empty stack or element is greater than current top
+        if (st.isEmpty() || element >= st.peek()) {
+            st.push(element);
+            return;
+        }
+        
+        // Pop top and recurse
+        int topElement = st.peek();
+        st.pop();
+        sortedInsert(st, element);
+        
+        // Backtracking push back
+        st.push(topElement);
+    }
+
+    void sortStack(Stack<Integer> st) {
+        if (st.isEmpty()) return;
+        
+        int topElement = st.peek();
         st.pop();
         
         // Sort remaining stack

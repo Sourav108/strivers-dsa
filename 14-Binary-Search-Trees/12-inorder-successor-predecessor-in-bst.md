@@ -1,6 +1,6 @@
 # Inorder Successor and Predecessor in BST (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Inorder Successor and Predecessor in BST](https://takeuforward.org/data-structure/inorder-successor-predecessor-in-bst/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Inorder traversal into vector, finding element before and after `p` in $\mathcal
 
 ### C++17 Code
 ```cpp
+// O(N) inorder dump
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) inorder dump
 ```
 
@@ -91,6 +97,51 @@ public:
                 curr = curr->right; // try to find a larger valid candidate
             } else {
                 curr = curr->left;
+            }
+        }
+        
+        return predecessor;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  inorderSuccessor(TreeNode  root, TreeNode  p) {
+        TreeNode  successor = null;
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (p.val < curr.val) {
+                successor = curr;   // candidate successor (> p.val)
+                curr = curr.left;  // try to find a smaller valid candidate
+            } else {
+                curr = curr.right;
+            }
+        }
+        
+        return successor;
+    }
+    
+    TreeNode  inorderPredecessor(TreeNode  root, TreeNode  p) {
+        TreeNode  predecessor = null;
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (p.val > curr.val) {
+                predecessor = curr; // candidate predecessor (< p.val)
+                curr = curr.right; // try to find a larger valid candidate
+            } else {
+                curr = curr.left;
             }
         }
         

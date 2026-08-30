@@ -1,6 +1,6 @@
 # Find out how many times array has been rotated (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find out how many times array has been rotated](https://takeuforward.org/arrays/find-out-how-many-times-has-an-array-been-rotated/)
 - **Difficulty**: Easy
@@ -47,6 +47,22 @@ int findKRotationLinear(const vector<int>& nums) {
         }
     }
     return minIdx;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findKRotationLinear(int[] nums) {
+        int minVal = Integer.MAX_VALUE, minIdx = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] < minVal) {
+                minVal = nums[i];
+                minIdx = i;
+            }
+        }
+        return minIdx;
+    }
 }
 ```
 
@@ -110,6 +126,49 @@ int findKRotation(const vector<int>& nums) {
     }
     
     return minIdx;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findKRotation(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        int minVal = Integer.MAX_VALUE;
+        int minIdx = -1;
+        
+        while (low <= high) {
+            // If subarray is completely sorted
+            if (nums[low] <= nums[high]) {
+                if (nums[low] < minVal) {
+                    minVal = nums[low];
+                    minIdx = low;
+                }
+                break;
+            }
+            
+            int mid = low + (high - low) / 2;
+            
+            // Left half is sorted
+            if (nums[low] <= nums[mid]) {
+                if (nums[low] < minVal) {
+                    minVal = nums[low];
+                    minIdx = low;
+                }
+                low = mid + 1;
+            } 
+            // Right half is sorted
+            else {
+                if (nums[mid] < minVal) {
+                    minVal = nums[mid];
+                    minIdx = mid;
+                }
+                high = mid - 1;
+            }
+        }
+        
+        return minIdx;
+    }
 }
 ```
 

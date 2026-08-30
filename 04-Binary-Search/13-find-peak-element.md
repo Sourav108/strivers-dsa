@@ -1,6 +1,6 @@
 # Find Peak Element in Array (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Peak Element in Array](https://takeuforward.org/data-structure/peak-element-in-array/)
 - **Difficulty**: Medium
@@ -48,6 +48,21 @@ int findPeakElementLinear(const vector<int>& nums) {
         if (leftOk && rightOk) return i;
     }
     return 0;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findPeakElementLinear(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            boolean leftOk = (i == 0 || nums[i] > nums[i - 1]);
+            boolean rightOk = (i == n - 1 || nums[i] > nums[i + 1]);
+            if (leftOk && rightOk) return i;
+        }
+        return 0;
+    }
 }
 ```
 
@@ -102,6 +117,41 @@ int findPeakElement(const vector<int>& nums) {
     }
     
     return -1;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int findPeakElement(int[] nums) {
+        int n = nums.length;
+        
+        // Boundary conditions
+        if (n == 1) return 0;
+        if (nums[0] > nums[1]) return 0;
+        if (nums[n - 1] > nums[n - 2]) return n - 1;
+        
+        int low = 1, high = n - 2;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            // Peak condition: strictly greater than both neighbors
+            if (nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) {
+                return mid;
+            }
+            
+            // Upward slope: peak must exist in right half
+            if (nums[mid] > nums[mid - 1]) {
+                low = mid + 1;
+            } 
+            // Downward slope: peak must exist in left half
+            else {
+                high = mid - 1;
+            }
+        }
+        
+        return -1;
+    }
 }
 ```
 

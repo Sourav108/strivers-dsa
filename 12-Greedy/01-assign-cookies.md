@@ -1,6 +1,6 @@
 # Assign Cookies (Step 12.1 — Easy)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Assign Cookies](https://takeuforward.org/data-structure/assign-cookies/)
 - **Difficulty**: Easy
@@ -51,6 +51,26 @@ int findContentChildrenBrute(vector<int>& g, vector<int>& s) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findContentChildrenBrute(int[] g, int[] s) {
+        int count = 0;
+        boolean[] used(s.length, false);
+        for (int greed : g) {
+            int bestIdx = -1;
+            for (int j = 0; j < s.length; j++) {
+                if (!used[j] && s[j] >= greed) {
+                    if (bestIdx == -1 || s[j] < s[bestIdx]) bestIdx = j;
+                }
+            }
+            if (bestIdx != -1) { used[bestIdx] = true; count++; }
+        }
+        return count;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times M)$ time.
 - **Space Complexity**: $\mathcal{O}(M)$ used array.
@@ -83,6 +103,31 @@ public:
         
         int childPtr = 0, cookiePtr = 0;
         int n = g.size(), m = s.size();
+        
+        while (childPtr < n && cookiePtr < m) {
+            if (s[cookiePtr] >= g[childPtr]) {
+                childPtr++; // child satisfied, move to next child
+            }
+            cookiePtr++; // always consume cookie
+        }
+        
+        return childPtr;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        
+        int childPtr = 0, cookiePtr = 0;
+        int n = g.length, m = s.length;
         
         while (childPtr < n && cookiePtr < m) {
             if (s[cookiePtr] >= g[childPtr]) {

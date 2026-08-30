@@ -1,6 +1,6 @@
 # Candy (LeetCode 135 - Slope and Two-Pass method) (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Candy (LeetCode 135 - Slope and Two-Pass method)](https://takeuforward.org/data-structure/candy/)
 - **Difficulty**: Hard
@@ -36,6 +36,12 @@ Repeatedly update array candies until all neighbor constraints are satisfied in 
 // O(N^2) relaxation
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N^2) relaxation
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -60,6 +66,19 @@ int candyTwoPass(vector<int>& ratings) {
     for (int i = 1; i < n; i++) if (ratings[i] > ratings[i-1]) candies[i] = candies[i-1] + 1;
     for (int i = n - 2; i >= 0; i--) if (ratings[i] > ratings[i+1]) candies[i] = max(candies[i], candies[i+1] + 1);
     return accumulate(candies.begin(), candies.end(), 0);
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int candyTwoPass(int[] ratings) {
+        int n = ratings.length;
+        int[] candies = new int[n];
+        for (int i = 1; i < n; i++) if (ratings[i] > ratings[i-1]) candies[i] = candies[i-1] + 1;
+        for (int i = n - 2; i >= 0; i--) if (ratings[i] > ratings[i+1]) candies[i] = Math.max(candies[i], candies[i+1] + 1);
+        return accumulate(candies.begin(), candies.end(), 0);
+    }
 }
 ```
 
@@ -117,6 +136,51 @@ public:
             // Peak compensation: if valley is longer than peak, increase peak height
             totalCandies -= min(peak, down + 1);
             totalCandies += max(peak, down + 1);
+        }
+        
+        return totalCandies;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int candy(int[] ratings) {
+        int n = ratings.length;
+        if (n <= 1) return n;
+        
+        int totalCandies = 1; // first child gets 1 candy
+        int i = 1;
+        
+        while (i < n) {
+            // Flat slope: equal ratings
+            if (ratings[i] == ratings[i - 1]) {
+                totalCandies += 1;
+                i++;
+                continue;
+            }
+            
+            // Increasing slope (Peak)
+            int peak = 1;
+            while (i < n && ratings[i] > ratings[i - 1]) {
+                peak++;
+                totalCandies += peak;
+                i++;
+            }
+            
+            // Decreasing slope (Valley)
+            int down = 0;
+            while (i < n && ratings[i] < ratings[i - 1]) {
+                down++;
+                totalCandies += down;
+                i++;
+            }
+            
+            // Peak compensation: if valley is longer than peak, increase peak height
+            totalCandies -= Math.min(peak, down + 1);
+            totalCandies += Math.max(peak, down + 1);
         }
         
         return totalCandies;

@@ -1,6 +1,6 @@
 # LRU Cache Implementation (Hash Map + Doubly LL) (Step 9.4 — Implementation Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LRU Cache Implementation (Hash Map + Doubly LL)](https://takeuforward.org/data-structure/lru-cache-implementation/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Vector of pairs shifting elements on access in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N) array search LRU
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) array search LRU
 ```
 
@@ -130,6 +136,85 @@ public:
                 delete lru;
             }
             Node* newNode = new Node(key, value);
+            addNode(newNode);
+            mp[key] = newNode;
+        }
+    }
+};
+```
+
+### Java Code
+```java
+class LRUCache {
+
+    static class Node {
+        int key;
+        int val;
+        Node  prev;
+        Node  next;
+        public Node(int k, int v) { /* initialized: key(k), val(v), prev(null), next(null)  */  }
+    };
+    
+    int capacity;
+    unordered_map<int, Node > mp;
+    Node  head;
+    Node  tail;
+    
+    void addNode(Node  newNode) {
+        Node  temp = head.next;
+        newNode.next = temp;
+        newNode.prev = head;
+        head.next = newNode;
+        temp.prev = newNode;
+    }
+    
+    void deleteNode(Node  delNode) {
+        Node  delPrev = delNode.prev;
+        Node  delNext = delNode.next;
+        delPrev.next = delNext;
+        delNext.prev = delPrev;
+    }
+
+    public LRUCache(int cap) { /* initialized: capacity(cap)  */ 
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+     }
+    
+    ~LRUCache() {
+        Node  curr = head;
+        while (curr) {
+            Node  nextNode = curr.next;
+            delete curr;
+            curr = nextNode;
+        }
+    }
+    
+    int get(int key) {
+        if (mp.find(key) == mp.end()) return -1;
+        
+        Node  resNode = mp[key];
+        deleteNode(resNode);
+        addNode(resNode); // move to MRU (head)
+        return resNode.val;
+    }
+    
+    void put(int key, int value) {
+        if (mp.find(key) != mp.end()) {
+            Node  existing = mp[key];
+            existing.val = value;
+            deleteNode(existing);
+            addNode(existing);
+        } else {
+            if (mp.length == capacity) {
+                // Evict LRU node (node before tail)
+                Node  lru = tail.prev;
+                mp.remove(lru.key);
+                deleteNode(lru);
+                delete lru;
+            }
+            Node  newNode = new Node(key, value);
             addNode(newNode);
             mp[key] = newNode;
         }

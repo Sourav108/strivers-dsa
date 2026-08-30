@@ -1,6 +1,6 @@
 # Hands of Straights (Consecutive Group Partitioning) (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Hands of Straights (Consecutive Group Partitioning)](https://takeuforward.org/data-structure/hand-of-straights/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Repeated sorting and element erasing in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) erase search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) erase search
 ```
 
@@ -72,6 +78,38 @@ public:
         }
         
         for (auto& [card, count] : countMap) {
+            if (count > 0) {
+                int needed = count;
+                for (int i = 0; i < groupSize; i++) {
+                    if (countMap[card + i] < needed) {
+                        return false; // consecutive run broken
+                    }
+                    countMap[card + i] -= needed;
+                }
+            }
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean isNStraightHand(int[] hand, int groupSize) {
+        int n = hand.length;
+        if (n % groupSize != 0) return false;
+        
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int card : hand) {
+            countMap[card]++;
+        }
+        
+        for (var [card, count] : countMap) {
             if (count > 0) {
                 int needed = count;
                 for (int i = 0; i < groupSize; i++) {

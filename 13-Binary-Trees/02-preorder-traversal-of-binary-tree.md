@@ -1,6 +1,6 @@
 # Preorder Traversal of Binary Tree (Recursive & Iterative) (Step 13.1 — Traversals)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Preorder Traversal of Binary Tree (Recursive & Iterative)](https://takeuforward.org/data-structure/preorder-traversal-of-binary-tree/)
 - **Difficulty**: Easy
@@ -41,6 +41,17 @@ void preorderRec(TreeNode* root, vector<int>& ans) {
     ans.push_back(root->val);
     preorderRec(root->left, ans);
     preorderRec(root->right, ans);
+}
+```
+
+### Java Code
+```java
+static class TreeNode { int val; TreeNode left, right; };
+void preorderRec(TreeNode  root, int[] ans) {
+    if (root == null) return;
+    ans.add(root.val);
+    preorderRec(root.left, ans);
+    preorderRec(root.right, ans);
 }
 ```
 
@@ -96,6 +107,46 @@ public:
             }
             if (curr->left != nullptr) {
                 st.push(curr->left);
+            }
+        }
+        
+        return preorder;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] preorderTraversal(TreeNode  root) {
+        List<Integer> preorder = new ArrayList<>();
+        if (root == null) return preorder;
+        
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        
+        while (!st.isEmpty()) {
+            TreeNode  curr = st.peek();
+            st.pop();
+            
+            preorder.add(curr.val);
+            
+            // Push RIGHT child first so that LEFT child is processed first (LIFO)
+            if (curr.right != null) {
+                st.push(curr.right);
+            }
+            if (curr.left != null) {
+                st.push(curr.left);
             }
         }
         

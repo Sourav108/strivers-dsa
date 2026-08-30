@@ -1,6 +1,6 @@
 # Check if a Number is Power of 2 (n & (n-1) == 0) (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if a Number is Power of 2 (n & (n-1) == 0)](https://takeuforward.org/bit-manipulation/check-if-a-number-is-power-of-2/)
 - **Difficulty**: Easy
@@ -40,6 +40,17 @@ bool isPowerOfTwoLoop(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    boolean isPowerOfTwoLoop(int n) {
+        if (n <= 0) return false;
+        while (n % 2 == 0) n /= 2;
+        return n == 1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log N)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -63,6 +74,16 @@ Branchless Bitwise Identity in $\mathcal{O}(1)$ time.
 class Solution {
 public:
     bool isPowerOfTwo(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isPowerOfTwo(int n) {
         return n > 0 && (n & (n - 1)) == 0;
     }
 };

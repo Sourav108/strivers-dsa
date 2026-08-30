@@ -1,6 +1,6 @@
 # Partition Equal Subset Sum (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Partition Equal Subset Sum](https://takeuforward.org/data-structure/partition-equal-subset-sum-dp-15/)
 - **Difficulty**: Medium
@@ -56,6 +56,26 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    boolean solve(int i, int target, int[] nums) {
+        if (target == 0) return true;
+        if (i == 0) return nums[0] == target;
+        boolean notTake = solve(i - 1, target, nums);
+        boolean take = (target >= nums[i]) ? public solve(i - 1, target - nums[i], nums) { /* initialized: false;
+        return notTake || take;
+    }
+
+    boolean canPartition(int[] nums)  */ 
+        int sum = 0;
+        for (int x : nums) sum += x;
+        if (sum % 2 != 0) return false;
+        return solve(nums.length - 1, sum / 2, nums);
+     }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -91,6 +111,33 @@ public:
             for (int k = 1; k <= target; k++) {
                 bool notTake = dp[i - 1][k];
                 bool take = (k >= nums[i]) ? dp[i - 1][k - nums[i]] : false;
+                dp[i][k] = notTake || take;
+            }
+        }
+        return dp[n - 1][target];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    boolean canPartition(int[] nums) {
+        int n = nums.length;
+        int totalSum = 0;
+        for (int x : nums) totalSum += x;
+        if (totalSum % 2 != 0) return false;
+        
+        int target = totalSum / 2;
+        boolean[][] dp = new boolean[n][target + 1];
+        for (int i = 0; i < n; i++) dp[i][0] = true;
+        if (nums[0] <= target) dp[0][nums[0]] = true;
+        
+        for (int i = 1; i < n; i++) {
+            for (int k = 1; k <= target; k++) {
+                boolean notTake = dp[i - 1][k];
+                boolean take = (k >= nums[i]) ? dp[i - 1][k - nums[i]] : false;
                 dp[i][k] = notTake || take;
             }
         }
@@ -148,6 +195,51 @@ public:
             for (int k = 1; k <= target; k++) {
                 bool notTake = prev[k];
                 bool take = (k >= nums[i]) ? prev[k - nums[i]] : false;
+                
+                cur[k] = notTake || take;
+            }
+            
+            prev = cur;
+        }
+        
+        return prev[target];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean canPartition(int[] nums) {
+        int n = nums.length;
+        int totalSum = 0;
+        for (int x : nums) {
+            totalSum += x;
+        }
+        
+        // If total sum is odd, it cannot be partitioned into two equal integer halves
+        if (totalSum % 2 != 0) {
+            return false;
+        }
+        
+        int target = totalSum / 2;
+        
+        // prev[k] indicates whether subset sum k is achievable
+        boolean[] prev = new boolean[target + 1];
+        prev[0] = true; // Base case: sum 0 is always possible
+        
+        if (nums[0] <= target) {
+            prev[nums[0]] = true;
+        }
+        
+        for (int i = 1; i < n; i++) {
+            boolean[] cur = new boolean[target + 1];
+            cur[0] = true;
+            
+            for (int k = 1; k <= target; k++) {
+                boolean notTake = prev[k];
+                boolean take = (k >= nums[i]) ? prev[k - nums[i]] : false;
                 
                 cur[k] = notTake || take;
             }

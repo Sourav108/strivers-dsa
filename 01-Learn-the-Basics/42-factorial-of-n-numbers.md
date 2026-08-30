@@ -1,6 +1,6 @@
 # Factorial of N Numbers (Step 1.5 — Learn Basic Recursion)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Factorial of N Numbers](https://takeuforward.org/data-structure/factorial-of-a-number-iterative-and-recursive/)
 - **Difficulty**: Easy
@@ -39,6 +39,16 @@ long long factSlow(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    long factSlow(int n) {
+        if (n <= 1) return 1;
+        return n * factSlow(n - 1);
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack space.
@@ -70,6 +80,22 @@ private:
 
 public:
     long long factorial(int n) {
+        if (n < 0) return -1; // undefined for negative integers
+        return factTail(n, 1LL);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    long factTail(int n, long acc) {
+        if (n <= 1) return acc;
+        return factTail(n - 1, acc * n);
+    }
+
+    long factorial(int n) {
         if (n < 0) return -1; // undefined for negative integers
         return factTail(n, 1LL);
     }

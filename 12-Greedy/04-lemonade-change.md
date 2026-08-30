@@ -1,6 +1,6 @@
 # Lemonade Change (Step 12.1 — Easy)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Lemonade Change](https://takeuforward.org/data-structure/lemonade-change/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Simulation checking all permutation combinations.
 // Simulation check
 ```
 
+### Java Code
+```java
+// Java equivalent
+// Simulation check
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -62,6 +68,38 @@ using namespace std;
 class Solution {
 public:
     bool lemonadeChange(vector<int>& bills) {
+        int five = 0, ten = 0;
+        
+        for (int bill : bills) {
+            if (bill == 5) {
+                five++;
+            } else if (bill == 10) {
+                if (five == 0) return false;
+                five--;
+                ten++;
+            } else { // bill == 20 (requires $15 change)
+                // Greedy choice: prefer 10 + 5 over 5 + 5 + 5
+                if (ten > 0 && five > 0) {
+                    ten--;
+                    five--;
+                } else if (five >= 3) {
+                    five -= 3;
+                } else {
+                    return false; // cannot provide change
+                }
+            }
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean lemonadeChange(int[] bills) {
         int five = 0, ten = 0;
         
         for (int bill : bills) {

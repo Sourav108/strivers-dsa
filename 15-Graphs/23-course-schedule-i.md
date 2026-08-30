@@ -1,6 +1,6 @@
 # Course Schedule I (Prerequisites cycle check) (Step 15.3 — Topological Sort and Kahn's Algorithm)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Course Schedule I (Prerequisites cycle check)](https://takeuforward.org/data-structure/course-schedule-i-and-ii/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS with 3-color recursion stack arrays.
 
 ### C++17 Code
 ```cpp
+// DFS 3-color cycle check alternative
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS 3-color cycle check alternative
 ```
 
@@ -87,6 +93,54 @@ public:
         
         while (!q.empty()) {
             int curr = q.front();
+            q.pop();
+            completedCount++;
+            
+            for (int nextCourse : adj[curr]) {
+                inDegree[nextCourse]--;
+                if (inDegree[nextCourse] == 0) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+        
+        // If all courses were completed without deadlocks
+        return completedCount == numCourses;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[][] adj(numCourses);
+        int[] inDegree = new int[numCourses];
+        
+        // Edge: prerequisite . course (b . a)
+        for (var pre : prerequisites) {
+            int course = pre[0];
+            int prerequisite = pre[1];
+            
+            adj[prerequisite].add(course);
+            inDegree[course]++;
+        }
+        
+        // Push all courses with 0 prerequisites into queue
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        int completedCount = 0;
+        
+        while (!q.isEmpty()) {
+            int curr = q.peek();
             q.pop();
             completedCount++;
             

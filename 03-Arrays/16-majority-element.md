@@ -1,6 +1,6 @@
 # Majority Element (> n/2 times) (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/find-the-majority-element-that-occurs-more-than-n-2-times/
 - **Difficulty**: Easy
@@ -52,6 +52,21 @@ int majorityBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int majorityBrute(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int cnt = 0;
+            for (int j = 0; j < n; j++) if (nums[j] == nums[i]) cnt++;
+            if (cnt > n / 2) return nums[i];
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -78,6 +93,23 @@ int majorityElementBetter(const vector<int>& nums) {
         if (freq[x] > threshold) return x;
     }
     return -1;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int majorityElementBetter(int[] nums) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        int threshold = nums.length / 2;
+        for (int x : nums) {
+            freq[x]++;
+            if (freq[x] > threshold) return x;
+        }
+        return -1;
+    }
 }
 ```
 
@@ -109,6 +141,20 @@ int majorityOptimal(const vector<int>& nums) {
         count += (x == candidate) ? 1 : -1;
     }
     return candidate;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int majorityOptimal(int[] nums) {
+        int candidate = 0, count = 0;
+        for (int x : nums) {
+            if (count == 0) candidate = x;
+            count += (x == candidate) ? 1 : -1;
+        }
+        return candidate;
+    }
 }
 ```
 

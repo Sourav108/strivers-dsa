@@ -1,6 +1,6 @@
 # Rotate a LinkedList by K places (Step 6.5 — Hard Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Rotate a LinkedList by K places](https://takeuforward.org/data-structure/rotate-a-linked-list/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Rotate 1 step at a time $K$ times in $\mathcal{O}(K \times N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(K * N) repetitive shift
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(K * N) repetitive shift
 ```
 
@@ -92,6 +98,50 @@ public:
         // 5. Break the ring
         Node* newHead = newTail->next;
         newTail->next = nullptr;
+        
+        return newHead;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  rotateRight(Node  head, int k) {
+        if (!head || !head.next || k == 0) return head;
+        
+        // 1. Calculate length and find tail
+        int length = 1;
+        Node  tail = head;
+        while (tail.next != null) {
+            length++;
+            tail = tail.next;
+        }
+        
+        // 2. Modulo reduction
+        k = k % length;
+        if (k == 0) return head;
+        
+        // 3. Connect tail to head (Circular Ring)
+        tail.next = head;
+        
+        // 4. Find new tail at (length - k)
+        int stepsToNewTail = length - k;
+        Node  newTail = head;
+        for (int i = 1; i < stepsToNewTail; i++) {
+            newTail = newTail.next;
+        }
+        
+        // 5. Break the ring
+        Node  newHead = newTail.next;
+        newTail.next = null;
         
         return newHead;
     }

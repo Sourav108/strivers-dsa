@@ -1,6 +1,6 @@
 # Coin Change II (Number of Ways with Infinite Supply) (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Coin Change II (Number of Ways with Infinite Supply)](https://takeuforward.org/data-structure/coin-change-2-dp-22/)
 - **Difficulty**: Medium
@@ -53,6 +53,23 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int T, int[] c) {
+        if (T == 0) return 1;
+        if (i < 0) return 0;
+        int notTake = solve(i - 1, T, c);
+        int take = (T >= c[i]) ? public solve(i, T - c[i], c) { /* initialized: 0;
+        return notTake + take;
+    }
+
+    int change(int amount, int[] coins)  */ 
+        return solve(coins.length - 1, amount, coins);
+     }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^{\text{amount}})$ time.
 - **Space Complexity**: $\mathcal{O}(\text{amount})$ stack.
@@ -90,6 +107,28 @@ public:
 };
 ```
 
+### Java Code
+```java
+class Solution2D {
+
+    int change(int amount, int[] coins) {
+        int n = coins.length;
+        vector<vector<unsigned long>> dp(n, vector<unsigned long>(amount + 1, 0));
+        for (int t = 0; t <= amount; t++) {
+            if (t % coins[0] == 0) dp[0][t] = 1;
+        }
+        for (int i = 1; i < n; i++) {
+            for (int t = 0; t <= amount; t++) {
+                unsigned long notTake = dp[i - 1][t];
+                unsigned long take = (t >= coins[i]) ? dp[i][t - coins[i]] : 0;
+                dp[i][t] = notTake + take;
+            }
+        }
+        return dp[n - 1][amount];
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \times \text{amount})$ time.
 - **Space Complexity**: $\mathcal{O}(N \times \text{amount})$ space.
@@ -113,6 +152,29 @@ public:
         // dp[t] stores number of combinations to make amount t
         // Using unsigned long long to avoid intermediate integer overflow
         vector<unsigned long long> dp(amount + 1, 0);
+        dp[0] = 1; // Base case: 1 way to form amount 0 (empty combination)
+        
+        // OUTER LOOP over coins enforces combination order (no permutations)
+        for (int coin : coins) {
+            // INNER FORWARD LOOP enables unbounded reuse of current coin
+            for (int t = coin; t <= amount; t++) {
+                dp[t] += dp[t - coin];
+            }
+        }
+        
+        return dp[amount];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int change(int amount, int[] coins) {
+        // dp[t] stores number of combinations to make amount t
+        // Using unsigned long to avoid intermediate integer overflow
+        vector<unsigned long> dp(amount + 1, 0);
         dp[0] = 1; // Base case: 1 way to form amount 0 (empty combination)
         
         // OUTER LOOP over coins enforces combination order (no permutations)

@@ -1,6 +1,6 @@
 # Postfix to Prefix Conversion (Step 9.2 — Prefix, Infix, Postfix Expressions)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Postfix to Prefix Conversion](https://takeuforward.org/data-structure/postfix-to-prefix/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Postfix -> Infix -> Prefix two-pass approach.
 
 ### C++17 Code
 ```cpp
+// 2-pass approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // 2-pass approach
 ```
 
@@ -78,6 +84,31 @@ public:
         }
         
         return st.top();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    String postToPre(String post_exp) {
+        Stack<String> st;
+        
+        for (char c : post_exp) {
+            if (isalnum(c)) {
+                st.push(String(1, c));
+            } else {
+                String op2 = st.peek(); st.pop();
+                String op1 = st.peek(); st.pop();
+                String combined = c + op1 + op2;
+                st.push(combined);
+            }
+        }
+        
+        return st.peek();
     }
 };
 ```

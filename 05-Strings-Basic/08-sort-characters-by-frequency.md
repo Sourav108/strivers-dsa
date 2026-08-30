@@ -1,6 +1,6 @@
 # Sort Characters by Frequency (Step 5.2 — Medium String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sort Characters by Frequency](https://takeuforward.org/strings/sort-characters-by-frequency/)
 - **Difficulty**: Medium
@@ -50,6 +50,24 @@ string frequencySortHeap(string s) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    String frequencySortHeap(String s) {
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : s) freq[c]++;
+        vector<pair<int, char>> v;
+        for (var [c, count] : freq) v.add({count, c});
+        sort(v.rbegin(), v.rend());
+        String ans = "";
+        for (var [count, c] : v) ans += String(count, c);
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N + K \log K)$ time.
 - **Space Complexity**: $\mathcal{O}(K)$ space.
@@ -94,6 +112,38 @@ public:
         // Scan buckets from highest frequency to lowest
         for (int f = n; f >= 1; f--) {
             if (!buckets[f].empty()) {
+                result += buckets[f];
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    String frequencySort(String s) {
+        int n = s.length();
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : s) freq[c]++;
+        
+        // Bucket array where index is frequency (0 to n)
+        String[] buckets(n + 1, "");
+        for (var [ch, count] : freq) {
+            buckets[count].append(count, ch);
+        }
+        
+        String result = "";
+        result.reserve(n);
+        
+        // Scan buckets from highest frequency to lowest
+        for (int f = n; f >= 1; f--) {
+            if (!buckets[f].isEmpty()) {
                 result += buckets[f];
             }
         }

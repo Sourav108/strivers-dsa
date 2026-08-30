@@ -1,6 +1,6 @@
 # Capacity to Ship Packages within D Days (Step 4.2 — BS on Answers)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LeetCode #1011 - Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | [TakeUForward](https://takeuforward.org/binary-search/capacity-to-ship-packages-within-d-days/)
 - **Difficulty**: Medium
@@ -85,6 +85,38 @@ int shipWithinDaysLinear(const vector<int>& weights, int days) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findDaysNeeded(int[] weights, int capacity) {
+        int days = 1;
+        int currentLoad = 0;
+        
+        for (int w : weights) {
+            if (currentLoad + w > capacity) {
+                days++;
+                currentLoad = w; // start new day with current package
+            } else {
+                currentLoad += w;
+            }
+        }
+        return days;
+    }
+    
+    int shipWithinDaysLinear(int[] weights, int days) {
+        int maxVal = max_element(weights.begin(), weights.end());
+        int totalSum = accumulate(weights.begin(), weights.end(), 0);
+        
+        for (int cap = maxVal; cap <= totalSum; cap++) {
+            if (findDaysNeeded(weights, cap) <= days) {
+                return cap;
+            }
+        }
+        return totalSum;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}((\sum \text{weights} - \max(\text{weights})) \times n)$ — in the worst case with $n = 5 \times 10^4$ and weights $= 500$, $\sum = 2.5 \times 10^7$. Linear scan requires $2.5 \times 10^7 \times 5 \times 10^4 = 1.25 \times 10^{12}$ operations, triggering Time Limit Exceeded.
 - **Space Complexity**: $\mathcal{O}(1)$ auxiliary memory.
@@ -115,6 +147,24 @@ int shipWithinDaysBetter(const vector<int>& weights, int days) {
         }
     }
     return totalSum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int shipWithinDaysBetter(int[] weights, int days) {
+        int maxVal = max_element(weights.begin(), weights.end());
+        int totalSum = accumulate(weights.begin(), weights.end(), 0);
+        
+        int startCap = Math.max(maxVal, (totalSum + days - 1) / days);
+        for (int cap = startCap; cap <= totalSum; cap++) {
+            if (findDaysNeeded(weights, cap) <= days) {
+                return cap;
+            }
+        }
+        return totalSum;
+    }
 }
 ```
 
@@ -165,6 +215,46 @@ private:
 public:
     int shipWithinDays(vector<int>& weights, int days) {
         int low = *max_element(weights.begin(), weights.end());
+        int high = accumulate(weights.begin(), weights.end(), 0);
+        int ans = high;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (countDays(weights, mid) <= days) {
+                ans = mid;        // valid capacity, try to find smaller on left
+                high = mid - 1;
+            } else {
+                low = mid + 1;    // capacity too small, need larger capacity
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countDays(int[] weights, int capacity) {
+        int days = 1;
+        int currentLoad = 0;
+        
+        for (int w : weights) {
+            if (currentLoad + w > capacity) {
+                days++;          // capacity exceeded, dispatch ship and start next day
+                currentLoad = w; // place current package on new day's ship
+            } else {
+                currentLoad += w;
+            }
+        }
+        return days;
+    }
+
+    int shipWithinDays(int[] weights, int days) {
+        int low = max_element(weights.begin(), weights.end());
         int high = accumulate(weights.begin(), weights.end(), 0);
         int ans = high;
         

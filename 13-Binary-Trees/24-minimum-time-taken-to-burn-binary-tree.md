@@ -1,6 +1,6 @@
 # Minimum Time Taken to BURN the Binary Tree from a Node (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Time Taken to BURN the Binary Tree from a Node](https://takeuforward.org/data-structure/minimum-time-taken-to-burn-the-binary-tree-from-a-node/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Build full adjacency graph and run Dijkstra / All-Pairs BFS in $\mathcal{O}(N^2)
 
 ### C++17 Code
 ```cpp
+// Graph BFS approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Graph BFS approach
 ```
 
@@ -135,6 +141,97 @@ public:
                 if (parentMap.count(curr) && visited.find(parentMap[curr]) == visited.end()) {
                     burnedNewNode = true;
                     visited.insert(parentMap[curr]);
+                    q.push(parentMap[curr]);
+                }
+            }
+            
+            if (burnedNewNode) {
+                time++;
+            }
+        }
+        
+        return time;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  mapParentsAndFindTarget(TreeNode  root, unordered_map<TreeNode , TreeNode > parentMap, int start) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        TreeNode  targetNode = null;
+        
+        while (!q.isEmpty()) {
+            TreeNode  curr = q.peek();
+            q.pop();
+            
+            if (curr.val == start) targetNode = curr;
+            
+            if (curr.left != null) {
+                parentMap[curr.left] = curr;
+                q.push(curr.left);
+            }
+            if (curr.right != null) {
+                parentMap[curr.right] = curr;
+                q.push(curr.right);
+            }
+        }
+        
+        return targetNode;
+    }
+
+    int minTimeToBurn(TreeNode  root, int start) {
+        if (root == null) return 0;
+        
+        unordered_map<TreeNode , TreeNode > parentMap;
+        TreeNode  target = mapParentsAndFindTarget(root, parentMap, start);
+        if (target == null) return 0;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        unordered_set<TreeNode > visited;
+        
+        q.push(target);
+        visited.add(target);
+        int time = 0;
+        
+        while (!q.isEmpty()) {
+            int size = q.length;
+            boolean burnedNewNode = false;
+            
+            for (int i = 0; i < size; i++) {
+                TreeNode  curr = q.peek();
+                q.pop();
+                
+                // Spread Left
+                if (curr.left && visited.find(curr.left) == visited.end()) {
+                    burnedNewNode = true;
+                    visited.add(curr.left);
+                    q.push(curr.left);
+                }
+                
+                // Spread Right
+                if (curr.right && visited.find(curr.right) == visited.end()) {
+                    burnedNewNode = true;
+                    visited.add(curr.right);
+                    q.push(curr.right);
+                }
+                
+                // Spread Up (Parent)
+                if (parentMap.contains(curr) && visited.find(parentMap[curr]) == visited.end()) {
+                    burnedNewNode = true;
+                    visited.add(parentMap[curr]);
                     q.push(parentMap[curr]);
                 }
             }

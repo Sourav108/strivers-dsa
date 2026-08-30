@@ -1,6 +1,6 @@
 # Morris Preorder Traversal (Threaded Binary Tree O(1) space) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Morris Preorder Traversal (Threaded Binary Tree O(1) space)](https://takeuforward.org/data-structure/morris-preorder-traversal-of-a-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Standard recursive preorder using $\mathcal{O}(H)$ call stack space.
 
 ### C++17 Code
 ```cpp
+// O(H) recursive preorder
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(H) recursive preorder
 ```
 
@@ -93,6 +99,53 @@ public:
                     // SECOND VISIT: Left subtree finished -> Cut thread and move Right
                     prev->right = nullptr;
                     curr = curr->right;
+                }
+            }
+        }
+        
+        return preorder;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] getPreorder(TreeNode  root) {
+        List<Integer> preorder = new ArrayList<>();
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            if (curr.left == null) {
+                // Case 1: No left child . Visit current node and move Right
+                preorder.add(curr.val);
+                curr = curr.right;
+            } else {
+                // Case 2: Left child exists . Find Inorder Predecessor
+                TreeNode  prev = curr.left;
+                while (prev.right != null && prev.right != curr) {
+                    prev = prev.right;
+                }
+                
+                if (prev.right == null) {
+                    // FIRST VISIT: Visit root before diving into left subtree!
+                    preorder.add(curr.val);
+                    prev.right = curr; // create thread
+                    curr = curr.left;  // dive left
+                } else {
+                    // SECOND VISIT: Left subtree finished . Cut thread and move Right
+                    prev.right = null;
+                    curr = curr.right;
                 }
             }
         }

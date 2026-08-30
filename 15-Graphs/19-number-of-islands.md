@@ -1,6 +1,6 @@
 # Number of Islands (Grid DFS/BFS) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Number of Islands (Grid DFS/BFS)](https://takeuforward.org/data-structure/find-the-number-of-islands-using-dsu/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Build explicit adjacency list of $(N \times M)$ nodes with edge conversions, the
 
 ### C++17 Code
 ```cpp
+// Graph list conversion approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Graph list conversion approach
 ```
 
@@ -72,6 +78,50 @@ public:
 
 int numIslandsDSU(vector<vector<char>>& grid) {
     int n = grid.size(), m = grid[0].size();
+    DSUGrid dsu(n * m);
+    int ones = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            if (grid[i][j] == '1') ones++;
+    dsu.setCount(ones);
+    
+    int dRow[] = {0, 1};
+    int dCol[] = {1, 0};
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (grid[i][j] == '1') {
+                for (int d = 0; d < 2; d++) {
+                    int ni = i + dRow[d], nj = j + dCol[d];
+                    if (ni < n && nj < m && grid[ni][nj] == '1')
+                        dsu.unite(i * m + j, ni * m + nj);
+                }
+            }
+        }
+    }
+    return dsu.getCount();
+}
+```
+
+### Java Code
+```java
+class DSUGrid {
+    int[] parent;
+    int count;
+
+    public DSUGrid(int n) { /* initialized: parent(n), count(0)  */ 
+        iota(parent.begin(), parent.end(), 0);
+     }
+    void setCount(int c) { count = c; }
+    int find(int i) { return parent[i] == i ? i : parent[i] = find(parent[i]); }
+    void unite(int i, int j) {
+        int rI = find(i), rJ = find(j);
+        if (rI != rJ) { parent[rI] = rJ; count--; }
+    }
+    int getCount() { return count; }
+};
+
+int numIslandsDSU(char[][] grid) {
+    int n = grid.length, m = grid[0].size();
     DSUGrid dsu(n * m);
     int ones = 0;
     for (int i = 0; i < n; i++)
@@ -138,6 +188,51 @@ private:
 public:
     int numIslands(vector<vector<char>>& grid) {
         int n = grid.size();
+        if (n == 0) return 0;
+        int m = grid[0].size();
+        
+        int islandCount = 0;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == '1') {
+                    islandCount++;
+                    dfs(i, j, grid); // Sinks the entire connected island
+                }
+            }
+        }
+        
+        return islandCount;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    void dfs(int r, int c, char[][] grid) {
+        // Sink the current land cell to prevent re-visiting
+        grid[r][c] = '0';
+        
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        int n = grid.length;
+        int m = grid[0].size();
+        
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dRow[i];
+            int nc = c + dCol[i];
+            
+            // Recurse into valid un-sunk adjacent land cells
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && grid[nr][nc] == '1') {
+                dfs(nr, nc, grid);
+            }
+        }
+    }
+
+    int numIslands(char[][] grid) {
+        int n = grid.length;
         if (n == 0) return 0;
         int m = grid[0].size();
         

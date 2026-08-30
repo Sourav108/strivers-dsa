@@ -1,6 +1,6 @@
 # Palindrome Partitioning (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Palindrome Partitioning](https://takeuforward.org/data-structure/palindrome-partitioning/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate all $2^{N-1}$ possible string partitions and validate every substring.
 
 ### C++17 Code
 ```cpp
+// Unpruned partition generation
+```
+
+### Java Code
+```java
+// Java equivalent
 // Unpruned partition generation
 ```
 
@@ -88,6 +94,43 @@ public:
     vector<vector<string>> partition(string s) {
         vector<vector<string>> ans;
         vector<string> path;
+        partitionHelper(0, s, path, ans);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean isPalindrome(String s, int left, int right) {
+        while (left < right) {
+            if (s[left++] != s[right--]) return false;
+        }
+        return true;
+    }
+    
+    void partitionHelper(int index, String s, String[] path, List<List<String>> ans) {
+        if (index == s.length()) {
+            ans.add(path);
+            return;
+        }
+        
+        for (int i = index; i < s.length(); i++) {
+            if (isPalindrome(s, index, i)) {
+                path.add(s.substring(index, index + i - index + 1));
+                partitionHelper(i + 1, s, path, ans);
+                path.remove(); // backtrack
+            }
+        }
+    }
+
+    List<List<String>> partition(String s) {
+        List<List<String>> ans;
+        List<String> path = new ArrayList<>();
         partitionHelper(0, s, path, ans);
         return ans;
     }

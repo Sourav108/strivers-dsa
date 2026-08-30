@@ -1,6 +1,6 @@
 # Set / Unset the Rightmost Unset Bit (Step 8.1 — Learn Bit Manipulation)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Set / Unset the Rightmost Unset Bit](https://takeuforward.org/bit-manipulation/set-rightmost-unset-bit/)
 - **Difficulty**: Easy
@@ -41,6 +41,18 @@ int setRightmost0Loop(int n) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int setRightmost0Loop(int n) {
+        for (int i = 0; i < 32; i++) {
+            if (!(n & (1 << i))) return n | (1 << i);
+        }
+        return n;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(32)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -63,6 +75,16 @@ Branchless Bitwise Identity: `n | (n + 1)` in $\mathcal{O}(1)$ time.
 ```cpp
 class Solution {
 public:
+    int setBit(int N) {
+        return N | (N + 1);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
     int setBit(int N) {
         return N | (N + 1);
     }

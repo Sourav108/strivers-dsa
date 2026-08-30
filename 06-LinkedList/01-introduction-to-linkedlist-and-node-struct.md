@@ -1,6 +1,6 @@
 # Introduction to LinkedList & Node Struct (Step 6.1 — Learn 1D LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to LinkedList & Node Struct](https://takeuforward.org/data-structure/introduction-to-linked-list/)
 - **Difficulty**: Easy
@@ -34,6 +34,11 @@ Allocating nodes without constructor or memory cleanup.
 ### C++17 Code
 ```cpp
 struct Node { int data; Node* next; };
+```
+
+### Java Code
+```java
+static class Node { int data; Node  next; };
 ```
 
 ### Complexity Derivation
@@ -95,6 +100,50 @@ void printLL(Node* head) {
 int main() {
     vector<int> v = {10, 20, 30, 40};
     Node* head = constructLL(v);
+    printLL(head);
+    return 0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int data;
+    Node  next;
+    
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+    public Node(int val, Node  nextNode) { /* initialized: data(val), next(nextNode)  */  }
+};
+
+// Convert vector to Singly Linked List
+Node  constructLL(int[] arr) {
+    if (arr.isEmpty()) return null;
+    
+    Node  head = new Node(arr[0]);
+    Node  tail = head;
+    
+    for (int i = 1; i < arr.length; i++) {
+        tail.next = new Node(arr[i]);
+        tail = tail.next;
+    }
+    
+    return head;
+}
+
+void printLL(Node  head) {
+    Node  curr = head;
+    while (curr != null) {
+        System.out.print(curr.data << " . ");
+        curr = curr.next;
+    }
+    System.out.print("null\n");
+}
+
+int main() {
+    int[] v = {10, 20, 30, 40};
+    Node  head = constructLL(v);
     printLL(head);
     return 0;
 }

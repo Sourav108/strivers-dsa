@@ -1,6 +1,6 @@
 # Count Inversions (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/count-inversions-in-an-array/
 - **Difficulty**: Hard
@@ -47,6 +47,19 @@ long long countInversionsBrute(const vector<int>& nums) {
         for (int j = i + 1; j < n; j++)
             if (nums[i] > nums[j]) cnt++;
     return cnt;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    long countInversionsBrute(int[] nums) {
+        long cnt = 0; int n = nums.length;
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j < n; j++)
+                if (nums[i] > nums[j]) cnt++;
+        return cnt;
+    }
 }
 ```
 
@@ -106,6 +119,44 @@ long long mergeSortCount(vector<int>& arr, int low, int high) {
 
 long long numberOfInversions(vector<int>& nums) {
     return mergeSortCount(nums, 0, (int)nums.size() - 1);
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    long mergeAndCount(int[] arr, int low, int mid, int high) {
+        List<Integer> temp = new ArrayList<>();
+        int left = low, right = mid + 1;
+        long invCount = 0;
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                temp.add(arr[left++]);
+            } else {
+                temp.add(arr[right++]);
+                invCount += (mid - left + 1); // all remaining left elements are greater
+            }
+        }
+        while (left <= mid) temp.add(arr[left++]);
+        while (right <= high) temp.add(arr[right++]);
+        for (int i = low; i <= high; i++) arr[i] = temp[i - low];
+        return invCount;
+    }
+    
+    long mergeSortCount(int[] arr, int low, int high) {
+        if (low >= high) return 0;
+        int mid = low + (high - low) / 2;
+        long inv = mergeSortCount(arr, low, mid);
+        inv += mergeSortCount(arr, mid + 1, high);
+        inv += mergeAndCount(arr, low, mid, high);
+        return inv;
+    }
+    
+    long numberOfInversions(int[] nums) {
+        return mergeSortCount(nums, 0, nums.length - 1);
+    }
 }
 ```
 

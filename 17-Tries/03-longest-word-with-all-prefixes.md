@@ -1,6 +1,6 @@
 # Longest Word with All Prefixes (Complete String) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Word with All Prefixes (Complete String)](https://takeuforward.org/data-structure/longest-word-with-all-prefixes/)
 - **Difficulty**: Medium
@@ -70,6 +70,34 @@ public:
             }
         }
         return longest.empty() ? "None" : longest;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionNaive {
+
+    String completeString(int n, String[] a) {
+        Set<String> setA(a.begin(), a.end());
+        String longest = "";
+        for (String word : a) {
+            boolean valid = true;
+            for (int len = 1; len <= word.length; len++) {
+                if (setA.find(word.substring(0, 0 + len)) == setA.end()) {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid) {
+                if (word.length > longest.length || (word.length == longest.length && word < longest)) {
+                    longest = word;
+                }
+            }
+        }
+        return longest.isEmpty() ? "None" : longest;
     }
 };
 ```
@@ -187,6 +215,99 @@ public:
         }
         
         return longest.empty() ? "None" : longest;
+    }
+};
+```
+
+### Java Code
+```java
+// Standard 26-Way Trie Node
+static class Node {
+    Node  links[26];
+    boolean flag = false;
+    
+    boolean containsKey(char ch) {
+        return links[ch - 'a'] != null;
+    }
+    
+    Node  get(char ch) {
+        return links[ch - 'a'];
+    }
+    
+    void put(char ch, Node  node) {
+        links[ch - 'a'] = node;
+    }
+    
+    void setEnd() {
+        flag = true;
+    }
+    
+    boolean isEnd() {
+        return flag;
+    }
+};
+
+class Trie {
+
+    Node  root;
+
+    Trie() {
+        root = new Node();
+    }
+    
+    // Inserts a word into the trie
+    void insert(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                node.put(ch, new Node());
+            }
+            node = node.get(ch);
+        }
+        node.setEnd();
+    }
+    
+    // Checks if ALL prefixes of word exist as complete words in Trie
+    boolean checkIfAllPrefixesExist(String word) {
+        Node  node = root;
+        for (char ch : word) {
+            if (!node.containsKey(ch)) {
+                return false;
+            }
+            node = node.get(ch);
+            // If any intermediate prefix is NOT a complete word, invalid!
+            if (!node.isEnd()) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+class Solution {
+
+    String completeString(int n, String[] a) {
+        Trie trie;
+        
+        // Step 1: Insert all words into the Trie in O(N * L)
+        for (String word : a) {
+            trie.add(word);
+        }
+        
+        String longest = "";
+        
+        // Step 2: Validate each word in O(L) time
+        for (String word : a) {
+            if (trie.checkIfAllPrefixesExist(word)) {
+                if (word.length > longest.length) {
+                    longest = word;
+                } else if (word.length == longest.length && word < longest) {
+                    longest = word; // Tie-breaker: Lexicographically smaller String
+                }
+            }
+        }
+        
+        return longest.isEmpty() ? "None" : longest;
     }
 };
 ```

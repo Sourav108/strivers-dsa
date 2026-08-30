@@ -1,6 +1,6 @@
 # Detect a Loop in LinkedList (Floyd's Cycle Finding) (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Detect a Loop in LinkedList (Floyd's Cycle Finding)](https://takeuforward.org/data-structure/detect-a-cycle-in-a-linked-list/)
 - **Difficulty**: Easy
@@ -43,6 +43,21 @@ bool hasCycleHash(Node* head) {
         if (visited.count(curr)) return true;
         visited.insert(curr);
         curr = curr->next;
+    }
+    return false;
+}
+```
+
+### Java Code
+```java
+static class Node { int data; Node  next; };
+boolean hasCycleHash(Node  head) {
+    unordered_set<Node > visited;
+    Node  curr = head;
+    while (curr) {
+        if (visited.contains(curr)) return true;
+        visited.add(curr);
+        curr = curr.next;
     }
     return false;
 }
@@ -91,6 +106,35 @@ public:
         }
         
         return false; // Reached nullptr -> No cycle
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    boolean hasCycle(Node head) {
+        Node  slow = head;
+        Node  fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;         // 1 step
+            fast = fast.next.next;   // 2 steps
+            
+            // Pointers collided inside cycle
+            if (slow == fast) {
+                return true;
+            }
+        }
+        
+        return false; // Reached null . No cycle
     }
 };
 ```

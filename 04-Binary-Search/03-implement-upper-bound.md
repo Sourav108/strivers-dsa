@@ -1,6 +1,6 @@
 # Implement Upper Bound (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Upper Bound](https://takeuforward.org/arrays/implement-upper-bound/)
 - **Difficulty**: Easy
@@ -46,6 +46,19 @@ int upperBoundLinear(const vector<int>& nums, int x) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int upperBoundLinear(int[] nums, int x) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > x) return i;
+        }
+        return n;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ — sequential linear scan.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant space.
@@ -86,6 +99,30 @@ int upperBound(const vector<int>& nums, int x) {
     }
     
     return ans;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int upperBound(int[] nums, int x) {
+        int n = nums.length;
+        int low = 0, high = n - 1;
+        int ans = n;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (nums[mid] > x) {
+                ans = mid;       // candidate found, search left for smaller valid index
+                high = mid - 1;
+            } else {
+                low = mid + 1;   // nums[mid] <= x, search right
+            }
+        }
+        
+        return ans;
+    }
 }
 ```
 

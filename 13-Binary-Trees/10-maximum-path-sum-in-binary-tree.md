@@ -1,6 +1,6 @@
 # Maximum Path Sum in Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum Path Sum in Binary Tree](https://takeuforward.org/data-structure/maximum-sum-path-in-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Finding paths between all pairs of nodes in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) path search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) path search
 ```
 
@@ -87,6 +93,40 @@ private:
 public:
     int maxPathSum(TreeNode* root) {
         int maxSum = INT_MIN;
+        maxGain(root, maxSum);
+        return maxSum;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int maxGain(TreeNode  node, int maxSum) {
+        if (node == null) return 0;
+        
+        // Greedily ignore negative subtree contributions by clamping with 0
+        int leftGain = Math.max(0, maxGain(node.left, maxSum));
+        int rightGain = Math.max(0, maxGain(node.right, maxSum));
+        
+        // Maximum path sum with current node as the turning apex
+        int currentPathSum = node.val + leftGain + rightGain;
+        maxSum = Math.max(maxSum, currentPathSum);
+        
+        // Return maximum single branch path to parent
+        return node.val + Math.max(leftGain, rightGain);
+    }
+
+    int maxPathSum(TreeNode  root) {
+        int maxSum = Integer.MIN_VALUE;
         maxGain(root, maxSum);
         return maxSum;
     }

@@ -1,6 +1,6 @@
 # Set Matrix Zeroes (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/set-matrix-zero/
 - **Difficulty**: Medium
@@ -49,6 +49,18 @@ void setZeroesBrute(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void setZeroesBrute(int[][] mat) {
+        int m = mat.length, n = mat[0].size();
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                if (mat[i][j] == 0) { /* mark row/col with -1 */ }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O((m*n)*(m+n))
 - **Space Complexity**: O(1)
@@ -87,6 +99,31 @@ void setZeroesBetter(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    void setZeroesBetter(int[][] mat) {
+        int m = mat.length, n = mat[0].size();
+        int[] rowMarker(m, 0), colMarker(n, 0);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 0) {
+                    rowMarker[i] = 1;
+                    colMarker[j] = 1;
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rowMarker[i] || colMarker[j]) {
+                    mat[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2 \cdot m \cdot n) = \mathcal{O}(m \cdot n)$ — two matrix sweeps.
 - **Space Complexity**: $\mathcal{O}(m + n)$ — marker vectors for rows and columns.
@@ -119,6 +156,25 @@ void setZeroesOptimal(vector<vector<int>>& mat) {
         for (int j = n - 1; j >= 1; j--)
             if (mat[i][0] == 0 || mat[0][j] == 0) mat[i][j] = 0;
         if (col0 == 0) mat[i][0] = 0;
+    }
+}
+```
+
+### Java Code
+```java
+class Solution {
+    void setZeroesOptimal(int[][] mat) {
+        int m = mat.length, n = mat[0].size(), col0 = 1;
+        for (int i = 0; i < m; i++) {
+            if (mat[i][0] == 0) col0 = 0;
+            for (int j = 1; j < n; j++)
+                if (mat[i][j] == 0) mat[i][0] = mat[0][j] = 0;
+        }
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 1; j--)
+                if (mat[i][0] == 0 || mat[0][j] == 0) mat[i][j] = 0;
+            if (col0 == 0) mat[i][0] = 0;
+        }
     }
 }
 ```

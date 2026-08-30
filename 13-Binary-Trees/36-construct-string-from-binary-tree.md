@@ -1,6 +1,6 @@
 # Construct String from Binary Tree with Parentheses (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Construct String from Binary Tree with Parentheses](https://takeuforward.org/data-structure/construct-string-from-binary-tree/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Full parenthesized preorder traversal followed by regular expression cleanup pas
 
 ### C++17 Code
 ```cpp
+// Regex cleanup approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Regex cleanup approach
 ```
 
@@ -81,6 +87,37 @@ public:
         // Process right branch ONLY if right child exists
         if (root->right != nullptr) {
             res += "(" + tree2str(root->right) + ")";
+        }
+        
+        return res;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    String tree2str(TreeNode  root) {
+        if (root == null) return "";
+        
+        String res = String.valueOf(root.val);
+        
+        // If left child exists OR right child exists, we MUST process left branch
+        if (root.left != null || root.right != null) {
+            res += "(" + tree2str(root.left) + ")";
+        }
+        
+        // Process right branch ONLY if right child exists
+        if (root.right != null) {
+            res += "(" + tree2str(root.right) + ")";
         }
         
         return res;

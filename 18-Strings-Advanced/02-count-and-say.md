@@ -1,6 +1,6 @@
 # Count and Say (Run-Length Sequence) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count and Say (Run-Length Sequence)](https://takeuforward.org/strings/count-and-say/)
 - **Difficulty**: Medium
@@ -66,6 +66,28 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionRecursive {
+
+    String countAndSay(int n) {
+        if (n == 1) return "1";
+        String prev = countAndSay(n - 1);
+        String result = "";
+        int len = prev.length;
+        for (int i = 0; i < len; i++) {
+            int count = 1;
+            while (i + 1 < len && prev[i] == prev[i + 1]) {
+                count++;
+                i++;
+            }
+            result += String.valueOf(count) + prev[i];
+        }
+        return result;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n \times L)$ time (where $L$ is length of the string at step $n$).
 - **Space Complexity**: $\mathcal{O}(n)$ recursion call stack + string memory.
@@ -114,6 +136,42 @@ public:
                 // Append "count" followed by "character"
                 nextSeq += to_string(count);
                 nextSeq.push_back(current[i]);
+            }
+            
+            current = nextSeq;
+        }
+        
+        return current;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String countAndSay(int n) {
+        if (n == 1) return "1";
+        
+        String current = "1";
+        
+        // Generate sequence iteratively from step 2 to n
+        for (int step = 2; step <= n; step++) {
+            String nextSeq = "";
+            int len = current.length;
+            
+            for (int i = 0; i < len; i++) {
+                int count = 1;
+                
+                // Count consecutive identical characters
+                while (i + 1 < len && current[i] == current[i + 1]) {
+                    count++;
+                    i++;
+                }
+                
+                // Append "count" followed by "character"
+                nextSeq += String.valueOf(count);
+                nextSeq.add(current[i]);
             }
             
             current = nextSeq;

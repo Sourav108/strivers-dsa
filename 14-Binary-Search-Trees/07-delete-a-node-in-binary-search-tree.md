@@ -1,6 +1,6 @@
 # Delete a Node in Binary Search Tree (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Delete a Node in Binary Search Tree](https://takeuforward.org/data-structure/delete-a-node-in-binary-search-tree-bst/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Inorder traversal into vector, remove element, rebuild balanced BST in $\mathcal
 
 ### C++17 Code
 ```cpp
+// O(N) full rebuild
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) full rebuild
 ```
 
@@ -103,6 +109,63 @@ public:
                     break;
                 } else {
                     curr = curr->right;
+                }
+            }
+        }
+        
+        return root;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  helper(TreeNode  root) {
+        if (root.left == null) return root.right;
+        if (root.right == null) return root.left;
+        
+        TreeNode  rightChild = root.right;
+        TreeNode  lastRight = root.left;
+        while (lastRight.right != null) {
+            lastRight = lastRight.right;
+        }
+        
+        // Attach right subtree to the rightmost node of left subtree
+        lastRight.right = rightChild;
+        return root.left;
+    }
+
+    TreeNode  deleteNode(TreeNode  root, int key) {
+        if (root == null) return null;
+        
+        if (root.val == key) {
+            return helper(root);
+        }
+        
+        TreeNode  curr = root;
+        while (curr != null) {
+            if (key < curr.val) {
+                if (curr.left != null && curr.left.val == key) {
+                    curr.left = helper(curr.left);
+                    break;
+                } else {
+                    curr = curr.left;
+                }
+            } else {
+                if (curr.right != null && curr.right.val == key) {
+                    curr.right = helper(curr.right);
+                    break;
+                } else {
+                    curr = curr.right;
                 }
             }
         }

@@ -1,6 +1,6 @@
 # Minimum Window Substring (Character Frequency Sliding Window) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Window Substring (Character Frequency Sliding Window)](https://takeuforward.org/data-structure/minimum-window-substring/)
 - **Difficulty**: Hard
@@ -81,6 +81,37 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    String minWindow(String s, String t) {
+        int n = s.length, m = t.length, minLen = 1e9, start = -1;
+        int[] tFreq = new int[128];
+        for (char c : t) tFreq[c]++;
+        
+        for (int i = 0; i < n; i++) {
+            int[] sFreq = new int[128];
+            for (int j = i; j < n; j++) {
+                sFreq[s[j]]++;
+                boolean ok = true;
+                for (int c = 0; c < 128; c++) {
+                    if (sFreq[c] < tFreq[c]) { ok = false; break; }
+                }
+                if (ok) {
+                    if (j - i + 1 < minLen) {
+                        minLen = j - i + 1;
+                        start = i;
+                    }
+                    break;
+                }
+            }
+        }
+        return start == -1 ? "" : s.substring(start, start + minLen);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2 \times 128)$ time.
 - **Space Complexity**: $\mathcal{O}(128)$ space.
@@ -155,6 +186,62 @@ public:
         }
         
         return sIndex == -1 ? "" : s.substr(sIndex, minLen);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String minWindow(String s, String t) {
+        int n = s.length;
+        int m = t.length;
+        
+        if (n < m || m == 0) return "";
+        
+        // hash stores character frequencies of t
+        // Positive: required characters needed to form t
+        // Zero / Negative: surplus characters in active window
+        int[] hash = new int[128];
+        for (char c : t) {
+            hash[c]++;
+        }
+        
+        int l = 0, r = 0;
+        int minLen = 1e9;
+        int sIndex = -1;
+        int count = 0; // Number of matched characters from t
+        
+        while (r < n) {
+            // If character was needed, increment matched count
+            if (hash[s[r]] > 0) {
+                count++;
+            }
+            // Decrement frequency in map (surplus characters become negative)
+            hash[s[r]]--;
+            
+            // While current window [l ... r] satisfies all characters of t
+            while (count == m) {
+                // Update shortest valid window found so far
+                if (r - l + 1 < minLen) {
+                    minLen = r - l + 1;
+                    sIndex = l;
+                }
+                
+                // Try shrinking window from the left
+                hash[s[l]]++;
+                if (hash[s[l]] > 0) {
+                    // Removed a character that was strictly required by t
+                    count--;
+                }
+                l++;
+            }
+            
+            r++;
+        }
+        
+        return sIndex == -1 ? "" : s.substring(sIndex, sIndex + minLen);
     }
 };
 ```

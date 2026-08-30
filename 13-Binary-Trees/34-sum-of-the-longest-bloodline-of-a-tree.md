@@ -1,6 +1,6 @@
 # Sum of Nodes on the Longest Path from Root to Leaf (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Sum of Nodes on the Longest Path from Root to Leaf](https://takeuforward.org/data-structure/sum-of-the-longest-bloodline-of-a-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Store all root-to-leaf paths, find max length, then find max sum in $\mathcal{O}
 
 ### C++17 Code
 ```cpp
+// Store all paths approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Store all paths approach
 ```
 
@@ -92,6 +98,50 @@ private:
 public:
     int sumOfLongRootToLeafPath(TreeNode* root) {
         if (root == nullptr) return 0;
+        
+        int maxLen = 0;
+        int maxSum = 0;
+        findLongestBloodline(root, 0, 0, maxLen, maxSum);
+        
+        return maxSum;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    void findLongestBloodline(TreeNode  node, int len, int sum, int maxLen, int maxSum) {
+        if (node == null) return;
+        
+        sum += node.val;
+        len += 1;
+        
+        // When leaf node is reached
+        if (node.left == null && node.right == null) {
+            if (len > maxLen) {
+                maxLen = len;
+                maxSum = sum;
+            } else if (len == maxLen) {
+                maxSum = Math.max(maxSum, sum);
+            }
+            return;
+        }
+        
+        findLongestBloodline(node.left, len, sum, maxLen, maxSum);
+        findLongestBloodline(node.right, len, sum, maxLen, maxSum);
+    }
+
+    int sumOfLongRootToLeafPath(TreeNode  root) {
+        if (root == null) return 0;
         
         int maxLen = 0;
         int maxSum = 0;

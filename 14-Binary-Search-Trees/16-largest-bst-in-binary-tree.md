@@ -1,6 +1,6 @@
 # Largest BST in a Binary Tree (Postorder with bounds validation) (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Largest BST in a Binary Tree (Postorder with bounds validation)](https://takeuforward.org/data-structure/maximum-sum-bst-in-binary-tree/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ For every node, call `isValidBST` in $\mathcal{O}(N)$ and count nodes, taking $\
 
 ### C++17 Code
 ```cpp
+// O(N^2) top-down validation
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) top-down validation
 ```
 
@@ -101,6 +107,53 @@ private:
 
 public:
     int largestBst(TreeNode *root) {
+        return postorder(root).maxSize;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class NodeValue {
+
+    int maxNode, minNode, maxSize;
+    public NodeValue(int minN, int maxN, int sz) { /* initialized: minNode(minN), maxNode(maxN), maxSize(sz)  */  }
+};
+
+class Solution {
+
+    NodeValue postorder(TreeNode  root) {
+        // Base case: empty tree is a valid BST of size 0
+        if (root == null) {
+            return NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+        }
+        
+        // Postorder traversal: resolve left and right subtrees first
+        var left = postorder(root.left);
+        var right = postorder(root.right);
+        
+        // Check BST property: left.max < root.val < right.min
+        if (left.maxNode < root.val && root.val < right.minNode) {
+            // Valid BST!
+            return NodeValue(
+                Math.min(root.val, left.minNode),
+                Math.max(root.val, right.maxNode),
+                1 + left.maxSize + right.maxSize
+            );
+        }
+        
+        // Invalid BST: return (-inf, +inf) so no parent node can form a valid BST
+        return NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
+    }
+
+    int largestBst(TreeNode root) {
         return postorder(root).maxSize;
     }
 };

@@ -1,6 +1,6 @@
 # BST Iterator (O(H) memory iterator for next() & hasNext()) (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [BST Iterator (O(H) memory iterator for next() & hasNext())](https://takeuforward.org/data-structure/bst-iterator/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Flatten entire BST into a vector in constructor using $\mathcal{O}(N)$ memory.
 
 ### C++17 Code
 ```cpp
+// O(N) full array iterator
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) full array iterator
 ```
 
@@ -96,6 +102,50 @@ public:
     
     bool hasNext() {
         return !st.empty();
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class BSTIterator {
+
+    Stack<TreeNode> st = new Stack<>();
+    
+    void pushAll(TreeNode  node) {
+        while (node != null) {
+            st.push(node);
+            node = node.left; // dive left
+        }
+    }
+
+    BSTIterator(TreeNode  root) {
+        pushAll(root);
+    }
+    
+    int next() {
+        TreeNode  topNode = st.peek();
+        st.pop();
+        
+        // Push all left descendants of the right child
+        if (topNode.right != null) {
+            pushAll(topNode.right);
+        }
+        
+        return topNode.val;
+    }
+    
+    boolean hasNext() {
+        return !st.isEmpty();
     }
 };
 ```

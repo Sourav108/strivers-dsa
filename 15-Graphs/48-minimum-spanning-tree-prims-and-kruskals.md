@@ -1,6 +1,6 @@
 # Minimum Spanning Tree (Prim's & Kruskal's Full Comparison) (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Spanning Tree (Prim's & Kruskal's Full Comparison)](https://takeuforward.org/data-structure/minimum-spanning-tree-theory-and-comparison/)
 - **Difficulty**: Medium
@@ -40,6 +40,12 @@ Enumerate all $\binom{E}{V-1}$ subsets of edges and check acyclic spanning tree 
 // O(Combinatorial) brute force
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(Combinatorial) brute force
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\text{Exponential})$.
 - **Space Complexity**: $\mathcal{O}(V)$.
@@ -70,6 +76,30 @@ public:
             if (vis[u]) continue;
             vis[u] = 1; mstSum += wt;
             for (auto& [v, edgeWt] : adj[u]) {
+                if (!vis[v]) pq.push({edgeWt, v});
+            }
+        }
+        return mstSum;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionPrim {
+
+    int primMST(int V, vector<List<int[]>> adj) {
+        priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+        int[] vis = new int[V];
+        pq.push({0, 0});
+        int mstSum = 0;
+        while (!pq.isEmpty()) {
+            var [wt, u] = pq.peek(); pq.pop();
+            if (vis[u]) continue;
+            vis[u] = 1; mstSum += wt;
+            for (var [v, edgeWt] : adj[u]) {
                 if (!vis[v]) pq.push({edgeWt, v});
             }
         }
@@ -172,6 +202,95 @@ public:
             mstWeight += wt;
             
             for (const auto& [adjNode, edgeWeight] : adj[node]) {
+                if (!vis[adjNode]) {
+                    pq.push({edgeWeight, adjNode});
+                }
+            }
+        }
+        
+        return mstWeight;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+// Disjoint Set Union by Size for Kruskal's Algorithm
+class DisjointSet {
+
+    int[] parent, size;
+    DisjointSet(int n) {
+        parent.resize(n);
+        size.resize(n, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    boolean unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        if (rootU == rootV) return false;
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+        return true;
+    }
+};
+
+class SolutionMST {
+
+    // Kruskal's Algorithm (Global Edge Sorting + DSU)
+    int kruskalsMST(int V, int[][] edgeList) {
+        // edgeList: [u, v, weight]
+        sort(edgeList.begin(), edgeList.end(), [](var a, var b) {
+            return a[2] < b[2];
+        });
+        
+        DisjointSet dsu(V);
+        int mstWeight = 0;
+        int edgeCount = 0;
+        
+        for (var edge : edgeList) {
+            int u = edge[0];
+            int v = edge[1];
+            int wt = edge[2];
+            
+            if (dsu.unionBySize(u, v)) {
+                mstWeight += wt;
+                edgeCount++;
+                if (edgeCount == V - 1) break;
+            }
+        }
+        
+        return mstWeight;
+    }
+    
+    // Prim's Algorithm (Local Cut Expansion + Min-Heap)
+    int primsMST(int V, vector<List<int[]>> adj) {
+        priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+        int[] vis = new int[V];
+        
+        pq.push({0, 0}); // {weight, node}
+        int mstWeight = 0;
+        
+        while (!pq.isEmpty()) {
+            var [wt, node] = pq.peek();
+            pq.pop();
+            
+            if (vis[node]) continue;
+            
+            vis[node] = 1;
+            mstWeight += wt;
+            
+            for (var [adjNode, edgeWeight] : adj[node]) {
                 if (!vis[adjNode]) {
                     pq.push({edgeWeight, adjNode});
                 }

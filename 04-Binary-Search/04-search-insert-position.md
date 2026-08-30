@@ -1,6 +1,6 @@
 # Search Insert Position (Step 4.1 — BS on 1D Arrays)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Search Insert Position](https://takeuforward.org/arrays/search-insert-position/)
 - **Difficulty**: Easy
@@ -45,6 +45,18 @@ int searchInsertLinear(const vector<int>& nums, int target) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int searchInsertLinear(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= target) return i;
+        }
+        return nums.length;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ — linear scan.
 - **Space Complexity**: $\mathcal{O}(1)$ — constant space.
@@ -84,6 +96,29 @@ int searchInsert(const vector<int>& nums, int target) {
     }
     
     return ans; // or return low directly
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int searchInsert(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+        int ans = nums.length;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (nums[mid] >= target) {
+                ans = mid;
+                high = mid - 1; // look for smaller index on left
+            } else {
+                low = mid + 1;  // look on right
+            }
+        }
+        
+        return ans; // or return low directly
+    }
 }
 ```
 

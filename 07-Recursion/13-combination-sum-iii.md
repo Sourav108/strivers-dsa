@@ -1,6 +1,6 @@
 # Combination Sum III (K numbers sum to N) (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Combination Sum III (K numbers sum to N)](https://takeuforward.org/recursion/combination-sum-iii/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generate all $2^9 = 512$ subsets of digits $1..9$ and filter.
 
 ### C++17 Code
 ```cpp
+// 512 subsets filter
+```
+
+### Java Code
+```java
+// Java equivalent
 // 512 subsets filter
 ```
 
@@ -82,6 +88,38 @@ public:
     vector<vector<int>> combinationSum3(int k, int n) {
         vector<vector<int>> result;
         vector<int> current;
+        backtrack(1, k, n, current, result);
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void backtrack(int start, int k, int n, int[] current, int[][] result) {
+        if (current.length == k) {
+            if (n == 0) {
+                result.add(current);
+            }
+            return;
+        }
+        
+        for (int digit = start; digit <= 9; digit++) {
+            if (digit > n) break; // early pruning
+            
+            current.add(digit);
+            backtrack(digit + 1, k, n - digit, current, result);
+            current.remove(); // backtrack
+        }
+    }
+
+    int[][] combinationSum3(int k, int n) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
         backtrack(1, k, n, current, result);
         return result;
     }

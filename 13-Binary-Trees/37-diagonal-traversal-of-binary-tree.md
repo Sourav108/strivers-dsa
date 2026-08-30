@@ -1,6 +1,6 @@
 # Diagonal Traversal of Binary Tree (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Diagonal Traversal of Binary Tree](https://takeuforward.org/data-structure/diagonal-traversal-of-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS passing diagonal index $D$ into `map<int, vector<int>>` taking $\mathcal{O}(
 
 ### C++17 Code
 ```cpp
+// DFS map approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS map approach
 ```
 
@@ -90,6 +96,48 @@ public:
                 }
                 
                 curr = curr->right; // continue along same diagonal
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] diagonal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        
+        while (!q.isEmpty()) {
+            TreeNode  curr = q.peek();
+            q.pop();
+            
+            // Traverse entire right spine belonging to current diagonal
+            while (curr != null) {
+                result.add(curr.val);
+                
+                // Left child belongs to the next diagonal slope
+                if (curr.left != null) {
+                    q.push(curr.left);
+                }
+                
+                curr = curr.right; // continue along same diagonal
             }
         }
         

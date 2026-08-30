@@ -1,6 +1,6 @@
 # Shortest Palindrome (KMP LPS on s + '#' + rev(s)) (Step 18.1 — String Matching & Hard Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Shortest Palindrome (KMP LPS on s + '#' + rev(s))](https://takeuforward.org/strings/shortest-palindrome/)
 - **Difficulty**: Hard
@@ -71,6 +71,29 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    boolean isPalin(String s, int r) {
+        int l = 0;
+        while (l < r) if (s[l++] != s[r--]) return false;
+        return true;
+    }
+
+    String shortestPalindrome(String s) {
+        int n = s.length;
+        for (int i = n - 1; i >= 0; i--) {
+            if (isPalin(s, i)) {
+                String rem = s.substring(i + 1);
+                reverse(rem.begin(), rem.end());
+                return rem + s;
+            }
+        }
+        return "";
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ string memory.
@@ -102,6 +125,27 @@ public:
             if (fHash == bHash) longestPrefix = i + 1;
         }
         string rem = s.substr(longestPrefix);
+        reverse(rem.begin(), rem.end());
+        return rem + s;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionRollingHash {
+
+    String shortestPalindrome(String s) {
+        int n = s.length;
+        long fHash = 0, bHash = 0, power = 1, BASE = 31, MOD = 1e9 + 7;
+        int longestPrefix = 0;
+        for (int i = 0; i < n; i++) {
+            fHash = (fHash * BASE + (s[i] - 'a' + 1)) % MOD;
+            bHash = (bHash + (s[i] - 'a' + 1) * power) % MOD;
+            power = (power * BASE) % MOD;
+            if (fHash == bHash) longestPrefix = i + 1;
+        }
+        String rem = s.substring(longestPrefix);
         reverse(rem.begin(), rem.end());
         return rem + s;
     }
@@ -159,6 +203,47 @@ public:
         
         // The characters that must be added in front are the reversed remaining suffix
         string remSuffix = s.substr(longestPalinPrefixLen);
+        reverse(remSuffix.begin(), remSuffix.end());
+        
+        return remSuffix + s;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String shortestPalindrome(String s) {
+        int n = s.length;
+        if (n <= 1) return s;
+        
+        String rev_s = s;
+        reverse(rev_s.begin(), rev_s.end());
+        
+        // Construct combined String: s + '#' + rev(s)
+        // '#' acts as a boundary preventing LPS from overflowing past length n
+        String combined = s + '#' + rev_s;
+        int m = combined.length;
+        
+        // Compute KMP Longest Prefix Suffix (LPS) array for combined String in O(N)
+        int[] lps = new int[m];
+        for (int i = 1; i < m; i++) {
+            int len = lps[i - 1];
+            while (len > 0 && combined[i] != combined[len]) {
+                len = lps[len - 1];
+            }
+            if (combined[i] == combined[len]) {
+                len++;
+            }
+            lps[i] = len;
+        }
+        
+        // lps.peekLast() gives the length of the longest palindromic prefix of s
+        int longestPalinPrefixLen = lps.peekLast();
+        
+        // The characters that must be added in front are the reversed remaining suffix
+        String remSuffix = s.substring(longestPalinPrefixLen);
         reverse(remSuffix.begin(), remSuffix.end());
         
         return remSuffix + s;

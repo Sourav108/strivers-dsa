@@ -1,6 +1,6 @@
 # Find the Highest & Lowest Frequency Element (Step 1.6 — Learn Basic Hashing)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Highest & Lowest Frequency Element](https://takeuforward.org/arrays/find-the-highest-lowest-frequency-element/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Nested loops counting and tracking min/max in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) nested loops
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) nested loops
 ```
 
@@ -71,6 +77,37 @@ public:
         int maxEle = -1, minEle = -1;
         
         for (const auto& [num, count] : freq) {
+            // Highest frequency check (tie break with smaller element)
+            if (count > maxFreq || (count == maxFreq && num < maxEle)) {
+                maxFreq = count;
+                maxEle = num;
+            }
+            // Lowest frequency check (tie break with smaller element)
+            if (count < minFreq || (count == minFreq && num < minEle)) {
+                minFreq = count;
+                minEle = num;
+            }
+        }
+        
+        return {maxEle, minEle};
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    pair<int, int> getHighestAndLowestFreq(int[] arr) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int x : arr) freq[x]++;
+        
+        int maxFreq = 0, minFreq = Integer.MAX_VALUE;
+        int maxEle = -1, minEle = -1;
+        
+        for (var [num, count] : freq) {
             // Highest frequency check (tie break with smaller element)
             if (count > maxFreq || (count == maxFreq && num < maxEle)) {
                 maxFreq = count;

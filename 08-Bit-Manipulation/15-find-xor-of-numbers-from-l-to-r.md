@@ -1,6 +1,6 @@
 # Find XOR of Numbers from Range L to R in O(1) (Step 8.2 — Interview Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find XOR of Numbers from Range L to R in O(1)](https://takeuforward.org/bit-manipulation/xor-of-numbers-in-a-given-range/)
 - **Difficulty**: Medium
@@ -40,6 +40,17 @@ int findXORLoop(int l, int r) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int findXORLoop(int l, int r) {
+        int ans = 0;
+        for (int i = l; i <= r; i++) ans ^= i;
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(R - L)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -70,6 +81,24 @@ private:
     }
 
 public:
+    int findXOR(int l, int r) {
+        // XOR(l, r) = XOR(0, r) ^ XOR(0, l - 1)
+        return findXORFrom1ToN(r) ^ findXORFrom1ToN(l - 1);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findXORFrom1ToN(int n) {
+        if (n % 4 == 0) return n;
+        if (n % 4 == 1) return 1;
+        if (n % 4 == 2) return n + 1;
+        return 0; // n % 4 == 3
+    }
+
     int findXOR(int l, int r) {
         // XOR(l, r) = XOR(0, r) ^ XOR(0, l - 1)
         return findXORFrom1ToN(r) ^ findXORFrom1ToN(l - 1);

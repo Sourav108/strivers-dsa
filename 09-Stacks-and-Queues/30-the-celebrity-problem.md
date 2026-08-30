@@ -1,6 +1,6 @@
 # The Celebrity Problem (Stack & Two Pointer Elimination) (Step 9.4 — Implementation Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [The Celebrity Problem (Stack & Two Pointer Elimination)](https://takeuforward.org/data-structure/the-celebrity-problem/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Compute indegrees and outdegrees of all $N$ people in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) indegree outdegree check
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) indegree outdegree check
 ```
 
@@ -71,6 +77,30 @@ int celebrityStack(vector<vector<int>>& mat) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int celebrityStack(int[][] mat) {
+        int n = mat.length;
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < n; i++) st.push(i);
+        while (st.length > 1) {
+            int a = st.peek(); st.pop();
+            int b = st.peek(); st.pop();
+            if (mat[a][b] == 1) st.push(b);
+            else st.push(a);
+        }
+        int candidate = st.peek();
+        for (int i = 0; i < n; i++) {
+            if (i != candidate && (mat[candidate][i] == 1 || mat[i][candidate] == 0)) return -1;
+        }
+        return candidate;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack space.
@@ -102,6 +132,44 @@ public:
                 top++;
             } else {
                 // top does not know down -> down cannot be celebrity
+                down--;
+            }
+        }
+        
+        int candidate = top;
+        
+        // Step 2: Verification pass in O(N)
+        for (int i = 0; i < n; i++) {
+            if (i == candidate) continue;
+            
+            // Candidate must know no one (mat[cand][i] == 0)
+            // Everyone must know candidate (mat[i][cand] == 1)
+            if (mat[candidate][i] == 1 || mat[i][candidate] == 0) {
+                return -1; // verification failed
+            }
+        }
+        
+        return candidate;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int celebrity(int[][] mat) {
+        int n = mat.length;
+        int top = 0;
+        int down = n - 1;
+        
+        // Step 1: Eliminate candidates using two pointers
+        while (top < down) {
+            if (mat[top][down] == 1) {
+                // top knows down . top cannot be celebrity
+                top++;
+            } else {
+                // top does not know down . down cannot be celebrity
                 down--;
             }
         }

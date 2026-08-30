@@ -1,6 +1,6 @@
 # Shortest Path in Undirected Graph with Unit Weights (Step 15.4 — Shortest Path Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Shortest Path in Undirected Graph with Unit Weights](https://takeuforward.org/data-structure/shortest-path-in-undirected-graph-with-unit-distance/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Dijkstra's Algorithm with `priority_queue` in $\mathcal{O}((V + E) \log V)$ time
 
 ### C++17 Code
 ```cpp
+// O((V + E) log V) Dijkstra
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((V + E) log V) Dijkstra
 ```
 
@@ -82,6 +88,55 @@ public:
         
         while (!q.empty()) {
             int node = q.front();
+            q.pop();
+            
+            for (int neighbor : adj[node]) {
+                // Relaxation step
+                if (dist[node] + 1 < dist[neighbor]) {
+                    dist[neighbor] = dist[node] + 1;
+                    q.push(neighbor);
+                }
+            }
+        }
+        
+        // 4. Mark unreachable nodes with -1
+        for (int i = 0; i < N; i++) {
+            if (dist[i] == 1e9) {
+                dist[i] = -1;
+            }
+        }
+        
+        return dist;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] shortestPath(int[][] edges, int N, int M, int src) {
+        // 1. Build adjacency list for undirected graph
+        int[][] adj(N);
+        for (int i = 0; i < M; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adj[u].add(v);
+            adj[v].add(u);
+        }
+        
+        // 2. Initialize distance array with infinity (1e9)
+        int[] dist = new int[N];
+        dist[src] = 0;
+        
+        // 3. FIFO Queue for level-order radial exploration
+        Queue<Integer> q = new LinkedList<>();
+        q.push(src);
+        
+        while (!q.isEmpty()) {
+            int node = q.peek();
             q.pop();
             
             for (int neighbor : adj[node]) {

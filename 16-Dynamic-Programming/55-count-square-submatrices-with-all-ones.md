@@ -1,6 +1,6 @@
 # Count Square Submatrices with All Ones (Step 16.7 — Matrix Chain Multiplication / Partition DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Square Submatrices with All Ones](https://takeuforward.org/data-structure/maximum-rectangle-area-with-all-1s-dp-on-rectangles-dp-55/)
 - **Difficulty**: Medium
@@ -50,6 +50,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(M * N * Math.min(M,N)^3) brute force
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(M \cdot N \cdot \min(M, N)^3)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -80,6 +87,29 @@ public:
                 if (matrix[i][j] == 1) {
                     if (i == 0 || j == 0) dp[i][j] = 1;
                     else dp[i][j] = 1 + min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});
+                    totalSquares += dp[i][j];
+                }
+            }
+        }
+        return totalSquares;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int countSquares(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].size();
+        int[][] dp = new int[m][n];
+        int totalSquares = 0;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 1) {
+                    if (i == 0 || j == 0) dp[i][j] = 1;
+                    else dp[i][j] = 1 + Math.min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});
                     totalSquares += dp[i][j];
                 }
             }
@@ -126,6 +156,42 @@ public:
                         dp[j] = 1;
                     } else {
                         dp[j] = 1 + min({dp[j], dp[j - 1], diag});
+                    }
+                    totalSquares += dp[j];
+                } else {
+                    dp[j] = 0;
+                }
+                
+                diag = temp;
+            }
+        }
+        
+        return totalSquares;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countSquares(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].size();
+        
+        int totalSquares = 0;
+        int[] dp = new int[n];
+        int diag = 0; // Stores dp[i - 1][j - 1]
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int temp = dp[j]; // Save before overwriting (becomes diag for next column)
+                
+                if (matrix[i][j] == 1) {
+                    if (i == 0 || j == 0) {
+                        dp[j] = 1;
+                    } else {
+                        dp[j] = 1 + Math.min({dp[j], dp[j - 1], diag});
                     }
                     totalSquares += dp[j];
                 } else {

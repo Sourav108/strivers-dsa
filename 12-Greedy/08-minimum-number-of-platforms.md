@@ -1,6 +1,6 @@
 # Minimum Number of Platforms Required for a Railway (Step 12.2 — Medium / Hard)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Number of Platforms Required for a Railway](https://takeuforward.org/data-structure/minimum-number-of-platforms-required-for-a-railway/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ For each train, check all other trains to count overlapping intervals in $\mathc
 
 ### C++17 Code
 ```cpp
+// O(N^2) overlap count
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) overlap count
 ```
 
@@ -73,6 +79,33 @@ public:
             if (arr[i] <= dep[j]) {
                 currentPlatforms++; // train arrives
                 maxPlatforms = max(maxPlatforms, currentPlatforms);
+                i++;
+            } else {
+                currentPlatforms--; // train departs
+                j++;
+            }
+        }
+        
+        return maxPlatforms;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int findPlatform(int arr[], int dep[], int n) {
+        sort(arr, arr + n);
+        sort(dep, dep + n);
+        
+        int i = 0, j = 0;
+        int currentPlatforms = 0, maxPlatforms = 0;
+        
+        while (i < n && j < n) {
+            if (arr[i] <= dep[j]) {
+                currentPlatforms++; // train arrives
+                maxPlatforms = Math.max(maxPlatforms, currentPlatforms);
                 i++;
             } else {
                 currentPlatforms--; // train departs

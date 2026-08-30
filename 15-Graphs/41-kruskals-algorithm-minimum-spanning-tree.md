@@ -1,6 +1,6 @@
 # Kruskal's Algorithm for Minimum Spanning Tree (MST) (Step 15.5 — Minimum Spanning Tree & Disjoint Set Union)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kruskal's Algorithm for Minimum Spanning Tree (MST)](https://takeuforward.org/data-structure/kruskals-algorithm-minimum-spanning-tree-g-47/)
 - **Difficulty**: Medium
@@ -39,6 +39,12 @@ DFS/BFS connectivity checks for each sorted edge in $\mathcal{O}(E \times (V + E
 // O(E * (V + E)) cycle check via DFS
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(E * (V + E)) cycle check via DFS
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(E \times (V + E))$ time.
 - **Space Complexity**: $\mathcal{O}(V + E)$ space.
@@ -53,6 +59,12 @@ Prim's Algorithm with Min-Heap in O(E log V) time.
 
 ### C++17 Code
 ```cpp
+// Prim's algorithm counterpart
+```
+
+### Java Code
+```java
+// Java equivalent
 // Prim's algorithm counterpart
 ```
 
@@ -126,6 +138,78 @@ public:
         
         // 3. Greedily process edges
         for (const auto& edge : edges) {
+            int wt = edge.first;
+            int u = edge.second.first;
+            int v = edge.second.second;
+            
+            // If u and v are in different components, unite them (no cycle)
+            if (dsu.unionBySize(u, v)) {
+                mstSum += wt;
+                edgesCount++;
+                if (edgesCount == V - 1) break; // MST contains exactly V - 1 edges
+            }
+        }
+        
+        return mstSum;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class DisjointSet {
+    int[] parent, size;
+
+    DisjointSet(int n) {
+        parent.resize(n + 1);
+        size.resize(n + 1, 1);
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    boolean unionBySize(int u, int v) {
+        int rootU = findUPar(u);
+        int rootV = findUPar(v);
+        if (rootU == rootV) return false; // Cycle detected
+        if (size[rootU] < size[rootV]) {
+            parent[rootU] = rootV;
+            size[rootV] += size[rootU];
+        } else {
+            parent[rootV] = rootU;
+            size[rootU] += size[rootV];
+        }
+        return true;
+    }
+};
+
+class Solution {
+
+    int spanningTree(int V, int[][] adj[]) {
+        // 1. Extract all unique edges: {weight, {u, v}}
+        vector<pair<int, pair<int, int>>> edges;
+        for (int u = 0; u < V; u++) {
+            for (var edge : adj[u]) {
+                int v = edge[0];
+                int wt = edge[1];
+                if (u < v) { // Avoid duplicate undirected edges
+                    edges.add({wt, {u, v}});
+                }
+            }
+        }
+        
+        // 2. Sort all edges in ascending order of weights
+        Arrays.sort(edges);
+        
+        DisjointSet dsu(V);
+        int mstSum = 0;
+        int edgesCount = 0;
+        
+        // 3. Greedily process edges
+        for (var edge : edges) {
             int wt = edge.first;
             int u = edge.second.first;
             int v = edge.second.second;

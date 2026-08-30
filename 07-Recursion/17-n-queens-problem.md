@@ -1,6 +1,6 @@
 # N-Queens Problem (Branch & Bound bit masking) (Step 7.3 — Hard Recursion Problems & Backtracking)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [N-Queens Problem (Branch & Bound bit masking)](https://takeuforward.org/data-structure/n-queen-problem-return-all-distinct-solutions-to-the-n-queens-puzzle/)
 - **Difficulty**: Hard
@@ -34,6 +34,12 @@ warrow, \swarrow$) taking $\mathcal{O}(N)$ per queen placement check.
 
 ### C++17 Code
 ```cpp
+// O(N) line scan isSafe function
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) line scan isSafe function
 ```
 
@@ -98,6 +104,53 @@ public:
         vector<int> leftRow(n, 0);
         vector<int> lowerDiag(2 * n - 1, 0);
         vector<int> upperDiag(2 * n - 1, 0);
+        
+        solve(0, board, ans, leftRow, lowerDiag, upperDiag, n);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void solve(int col, String[] board, List<List<String>> ans,
+               int[] leftRow, int[] lowerDiag, int[] upperDiag, int n) {
+        if (col == n) {
+            ans.add(board);
+            return;
+        }
+        
+        for (int row = 0; row < n; row++) {
+            // O(1) safety check using 3 direction hashes
+            if (leftRow[row] == 0 && lowerDiag[row + col] == 0 && upperDiag[n - 1 + col - row] == 0) {
+                // Place Queen
+                board[row][col] = 'Q';
+                leftRow[row] = 1;
+                lowerDiag[row + col] = 1;
+                upperDiag[n - 1 + col - row] = 1;
+                
+                solve(col + 1, board, ans, leftRow, lowerDiag, upperDiag, n);
+                
+                // Backtrack
+                board[row][col] = '.';
+                leftRow[row] = 0;
+                lowerDiag[row + col] = 0;
+                upperDiag[n - 1 + col - row] = 0;
+            }
+        }
+    }
+
+    List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans;
+        String[] board(n, String(n, '.'));
+        
+        int[] leftRow = new int[n];
+        int[] lowerDiag = new int[2 * n - 1];
+        int[] upperDiag = new int[2 * n - 1];
         
         solve(0, board, ans, leftRow, lowerDiag, upperDiag, n);
         return ans;

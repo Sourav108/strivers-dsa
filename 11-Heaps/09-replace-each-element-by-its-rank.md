@@ -1,6 +1,6 @@
 # Replace Each Element in Array by its Rank (Step 11.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Replace Each Element in Array by its Rank](https://takeuforward.org/data-structure/replace-elements-by-its-rank-in-the-array/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ For every element, count unique smaller elements in $\mathcal{O}(N^2)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2) brute search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2) brute search
 ```
 
@@ -78,6 +84,35 @@ public:
         
         vector<int> result(arr.size());
         for (size_t i = 0; i < arr.size(); i++) {
+            result[i] = rankMap[arr[i]];
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] arrayRankTransform(int[] arr) {
+        int[] sortedArr = arr;
+        Arrays.sort(sortedArr);
+        
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        int rank = 1;
+        
+        for (int x : sortedArr) {
+            if (rankMap.find(x) == rankMap.end()) {
+                rankMap[x] = rank++;
+            }
+        }
+        
+        int[] result(arr.length);
+        for (int i = 0; i < arr.length; i++) {
             result[i] = rankMap[arr[i]];
         }
         

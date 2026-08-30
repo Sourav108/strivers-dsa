@@ -1,6 +1,6 @@
 # Single Number (Step 3.1)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/arrays/find-the-number-that-appears-once-and-the-other-numbers-twice/
 - **Difficulty**: Easy
@@ -51,6 +51,20 @@ int singleNumberBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int singleNumberBrute(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            int cnt = 0;
+            for (int j = 0; j < nums.length; j++) if (nums[j] == nums[i]) cnt++;
+            if (cnt == 1) return nums[i];
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -81,6 +95,24 @@ int singleNumberBetter(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int singleNumberBetter(int[] nums) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int x : nums) {
+            freq[x]++;
+        }
+        for (var [val, count] : freq) {
+            if (count == 1) return val;
+        }
+        return -1;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(n)$ average time for hash map insertions and queries.
 - **Space Complexity**: $\mathcal{O}(n)$ — stores $n/2 + 1$ distinct keys in the hash table.
@@ -106,6 +138,17 @@ int singleNumberOptimal(const vector<int>& nums) {
     int xorSum = 0;
     for (int x : nums) xorSum ^= x;
     return xorSum;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int singleNumberOptimal(int[] nums) {
+        int xorSum = 0;
+        for (int x : nums) xorSum ^= x;
+        return xorSum;
+    }
 }
 ```
 

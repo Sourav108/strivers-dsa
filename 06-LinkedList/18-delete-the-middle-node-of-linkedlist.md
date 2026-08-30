@@ -1,6 +1,6 @@
 # Delete the Middle Node of LinkedList (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Delete the Middle Node of LinkedList](https://takeuforward.org/data-structure/delete-the-middle-node-of-the-linked-list/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Count length $N$, find $N/2$, delete.
 
 ### C++17 Code
 ```cpp
+// Two passes
+```
+
+### Java Code
+```java
+// Java equivalent
 // Two passes
 ```
 
@@ -83,6 +89,42 @@ public:
         // Delete middle node
         Node* middleNode = slow->next;
         slow->next = slow->next->next;
+        delete middleNode;
+        
+        return head;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  deleteMiddle(Node  head) {
+        // Base case: empty or single node list
+        if (!head || !head.next) {
+            delete head;
+            return null;
+        }
+        
+        // Fast starts 2 steps ahead so slow stops at (mid - 1)
+        Node  slow = head;
+        Node  fast = head.next.next;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Delete middle node
+        Node  middleNode = slow.next;
+        slow.next = slow.next.next;
         delete middleNode;
         
         return head;

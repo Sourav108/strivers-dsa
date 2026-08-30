@@ -1,6 +1,6 @@
 # Requirements to Construct Unique Binary Tree (Inorder + Pre/Post) (Step 13.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Requirements to Construct Unique Binary Tree (Inorder + Pre/Post)](https://takeuforward.org/data-structure/unique-binary-tree/)
 - **Difficulty**: Easy
@@ -36,6 +36,12 @@ Checking all combinations with branching if-else statements.
 // If-else checks
 ```
 
+### Java Code
+```java
+// Java equivalent
+// If-else checks
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(1)$.
 - **Space Complexity**: $\mathcal{O}(1)$.
@@ -59,6 +65,19 @@ Inorder Presence Verification in strict $\mathcal{O}(1)$ time.
 class Solution {
 public:
     bool isPossible(int a, int b) {
+        // Traversal types: 1 = Preorder, 2 = Inorder, 3 = Postorder
+        // Must contain Inorder (2) and one distinct other traversal (1 or 3)
+        if (a == b) return false;
+        return (a == 2 || b == 2);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean isPossible(int a, int b) {
         // Traversal types: 1 = Preorder, 2 = Inorder, 3 = Postorder
         // Must contain Inorder (2) and one distinct other traversal (1 or 3)
         if (a == b) return false;

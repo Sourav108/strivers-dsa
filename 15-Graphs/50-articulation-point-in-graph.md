@@ -1,6 +1,6 @@
 # Articulation Point in Graph (Tarjan's Algorithm for Cut Vertices) (Step 15.6 — Other Graph Algorithms)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Articulation Point in Graph (Tarjan's Algorithm for Cut Vertices)](https://takeuforward.org/data-structure/articulation-point-in-graph-g-56/)
 - **Difficulty**: Hard
@@ -36,6 +36,12 @@ For every vertex $i$: temporarily remove $i$ and all incident edges, run full BF
 
 ### C++17 Code
 ```cpp
+// O(V * (V + E)) vertex removal brute force
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V * (V + E)) vertex removal brute force
 ```
 
@@ -122,6 +128,76 @@ public:
         }
         
         if (ans.empty()) {
+            return {-1};
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int timer = 1;
+    
+    void dfs(int node, int parent, int[] adj[], 
+             int[] vis, int[] tin, int[] low, 
+             int[] mark) {
+        
+        vis[node] = 1;
+        tin[node] = low[node] = timer++;
+        int childCount = 0;
+        
+        for (int neighbor : adj[node]) {
+            if (neighbor == parent) continue;
+            
+            if (!vis[neighbor]) {
+                childCount++;
+                dfs(neighbor, node, adj, vis, tin, low, mark);
+                
+                // Propagate lowest reachable time from child subtree
+                low[node] = Math.min(low[node], low[neighbor]);
+                
+                // Case 1: Non-root vertex condition (>= comparison)
+                if (low[neighbor] >= tin[node] && parent != -1) {
+                    mark[node] = 1;
+                }
+            } else {
+                // Back-edge to an ancestor
+                low[node] = Math.min(low[node], tin[neighbor]);
+            }
+        }
+        
+        // Case 2: Root vertex condition (more than 1 independent DFS branch)
+        if (parent == -1 && childCount > 1) {
+            mark[node] = 1;
+        }
+    }
+
+    int[] articulationPoints(int V, int[] adj[]) {
+        int[] vis = new int[V];
+        int[] tin = new int[V];
+        int[] low = new int[V];
+        int[] mark = new int[V]; // Marks articulation points uniquely
+        
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfs(i, -1, adj, vis, tin, low, mark);
+            }
+        }
+        
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < V; i++) {
+            if (mark[i] == 1) {
+                ans.add(i);
+            }
+        }
+        
+        if (ans.isEmpty()) {
             return {-1};
         }
         

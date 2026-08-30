@@ -1,6 +1,6 @@
 # Top View of Binary Tree (Step 13.2 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Top View of Binary Tree](https://takeuforward.org/data-structure/top-view-of-a-binary-tree/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS traversal tracking `{node->val, depth}` and overwriting on smaller depth.
 
 ### C++17 Code
 ```cpp
+// DFS top view approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS top view approach
 ```
 
@@ -101,6 +107,57 @@ public:
         // Collect sorted column results from left to right
         for (auto& [col, val] : topNode) {
             result.push_back(val);
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int[] topView(TreeNode  root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        
+        // Map stores: col . topmost node value
+        Map<Integer, Integer> topNode = new HashMap<>();
+        
+        // Queue stores: {TreeNode , col}
+        queue<pair<TreeNode , int>> q;
+        q.push({root, 0});
+        
+        while (!q.isEmpty()) {
+            var [curr, col] = q.peek();
+            q.pop();
+            
+            // Only store the first node seen at this vertical column
+            if (topNode.find(col) == topNode.end()) {
+                topNode[col] = curr.val;
+            }
+            
+            if (curr.left != null) {
+                q.push({curr.left, col - 1});
+            }
+            if (curr.right != null) {
+                q.push({curr.right, col + 1});
+            }
+        }
+        
+        // Collect sorted column results from left to right
+        for (var [col, val] : topNode) {
+            result.add(val);
         }
         
         return result;

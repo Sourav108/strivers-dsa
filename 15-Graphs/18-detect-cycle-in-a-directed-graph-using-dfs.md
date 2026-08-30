@@ -1,6 +1,6 @@
 # Detect Cycle in a Directed Graph using DFS (Recursion Stack) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Detect Cycle in a Directed Graph using DFS (Recursion Stack)](https://takeuforward.org/data-structure/detect-a-cycle-in-directed-graph-using-dfs/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Floyd-Warshall all-pairs reachability matrix in $\mathcal{O}(V^3)$ time to check
 // O(V^3) Floyd Warshall self-reachability
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(V^3) Floyd Warshall self-reachability
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(V^3)$ time.
 - **Space Complexity**: $\mathcal{O}(V^2)$.
@@ -66,6 +72,28 @@ class Solution3Color {
 public:
     bool isCyclic(int V, vector<vector<int>>& adj) {
         vector<int> state(V, 0);
+        for (int i = 0; i < V; i++)
+            if (state[i] == 0 && dfs(i, adj, state)) return true;
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution3Color {
+    boolean dfs(int node, int[][] adj, int[] state) {
+        state[node] = 1; // 1 = Gray (currently in recursion stack)
+        for (int neighbor : adj[node]) {
+            if (state[neighbor] == 1) return true; // Back-edge cycle found!
+            if (state[neighbor] == 0 && dfs(neighbor, adj, state)) return true;
+        }
+        state[node] = 2; // 2 = Black (fully processed)
+        return false;
+    }
+
+    boolean isCyclic(int V, int[][] adj) {
+        int[] state = new int[V];
         for (int i = 0; i < V; i++)
             if (state[i] == 0 && dfs(i, adj, state)) return true;
         return false;
@@ -119,6 +147,51 @@ public:
     bool isCyclic(int V, vector<vector<int>>& adj) {
         vector<int> vis(V, 0);
         vector<int> pathVis(V, 0);
+        
+        // Outer loop for disconnected components
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (dfsCheck(i, adj, vis, pathVis)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean dfsCheck(int node, int[][] adj, int[] vis, int[] pathVis) {
+        vis[node] = 1;
+        pathVis[node] = 1; // Mark node as part of current active recursion path
+        
+        // Traverse directed adjacent neighbors
+        for (int neighbor : adj[node]) {
+            // If the adjacent node has not been visited yet
+            if (!vis[neighbor]) {
+                if (dfsCheck(neighbor, adj, vis, pathVis)) {
+                    return true;
+                }
+            }
+            // If the adjacent node is ALREADY on the current recursion path . CYCLE!
+            else if (pathVis[neighbor]) {
+                return true;
+            }
+        }
+        
+        // Backtrack: remove node from current recursion path before returning
+        pathVis[node] = 0;
+        return false;
+    }
+
+    boolean isCyclic(int V, int[][] adj) {
+        int[] vis = new int[V];
+        int[] pathVis = new int[V];
         
         // Outer loop for disconnected components
         for (int i = 0; i < V; i++) {

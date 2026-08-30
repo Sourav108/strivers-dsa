@@ -1,6 +1,6 @@
 # Reverse a Number (LeetCode 7) (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Reverse a Number (LeetCode 7)](https://takeuforward.org/c-programs/reverse-digits-of-a-number/)
 - **Difficulty**: Easy
@@ -51,6 +51,24 @@ int reverseString(int x) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int reverseString(int x) {
+        String s = String.valueOf(x);
+        boolean neg = (x < 0);
+        if (neg) s = s.substring(1);
+        reverse(s.begin(), s.end());
+        try {
+            long val = stoll(s);
+            if (neg) val = -val;
+            if (val < Integer.MIN_VALUE || val > Integer.MAX_VALUE) return 0;
+            return (int)val;
+        } catch (...) { return 0; }
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(\log_{10} X)$ time.
 - **Space Complexity**: $\mathcal{O}(\log_{10} X)$ memory.
@@ -86,6 +104,28 @@ public:
             if (rev > INT_MAX / 10 || (rev == INT_MAX / 10 && pop > 7)) return 0;
             // Check negative overflow before rev * 10
             if (rev < INT_MIN / 10 || (rev == INT_MIN / 10 && pop < -8)) return 0;
+            
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int reverse(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            
+            // Check positive overflow before rev * 10
+            if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
+            // Check negative overflow before rev * 10
+            if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
             
             rev = rev * 10 + pop;
         }

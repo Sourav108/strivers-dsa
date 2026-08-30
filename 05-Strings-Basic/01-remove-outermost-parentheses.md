@@ -1,6 +1,6 @@
 # Remove Outermost Parentheses (Step 5.1 — Basic and Easy String Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Remove Outermost Parentheses](https://takeuforward.org/data-structure/remove-outermost-parentheses/)
 - **Difficulty**: Easy
@@ -52,6 +52,28 @@ string removeOuterStack(string s) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    String removeOuterStack(String s) {
+        String ans = "";
+        Stack<Character> st = new Stack<>();
+        for (char c : s) {
+            if (c == '(') {
+                if (!st.isEmpty()) ans += c;
+                st.push(c);
+            } else {
+                st.pop();
+                if (!st.isEmpty()) ans += c;
+            }
+        }
+        return ans;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack space.
@@ -79,6 +101,30 @@ class Solution {
 public:
     string removeOuterParentheses(string s) {
         string result = "";
+        result.reserve(s.length());
+        int balance = 0;
+        
+        for (char c : s) {
+            if (c == '(') {
+                if (balance > 0) result += c;
+                balance++;
+            } else {
+                balance--;
+                if (balance > 0) result += c;
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String removeOuterParentheses(String s) {
+        String result = "";
         result.reserve(s.length());
         int balance = 0;
         

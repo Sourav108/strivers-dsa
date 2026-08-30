@@ -1,6 +1,6 @@
 # C++ STL Complete Guide (Containers, Iterators, Algorithms) (Step 1.3 — C++ Standard Template Library (STL))
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [C++ STL Complete Guide (Containers, Iterators, Algorithms)](https://takeuforward.org/c/c-stl-tutorial-most-frequent-used-stl-containers/)
 - **Difficulty**: Easy
@@ -42,6 +42,27 @@ struct ManualVector {
     int size;
     int cap;
     ManualVector() : size(0), cap(2) { data = new int[2]; }
+    void push(int x) {
+        if (size == cap) {
+            cap *= 2;
+            int* next = new int[cap];
+            for (int i = 0; i < size; i++) next[i] = data[i];
+            delete[] data;
+            data = next;
+        }
+        data[size++] = x;
+    }
+};
+```
+
+### Java Code
+```java
+// Manual dynamic array and bubble sort
+static class ManualVector {
+    int* data;
+    int size;
+    int cap;
+    public ManualVector() { /* initialized: size(0), cap(2)  */  data = new int[2];  }
     void push(int x) {
         if (size == cap) {
             cap *= 2;
@@ -118,6 +139,46 @@ void demonstrateSTL() {
 int main() {
     demonstrateSTL();
     return 0;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    void demonstrateSTL() {
+        // 1. Vector: Dynamic array with O(1) amortized push_back
+        int[] v = {4, 1, 8, 3, 2};
+        v.add(5);
+        Arrays.sort(v); // O(N log N) Introsort
+        
+        // 2. Priority Queue: Max-Heap (default) & Min-Heap
+        PriorityQueue<Integer> maxHeap;
+        priority_queue<int, int[], greater<int>> minHeap;
+        
+        // 3. Map (Red-Black Tree: O(log N)) vs Unordered Map (Hash Table: O(1) avg)
+        map<String, int> treeMap;
+        Map<String, Integer> hashMap = new HashMap<>();
+        treeMap["banana"] = 3;
+        treeMap["apple"] = 5; // Ordered alphabetically: apple . banana
+        
+        // 4. Standard Algorithms: Binary Search Permutations
+        boolean exists = binary_search(v.begin(), v.end(), 3);
+        var lb = lower_bound(v.begin(), v.end(), 3); // iterator to first element >= 3
+        
+        // Builtin Bitwise Intrinsic
+        int setBits = __builtin_popcount(29); // 29 = 11101 . 4 set bits
+        
+        System.out.print("Tree Map First Key: " << treeMap.begin().first << "\n");
+        System.out.print("Binary Search for 3: " << boolalpha << exists << "\n");
+        System.out.print("Set Bits in 29: " << setBits << "\n");
+    }
+    
+    int main() {
+        demonstrateSTL();
+        return 0;
+    }
 }
 ```
 

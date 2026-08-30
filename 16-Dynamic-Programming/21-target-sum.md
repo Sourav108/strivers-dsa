@@ -1,6 +1,6 @@
 # Target Sum (Assign +/- signs to achieve target) (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Target Sum (Assign +/- signs to achieve target)](https://takeuforward.org/data-structure/target-sum-dp-21/)
 - **Difficulty**: Medium
@@ -59,6 +59,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int curSum, int[] nums, int target) {
+        if (i == nums.length) return curSum == target ? 1 : 0;
+        int plus = solve(i + 1, curSum + nums[i], nums, target);
+        int minus = solve(i + 1, curSum - nums[i], nums, target);
+        return plus + minus;
+    }
+
+    int findTargetSumWays(int[] nums, int target) {
+        return solve(0, 0, nums, target);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -88,6 +104,34 @@ public:
         int n = nums.size();
         
         vector<vector<int>> dp(n, vector<int>(s1 + 1, 0));
+        if (nums[0] == 0) dp[0][0] = 2;
+        else dp[0][0] = 1;
+        if (nums[0] != 0 && nums[0] <= s1) dp[0][nums[0]] = 1;
+        
+        for (int i = 1; i < n; i++) {
+            for (int k = 0; k <= s1; k++) {
+                int notTake = dp[i - 1][k];
+                int take = (k >= nums[i]) ? dp[i - 1][k - nums[i]] : 0;
+                dp[i][k] = notTake + take;
+            }
+        }
+        return dp[n - 1][s1];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int findTargetSumWays(int[] nums, int target) {
+        int totalSum = 0;
+        for (int x : nums) totalSum += x;
+        if (totalSum < Math.abs(target) || (totalSum + target) % 2 != 0) return 0;
+        int s1 = (totalSum + target) / 2;
+        int n = nums.length;
+        
+        int[][] dp = new int[n][s1 + 1];
         if (nums[0] == 0) dp[0][0] = 2;
         else dp[0][0] = 1;
         if (nums[0] != 0 && nums[0] <= s1) dp[0][nums[0]] = 1;
@@ -161,6 +205,54 @@ public:
         
         // If target is unreachable in magnitude or parity is odd, 0 ways exist
         if (totalSum < abs(target) || (totalSum + target) % 2 != 0) {
+            return 0;
+        }
+        
+        int s1 = (totalSum + target) / 2;
+        return countSubsets(nums, s1);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int countSubsets(int[] nums, int target) {
+        int n = nums.length;
+        int[] prev = new int[target + 1];
+        
+        // Base case for nums[0] (including zero)
+        if (nums[0] == 0) {
+            prev[0] = 2; // +0 or -0
+        } else {
+            prev[0] = 1;
+            if (nums[0] <= target) {
+                prev[nums[0]] = 1;
+            }
+        }
+        
+        for (int i = 1; i < n; i++) {
+            int[] cur = new int[target + 1];
+            for (int k = 0; k <= target; k++) {
+                int notTake = prev[k];
+                int take = (k >= nums[i]) ? prev[k - nums[i]] : 0;
+                cur[k] = notTake + take;
+            }
+            prev = cur;
+        }
+        
+        return prev[target];
+    }
+
+    int findTargetSumWays(int[] nums, int target) {
+        int totalSum = 0;
+        for (int x : nums) {
+            totalSum += x;
+        }
+        
+        // If target is unreachable in magnitude or parity is odd, 0 ways exist
+        if (totalSum < Math.abs(target) || (totalSum + target) % 2 != 0) {
             return 0;
         }
         

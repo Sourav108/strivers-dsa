@@ -1,6 +1,6 @@
 # Rod Cutting Problem (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Rod Cutting Problem](https://takeuforward.org/data-structure/rod-cutting-problem-dp-24/)
 - **Difficulty**: Medium
@@ -57,6 +57,24 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int n, int[] p) {
+        if (i == 0) return n * p[0];
+        int notTake = solve(i - 1, n, p);
+        int take = 0;
+        int rodLength = i + 1;
+        if (rodLength <= n) take = p[i] + solve(i, n - rodLength, p);
+        return Math.max(notTake, take);
+    }
+
+    int cutRod(int[] price, int n) {
+        return solve(n - 1, n, price);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -87,6 +105,27 @@ public:
                 int notTake = dp[i - 1][l];
                 int take = (l >= rodLen) ? price[i] + dp[i][l - rodLen] : 0;
                 dp[i][l] = max(notTake, take);
+            }
+        }
+        return dp[n - 1][n];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int cutRod(int[] price, int n) {
+        int[][] dp = new int[n][n + 1];
+        for (int l = 0; l <= n; l++) dp[0][l] = l * price[0];
+        
+        for (int i = 1; i < n; i++) {
+            int rodLen = i + 1;
+            for (int l = 0; l <= n; l++) {
+                int notTake = dp[i - 1][l];
+                int take = (l >= rodLen) ? price[i] + dp[i][l - rodLen] : 0;
+                dp[i][l] = Math.max(notTake, take);
             }
         }
         return dp[n - 1][n];
@@ -126,6 +165,30 @@ public:
             // Forward iteration from pieceLength to n allows infinite pieces
             for (int l = pieceLength; l <= n; l++) {
                 dp[l] = max(dp[l], piecePrice + dp[l - pieceLength]);
+            }
+        }
+        
+        return dp[n];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int cutRod(int[] price, int n) {
+        // dp[l] stores max profit obtainable from a rod of length l
+        int[] dp = new int[n + 1];
+        
+        // Iterate through all possible piece lengths (1 to n)
+        for (int i = 0; i < n; i++) {
+            int pieceLength = i + 1;
+            int piecePrice = price[i];
+            
+            // Forward iteration from pieceLength to n allows infinite pieces
+            for (int l = pieceLength; l <= n; l++) {
+                dp[l] = Math.max(dp[l], piecePrice + dp[l - pieceLength]);
             }
         }
         

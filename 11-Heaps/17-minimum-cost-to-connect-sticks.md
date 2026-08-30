@@ -1,6 +1,6 @@
 # Minimum Cost to Connect Sticks (Huffman coding principle) (Step 11.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Minimum Cost to Connect Sticks (Huffman coding principle)](https://takeuforward.org/data-structure/minimum-cost-to-connect-sticks/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Repeated sorting on array after each merge in $\mathcal{O}(N^2 \log N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N^2 log N) sort
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2 log N) sort
 ```
 
@@ -72,6 +78,32 @@ public:
         while (minHeap.size() > 1) {
             int first = minHeap.top(); minHeap.pop();
             int second = minHeap.top(); minHeap.pop();
+            
+            int cost = first + second;
+            totalCost += cost;
+            
+            minHeap.push(cost);
+        }
+        
+        return totalCost;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int connectSticks(int[] sticks) {
+        // Min-heap
+        priority_queue<int, int[], greater<int>> minHeap(sticks.begin(), sticks.end());
+        
+        int totalCost = 0;
+        
+        // Repeatedly connect the two shortest sticks
+        while (minHeap.length > 1) {
+            int first = minHeap.peek(); minHeap.pop();
+            int second = minHeap.peek(); minHeap.pop();
             
             int cost = first + second;
             totalCost += cost;

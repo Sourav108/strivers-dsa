@@ -1,6 +1,6 @@
 # Combination Sum II (Single Use with Duplicates) (Step 7.2 — Subsequences Pattern)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Combination Sum II (Single Use with Duplicates)](https://takeuforward.org/data-structure/combination-sum-ii-find-all-unique-combinations/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Combination Sum I with set filtering in $\mathcal{O}(2^N \log(2^N))$ time.
 
 ### C++17 Code
 ```cpp
+// Set deduplication
+```
+
+### Java Code
+```java
+// Java equivalent
 // Set deduplication
 ```
 
@@ -86,6 +92,41 @@ public:
         vector<vector<int>> ans;
         vector<int> ds;
         sort(candidates.begin(), candidates.end()); // essential for duplicate skipping and early break
+        findCombinations(0, target, candidates, ds, ans);
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void findCombinations(int ind, int target, int[] arr, int[] ds, int[][] ans) {
+        if (target == 0) {
+            ans.add(ds);
+            return;
+        }
+        
+        for (int i = ind; i < arr.length; i++) {
+            // Skip duplicate elements at the same level
+            if (i > ind && arr[i] == arr[i - 1]) continue;
+            
+            // If current element exceeds target, no future element can fit (since sorted)
+            if (arr[i] > target) break;
+            
+            ds.add(arr[i]);
+            findCombinations(i + 1, target - arr[i], arr, ds, ans);
+            ds.remove(); // backtrack
+        }
+    }
+
+    int[][] combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        Arrays.sort(candidates); // essential for duplicate skipping and early break
         findCombinations(0, target, candidates, ds, ans);
         return ans;
     }

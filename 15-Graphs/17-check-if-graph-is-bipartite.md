@@ -1,6 +1,6 @@
 # Check if Graph is Bipartite (2-Coloring via BFS/DFS) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Check if Graph is Bipartite (2-Coloring via BFS/DFS)](https://takeuforward.org/data-structure/bipartite-graph/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Try all $2^V$ possible color assignments taking $\mathcal{O}(2^V \cdot E)$ time.
 
 ### C++17 Code
 ```cpp
+// O(2^V * E) brute force partitioning
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(2^V * E) brute force partitioning
 ```
 
@@ -69,6 +75,32 @@ public:
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
         vector<int> color(n, -1);
+        for (int i = 0; i < n; i++)
+            if (color[i] == -1)
+                if (!dfs(i, 0, graph, color)) return false;
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionDFS {
+    boolean dfs(int node, int col, int[][] graph, int[] color) {
+        color[node] = col;
+        for (int neighbor : graph[node]) {
+            if (color[neighbor] == -1) {
+                if (!dfs(neighbor, !col, graph, color)) return false;
+            } else if (color[neighbor] == col) {
+                return false; // Adjacent same color conflict!
+            }
+        }
+        return true;
+    }
+
+    boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        int[] color = new int[n];
         for (int i = 0; i < n; i++)
             if (color[i] == -1)
                 if (!dfs(i, 0, graph, color)) return false;
@@ -126,6 +158,55 @@ public:
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
         vector<int> color(n, -1); // -1 denotes unvisited/uncolored
+        
+        // Check for all disconnected components
+        for (int i = 0; i < n; i++) {
+            if (color[i] == -1) {
+                if (!checkBFS(i, graph, color)) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    boolean checkBFS(int start, int[][] graph, int[] color) {
+        Queue<Integer> q = new LinkedList<>();
+        q.push(start);
+        color[start] = 0; // Assign first color
+        
+        while (!q.isEmpty()) {
+            int node = q.peek();
+            q.pop();
+            
+            for (int neighbor : graph[node]) {
+                // If the adjacent node is yet not colored
+                if (color[neighbor] == -1) {
+                    color[neighbor] = !color[node]; // Assign opposite color
+                    q.push(neighbor);
+                }
+                // If the adjacent node has the SAME color as current node . NOT BIPARTITE!
+                else if (color[neighbor] == color[node]) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        int[] color = new int[n]; // -1 denotes unvisited/uncolored
         
         // Check for all disconnected components
         for (int i = 0; i < n; i++) {

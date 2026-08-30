@@ -1,6 +1,6 @@
 # Maximum Product Subarray (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/maximum-product-subarray-in-an-array/
 - **Difficulty**: Medium
@@ -51,6 +51,20 @@ int maxProductBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int maxProductBrute(int[] nums) {
+        int maxP = Integer.MIN_VALUE, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int prod = 1;
+            for (int j = i; j < n; j++) { prod *= nums[j]; maxP = Math.max(maxP, prod); }
+        }
+        return maxP;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -80,6 +94,23 @@ int maxProductBetter(const vector<int>& nums) {
         globalMax = max(globalMax, maxProd);
     }
     return globalMax;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int maxProductBetter(int[] nums) {
+        int globalMax = nums[0];
+        int maxProd = nums[0], minProd = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < 0) int temp = maxProd; maxProd = minProd; minProd = temp;
+            maxProd = Math.max((long)nums[i], (long)maxProd * nums[i]);
+            minProd = Math.min((long)nums[i], (long)minProd * nums[i]);
+            globalMax = Math.max(globalMax, maxProd);
+        }
+        return globalMax;
+    }
 }
 ```
 
@@ -115,6 +146,24 @@ int maxProductOptimal(const vector<int>& nums) {
         maxProd = max(maxProd, max(prefix, suffix));
     }
     return maxProd;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int maxProductOptimal(int[] nums) {
+        int maxProd = Integer.MIN_VALUE, n = nums.length;
+        int prefix = 1, suffix = 1;
+        for (int i = 0; i < n; i++) {
+            if (prefix == 0) prefix = 1;
+            if (suffix == 0) suffix = 1;
+            prefix *= nums[i];
+            suffix *= nums[n - 1 - i];
+            maxProd = Math.max(maxProd, Math.max(prefix, suffix));
+        }
+        return maxProd;
+    }
 }
 ```
 

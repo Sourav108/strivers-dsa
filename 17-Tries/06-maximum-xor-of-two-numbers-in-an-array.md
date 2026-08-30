@@ -1,6 +1,6 @@
 # Maximum XOR of Two Numbers in an Array (Bitwise Trie Search) (Step 17.1 — Theory & Practice)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximum XOR of Two Numbers in an Array (Bitwise Trie Search)](https://takeuforward.org/data-structure/maximum-xor-of-two-numbers-in-an-array/)
 - **Difficulty**: Medium
@@ -60,6 +60,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+
+    int findMaximumXOR(int[] nums) {
+        int maxVal = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                maxVal = Math.max(maxVal, nums[i] ^ nums[j]);
+            }
+        }
+        return maxVal;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(1)$ space.
@@ -90,6 +106,31 @@ public:
             int candidate = maxXOR | (1 << i);
             for (int p : prefixes) {
                 if (prefixes.count(p ^ candidate)) {
+                    maxXOR = candidate;
+                    break;
+                }
+            }
+        }
+        return maxXOR;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionHashSet {
+
+    int findMaximumXOR(int[] nums) {
+        int maxXOR = 0, mask = 0;
+        for (int i = 31; i >= 0; i--) {
+            mask |= (1 << i);
+            Set<Integer> prefixes = new HashSet<>();
+            for (int n : nums) prefixes.add(n mask);
+            int candidate = maxXOR | (1 << i);
+            for (int p : prefixes) {
+                if (prefixes.contains(p ^ candidate)) {
                     maxXOR = candidate;
                     break;
                 }
@@ -198,6 +239,94 @@ public:
         int maxXOR = 0;
         for (int x : nums) {
             maxXOR = max(maxXOR, trie.getMax(x));
+        }
+        
+        return maxXOR;
+    }
+};
+```
+
+### Java Code
+```java
+// 2-Way Binary Trie Node
+static class Node {
+    Node  links[2];
+    
+    Node() {
+        links[0] = null;
+        links[1] = null;
+    }
+    
+    boolean containsKey(int bit) {
+        return links[bit] != null;
+    }
+    
+    Node  get(int bit) {
+        return links[bit];
+    }
+    
+    void put(int bit, Node  node) {
+        links[bit] = node;
+    }
+};
+
+class Trie {
+
+    Node  root;
+
+    Trie() {
+        root = new Node();
+    }
+    
+    // Inserts a number into the Trie in O(32) time
+    void insert(int num) {
+        Node  node = root;
+        for (int i = 31; i >= 0; i--) {
+            int bit = (num >> i) & 1;
+            if (!node.containsKey(bit)) {
+                node.put(bit, new Node());
+            }
+            node = node.get(bit);
+        }
+    }
+    
+    // Finds maximum XOR value for a given number in O(32) time
+    int getMax(int num) {
+        Node  node = root;
+        int maxNum = 0;
+        
+        for (int i = 31; i >= 0; i--) {
+            int bit = (num >> i) & 1;
+            int oppositeBit = 1 - bit;
+            
+            // Greedily choose opposite bit to make the i-th bit in XOR result 1
+            if (node.containsKey(oppositeBit)) {
+                maxNum |= (1 << i);
+                node = node.get(oppositeBit);
+            } else {
+                // Must take the same bit (i-th bit in XOR becomes 0)
+                node = node.get(bit);
+            }
+        }
+        
+        return maxNum;
+    }
+};
+
+class Solution {
+
+    int findMaximumXOR(int[] nums) {
+        Trie trie;
+        
+        // Step 1: Insert all numbers into the Binary Trie
+        for (int x : nums) {
+            trie.add(x);
+        }
+        
+        // Step 2: Query max XOR for each number
+        int maxXOR = 0;
+        for (int x : nums) {
+            maxXOR = Math.max(maxXOR, trie.getMax(x));
         }
         
         return maxXOR;

@@ -1,6 +1,6 @@
 # Longest Common Subsequence (LCS) (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Common Subsequence (LCS)](https://takeuforward.org/data-structure/longest-common-subsequence-dp-25/)
 - **Difficulty**: Medium
@@ -56,6 +56,21 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int i, int j, String s1, String s2) {
+        if (i < 0 || j < 0) return 0;
+        if (s1[i] == s2[j]) return 1 + solve(i - 1, j - 1, s1, s2);
+        return Math.max(solve(i - 1, j, s1, s2), solve(i, j - 1, s1, s2));
+    }
+
+    int longestCommonSubsequence(String text1, String text2) {
+        return solve(text1.length - 1, text2.length - 1, text1, text2);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^{\min(N, M)})$ time.
 - **Space Complexity**: $\mathcal{O}(N + M)$ recursion stack.
@@ -87,6 +102,28 @@ public:
                     dp[i][j] = 1 + dp[i - 1][j - 1];
                 } else {
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[n][m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+
+    int longestCommonSubsequence(String text1, String text2) {
+        int n = text1.length, m = text2.length;
+        int[][] dp = new int[n + 1][m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (text1[i - 1] == text2[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
         }
@@ -135,6 +172,39 @@ public:
                     cur[j] = 1 + prev[j - 1];
                 } else {
                     cur[j] = max(prev[j], cur[j - 1]);
+                }
+            }
+            prev = cur;
+        }
+        
+        return prev[m];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int longestCommonSubsequence(String text1, String text2) {
+        // Ensure text2 is the shorter String to minimize auxiliary memory
+        if (text1.length < text2.length) {
+            int temp = text1; text1 = text2; text2 = temp;
+        }
+        
+        int n = text1.length;
+        int m = text2.length;
+        
+        // prev[j] stores LCS length with prefix text2[0 ... j - 1]
+        int[] prev = new int[m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            int[] cur = new int[m + 1];
+            for (int j = 1; j <= m; j++) {
+                if (text1[i - 1] == text2[j - 1]) {
+                    cur[j] = 1 + prev[j - 1];
+                } else {
+                    cur[j] = Math.max(prev[j], cur[j - 1]);
                 }
             }
             prev = cur;

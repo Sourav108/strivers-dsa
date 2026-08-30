@@ -1,6 +1,6 @@
 # Kahn's Algorithm (Topological Sort using BFS In-Degree) (Step 15.3 — Topological Sort and Kahn's Algorithm)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Kahn's Algorithm (Topological Sort using BFS In-Degree)](https://takeuforward.org/data-structure/topological-sort-bfs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Repeated linear scan of inDegree array finding 0s without a queue in $\mathcal{O
 
 ### C++17 Code
 ```cpp
+// O(V^2) linear in-degree scan
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V^2) linear in-degree scan
 ```
 
@@ -87,6 +93,54 @@ public:
             int node = q.front();
             q.pop();
             topo.push_back(node);
+            
+            // Remove node from graph: decrement in-degree of its neighbors
+            for (int neighbor : adj[node]) {
+                inDegree[neighbor]--;
+                
+                // If in-degree becomes 0, all dependencies are resolved
+                if (inDegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+        
+        return topo;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] topoSort(int V, int[][] adj) {
+        int[] inDegree = new int[V];
+        
+        // 1. Calculate in-degree for each vertex
+        for (int u = 0; u < V; u++) {
+            for (int v : adj[u]) {
+                inDegree[v]++;
+            }
+        }
+        
+        // 2. Enqueue all vertices with in-degree 0 (no prerequisites)
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < V; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        List<Integer> topo = new ArrayList<>();
+        
+        // 3. Process BFS queue
+        while (!q.isEmpty()) {
+            int node = q.peek();
+            q.pop();
+            topo.add(node);
             
             // Remove node from graph: decrement in-degree of its neighbors
             for (int neighbor : adj[node]) {

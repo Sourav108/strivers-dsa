@@ -1,6 +1,6 @@
 # Remove Nth Node from End of LinkedList (Step 6.3 — Medium Problems of LL)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Remove Nth Node from End of LinkedList](https://takeuforward.org/data-structure/remove-nth-node-from-back-of-linked-list/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Two passes: count length $L$, then delete node at index $L - N$.
 
 ### C++17 Code
 ```cpp
+// Two-pass approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Two-pass approach
 ```
 
@@ -86,6 +92,44 @@ public:
         delete target;
         
         Node* newHead = dummy->next;
+        delete dummy;
+        return newHead;
+    }
+};
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+class Solution {
+
+    Node  removeNthFromEnd(Node  head, int n) {
+        Node  dummy = new Node(0, head);
+        Node  slow = dummy;
+        Node  fast = dummy;
+        
+        // Advance fast pointer n steps
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+        
+        // Move both pointers until fast reaches the last node
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        // slow is at node (L - n); delete target node
+        Node  target = slow.next;
+        slow.next = slow.next.next;
+        delete target;
+        
+        Node  newHead = dummy.next;
         delete dummy;
         return newHead;
     }

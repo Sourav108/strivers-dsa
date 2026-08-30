@@ -1,6 +1,6 @@
 # Rotting Oranges (Multi-source BFS) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Rotting Oranges (Multi-source BFS)](https://takeuforward.org/data-structure/rotton-oranges-min-time-to-rot-all-oranges-bfs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Iterative simulation scanning entire matrix each minute until no new oranges rot
 
 ### C++17 Code
 ```cpp
+// O((N*M)^2) simulation scanning grid repeatedly
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((N*M)^2) simulation scanning grid repeatedly
 ```
 
@@ -93,6 +99,61 @@ public:
             
             for (int i = 0; i < sz; i++) {
                 auto [r, c] = q.front();
+                q.pop();
+                
+                for (int d = 0; d < 4; d++) {
+                    int nr = r + dRow[d];
+                    int nc = c + dCol[d];
+                    
+                    if (nr >= 0 && nr < n && nc >= 0 && nc < m && grid[nr][nc] == 1) {
+                        grid[nr][nc] = 2; // rot the orange
+                        freshCount--;
+                        q.push({nr, nc});
+                    }
+                }
+            }
+        }
+        
+        return (freshCount == 0) ? minutes : -1;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int orangesRotting(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].size();
+        
+        queue<pair<int, int>> q;
+        int freshCount = 0;
+        
+        // 1. Enqueue all initially rotten oranges and count fresh oranges
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 2) {
+                    q.push({i, j});
+                } else if (grid[i][j] == 1) {
+                    freshCount++;
+                }
+            }
+        }
+        
+        if (freshCount == 0) return 0;
+        
+        int minutes = 0;
+        int dRow[] = {-1, 0, 1, 0};
+        int dCol[] = {0, 1, 0, -1};
+        
+        // 2. Multi-source BFS layer-by-layer
+        while (!q.isEmpty() && freshCount > 0) {
+            int sz = q.length;
+            minutes++;
+            
+            for (int i = 0; i < sz; i++) {
+                var [r, c] = q.peek();
                 q.pop();
                 
                 for (int d = 0; d < 4; d++) {

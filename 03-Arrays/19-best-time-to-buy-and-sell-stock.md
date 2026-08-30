@@ -1,6 +1,6 @@
 # Best Time to Buy and Sell Stock (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/stock-buy-and-sell/
 - **Difficulty**: Easy
@@ -50,6 +50,19 @@ int maxProfitBrute(const vector<int>& prices) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int maxProfitBrute(int[] prices) {
+        int maxP = 0, n = prices.length;
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j < n; j++)
+                maxP = Math.max(maxP, prices[j] - prices[i]);
+        return maxP;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -84,6 +97,20 @@ int maxProfitOptimal(const vector<int>& prices) {
         maxProfit = max(maxProfit, p - minPrice);
     }
     return maxProfit;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int maxProfitOptimal(int[] prices) {
+        int minPrice = Integer.MAX_VALUE, maxProfit = 0;
+        for (int p : prices) {
+            minPrice = Math.min(minPrice, p);
+            maxProfit = Math.max(maxProfit, p - minPrice);
+        }
+        return maxProfit;
+    }
 }
 ```
 

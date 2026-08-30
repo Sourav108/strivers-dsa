@@ -1,6 +1,6 @@
 # LFU Cache Implementation (Frequencies DLL Map) (Step 9.4 — Implementation Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [LFU Cache Implementation (Frequencies DLL Map)](https://takeuforward.org/data-structure/lfu-cache/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Priority Queue (Heap) tracking frequencies in $\mathcal{O}(\log N)$ time per ope
 
 ### C++17 Code
 ```cpp
+// O(log N) Priority Queue LFU
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(log N) Priority Queue LFU
 ```
 
@@ -155,6 +161,112 @@ public:
                 freqTable[1] = new DoublyLinkedList();
             }
             freqTable[1]->addNode(newNode);
+            keyTable[key] = newNode;
+            curSize++;
+        }
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+static class Node {
+    int key, val, freq;
+    Node prev, next;
+    public Node(int k, int v) { /* initialized: key(k), val(v), freq(1), prev(null), next(null)  */  }
+};
+
+static class DoublyLinkedList {
+    Node head, tail;
+    int size;
+    DoublyLinkedList() {
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+        size = 0;
+    }
+    
+    void addNode(Node  node) {
+        Node  temp = head.next;
+        node.next = temp;
+        node.prev = head;
+        head.next = node;
+        temp.prev = node;
+        size++;
+    }
+    
+    void removeNode(Node  node) {
+        Node  p = node.prev;
+        Node  n = node.next;
+        p.next = n;
+        n.prev = p;
+        size--;
+    }
+    
+    Node  removeLRU() {
+        if (size == 0) return null;
+        Node  lru = tail.prev;
+        removeNode(lru);
+        return lru;
+    }
+};
+
+class LFUCache {
+
+    int capacity;
+    int minFreq;
+    int curSize;
+    unordered_map<int, Node > keyTable;
+    unordered_map<int, DoublyLinkedList*> freqTable;
+    
+    void updateFreq(Node  node) {
+        int oldFreq = node.freq;
+        freqTable[oldFreq].removeNode(node);
+        
+        if (oldFreq == minFreq && freqTable[oldFreq].size == 0) {
+            minFreq++;
+        }
+        
+        node.freq++;
+        if (freqTable.find(node.freq) == freqTable.end()) {
+            freqTable[node.freq] = new DoublyLinkedList();
+        }
+        freqTable[node.freq].addNode(node);
+    }
+
+    public LFUCache(int cap) { /* initialized: capacity(cap), minFreq(0), curSize(0)  */  }
+    
+    int get(int key) {
+        if (keyTable.find(key) == keyTable.end()) return -1;
+        Node  node = keyTable[key];
+        updateFreq(node);
+        return node.val;
+    }
+    
+    void put(int key, int value) {
+        if (capacity == 0) return;
+        
+        if (keyTable.find(key) != keyTable.end()) {
+            Node  node = keyTable[key];
+            node.val = value;
+            updateFreq(node);
+        } else {
+            if (curSize == capacity) {
+                Node  lru = freqTable[minFreq].removeLRU();
+                keyTable.remove(lru.key);
+                delete lru;
+                curSize--;
+            }
+            
+            Node  newNode = new Node(key, value);
+            minFreq = 1;
+            if (freqTable.find(1) == freqTable.end()) {
+                freqTable[1] = new DoublyLinkedList();
+            }
+            freqTable[1].addNode(newNode);
             keyTable[key] = newNode;
             curSize++;
         }

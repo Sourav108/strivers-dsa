@@ -1,6 +1,6 @@
 # Longest Substring Without Repeating Characters (Step 10.1 — Medium Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Longest Substring Without Repeating Characters](https://takeuforward.org/data-structure/length-of-longest-substring-without-any-repeating-character/)
 - **Difficulty**: Medium
@@ -51,6 +51,26 @@ int lengthOfLongestSubstringBrute(string s) {
 }
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int lengthOfLongestSubstringBrute(String s) {
+        int maxLen = 0, n = s.length();
+        for (int i = 0; i < n; i++) {
+            Set<Character> st = new HashSet<>();
+            for (int j = i; j < n; j++) {
+                if (st.contains(s[j])) break;
+                st.add(s[j]);
+                maxLen = Math.max(maxLen, j - i + 1);
+            }
+        }
+        return maxLen;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N^2)$ time.
 - **Space Complexity**: $\mathcal{O}(\min(N, \Sigma))$.
@@ -81,6 +101,27 @@ int lengthOfLongestSubstringSet(string s) {
         maxLen = max(maxLen, right - left + 1);
     }
     return maxLen;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int lengthOfLongestSubstringSet(String s) {
+        Set<Character> st = new HashSet<>();
+        int left = 0, maxLen = 0, n = s.length();
+        for (int right = 0; right < n; right++) {
+            while (st.contains(s[right])) {
+                st.remove(s[left]);
+                left++;
+            }
+            st.add(s[right]);
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+        return maxLen;
+    }
 }
 ```
 
@@ -120,6 +161,32 @@ public:
             
             lastSeen[(unsigned char)c] = right; // update last seen index
             maxLen = max(maxLen, right - left + 1);
+        }
+        
+        return maxLen;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int lengthOfLongestSubstring(String s) {
+        int[] lastSeen = new int[256];
+        int left = 0, maxLen = 0;
+        int n = s.length();
+        
+        for (int right = 0; right < n; right++) {
+            char c = s[right];
+            
+            // If character was seen inside the current window, jump left directly
+            if (lastSeen[(int)c] != -1) {
+                left = Math.max(left, lastSeen[(int)c] + 1);
+            }
+            
+            lastSeen[(int)c] = right; // update last seen index
+            maxLen = Math.max(maxLen, right - left + 1);
         }
         
         return maxLen;

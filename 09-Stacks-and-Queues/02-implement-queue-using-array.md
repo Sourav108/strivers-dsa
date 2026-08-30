@@ -1,6 +1,6 @@
 # Implement Queue using Arrays (Step 9.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Implement Queue using Arrays](https://takeuforward.org/data-structure/implement-queue-using-array/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Linear array with `vector.erase(v.begin())` in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// Linear shift queue O(N)
+```
+
+### Java Code
+```java
+// Java equivalent
 // Linear shift queue O(N)
 ```
 
@@ -102,6 +108,60 @@ public:
     }
     
     bool isFull() {
+        return currentSize == capacity;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class CircularQueue {
+
+    int* arr;
+    int frontIndex;
+    int rearIndex;
+    int currentSize;
+    int capacity;
+
+    public CircularQueue(int cap = 10000) { /* initialized: frontIndex(0), rearIndex(-1), currentSize(0), capacity(cap)  */ 
+        arr = new int[capacity];
+     }
+    
+    ~CircularQueue() {
+        delete[] arr;
+    }
+    
+    void push(int x) {
+        if (isFull()) return;
+        rearIndex = (rearIndex + 1) % capacity;
+        arr[rearIndex] = x;
+        currentSize++;
+    }
+    
+    int pop() {
+        if (isEmpty()) return -1;
+        int val = arr[frontIndex];
+        frontIndex = (frontIndex + 1) % capacity;
+        currentSize--;
+        return val;
+    }
+    
+    int front() {
+        if (isEmpty()) return -1;
+        return arr[frontIndex];
+    }
+    
+    int size() {
+        return currentSize;
+    }
+    
+    boolean isEmpty() {
+        return currentSize == 0;
+    }
+    
+    boolean isFull() {
         return currentSize == capacity;
     }
 };

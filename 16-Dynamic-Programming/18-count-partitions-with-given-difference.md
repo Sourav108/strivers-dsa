@@ -1,6 +1,6 @@
 # Count Partitions with Given Difference (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Partitions with Given Difference](https://takeuforward.org/data-structure/count-partitions-with-given-difference-dp-18/)
 - **Difficulty**: Medium
@@ -49,6 +49,13 @@ class SolutionNaive {
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    // O(2^N) recursion
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -77,6 +84,34 @@ public:
         int target = (totalSum + d) / 2;
         
         vector<vector<int>> dp(n, vector<int>(target + 1, 0));
+        if (arr[0] == 0) dp[0][0] = 2;
+        else dp[0][0] = 1;
+        if (arr[0] != 0 && arr[0] <= target) dp[0][arr[0]] = 1;
+        
+        for (int i = 1; i < n; i++) {
+            for (int k = 0; k <= target; k++) {
+                int notTake = dp[i - 1][k];
+                int take = (k >= arr[i]) ? dp[i - 1][k - arr[i]] : 0;
+                dp[i][k] = (notTake + take) % MOD;
+            }
+        }
+        return dp[n - 1][target];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+    int MOD = 1e9 + 7;
+
+    int countPartitions(int n, int d, int[] arr) {
+        int totalSum = 0;
+        for (int x : arr) totalSum += x;
+        if (totalSum < d || (totalSum + d) % 2 != 0) return 0;
+        int target = (totalSum + d) / 2;
+        
+        int[][] dp = new int[n][target + 1];
         if (arr[0] == 0) dp[0][0] = 2;
         else dp[0][0] = 1;
         if (arr[0] != 0 && arr[0] <= target) dp[0][arr[0]] = 1;
@@ -145,6 +180,57 @@ class Solution {
     
 public:
     int countPartitions(int n, int d, vector<int>& arr) {
+        int totalSum = 0;
+        for (int x : arr) {
+            totalSum += x;
+        }
+        
+        // Edge cases: Total sum cannot be less than difference, and (totalSum + d) must be even
+        if (totalSum < d || (totalSum + d) % 2 != 0) {
+            return 0;
+        }
+        
+        int target = (totalSum + d) / 2;
+        return countSubsets(arr, target);
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+    int MOD = 1e9 + 7;
+    
+    // Helper function to count subsets with given sum in O(target) space
+    int countSubsets(int[] arr, int target) {
+        int n = arr.length;
+        int[] prev = new int[target + 1];
+        
+        // Base case handling for arr[0] (including zero)
+        if (arr[0] == 0) {
+            prev[0] = 2; // {empty}, {0}
+        } else {
+            prev[0] = 1;
+            if (arr[0] <= target) {
+                prev[arr[0]] = 1;
+            }
+        }
+        
+        for (int i = 1; i < n; i++) {
+            int[] cur = new int[target + 1];
+            for (int k = 0; k <= target; k++) {
+                int notTake = prev[k];
+                int take = (k >= arr[i]) ? prev[k - arr[i]] : 0;
+                
+                cur[k] = (notTake + take) % MOD;
+            }
+            prev = cur;
+        }
+        
+        return prev[target];
+    }
+
+    int countPartitions(int n, int d, int[] arr) {
         int totalSum = 0;
         for (int x : arr) {
             totalSum += x;

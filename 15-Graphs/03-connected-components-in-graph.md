@@ -1,6 +1,6 @@
 # Connected Components in Graph (Step 15.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Connected Components in Graph](https://takeuforward.org/graph/connected-components-in-graph/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Floyd-Warshall transitive closure matrix in $\mathcal{O}(V^3)$ time.
 
 ### C++17 Code
 ```cpp
+// O(V^3) Floyd Warshall connectivity
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(V^3) Floyd Warshall connectivity
 ```
 
@@ -83,6 +89,47 @@ private:
 public:
     int countConnectedComponents(int V, const vector<vector<int>>& adj) {
         vector<int> vis(V, 0);
+        int components = 0;
+        
+        // Loop over all vertices to handle disconnected subgraphs
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                components++;
+                bfs(i, adj, vis);
+            }
+        }
+        
+        return components;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    void bfs(int start, int[][] adj, int[] vis) {
+        vis[start] = 1;
+        Queue<Integer> q = new LinkedList<>();
+        q.push(start);
+        
+        while (!q.isEmpty()) {
+            int node = q.peek();
+            q.pop();
+            
+            for (int neighbor : adj[node]) {
+                if (!vis[neighbor]) {
+                    vis[neighbor] = 1;
+                    q.push(neighbor);
+                }
+            }
+        }
+    }
+
+    int countConnectedComponents(int V, int[][] adj) {
+        int[] vis = new int[V];
         int components = 0;
         
         // Loop over all vertices to handle disconnected subgraphs

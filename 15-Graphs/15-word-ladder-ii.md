@@ -1,6 +1,6 @@
 # Word Ladder II (Find all shortest transformation sequences) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Word Ladder II (Find all shortest transformation sequences)](https://takeuforward.org/data-structure/word-ladder-ii-shortest-paths/)
 - **Difficulty**: Hard
@@ -73,6 +73,50 @@ vector<vector<string>> findLaddersBrute(string beginWord, string endWord, vector
         }
     }
     return ans;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    // Brute Force Path Queue (Causes MLE on LeetCode)
+    List<List<String>> findLaddersBrute(String beginWord, String endWord, String[] wordList) {
+        Set<String> st(wordList.begin(), wordList.end());
+        queue<String[]> q;
+        q.push({beginWord});
+        String[] usedOnLevel{beginWord};
+        int level = 0;
+        List<List<String>> ans;
+        while (!q.isEmpty()) {
+            var vec = q.peek(); q.pop();
+            if (vec.length > level) {
+                level++;
+                for (var it : usedOnLevel) st.remove(it);
+                usedOnLevel.clear();
+            }
+            String word = vec.peekLast();
+            if (word == endWord) {
+                if (ans.isEmpty() || ans[0].size() == vec.length) ans.add(vec);
+                continue;
+            }
+            for (int i = 0; i < word.length; i++) {
+                char original = word[i];
+                for (char c = 'a'; c <= 'z'; c++) {
+                    word[i] = c;
+                    if (st.contains(word)) {
+                        vec.add(word);
+                        q.push(vec);
+                        usedOnLevel.add(word);
+                        vec.remove();
+                    }
+                }
+                word[i] = original;
+            }
+        }
+        return ans;
+    }
 }
 ```
 
@@ -177,6 +221,90 @@ public:
         // If endWord was reached during BFS, launch Phase 2 DFS
         if (levelMap.count(endWord)) {
             vector<string> path{endWord};
+            dfs(endWord, path);
+        }
+        
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    Map<String, Integer> levelMap = new HashMap<>();
+    List<List<String>> ans;
+    String bWord;
+    
+    // Phase 2: Backtracking DFS from endWord backwards to beginWord
+    void dfs(String word, String[] path) {
+        if (word == bWord) {
+            String[] fullPath = path;
+            reverse(fullPath.begin(), fullPath.end());
+            ans.add(fullPath);
+            return;
+        }
+        
+        int currSteps = levelMap[word];
+        
+        // Explore all valid predecessor words on (currSteps - 1) level
+        for (int i = 0; i < word.length(); i++) {
+            char original = word[i];
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                word[i] = ch;
+                
+                if (levelMap.contains(word) && levelMap[word] == currSteps - 1) {
+                    path.add(word);
+                    dfs(word, path);
+                    path.remove(); // Backtrack
+                }
+            }
+            word[i] = original;
+        }
+    }
+
+    List<List<String>> findLadders(String beginWord, String endWord, String[] wordList) {
+        Set<String> dict(wordList.begin(), wordList.end());
+        if (!dict.contains(endWord)) return {};
+        
+        bWord = beginWord;
+        levelMap.clear();
+        ans.clear();
+        
+        // Phase 1: Forward BFS to construct Level Distance Map
+        queue<String> q;
+        q.push(beginWord);
+        levelMap[beginWord] = 1;
+        dict.remove(beginWord);
+        
+        while (!q.isEmpty()) {
+            String word = q.peek();
+            q.pop();
+            int steps = levelMap[word];
+            
+            if (word == endWord) break; // Reached destination level
+            
+            for (int i = 0; i < word.length(); i++) {
+                char original = word[i];
+                for (char ch = 'a'; ch <= 'z'; ch++) {
+                    word[i] = ch;
+                    
+                    if (dict.contains(word)) {
+                        q.push(word);
+                        dict.remove(word);
+                        levelMap[word] = steps + 1;
+                    }
+                }
+                word[i] = original;
+            }
+        }
+        
+        // If endWord was reached during BFS, launch Phase 2 DFS
+        if (levelMap.contains(endWord)) {
+            String[] path{endWord};
             dfs(endWord, path);
         }
         

@@ -1,6 +1,6 @@
 # Maximal Rectangle in Binary Matrix (2D Histogram) (Step 9.3 — Monotonic Stack / Queue)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Maximal Rectangle in Binary Matrix (2D Histogram)](https://takeuforward.org/data-structure/maximal-rectangle-in-binary-matrix/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Test all $(R \times C)^2$ sub-rectangles and validate all 1s in $\mathcal{O}((R 
 
 ### C++17 Code
 ```cpp
+// O((R*C)^3) brute check
+```
+
+### Java Code
+```java
+// Java equivalent
 // O((R*C)^3) brute check
 ```
 
@@ -99,6 +105,54 @@ public:
                 }
             }
             maxRectangle = max(maxRectangle, largestRectangleArea(heights));
+        }
+        
+        return maxRectangle;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        Stack<Integer> st = new Stack<>();
+        int maxArea = 0;
+        
+        for (int i = 0; i <= n; i++) {
+            int curH = (i == n) ? 0 : heights[i];
+            while (!st.isEmpty() && heights[st.peek()] >= curH) {
+                int h = heights[st.peek()];
+                st.pop();
+                int w = st.isEmpty() ? i : (i - st.peek() - 1);
+                maxArea = Math.max(maxArea, h * w);
+            }
+            st.push(i);
+        }
+        return maxArea;
+    }
+
+    int maximalRectangle(char[][] matrix) {
+        if (matrix.isEmpty() || matrix[0].isEmpty()) return 0;
+        
+        int rows = matrix.length;
+        int cols = matrix[0].size();
+        int[] heights = new int[cols];
+        int maxRectangle = 0;
+        
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (matrix[r][c] == '1') {
+                    heights[c] += 1;
+                } else {
+                    heights[c] = 0; // reset base
+                }
+            }
+            maxRectangle = Math.max(maxRectangle, largestRectangleArea(heights));
         }
         
         return maxRectangle;

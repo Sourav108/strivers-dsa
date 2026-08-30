@@ -1,6 +1,6 @@
 # Search in a Binary Search Tree (Step 14.1 — Concepts)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Search in a Binary Search Tree](https://takeuforward.org/data-structure/search-in-a-binary-search-tree-bst/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Standard recursive DFS on general binary tree in $\mathcal{O}(N)$ time and $\mat
 
 ### C++17 Code
 ```cpp
+// O(N) general DFS search
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) general DFS search
 ```
 
@@ -77,6 +83,33 @@ public:
         }
         
         return curr; // returns matching node or nullptr if not found
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  searchBST(TreeNode  root, int val) {
+        TreeNode  curr = root;
+        
+        while (curr != null && curr.val != val) {
+            if (val < curr.val) {
+                curr = curr.left; // target is smaller . explore left
+            } else {
+                curr = curr.right; // target is larger . explore right
+            }
+        }
+        
+        return curr; // returns matching node or null if not found
     }
 };
 ```

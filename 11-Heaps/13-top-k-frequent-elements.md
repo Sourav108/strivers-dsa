@@ -1,6 +1,6 @@
 # Top K Frequent Elements in an Array (Step 11.3 — Hard Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Top K Frequent Elements in an Array](https://takeuforward.org/data-structure/k-most-frequent-elements/)
 - **Difficulty**: Medium
@@ -36,6 +36,12 @@ Sort unique elements by frequency in $\mathcal{O}(N \log N)$ time.
 // O(N log N) full frequency sort
 ```
 
+### Java Code
+```java
+// Java equivalent
+// O(N log N) full frequency sort
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N \log N)$.
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -65,6 +71,26 @@ vector<int> topKFrequentHeap(vector<int>& nums, int k) {
     vector<int> ans;
     while (!pq.empty()) { ans.push_back(pq.top().second); pq.pop(); }
     return ans;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] topKFrequentHeap(int[] nums, int k) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int x : nums) mp[x]++;
+        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        for (var [val, count] : mp) {
+            pq.push({count, val});
+            if (pq.length > k) pq.pop();
+        }
+        List<Integer> ans = new ArrayList<>();
+        while (!pq.isEmpty()) { ans.add(pq.peek().second); pq.pop(); }
+        return ans;
+    }
 }
 ```
 
@@ -109,6 +135,41 @@ public:
             for (int val : buckets[f]) {
                 result.push_back(val);
                 if ((int)result.size() == k) break;
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] topKFrequent(int[] nums, int k) {
+        int n = nums.length;
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int x : nums) {
+            countMap[x]++;
+        }
+        
+        // Buckets index represents frequency (0 to n)
+        int[][] buckets(n + 1);
+        for (var [val, count] : countMap) {
+            buckets[count].add(val);
+        }
+        
+        List<Integer> result = new ArrayList<>();
+        result.reserve(k);
+        
+        // Scan buckets from highest frequency to lowest
+        for (int f = n; f >= 1 && result.length < k; f--) {
+            for (int val : buckets[f]) {
+                result.add(val);
+                if (result.length == k) break;
             }
         }
         

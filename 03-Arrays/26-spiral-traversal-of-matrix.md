@@ -1,6 +1,6 @@
 # Spiral Traversal of Matrix (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/spiral-traversal-of-matrix/
 - **Difficulty**: Medium
@@ -42,6 +42,13 @@ Check all possibilities exhaustively using nested loops.
 using namespace std;
 
 // Direct simulation is standard; brute force is identical in complexity.
+```
+
+### Java Code
+```java
+class Solution {
+    // Direct simulation is standard; brute force is identical in complexity.
+}
 ```
 
 ### Complexity Derivation
@@ -90,6 +97,34 @@ vector<int> spiralOrderOptimal(const vector<vector<int>>& mat) {
         }
     }
     return res;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] spiralOrderOptimal(int[][] mat) {
+        List<Integer> res = new ArrayList<>();
+        if (mat.isEmpty()) return res;
+        int top = 0, bottom = mat.length - 1, left = 0, right = mat[0].size() - 1;
+        while (top <= bottom && left <= right) {
+            for (int j = left; j <= right; j++) res.add(mat[top][j]);
+            top++;
+            for (int i = top; i <= bottom; i++) res.add(mat[i][right]);
+            right--;
+            if (top <= bottom) {
+                for (int j = right; j >= left; j--) res.add(mat[bottom][j]);
+                bottom--;
+            }
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) res.add(mat[i][left]);
+                left++;
+            }
+        }
+        return res;
+    }
 }
 ```
 

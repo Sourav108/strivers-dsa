@@ -1,6 +1,6 @@
 # Fractional Knapsack Problem (Step 12.1 — Easy)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Fractional Knapsack Problem](https://takeuforward.org/data-structure/fractional-knapsack-problem-greedy-approach/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Generating all permutations of item selections in exponential time.
 
 ### C++17 Code
 ```cpp
+// Exponential permutation approach
+```
+
+### Java Code
+```java
+// Java equivalent
 // Exponential permutation approach
 ```
 
@@ -74,6 +80,44 @@ private:
     }
 
 public:
+    double fractionalKnapsack(int w, Item arr[], int n) {
+        sort(arr, arr + n, compare);
+        
+        double totalValue = 0.0;
+        int remainingCapacity = w;
+        
+        for (int i = 0; i < n; i++) {
+            if (arr[i].weight <= remainingCapacity) {
+                // Take whole item
+                totalValue += arr[i].value;
+                remainingCapacity -= arr[i].weight;
+            } else {
+                // Take fractional part
+                totalValue += ((double)arr[i].value / (double)arr[i].weight) * (double)remainingCapacity;
+                break;
+            }
+        }
+        
+        return totalValue;
+    }
+};
+```
+
+### Java Code
+```java
+static class Item {
+    int value;
+    int weight;
+};
+
+class Solution {
+
+    static boolean compare(Item a, Item b) {
+        double r1 = (double)a.value / (double)a.weight;
+        double r2 = (double)b.value / (double)b.weight;
+        return r1 > r2; // Descending order of density
+    }
+
     double fractionalKnapsack(int w, Item arr[], int n) {
         sort(arr, arr + n, compare);
         

@@ -1,6 +1,6 @@
 # Largest Subarray with 0 Sum (Step 3.3)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/data-structure/length-of-the-longest-subarray-with-zero-sum/
 - **Difficulty**: Medium
@@ -51,6 +51,20 @@ int maxLenZeroSumBrute(const vector<int>& nums) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int maxLenZeroSumBrute(int[] nums) {
+        int maxL = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) { sum += nums[j]; if (sum == 0) maxL = Math.max(maxL, j - i + 1); }
+        }
+        return maxL;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -88,6 +102,25 @@ int maxLenZeroSumOptimal(const vector<int>& nums) {
         else prefixMap[sum] = i;
     }
     return maxLen;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int maxLenZeroSumOptimal(int[] nums) {
+        Map<Integer, Integer> prefixMap = new HashMap<>();
+        int sum = 0, maxLen = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum == 0) maxLen = i + 1;
+            else if (prefixMap.contains(sum)) maxLen = Math.max(maxLen, i - prefixMap[sum]);
+            else prefixMap[sum] = i;
+        }
+        return maxLen;
+    }
 }
 ```
 

@@ -1,6 +1,6 @@
 # Ninja's Training (2D DP on Activities) (Step 16.1 — Introduction to DP)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Ninja's Training (2D DP on Activities)](https://takeuforward.org/data-structure/dynamic-programming-ninjas-training-dp-7/)
 - **Difficulty**: Medium
@@ -58,6 +58,28 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int solve(int day, int last, int[][] p) {
+        if (day == 0) {
+            int maxi = 0;
+            for (int t = 0; t < 3; t++) if (t != last) maxi = Math.max(maxi, p[0][t]);
+            return maxi;
+        }
+        int maxi = 0;
+        for (int t = 0; t < 3; t++) {
+            if (t != last) maxi = Math.max(maxi, p[day][t] + solve(day - 1, t, p));
+        }
+        return maxi;
+    }
+
+    int ninjaTraining(int n, int[][] points) {
+        return solve(n - 1, 3, points);
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(3 \times 2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -90,6 +112,31 @@ public:
                 for (int task = 0; task < 3; task++) {
                     if (task != last) {
                         dp[day][last] = max(dp[day][last], points[day][task] + dp[day - 1][task]);
+                    }
+                }
+            }
+        }
+        return dp[n - 1][3];
+    }
+};
+```
+
+### Java Code
+```java
+class SolutionTabulation {
+
+    int ninjaTraining(int n, int[][] points) {
+        int[][] dp = new int[n][4];
+        dp[0][0] = Math.max(points[0][1], points[0][2]);
+        dp[0][1] = Math.max(points[0][0], points[0][2]);
+        dp[0][2] = Math.max(points[0][0], points[0][1]);
+        dp[0][3] = Math.max({points[0][0], points[0][1], points[0][2]});
+        
+        for (int day = 1; day < n; day++) {
+            for (int last = 0; last < 4; last++) {
+                for (int task = 0; task < 3; task++) {
+                    if (task != last) {
+                        dp[day][last] = Math.max(dp[day][last], points[day][task] + dp[day - 1][task]);
                     }
                 }
             }
@@ -136,6 +183,40 @@ public:
                 for (int task = 0; task < 3; task++) {
                     if (task != last) {
                         cur[last] = max(cur[last], points[day][task] + prev[task]);
+                    }
+                }
+            }
+            
+            prev = cur; // Roll state forward
+        }
+        
+        // Return max points on the last day with no restriction (last = 3)
+        return prev[3];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int ninjaTraining(int n, int[][] points) {
+        // prev[last] stores max points up to previous day given activity 'last' was chosen
+        int[] prev = new int[4];
+        
+        // Base case for Day 0
+        prev[0] = Math.max(points[0][1], points[0][2]);
+        prev[1] = Math.max(points[0][0], points[0][2]);
+        prev[2] = Math.max(points[0][0], points[0][1]);
+        prev[3] = Math.max({points[0][0], points[0][1], points[0][2]});
+        
+        for (int day = 1; day < n; day++) {
+            int[] cur = new int[4];
+            
+            for (int last = 0; last < 4; last++) {
+                for (int task = 0; task < 3; task++) {
+                    if (task != last) {
+                        cur[last] = Math.max(cur[last], points[day][task] + prev[task]);
                     }
                 }
             }

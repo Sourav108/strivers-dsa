@@ -1,6 +1,6 @@
 # Print All Divisors of a Number O(sqrt(N)) (Step 1.4 — Know Basic Maths)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Print All Divisors of a Number O(sqrt(N))](https://takeuforward.org/data-structure/print-all-divisors-of-a-given-number/)
 - **Difficulty**: Easy
@@ -41,6 +41,21 @@ vector<int> printDivisorsLinear(int n) {
         if (n % i == 0) divs.push_back(i);
     }
     return divs;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] printDivisorsLinear(int n) {
+        List<Integer> divs = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) divs.add(i);
+        }
+        return divs;
+    }
 }
 ```
 
@@ -85,6 +100,32 @@ vector<int> getAllDivisors(int n) {
     
     sort(divisors.begin(), divisors.end()); // O(D log D) where D <= 2*sqrt(N)
     return divisors;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int[] getAllDivisors(int n) {
+        List<Integer> divisors = new ArrayList<>();
+        
+        // Iterate up to Math.sqrt(n)
+        for (int i = 1; (long)i * i <= n; i++) {
+            if (n % i == 0) {
+                divisors.add(i);
+                
+                // Add symmetric counterpart if distinct
+                if (n / i != i) {
+                    divisors.add(n / i);
+                }
+            }
+        }
+        
+        Arrays.sort(divisors); // O(D log D) where D <= 2sqrt(N)
+        return divisors;
+    }
 }
 ```
 

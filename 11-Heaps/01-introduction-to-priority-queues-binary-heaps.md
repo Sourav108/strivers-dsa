@@ -1,6 +1,6 @@
 # Introduction to Priority Queues and Binary Heaps (Step 11.1 — Learning)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Introduction to Priority Queues and Binary Heaps](https://takeuforward.org/data-structure/introduction-to-priority-queues-using-binary-heaps/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Sorted array where insertion takes $\mathcal{O}(N)$ shift time.
 
 ### C++17 Code
 ```cpp
+// Sorted array approach O(N) insertion
+```
+
+### Java Code
+```java
+// Java equivalent
 // Sorted array approach O(N) insertion
 ```
 
@@ -71,6 +77,24 @@ void demonstrateHeapIndices() {
     cout << "Root right child: " << rightChild(root) << "\n"; // 2
     cout << "Parent of node 1: " << parent(1) << "\n";      // 0
     cout << "Parent of node 2: " << parent(2) << "\n";      // 0
+}
+```
+
+### Java Code
+```java
+class Solution {
+    // Index relations for 0-indexed array heap
+    int parent(int i) { return (i - 1) / 2; }
+    int leftChild(int i) { return 2 * i + 1; }
+    int rightChild(int i) { return 2 * i + 2; }
+    
+    void demonstrateHeapIndices() {
+        int root = 0;
+        System.out.print("Root left child:  " << leftChild(root) << "\n");  // 1
+        System.out.print("Root right child: " << rightChild(root) << "\n"); // 2
+        System.out.print("Parent of node 1: " << parent(1) << "\n");      // 0
+        System.out.print("Parent of node 2: " << parent(2) << "\n");      // 0
+    }
 }
 ```
 

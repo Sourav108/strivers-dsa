@@ -1,6 +1,6 @@
 # Lowest Common Ancestor (LCA) in BST (Step 14.2 — Practice Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Lowest Common Ancestor (LCA) in BST](https://takeuforward.org/data-structure/lca-in-binary-search-tree-bst/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ General binary tree LCA algorithm traversing subtrees in $\mathcal{O}(N)$ time.
 
 ### C++17 Code
 ```cpp
+// O(N) general LCA
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) general LCA
 ```
 
@@ -84,6 +90,40 @@ public:
         }
         
         return nullptr;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    TreeNode  lowestCommonAncestor(TreeNode  root, TreeNode  p, TreeNode  q) {
+        TreeNode  curr = root;
+        
+        while (curr != null) {
+            // Both nodes lie in the left subtree
+            if (p.val < curr.val && q.val < curr.val) {
+                curr = curr.left;
+            }
+            // Both nodes lie in the right subtree
+            else if (p.val > curr.val && q.val > curr.val) {
+                curr = curr.right;
+            }
+            // Split point reached: one on left, one on right, or curr is p/q
+            else {
+                return curr;
+            }
+        }
+        
+        return null;
     }
 };
 ```

@@ -1,6 +1,6 @@
 # Find the Length of a LinkedList (Step 6.1 — Learn 1D LinkedList)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find the Length of a LinkedList](https://takeuforward.org/data-structure/find-the-length-of-a-linked-list/)
 - **Difficulty**: Easy
@@ -40,6 +40,15 @@ int lengthRecursive(Node* head) {
 }
 ```
 
+### Java Code
+```java
+static class Node { int data; Node  next; };
+int lengthRecursive(Node  head) {
+    if (head == null) return 0;
+    return 1 + lengthRecursive(head.next);
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ stack memory.
@@ -72,6 +81,25 @@ int getLength(Node* head) {
     while (curr != nullptr) {
         count++;
         curr = curr->next;
+    }
+    return count;
+}
+```
+
+### Java Code
+```java
+static class Node {
+    int data;
+    Node  next;
+    public Node(int val) { /* initialized: data(val), next(null)  */  }
+};
+
+int getLength(Node  head) {
+    int count = 0;
+    Node  curr = head;
+    while (curr != null) {
+        count++;
+        curr = curr.next;
     }
     return count;
 }

@@ -1,6 +1,6 @@
 # Course Schedule II (Find valid course ordering) (Step 15.3 — Topological Sort and Kahn's Algorithm)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Course Schedule II (Find valid course ordering)](https://takeuforward.org/data-structure/course-schedule-i-and-ii/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ DFS Finish-Time stack with 3-color cycle detection array.
 
 ### C++17 Code
 ```cpp
+// DFS topo sort + cycle check alternative
+```
+
+### Java Code
+```java
+// Java equivalent
 // DFS topo sort + cycle check alternative
 ```
 
@@ -100,6 +106,57 @@ public:
         
         // If topological sort includes all courses, return valid order; else return empty list
         if ((int)order.size() == numCourses) {
+            return order;
+        }
+        return {};
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[][] adj(numCourses);
+        int[] inDegree = new int[numCourses];
+        
+        // Edge: prerequisite . course (b . a)
+        for (var pre : prerequisites) {
+            int course = pre[0];
+            int prerequisite = pre[1];
+            
+            adj[prerequisite].add(course);
+            inDegree[course]++;
+        }
+        
+        // Push all courses with 0 prerequisites into queue
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        List<Integer> order = new ArrayList<>();
+        
+        while (!q.isEmpty()) {
+            int curr = q.peek();
+            q.pop();
+            order.add(curr);
+            
+            for (int nextCourse : adj[curr]) {
+                inDegree[nextCourse]--;
+                if (inDegree[nextCourse] == 0) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+        
+        // If topological sort includes all courses, return valid order; else return empty list
+        if (order.length == numCourses) {
             return order;
         }
         return {};

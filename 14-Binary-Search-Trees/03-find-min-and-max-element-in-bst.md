@@ -1,6 +1,6 @@
 # Find Min and Max Element in BST (Step 14.1 — Concepts)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Find Min and Max Element in BST](https://takeuforward.org/data-structure/find-minimum-maximum-element-in-bst/)
 - **Difficulty**: Easy
@@ -33,6 +33,12 @@ Inorder traversal into a vector in $\mathcal{O}(N)$ time and taking `v.front()` 
 
 ### C++17 Code
 ```cpp
+// O(N) inorder dump
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N) inorder dump
 ```
 
@@ -85,6 +91,41 @@ public:
             curr = curr->right;
         }
         return curr->val;
+    }
+};
+```
+
+### Java Code
+```java
+static class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
+};
+
+class Solution {
+
+    int minValue(TreeNode  root) {
+        if (root == null) return -1;
+        
+        TreeNode  curr = root;
+        // Dive all the way to the leftmost leaf
+        while (curr.left != null) {
+            curr = curr.left;
+        }
+        return curr.val;
+    }
+    
+    int maxValue(TreeNode  root) {
+        if (root == null) return -1;
+        
+        TreeNode  curr = root;
+        // Dive all the way to the rightmost leaf
+        while (curr.right != null) {
+            curr = curr.right;
+        }
+        return curr.val;
     }
 };
 ```

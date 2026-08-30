@@ -1,6 +1,6 @@
 # Count Good Numbers (Modulo Exponentiation) (Step 7.1 — Get a Strong Hold)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Good Numbers (Modulo Exponentiation)](https://takeuforward.org/recursion/count-good-numbers/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ Linear modular multiplication in $\mathcal{O}(N)$ time ($N = 10^{15} \implies$ T
 
 ### C++17 Code
 ```cpp
+// Linear loop TLE
+```
+
+### Java Code
+```java
+// Java equivalent
 // Linear loop TLE
 ```
 
@@ -78,6 +84,35 @@ public:
         
         long long countEvens = modPow(5, evenPositions);
         long long countOdds  = modPow(4, oddPositions);
+        
+        return (countEvens * countOdds) % MOD;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    int MOD = 1e9 + 7;
+    
+    long modPow(long base, long exp) {
+        long res = 1;
+        base %= MOD;
+        while (exp > 0) {
+            if (exp % 2 == 1) res = (res * base) % MOD;
+            base = (base * base) % MOD;
+            exp /= 2;
+        }
+        return res;
+    }
+
+    int countGoodNumbers(long n) {
+        long evenPositions = (n + 1) / 2; // ceiling of n/2
+        long oddPositions  = n / 2;       // floor of n/2
+        
+        long countEvens = modPow(5, evenPositions);
+        long countOdds  = modPow(4, oddPositions);
         
         return (countEvens * countOdds) % MOD;
     }

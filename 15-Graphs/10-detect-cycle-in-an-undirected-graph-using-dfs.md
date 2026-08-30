@@ -1,6 +1,6 @@
 # Detect Cycle in an Undirected Graph using DFS (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Detect Cycle in an Undirected Graph using DFS](https://takeuforward.org/data-structure/detect-cycle-in-an-undirected-graph-using-dfs/)
 - **Difficulty**: Medium
@@ -33,6 +33,12 @@ BFS queue-based cycle detection with parent pairs.
 
 ### C++17 Code
 ```cpp
+// BFS alternative
+```
+
+### Java Code
+```java
+// Java equivalent
 // BFS alternative
 ```
 
@@ -82,6 +88,45 @@ private:
 public:
     bool isCycle(int V, vector<vector<int>>& adj) {
         vector<int> vis(V, 0);
+        
+        // Multi-component loop for disconnected graphs
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (dfs(i, -1, adj, vis)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    boolean dfs(int node, int parent, int[][] adj, int[] vis) {
+        vis[node] = 1;
+        
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                if (dfs(neighbor, node, adj, vis)) {
+                    return true; // Cycle found down the branch . propagate true
+                }
+            }
+            // Neighbor is already visited and is NOT the direct parent . CYCLE!
+            else if (neighbor != parent) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    boolean isCycle(int V, int[][] adj) {
+        int[] vis = new int[V];
         
         // Multi-component loop for disconnected graphs
         for (int i = 0; i < V; i++) {

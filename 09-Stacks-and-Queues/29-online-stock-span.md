@@ -1,6 +1,6 @@
 # Online Stock Span (Step 9.4 — Implementation Problems)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Online Stock Span](https://takeuforward.org/data-structure/online-stock-span/)
 - **Difficulty**: Medium
@@ -47,6 +47,22 @@ public:
 };
 ```
 
+### Java Code
+```java
+import java.util.*;
+
+class StockSpannerBrute {
+    List<Integer> prices = new ArrayList<>();
+
+    int next(int price) {
+        prices.add(price);
+        int span = 0;
+        for (int i = prices.length - 1; i >= 0 && prices[i] <= price; i--) span++;
+        return span;
+    }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(N)$ per call (worst case $\mathcal{O}(N^2)$ total).
 - **Space Complexity**: $\mathcal{O}(N)$.
@@ -84,6 +100,29 @@ public:
         
         while (!st.empty() && st.top().first <= price) {
             span += st.top().second;
+            st.pop();
+        }
+        
+        st.push({price, span});
+        return span;
+    }
+};
+```
+
+### Java Code
+```java
+class StockSpanner {
+
+    // Stores pair: {price, accumulated_span}
+    stack<pair<int, int>> st;
+
+    StockSpanner() {}
+    
+    int next(int price) {
+        int span = 1;
+        
+        while (!st.isEmpty() && st.peek().first <= price) {
+            span += st.peek().second;
             st.pop();
         }
         

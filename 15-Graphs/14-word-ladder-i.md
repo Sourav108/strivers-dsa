@@ -1,6 +1,6 @@
 # Word Ladder I (Shortest transformation sequence length) (Step 15.2 — Problems on BFS / DFS)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Word Ladder I (Shortest transformation sequence length)](https://takeuforward.org/data-structure/word-ladder-i-shortest-paths/)
 - **Difficulty**: Hard
@@ -33,6 +33,12 @@ Compare all pairs of words in wordList to construct explicit adjacency graph in 
 
 ### C++17 Code
 ```cpp
+// O(N^2 * L) graph construction + BFS
+```
+
+### Java Code
+```java
+// Java equivalent
 // O(N^2 * L) graph construction + BFS
 ```
 
@@ -78,6 +84,43 @@ public:
                     word[i] = ch;
                     if (dict.count(word)) {
                         dict.erase(word);
+                        q.push({word, steps + 1});
+                    }
+                }
+                word[i] = original;
+            }
+        }
+        return 0;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class SolutionSingleBFS {
+
+    int ladderLength(String beginWord, String endWord, String[] wordList) {
+        Set<String> dict(wordList.begin(), wordList.end());
+        if (!dict.contains(endWord)) return 0;
+        
+        queue<pair<String, int>> q;
+        q.push({beginWord, 1});
+        dict.remove(beginWord);
+        
+        while (!q.isEmpty()) {
+            var [word, steps] = q.peek();
+            q.pop();
+            
+            if (word == endWord) return steps;
+            
+            for (int i = 0; i < word.length(); i++) {
+                char original = word[i];
+                for (char ch = 'a'; ch <= 'z'; ch++) {
+                    word[i] = ch;
+                    if (dict.contains(word)) {
+                        dict.remove(word);
                         q.push({word, steps + 1});
                     }
                 }
@@ -146,6 +189,63 @@ public:
                         if (dict.count(word)) {
                             nextSet.insert(word);
                             dict.erase(word);
+                        }
+                    }
+                    word[i] = original;
+                }
+            }
+            
+            beginSet = move(nextSet);
+            steps++;
+        }
+        
+        return 0;
+    }
+};
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+
+    int ladderLength(String beginWord, String endWord, String[] wordList) {
+        Set<String> dict(wordList.begin(), wordList.end());
+        if (!dict.contains(endWord)) return 0;
+        
+        // Two active search frontiers
+        Set<String> beginSet{beginWord};
+        Set<String> endSet{endWord};
+        
+        int steps = 1;
+        
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            // Always expand the smaller frontier to minimize branching factor
+            if (beginSet.length > endSet.length) {
+                int temp = beginSet; beginSet = endSet; endSet = temp;
+            }
+            
+            Set<String> nextSet = new HashSet<>();
+            
+            for (String word : beginSet) {
+                dict.remove(word);
+            }
+            
+            for (String word : beginSet) {
+                for (int i = 0; i < word.length(); i++) {
+                    char original = word[i];
+                    for (char ch = 'a'; ch <= 'z'; ch++) {
+                        word[i] = ch;
+                        
+                        // If frontiers meet . shortest path found!
+                        if (endSet.contains(word)) {
+                            return steps + 1;
+                        }
+                        
+                        if (dict.contains(word)) {
+                            nextSet.add(word);
+                            dict.remove(word);
                         }
                     }
                     word[i] = original;

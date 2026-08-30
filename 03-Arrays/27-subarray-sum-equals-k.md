@@ -1,6 +1,6 @@
 # Count Subarrays with Sum Equals K (Step 3.2)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: https://takeuforward.org/arrays/count-subarray-sum-equals-k/
 - **Difficulty**: Medium
@@ -51,6 +51,20 @@ int subarraySumBrute(const vector<int>& nums, int k) {
 }
 ```
 
+### Java Code
+```java
+class Solution {
+    int subarraySumBrute(int[] nums, int k) {
+        int cnt = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int s = 0;
+            for (int j = i; j < n; j++) { s += nums[j]; if (s == k) cnt++; }
+        }
+        return cnt;
+    }
+}
+```
+
 ### Complexity Derivation
 - **Time Complexity**: O(n^2)
 - **Space Complexity**: O(1)
@@ -78,6 +92,23 @@ int subarraySumBetter(const vector<int>& nums, int k) {
         }
     }
     return count;
+}
+```
+
+### Java Code
+```java
+class Solution {
+    int subarraySumBetter(int[] nums, int k) {
+        int count = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                if (sum == k) count++;
+            }
+        }
+        return count;
+    }
 }
 ```
 
@@ -113,6 +144,26 @@ int subarraySumOptimal(const vector<int>& nums, int k) {
         prefixFreq[sum]++;
     }
     return count;
+}
+```
+
+### Java Code
+```java
+import java.util.*;
+
+class Solution {
+    int subarraySumOptimal(int[] nums, int k) {
+        Map<Integer, Integer> prefixFreq = new HashMap<>();
+        prefixFreq[0] = 1; // base case: empty prefix
+        int sum = 0, count = 0;
+        for (int x : nums) {
+            sum += x;
+            int rem = sum - k;
+            if (prefixFreq.contains(rem)) count += prefixFreq[rem];
+            prefixFreq[sum]++;
+        }
+        return count;
+    }
 }
 ```
 

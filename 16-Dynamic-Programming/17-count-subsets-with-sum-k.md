@@ -1,6 +1,6 @@
 # Count Subsets with Sum K (Step 16.3 — DP on Subsequences)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Count Subsets with Sum K](https://takeuforward.org/data-structure/count-subsets-with-sum-k-dp-17/)
 - **Difficulty**: Medium
@@ -59,6 +59,26 @@ public:
 };
 ```
 
+### Java Code
+```java
+class SolutionNaive {
+    int countSubsets(int i, int sum, int[] arr) {
+        if (i == 0) {
+            if (sum == 0 && arr[0] == 0) return 2;
+            if (sum == 0 || sum == arr[0]) return 1;
+            return 0;
+        }
+        int notTake = countSubsets(i - 1, sum, arr);
+        int take = (sum >= arr[i]) ? public countSubsets(i - 1, sum - arr[i], arr) { /* initialized: 0;
+        return notTake + take;
+    }
+
+    int perfectSum(int[] arr, int n, int sum)  */ 
+        return countSubsets(n - 1, sum, arr);
+     }
+};
+```
+
 ### Complexity Derivation
 - **Time Complexity**: $\mathcal{O}(2^N)$ time.
 - **Space Complexity**: $\mathcal{O}(N)$ recursion stack.
@@ -81,6 +101,29 @@ class Solution2D {
 public:
     int perfectSum(vector<int>& arr, int n, int sum) {
         vector<vector<int>> dp(n, vector<int>(sum + 1, 0));
+        if (arr[0] == 0) dp[0][0] = 2;
+        else dp[0][0] = 1;
+        if (arr[0] != 0 && arr[0] <= sum) dp[0][arr[0]] = 1;
+        
+        for (int i = 1; i < n; i++) {
+            for (int k = 0; k <= sum; k++) {
+                int notTake = dp[i - 1][k];
+                int take = (k >= arr[i]) ? dp[i - 1][k - arr[i]] : 0;
+                dp[i][k] = (notTake + take) % MOD;
+            }
+        }
+        return dp[n - 1][sum];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution2D {
+    int MOD = 1e9 + 7;
+
+    int perfectSum(int[] arr, int n, int sum) {
+        int[][] dp = new int[n][sum + 1];
         if (arr[0] == 0) dp[0][0] = 2;
         else dp[0][0] = 1;
         if (arr[0] != 0 && arr[0] <= sum) dp[0][arr[0]] = 1;
@@ -133,6 +176,44 @@ public:
         
         for (int i = 1; i < n; i++) {
             vector<int> cur(sum + 1, 0);
+            
+            // Loop from k = 0 to sum (k = 0 must be computed for subsequent zeroes!)
+            for (int k = 0; k <= sum; k++) {
+                int notTake = prev[k];
+                int take = (k >= arr[i]) ? prev[k - arr[i]] : 0;
+                
+                cur[k] = (notTake + take) % MOD;
+            }
+            
+            prev = cur;
+        }
+        
+        return prev[sum];
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+    int MOD = 1e9 + 7;
+
+    int perfectSum(int[] arr, int n, int sum) {
+        // prev[k] stores number of subsets summing to k
+        int[] prev = new int[sum + 1];
+        
+        // Base case for index 0
+        if (arr[0] == 0) {
+            prev[0] = 2; // Pick 0 or Don't Pick 0
+        } else {
+            prev[0] = 1; // Don't pick
+            if (arr[0] <= sum) {
+                prev[arr[0]] = 1; // Pick
+            }
+        }
+        
+        for (int i = 1; i < n; i++) {
+            int[] cur = new int[sum + 1];
             
             // Loop from k = 0 to sum (k = 0 must be computed for subsequent zeroes!)
             for (int k = 0; k <= sum; k++) {

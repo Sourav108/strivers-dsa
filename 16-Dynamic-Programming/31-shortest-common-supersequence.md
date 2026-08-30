@@ -1,6 +1,6 @@
 # Shortest Common Supersequence (Step 16.4 — DP on Strings)
 
-This is a complete, interview-ready note in C++ following the standard 9-section format.
+This is a complete, interview-ready note in C++ and Java following the standard 9-section format.
 
 - **Source**: [Shortest Common Supersequence](https://takeuforward.org/data-structure/shortest-common-supersequence-dp-31/)
 - **Difficulty**: Hard
@@ -45,6 +45,13 @@ Recursively generate all supersequence interleavings and pick shortest in $\math
 
 ### C++17 Code
 ```cpp
+class SolutionNaive {
+    // O(2^(N+M)) supersequence search
+};
+```
+
+### Java Code
+```java
 class SolutionNaive {
     // O(2^(N+M)) supersequence search
 };
@@ -124,6 +131,67 @@ public:
         // Add remaining characters from str2 (if any)
         while (j > 0) {
             ans.push_back(str2[j - 1]);
+            j--;
+        }
+        
+        // Reverse because we traced backwards
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
+```
+
+### Java Code
+```java
+class Solution {
+
+    String shortestCommonSupersequence(String str1, String str2) {
+        int n = str1.length;
+        int m = str2.length;
+        
+        // Step 1: Build the full 2D LCS DP table
+        int[][] dp = new int[n + 1][m + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (str1[i - 1] == str2[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        
+        // Step 2: Backtrack from (n, m) down to (0, 0)
+        String ans = "";
+        int i = n, j = m;
+        
+        while (i > 0 && j > 0) {
+            if (str1[i - 1] == str2[j - 1]) {
+                // Common character: take once and move diagonally
+                ans.add(str1[i - 1]);
+                i--;
+                j--;
+            } else if (dp[i - 1][j] > dp[i][j - 1]) {
+                // Discarded from str1: must include it in supersequence
+                ans.add(str1[i - 1]);
+                i--;
+            } else {
+                // Discarded from str2: must include it in supersequence
+                ans.add(str2[j - 1]);
+                j--;
+            }
+        }
+        
+        // Add remaining characters from str1 (if any)
+        while (i > 0) {
+            ans.add(str1[i - 1]);
+            i--;
+        }
+        
+        // Add remaining characters from str2 (if any)
+        while (j > 0) {
+            ans.add(str2[j - 1]);
             j--;
         }
         
