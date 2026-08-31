@@ -51,11 +51,9 @@ void moveZeroesBrute(vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     void moveZeroesBrute(int[] nums) {
-        List<Integer> nonZero = new ArrayList<>();
+        int[] nonZero;
         for (int x : nums) if (x != 0) nonZero.add(x);
         for (int i = 0; i < nonZero.length; i++) nums[i] = nonZero[i];
         for (int i = nonZero.length; i < nums.length; i++) nums[i] = 0;

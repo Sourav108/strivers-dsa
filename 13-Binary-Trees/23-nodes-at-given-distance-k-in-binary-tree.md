@@ -228,7 +228,7 @@ class Solution {
             currentDistance++;
         }
         
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         while (!q.isEmpty()) {
             result.add(q.peek().val);
             q.pop();

@@ -249,7 +249,7 @@ class Solution {
             }
         }
         
-        List<Integer> safeNodes = new ArrayList<>();
+        int[] safeNodes;
         while (!q.isEmpty()) {
             int node = q.peek();
             q.pop();

@@ -115,9 +115,9 @@ class Solution {
         return hashVal;
     }
     
-    int main() {
-        System.out.print("Hash of 123456 (M=997): " << divisionHash(123456, 997) << "\n");
-        System.out.print("Polynomial Hash of 'apple': " << polynomialStringHash("apple") << "\n");
+    public static void main(String[] args) {
+        System.out.println("Hash of 123456 (M=997): " + divisionHash(123456, 997));
+        System.out.println("Polynomial Hash of 'apple': " + polynomialStringHash("apple"));
         return 0;
     }
 }

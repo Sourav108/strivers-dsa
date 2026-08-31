@@ -52,10 +52,10 @@ class Solution {
         int num = 1;
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
-                System.out.print(num << " ");
+                System.out.print(num + " ");
                 num++;
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -110,14 +110,14 @@ class Solution {
         int num = 1;
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
-                System.out.print(num << " ");
+                System.out.print(num + " ");
                 num++;
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern13(n);
         return 0;

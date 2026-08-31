@@ -44,7 +44,7 @@ void printLoop(int n) {
 ```java
 class Solution {
     void printLoop(int n) {
-        for (int i = n; i >= 1; i--) System.out.print(i << " ");
+        for (int i = n; i >= 1; i--) System.out.print(i + " ");
     }
 }
 ```
@@ -90,7 +90,7 @@ class Solution {
     void printNos(int N) {
         if (N == 0) return;
         
-        System.out.print(N << " ");
+        System.out.print(N + " ");
         printNos(N - 1); // Tail call
     }
 };

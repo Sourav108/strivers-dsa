@@ -155,11 +155,9 @@ vector<int> unionOptimal(const vector<int>& a, const vector<int>& b) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] unionOptimal(int[] a, int[] b) {
-        List<Integer> res = new ArrayList<>();
+        int[] res;
         int i = 0, j = 0, n = a.length, m = b.length;
         while (i < n && j < m) {
             if (a[i] <= b[j]) {

@@ -110,13 +110,15 @@ int main() {
 
 ### Java Code
 ```java
+import java.util.*;
+
 class SeparateChainingHashTable {
 
     int numBuckets;
-    vector<list<pair<String, int>>> table;
+    List<List<int[]>>> table;
     
     int hashFunction(String key) {
-        unsigned long hash = 5381;
+        long hash = 5381;
         for (char c : key) hash = ((hash << 5) + hash) + c; // djb2 hash
         return hash % numBuckets;
     }
@@ -140,11 +142,11 @@ class SeparateChainingHashTable {
     }
 };
 
-int main() {
+public static void main(String[] args) {
     SeparateChainingHashTable ht(10);
     ht.add("Alice", 95);
     ht.add("Bob", 88);
-    System.out.print("Alice Score: " << ht.get("Alice") << "\n");
+    System.out.println("Alice Score: " + ht.get("Alice"));
     return 0;
 }
 ```

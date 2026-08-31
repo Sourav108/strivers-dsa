@@ -219,6 +219,8 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 class Solution {
 
     int minimumEffortPath(int[][] heights) {
@@ -226,9 +228,7 @@ class Solution {
         int m = heights[0].size();
         
         // Min-heap stores {effort, {row, col}}
-        priority_queue<pair<int, pair<int, int>>,
-                       vector<pair<int, pair<int, int>>>,
-                       greater<pair<int, pair<int, int>>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         int[][] dist = new int[n][m];
         dist[0][0] = 0;

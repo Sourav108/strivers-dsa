@@ -38,8 +38,37 @@ Dump all nodes into a vector, sort, and rebuild list in $\mathcal{O}(N \log N)$ 
 
 ### Java Code
 ```java
-// Java equivalent
-// Vector dump and sort
+import java.util.*;
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
+        
+        // Push head of each non-empty list
+        for (ListNode node : lists) {
+            if (node != null) {
+                minHeap.offer(node);
+            }
+        }
+        
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        
+        while (!minHeap.isEmpty()) {
+            ListNode curr = minHeap.poll();
+            tail.next = curr;
+            tail = tail.next;
+            
+            if (curr.next != null) {
+                minHeap.offer(curr.next);
+            }
+        }
+        
+        return dummy.next;
+    }
+}
 ```
 
 ### Complexity Derivation
@@ -114,48 +143,35 @@ public:
 ```java
 import java.util.*;
 
-static class ListNode {
-    int val;
-    ListNode next;
-    public ListNode(int x) { /* initialized: val(x), next(null)  */  }
-};
-
-static class CompareNode {
-    boolean operator()(ListNode  a, ListNode  b) {
-        return a.val > b.val; // Min-heap comparator
-    }
-};
-
 class Solution {
-
-    ListNode  mergeKLists(List<ListNode> lists) {
-        priority_queue<ListNode , List<ListNode>, CompareNode> minHeap;
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
         
-        // Push initial head of each non-empty list
-        for (ListNode  head : lists) {
-            if (head != null) {
-                minHeap.push(head);
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
+        
+        // Push head of each non-empty list
+        for (ListNode node : lists) {
+            if (node != null) {
+                minHeap.offer(node);
             }
         }
         
-        ListNode dummy(0);
-        ListNode  tail = &dummy;
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
         
         while (!minHeap.isEmpty()) {
-            ListNode  smallest = minHeap.peek();
-            minHeap.pop();
-            
-            tail.next = smallest;
+            ListNode curr = minHeap.poll();
+            tail.next = curr;
             tail = tail.next;
             
-            if (smallest.next != null) {
-                minHeap.push(smallest.next);
+            if (curr.next != null) {
+                minHeap.offer(curr.next);
             }
         }
         
         return dummy.next;
     }
-};
+}
 ```
 
 ### Complexity Derivation

@@ -123,7 +123,7 @@ static class TreeNode {
 class Solution {
 
     int[][] levelOrder(TreeNode  root) {
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result;
         if (root == null) return result;
         
         Queue<TreeNode> q = new LinkedList<>();
@@ -131,7 +131,7 @@ class Solution {
         
         while (!q.isEmpty()) {
             int levelSize = q.length; // number of nodes at current depth level
-            List<Integer> currentLevel = new ArrayList<>();
+            int[] currentLevel;
             currentLevel.reserve(levelSize);
             
             for (int i = 0; i < levelSize; i++) {

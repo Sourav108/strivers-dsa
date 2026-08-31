@@ -134,7 +134,7 @@ class Solution {
             }
         }
         
-        List<Integer> topo = new ArrayList<>();
+        int[] topo;
         
         // 3. Process BFS queue
         while (!q.isEmpty()) {

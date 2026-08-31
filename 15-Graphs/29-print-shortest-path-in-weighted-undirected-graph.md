@@ -142,7 +142,7 @@ class Solution {
 
     int[] shortestPath(int n, int m, int[][] edges) {
         // 1. 1-indexed adjacency list: {neighbor, weight}
-        vector<List<int[]>> adj(n + 1);
+        List<List<int[]>> adj(n + 1);
         for (int i = 0; i < m; i++) {
             int u = edges[i][0];
             int v = edges[i][1];
@@ -152,7 +152,7 @@ class Solution {
         }
         
         // Min-heap stores {distance, node}
-        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         int[] dist = new int[n + 1];
         int[] parent = new int[n + 1];
@@ -185,7 +185,7 @@ class Solution {
         if (dist[n] == 1e9) return {-1};
         
         // 4. Backtrack from target n to source 1
-        List<Integer> path = new ArrayList<>();
+        int[] path;
         int node = n;
         while (parent[node] != node) {
             path.add(node);

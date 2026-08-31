@@ -44,11 +44,9 @@ vector<int> reverseExtraSpace(const vector<int>& arr) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] reverseExtraSpace(int[] arr) {
-        List<Integer> rev = new ArrayList<>();
+        int[] rev;
         for (int i = arr.length - 1; i >= 0; i--) rev.add(arr[i]);
         return rev;
     }

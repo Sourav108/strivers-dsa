@@ -170,7 +170,7 @@ class Solution {
         
         // Root of an SCC found!
         if (low[u] == tin[u]) {
-            List<Integer> currentSCC = new ArrayList<>();
+            int[] currentSCC;
             while (true) {
                 int node = st.peek();
                 st.pop();
@@ -190,7 +190,7 @@ class Solution {
         int[] low = new int[V];
         int[] inStack = new int[V];
         Stack<Integer> st = new Stack<>();
-        List<List<Integer>> allSCCs = new ArrayList<>();
+        int[][] allSCCs;
         
         for (int i = 0; i < V; i++) {
             if (tin[i] == -1) {

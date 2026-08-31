@@ -103,14 +103,14 @@ import java.util.*;
 class SolutionDijkstraN {
 
     int findTheCity(int n, int[][] edges, int distanceThreshold) {
-        vector<List<int[]>> adj(n);
+        List<List<int[]>> adj(n);
         for (var e : edges) {
             adj[e[0]].add({e[1], e[2]});
             adj[e[1]].add({e[0], e[2]});
         }
         int minReachable = n, bestCity = -1;
         for (int i = 0; i < n; i++) {
-            priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+            PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
             int[] dist = new int[n];
             dist[i] = 0; pq.push({0, i});
             while (!pq.isEmpty()) {

@@ -143,12 +143,14 @@ double minimiseMaxDistanceHeap(vector<int>& stations, int k) {
 
 ### Java Code
 ```java
+import java.util.*;
+
 class Solution {
     double minimiseMaxDistanceHeap(int[] stations, int k) {
         int n = stations.length;
         int[] howMany = new int[n - 1];
         // Max-heap storing {section_length, gap_index}
-        priority_queue<pair<double, int>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         for (int i = 0; i < n - 1; i++) {
             pq.push({(double)(stations[i + 1] - stations[i]), i});

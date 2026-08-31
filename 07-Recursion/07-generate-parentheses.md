@@ -102,8 +102,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void backtrack(int openCount, int closeCount, int n, String current, String[] result) {
@@ -129,7 +127,7 @@ class Solution {
     }
 
     String[] generateParenthesis(int n) {
-        List<String> result = new ArrayList<>();
+        String[] result;
         String current = "";
         backtrack(0, 0, n, current, result);
         return result;

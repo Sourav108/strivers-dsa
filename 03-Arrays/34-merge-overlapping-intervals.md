@@ -111,7 +111,7 @@ class Solution {
     int[][] mergeIntervalsOptimal(int[][] intervals) {
         if (intervals.isEmpty()) return {};
         Arrays.sort(intervals);
-        List<List<Integer>> res = new ArrayList<>();
+        int[][] res;
         for (var iv : intervals) {
             if (res.isEmpty() || res.peekLast()[1] < iv[0]) {
                 res.add(iv);

@@ -49,10 +49,8 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class StockSpannerBrute {
-    List<Integer> prices = new ArrayList<>();
+    int[] prices;
 
     int next(int price) {
         prices.add(price);

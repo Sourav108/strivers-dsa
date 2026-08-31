@@ -121,13 +121,13 @@ class Solution {
         return total;
     }
     
-    int main() {
+    public static void main(String[] args) {
         int x = 10, y = 20;
         swapValues(x, y);
-        System.out.print("Swapped: x = " << x << ", y = " << y << "\n"); // x=20, y=10
+        System.out.println("Swapped: x = " + x + ", y = " + y); // x=20, y=10
         
         int[] data = new int[1000000];
-        System.out.print("Sum: " << sumVectorFast(data) << "\n"); // Zero memory copied!
+        System.out.println("Sum: " + sumVectorFast(data)); // Zero memory copied!
         
         return 0;
     }

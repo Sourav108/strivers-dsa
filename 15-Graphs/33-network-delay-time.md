@@ -186,7 +186,7 @@ class Solution {
 
     int networkDelayTime(int[][] times, int n, int k) {
         // 1. 1-indexed directed adjacency list: {neighbor, weight}
-        vector<List<int[]>> adj(n + 1);
+        List<List<int[]>> adj(n + 1);
         for (var t : times) {
             int u = t[0];
             int v = t[1];
@@ -195,7 +195,7 @@ class Solution {
         }
         
         // 2. Min-Heap stores {time, node}
-        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         int[] dist = new int[n + 1];
         dist[k] = 0;

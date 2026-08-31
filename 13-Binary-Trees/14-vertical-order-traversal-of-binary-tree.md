@@ -154,7 +154,7 @@ class Solution {
             }
         }
         
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result;
         for (var [col, rowMap] : nodes) {
             int[] colValues;
             for (var [row, values] : rowMap) {

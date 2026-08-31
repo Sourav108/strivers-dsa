@@ -63,7 +63,7 @@ import java.util.*;
 
 static class Node { int data; Node  next; Node  bottom; };
 Node  flattenBrute(Node  root) {
-    List<Integer> v = new ArrayList<>();
+    int[] v;
     Node  r = root;
     while (r) {
         Node  b = r;

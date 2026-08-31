@@ -47,11 +47,9 @@ bool isPalArray(Node* head) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 static class Node { int data; Node  next; };
 boolean isPalArray(Node  head) {
-    List<Integer> v = new ArrayList<>();
+    int[] v;
     while (head) { v.add(head.data); head = head.next; }
     int l = 0, r = v.length - 1;
     while (l < r) if (v[l++] != v[r--]) return false;

@@ -124,11 +124,9 @@ long long numberOfInversions(vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     long mergeAndCount(int[] arr, int low, int mid, int high) {
-        List<Integer> temp = new ArrayList<>();
+        int[] temp;
         int left = low, right = mid + 1;
         long invCount = 0;
         while (left <= mid && right <= high) {

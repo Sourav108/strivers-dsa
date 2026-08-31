@@ -150,19 +150,19 @@ void printForwardAndBackward(Node  head) {
     Node  tail = null;
     System.out.print("Forward: ");
     while (curr) {
-        System.out.print(curr.data << " <. ");
+        System.out.print(curr.data + " <. ");
         tail = curr;
         curr = curr.next;
     }
     System.out.print("null\nBackward: ");
     while (tail) {
-        System.out.print(tail.data << " <. ");
+        System.out.print(tail.data + " <. ");
         tail = tail.prev;
     }
     System.out.print("null\n");
 }
 
-int main() {
+public static void main(String[] args) {
     int[] arr = {1, 2, 3, 4};
     Node  head = constructDLL(arr);
     printForwardAndBackward(head);

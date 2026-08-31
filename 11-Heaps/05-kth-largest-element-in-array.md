@@ -98,11 +98,13 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 class Solution {
 
     int findKthLargest(int[] nums, int k) {
         // Min-heap to maintain the k largest elements
-        priority_queue<int, int[], greater<int>> minHeap;
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         for (int num : nums) {
             minHeap.push(num);

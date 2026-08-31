@@ -125,8 +125,8 @@ class Solution {
     }
 
     int[][] subsetsWithDup(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> ds = new ArrayList<>();
+        int[][] ans;
+        int[] ds;
         Arrays.sort(nums); // sort to group duplicates
         findSubsets(0, nums, ds, ans);
         return ans;

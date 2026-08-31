@@ -103,6 +103,8 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 static class Meeting {
     int start;
     int end;
@@ -112,7 +114,7 @@ static class Meeting {
 class Solution {
 
     int maxMeetings(int start[], int end[], int n) {
-        vector<Meeting> meetings(n);
+        List<Meeting> meetings(n);
         for (int i = 0; i < n; i++) {
             meetings[i] = {start[i], end[i], i + 1};
         }

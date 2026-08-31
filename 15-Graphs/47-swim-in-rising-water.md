@@ -218,15 +218,15 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 class Solution {
 
     int swimInWater(int[][] grid) {
         int n = grid.length;
         
         // Min-heap stores {time, {row, col}}
-        priority_queue<pair<int, pair<int, int>>,
-                       vector<pair<int, pair<int, int>>>,
-                       greater<pair<int, pair<int, int>>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         int[][] dist = new int[n][n];
         

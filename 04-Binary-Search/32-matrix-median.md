@@ -69,7 +69,7 @@ import java.util.*;
 class Solution {
     int matrixMedianBrute(int[][] mat) {
         int r = mat.length, c = mat[0].size();
-        List<Integer> flat = new ArrayList<>();
+        int[] flat;
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 flat.add(mat[i][j]);

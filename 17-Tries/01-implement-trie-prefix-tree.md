@@ -72,7 +72,7 @@ import java.util.*;
 
 class TrieNaive {
     Set<String> dict = new HashSet<>();
-    List<String> words = new ArrayList<>();
+    String[] words;
 
     void insert(String word) {
         dict.add(word);

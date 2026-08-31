@@ -44,11 +44,11 @@ int main() {
 ### Java Code
 ```java
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         int a = 1000000;
         int b = 1000000;
         int c = a * b; // Signed 32-bit overflow: undefined behavior / negative result
-        System.out.print(c << "\n");
+        System.out.println(c);
         return 0;
     }
 }
@@ -103,7 +103,7 @@ int main() {
 ### Java Code
 ```java
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         int32_t a = 1000000;
         int32_t b = 1000000;
         
@@ -114,11 +114,11 @@ class Solution {
         double pi = 3.141592653589793;
         boolean flag = true;
         
-        System.out.print("64-bit Product: " << c << "\n");
-        System.out.print("Size of int: " << sizeof(int) << " bytes\n");
-        System.out.print("Size of long: " << sizeof(long) << " bytes\n");
-        System.out.print("Integer.MAX_VALUE: " << Integer.MAX_VALUE << "\n");
-        System.out.print("Long.MAX_VALUE: " << Long.MAX_VALUE << "\n");
+        System.out.println("64-bit Product: " + c);
+        System.out.print("Size of int: " + sizeof(int) + " bytes\n");
+        System.out.print("Size of long: " + sizeof(long) + " bytes\n");
+        System.out.println("Integer.MAX_VALUE: " + Integer.MAX_VALUE);
+        System.out.println("Long.MAX_VALUE: " + Long.MAX_VALUE);
         
         return 0;
     }

@@ -103,8 +103,8 @@ import java.util.*;
 class Solution {
 
     int[] nearlySorted(int arr[], int num, int K) {
-        priority_queue<int, int[], greater<int>> minHeap;
-        List<Integer> sortedArr = new ArrayList<>();
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
+        int[] sortedArr;
         sortedArr.reserve(num);
         
         // Push first (K + 1) elements

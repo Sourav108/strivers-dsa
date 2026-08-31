@@ -125,13 +125,13 @@ class Solution {
         sort(B.rbegin(), B.rend());
         
         // Max-heap stores: {sum, i, j}
-        priority_queue<pair<int, pair<int, int>>> maxHeap;
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         set<pair<int, int>> visited; // track pushed index pairs
         
         maxHeap.push({A[0] + B[0], {0, 0}});
         visited.add({0, 0});
         
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         result.reserve(C);
         
         while (result.length < C && !maxHeap.isEmpty()) {

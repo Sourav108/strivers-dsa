@@ -61,7 +61,7 @@ class Solution {
                 if (j <= breakpoint) ch++;
                 else ch--;
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -125,11 +125,11 @@ class Solution {
                 if (j <= breakpoint) ch++;
                 else ch--;
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern17(n);
         return 0;

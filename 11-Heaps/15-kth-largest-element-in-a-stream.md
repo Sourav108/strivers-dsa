@@ -90,10 +90,12 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 class KthLargest {
 
     int kSize;
-    priority_queue<int, int[], greater<int>> minHeap;
+    PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
 
     public KthLargest(int k, int[] nums) { /* initialized: kSize(k)  */ 
         for (int x : nums) {

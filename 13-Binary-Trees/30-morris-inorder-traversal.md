@@ -110,8 +110,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 static class TreeNode {
     int val;
     TreeNode left;
@@ -122,7 +120,7 @@ static class TreeNode {
 class Solution {
 
     int[] getInorder(TreeNode  root) {
-        List<Integer> inorder = new ArrayList<>();
+        int[] inorder;
         TreeNode  curr = root;
         
         while (curr != null) {

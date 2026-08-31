@@ -38,8 +38,65 @@ Preorder + Inorder serialization (requires building 2 strings and running O(N lo
 
 ### Java Code
 ```java
-// Java equivalent
-// Preorder + Inorder serialization
+import java.util.*;
+
+public class Codec {
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (root == null) return "#";
+        
+        StringBuilder sb = new StringBuilder();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        
+        while (!q.isEmpty()) {
+            TreeNode curr = q.poll();
+            if (curr == null) {
+                sb.append("#,");
+            } else {
+                sb.append(curr.val).append(",");
+                q.offer(curr.left);
+                q.offer(curr.right);
+            }
+        }
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data == null || data.equals("#")) return null;
+        
+        String[] tokens = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(tokens[0]));
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        
+        int i = 1;
+        while (!q.isEmpty() && i < tokens.length) {
+            TreeNode parent = q.poll();
+            
+            // Left child
+            if (!tokens[i].equals("#")) {
+                TreeNode left = new TreeNode(Integer.parseInt(tokens[i]));
+                parent.left = left;
+                q.offer(left);
+            }
+            i++;
+            
+            if (i >= tokens.length) break;
+            
+            // Right child
+            if (!tokens[i].equals("#")) {
+                TreeNode right = new TreeNode(Integer.parseInt(tokens[i]));
+                parent.right = right;
+                q.offer(right);
+            }
+            i++;
+        }
+        
+        return root;
+    }
+}
 ```
 
 ### Complexity Derivation
@@ -142,75 +199,63 @@ public:
 ```java
 import java.util.*;
 
-static class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    public TreeNode(int x) { /* initialized: val(x), left(null), right(null)  */  }
-};
-
-class Codec {
-
-    // Encodes a tree to a single String using BFS
-    String serialize(TreeNode  root) {
-        if (root == null) return "";
+public class Codec {
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (root == null) return "#";
         
-        String s = "";
+        StringBuilder sb = new StringBuilder();
         Queue<TreeNode> q = new LinkedList<>();
-        q.push(root);
+        q.offer(root);
         
         while (!q.isEmpty()) {
-            TreeNode  curr = q.peek();
-            q.pop();
-            
+            TreeNode curr = q.poll();
             if (curr == null) {
-                s.append("#,");
+                sb.append("#,");
             } else {
-                s.append(String.valueOf(curr.val) + ",");
-                q.push(curr.left);
-                q.push(curr.right);
+                sb.append(curr.val).append(",");
+                q.offer(curr.left);
+                q.offer(curr.right);
             }
         }
-        
-        return s;
+        return sb.toString();
     }
 
-    // Decodes your encoded data to tree using BFS
-    TreeNode  deserialize(String data) {
-        if (data.isEmpty()) return null;
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data == null || data.equals("#")) return null;
         
-        stringstream s(data);
-        String str;
-        getline(s, str, ',');
-        
-        TreeNode  root = new TreeNode(stoi(str));
+        String[] tokens = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(tokens[0]));
         Queue<TreeNode> q = new LinkedList<>();
-        q.push(root);
+        q.offer(root);
         
-        while (!q.isEmpty()) {
-            TreeNode  curr = q.peek();
-            q.pop();
+        int i = 1;
+        while (!q.isEmpty() && i < tokens.length) {
+            TreeNode parent = q.poll();
             
-            // 1. Process Left Child
-            getline(s, str, ',');
-            if (str != "#") {
-                TreeNode  leftNode = new TreeNode(stoi(str));
-                curr.left = leftNode;
-                q.push(leftNode);
+            // Left child
+            if (!tokens[i].equals("#")) {
+                TreeNode left = new TreeNode(Integer.parseInt(tokens[i]));
+                parent.left = left;
+                q.offer(left);
             }
+            i++;
             
-            // 2. Process Right Child
-            getline(s, str, ',');
-            if (str != "#") {
-                TreeNode  rightNode = new TreeNode(stoi(str));
-                curr.right = rightNode;
-                q.push(rightNode);
+            if (i >= tokens.length) break;
+            
+            // Right child
+            if (!tokens[i].equals("#")) {
+                TreeNode right = new TreeNode(Integer.parseInt(tokens[i]));
+                parent.right = right;
+                q.offer(right);
             }
+            i++;
         }
         
         return root;
     }
-};
+}
 ```
 
 ### Complexity Derivation

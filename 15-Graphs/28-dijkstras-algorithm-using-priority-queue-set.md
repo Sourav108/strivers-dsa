@@ -196,7 +196,7 @@ class Solution {
     // from the source vertex S.
     int[] dijkstra(int V, int[][] adj[], int S) {
         // Min-heap stores {distance, node}
-        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         int[] dist = new int[V];
         dist[S] = 0;

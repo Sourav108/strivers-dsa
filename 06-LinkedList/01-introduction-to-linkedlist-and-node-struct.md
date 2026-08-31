@@ -135,13 +135,13 @@ Node  constructLL(int[] arr) {
 void printLL(Node  head) {
     Node  curr = head;
     while (curr != null) {
-        System.out.print(curr.data << " . ");
+        System.out.print(curr.data + " . ");
         curr = curr.next;
     }
     System.out.print("null\n");
 }
 
-int main() {
+public static void main(String[] args) {
     int[] v = {10, 20, 30, 40};
     Node  head = constructLL(v);
     printLL(head);

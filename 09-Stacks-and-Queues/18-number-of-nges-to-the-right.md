@@ -50,11 +50,9 @@ vector<int> count_NGEs_Brute(int n, vector<int>& arr, int queries, vector<int>& 
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] count_NGEs_Brute(int n, int[] arr, int queries, int[] indices) {
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         for (int idx : indices) {
             int count = 0;
             for (int j = idx + 1; j < n; j++) {
@@ -113,12 +111,10 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[] count_NGEs(int N, int[] arr, int queries, int[] indices) {
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         ans.reserve(queries);
         
         for (int idx : indices) {

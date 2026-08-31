@@ -123,8 +123,8 @@ class Solution {
     }
     
     // Weighted Graph: stores pair<neighbor, weight>
-    vector<List<int[]>> buildWeightedAdjList(int V, vector<tuple<int, int, int>> edges) {
-        vector<List<int[]>> adj(V);
+    List<List<int[]>> buildWeightedAdjList(int V, int[][] edges) {
+        List<List<int[]>> adj(V);
         for (var [u, v, w] : edges) {
             adj[u].add({v, w});
             adj[v].add({u, w}); // undirected

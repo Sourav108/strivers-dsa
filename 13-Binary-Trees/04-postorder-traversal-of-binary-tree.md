@@ -95,7 +95,7 @@ import java.util.*;
 
 static class TreeNode { int val; TreeNode left, right; };
 int[] postorder2Stacks(TreeNode  root) {
-    List<Integer> ans = new ArrayList<>();
+    int[] ans;
     if (root == null) return ans;
     Stack<TreeNode> st1, st2;
     st1.push(root);
@@ -182,7 +182,7 @@ static class TreeNode {
 class Solution {
 
     int[] postorderTraversal(TreeNode  root) {
-        List<Integer> postorder = new ArrayList<>();
+        int[] postorder;
         if (root == null) return postorder;
         
         Stack<TreeNode> st = new Stack<>();

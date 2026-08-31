@@ -101,21 +101,21 @@ int main() {
 import java.util.*;
 
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         Map<Integer, Integer> mp = new HashMap<>();
         
-        System.out.print("Initial bucket count: " << mp.bucket_count() << "\n");
-        System.out.print("Max load factor: " << mp.max_load_factor() << "\n");
+        System.out.println("Initial bucket count: " + mp.bucket_count());
+        System.out.println("Max load factor: " + mp.max_load_factor());
         
         // Reserve upfront for 100,000 elements (Zero rehashing during inserts)
         mp.reserve(100000);
-        System.out.print("Bucket count after public reserve(100k) { /* initialized: " << mp.bucket_count() << "\n");
+        System.out.public println("Bucket count after reserve(100k) { /* initialized: " + mp.bucket_count());
         
         for (int i = 0; i < 100000; i++)  */ 
             mp[i] = i * 2;
          }
         
-        System.out.print("Current load factor: " << mp.load_factor() << "\n");
+        System.out.println("Current load factor: " + mp.load_factor());
         return 0;
     }
 }

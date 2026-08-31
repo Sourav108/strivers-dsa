@@ -69,7 +69,7 @@ public:
 class SolutionLibrary {
 
     int myAtoi(String s) {
-        stringstream ss(s);
+        String[] tokens = s.split(","); int tokenIdx = 0;
         long num = 0;
         ss >> num;
         if (num > Integer.MAX_VALUE) return Integer.MAX_VALUE;

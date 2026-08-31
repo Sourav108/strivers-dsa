@@ -271,7 +271,7 @@ class Solution {
         // Step 3: Process nodes in decreasing finish time order on transposed graph
         int[] vis2 = new int[V];
         int sccCount = 0;
-        List<List<Integer>> allSCCs = new ArrayList<>(); // Stores all individual SCC components
+        int[][] allSCCs; // Stores all individual SCC components
         
         while (!st.isEmpty()) {
             int node = st.peek();
@@ -279,7 +279,7 @@ class Solution {
             
             if (!vis2[node]) {
                 sccCount++;
-                List<Integer> currentSCC = new ArrayList<>();
+                int[] currentSCC;
                 dfsTranspose(node, adjT, vis2, currentSCC);
                 allSCCs.add(currentSCC);
             }

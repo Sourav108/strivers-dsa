@@ -57,7 +57,7 @@ class Solution {
             for (int j = 1; j <= stars; j++) System.out.print("*");
             for (int j = 1; j <= spaces; j++) System.out.print(" ");
             for (int j = 1; j <= stars; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
             if (i < n) spaces -= 2;
             else spaces += 2;
         }
@@ -119,13 +119,13 @@ class Solution {
             for (int j = 1; j <= stars; j++) System.out.print("*");
             for (int j = 1; j <= spaces; j++) System.out.print(" ");
             for (int j = 1; j <= stars; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
             if (i < n) spaces -= 2;
             else spaces += 2;
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern20(n);
         return 0;

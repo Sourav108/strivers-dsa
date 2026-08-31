@@ -122,7 +122,7 @@ import java.util.*;
 class ArrayStack {
 
     static int MAX_CAPACITY = 10000;
-    int arr[MAX_CAPACITY];
+    int[] arr = new int[MAX_CAPACITY];
     int topIndex;
 
     public ArrayStack() { /* initialized: topIndex(-1)  */  }

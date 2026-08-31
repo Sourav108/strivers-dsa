@@ -100,8 +100,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     String mapping[10] = {
@@ -125,7 +123,7 @@ class Solution {
     String[] letterCombinations(String digits) {
         if (digits.isEmpty()) return {};
         
-        List<String> result = new ArrayList<>();
+        String[] result;
         String current = "";
         backtrack(0, digits, current, result);
         return result;

@@ -145,7 +145,7 @@ class Twitter {
     
     int[] getNewsFeed(int userId) {
         // Max-heap stores {timestamp, tweetId, userId, index_in_user_tweets}
-        priority_queue<int[]> maxHeap;
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         // Collect self and all followees
         Set<Integer> users = userFollowing[userId];
@@ -159,7 +159,7 @@ class Twitter {
             }
         }
         
-        List<Integer> feed = new ArrayList<>();
+        int[] feed;
         while (!maxHeap.isEmpty() && feed.length < 10) {
             var curr = maxHeap.peek();
             maxHeap.pop();

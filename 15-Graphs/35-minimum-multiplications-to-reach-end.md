@@ -93,7 +93,7 @@ class SolutionDijkstra {
 
     int minimumMultiplications(int[] arr, int start, int end) {
         if (start == end) return 0;
-        priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         int[] dist = new int[100000];
         dist[start] = 0;
         pq.push({0, start});

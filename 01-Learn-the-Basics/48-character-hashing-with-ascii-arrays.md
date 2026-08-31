@@ -126,7 +126,7 @@ class Solution {
         
         for (int i = 0; i < 26; i++) {
             if (hash[i] > 0) {
-                System.out.print((char)('a' + i) << ": " << hash[i] << "\n");
+                System.out.println((char)('a' + i) + ": " + hash[i]);
             }
         }
     }

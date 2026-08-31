@@ -103,7 +103,7 @@ import java.util.*;
 class Solution {
 
     int[] bfsOfGraph(int V, int[][] adj) {
-        List<Integer> bfs = new ArrayList<>();
+        int[] bfs;
         int[] vis = new int[V];
         Queue<Integer> q = new LinkedList<>();
         

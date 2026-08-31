@@ -54,13 +54,14 @@ public:
 
 ### Java Code
 ```java
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
-    public void sortColorsBrute(int[] nums) {
+
+    void sortColorsBrute(int[] nums) {
         Arrays.sort(nums);
     }
-}
+};
 ```
 
 ### Complexity Derivation
@@ -100,7 +101,8 @@ public:
 ### Java Code
 ```java
 class Solution {
-    public void sortColorsBetter(int[] nums) {
+
+    void sortColorsBetter(int[] nums) {
         int count0 = 0, count1 = 0, count2 = 0;
         for (int x : nums) {
             if (x == 0) count0++;
@@ -108,11 +110,11 @@ class Solution {
             else count2++;
         }
         int idx = 0;
-        while (count0-- > 0) nums[idx++] = 0;
-        while (count1-- > 0) nums[idx++] = 1;
-        while (count2-- > 0) nums[idx++] = 2;
+        while (count0--) nums[idx++] = 0;
+        while (count1--) nums[idx++] = 1;
+        while (count2--) nums[idx++] = 2;
     }
-}
+};
 ```
 
 ### Complexity Derivation
@@ -156,29 +158,23 @@ public:
 ### Java Code
 ```java
 class Solution {
-    public void sortColors(int[] nums) {
-        int low = 0;
-        int mid = 0;
-        int high = nums.length - 1;
-        
+
+    void sortColors(int[] nums) {
+        int low = 0, mid = 0, high = nums.length - 1;
         while (mid <= high) {
             if (nums[mid] == 0) {
-                int temp = nums[low];
-                nums[low] = nums[mid];
-                nums[mid] = temp;
+                int temp = nums[low]; nums[low] = nums[mid]; nums[mid] = temp;
                 low++;
                 mid++;
             } else if (nums[mid] == 1) {
                 mid++;
             } else {
-                int temp = nums[mid];
-                nums[mid] = nums[high];
-                nums[high] = temp;
+                int temp = nums[mid]; nums[mid] = nums[high]; nums[high] = temp;
                 high--;
             }
         }
     }
-}
+};
 ```
 
 ### Complexity Derivation

@@ -179,7 +179,7 @@ class Solution {
 
     int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         // 1. Build adjacency list: {neighbor, price}
-        vector<List<int[]>> adj(n);
+        List<List<int[]>> adj(n);
         for (var flight : flights) {
             int u = flight[0];
             int v = flight[1];

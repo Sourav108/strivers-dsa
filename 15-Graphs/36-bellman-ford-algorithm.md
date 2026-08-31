@@ -90,7 +90,7 @@ import java.util.*;
 
 class SolutionSPFA {
 
-    int[] spfa(int V, vector<List<int[]>> adj, int S) {
+    int[] spfa(int V, List<List<int[]>> adj, int S) {
         int[] dist(V, 1e8), count(V, 0), inQueue(V, 0);
         Queue<Integer> q = new LinkedList<>();
         dist[S] = 0; q.push(S); inQueue[S] = 1;

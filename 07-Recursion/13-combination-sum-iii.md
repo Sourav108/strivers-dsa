@@ -96,8 +96,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void backtrack(int start, int k, int n, int[] current, int[][] result) {
@@ -118,8 +116,8 @@ class Solution {
     }
 
     int[][] combinationSum3(int k, int n) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> current = new ArrayList<>();
+        int[][] result;
+        int[] current;
         backtrack(1, k, n, current, result);
         return result;
     }

@@ -126,14 +126,14 @@ class Solution {
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int day = 3;
-        System.out.print("Day " << day << ": " << getDayNameSwitch(day) << "\n");
+        System.out.println("Day " + day + ": " + getDayNameSwitch(day));
         
         // Ternary operator: concise if-else
         int score = 85;
         String result = (score >= 40) ? "Pass" : "Fail";
-        System.out.print("Result: " << result << "\n");
+        System.out.println("Result: " + result);
         
         return 0;
     }

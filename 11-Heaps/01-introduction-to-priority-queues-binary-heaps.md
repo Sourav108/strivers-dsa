@@ -90,10 +90,10 @@ class Solution {
     
     void demonstrateHeapIndices() {
         int root = 0;
-        System.out.print("Root left child:  " << leftChild(root) << "\n");  // 1
-        System.out.print("Root right child: " << rightChild(root) << "\n"); // 2
-        System.out.print("Parent of node 1: " << parent(1) << "\n");      // 0
-        System.out.print("Parent of node 2: " << parent(2) << "\n");      // 0
+        System.out.println("Root left child:  " + leftChild(root));  // 1
+        System.out.println("Root right child: " + rightChild(root)); // 2
+        System.out.println("Parent of node 1: " + parent(1));      // 0
+        System.out.println("Parent of node 2: " + parent(2));      // 0
     }
 }
 ```

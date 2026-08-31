@@ -115,8 +115,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 static class TreeNode {
     int val;
     TreeNode left;
@@ -151,13 +149,13 @@ class Solution {
     }
 
     int[] rightSideView(TreeNode  root) {
-        List<Integer> rightView = new ArrayList<>();
+        int[] rightView;
         getRightViewDFS(root, 0, rightView);
         return rightView;
     }
     
     int[] leftSideView(TreeNode  root) {
-        List<Integer> leftView = new ArrayList<>();
+        int[] leftView;
         getLeftViewDFS(root, 0, leftView);
         return leftView;
     }

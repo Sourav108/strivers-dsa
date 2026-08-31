@@ -115,8 +115,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void backtrack(int index, String num, int target, String path,
@@ -155,7 +153,7 @@ class Solution {
     }
 
     String[] addOperators(String num, int target) {
-        List<String> result = new ArrayList<>();
+        String[] result;
         if (num.isEmpty()) return result;
         backtrack(0, num, target, "", 0, 0, result);
         return result;

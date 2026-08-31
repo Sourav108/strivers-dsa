@@ -54,11 +54,9 @@ vector<int> leadersBrute(const vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] leadersBrute(int[] nums) {
-        List<Integer> res = new ArrayList<>(); int n = nums.length;
+        int[] res; int n = nums.length;
         for (int i = 0; i < n; i++) {
             boolean leader = true;
             for (int j = i + 1; j < n; j++) if (nums[j] >= nums[i]) { leader = false; break; }
@@ -112,11 +110,9 @@ vector<int> leadersOptimal(const vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] leadersOptimal(int[] nums) {
-        List<Integer> res = new ArrayList<>();
+        int[] res;
         int maxFromRight = Integer.MIN_VALUE, n = nums.length;
         for (int i = n - 1; i >= 0; i--) {
             if (nums[i] > maxFromRight) {

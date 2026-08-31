@@ -100,12 +100,10 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[] asteroidCollision(int[] asteroids) {
-        List<Integer> st = new ArrayList<>(); // use vector as stack
+        int[] st; // use vector as stack
         
         for (int ast : asteroids) {
             boolean exploded = false;

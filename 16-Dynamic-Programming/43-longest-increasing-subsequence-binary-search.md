@@ -103,8 +103,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int lengthOfLIS(int[] nums) {
@@ -112,7 +110,7 @@ class Solution {
         if (n == 0) return 0;
         
         // tails[i] stores the smallest tail of an increasing subsequence of length (i + 1)
-        List<Integer> tails = new ArrayList<>();
+        int[] tails;
         
         for (int x : nums) {
             // Find the first element in tails >= x using binary search

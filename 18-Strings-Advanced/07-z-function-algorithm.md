@@ -163,8 +163,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class ZAlgorithm {
 
     // Computes Z-array for String s in strictly linear O(N) time
@@ -208,7 +206,7 @@ class ZAlgorithm {
         int totalLen = combined.length;
         
         int[] z = computeZ(combined);
-        List<Integer> occurrences = new ArrayList<>();
+        int[] occurrences;
         
         // Check Z-values in the text section of the combined String
         for (int i = m + 1; i < totalLen; i++) {

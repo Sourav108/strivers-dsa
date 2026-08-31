@@ -100,8 +100,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void backtrack(int index, int dots, String s, String current, String[] result) {
@@ -125,7 +123,7 @@ class Solution {
     }
 
     String[] restoreIpAddresses(String s) {
-        List<String> result = new ArrayList<>();
+        String[] result;
         if (s.length() < 4 || s.length() > 12) return result;
         backtrack(0, 0, s, "", result);
         return result;

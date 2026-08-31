@@ -92,7 +92,7 @@ class Solution {
 
     int kthSmallest(int arr[], int l, int r, int k) {
         // Max-heap to maintain the k smallest elements
-        PriorityQueue<Integer> maxHeap;
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         for (int i = l; i <= r; i++) {
             maxHeap.push(arr[i]);

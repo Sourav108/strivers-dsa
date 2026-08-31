@@ -90,8 +90,8 @@ import java.util.*;
 
 class SolutionPrim {
 
-    int primMST(int V, vector<List<int[]>> adj) {
-        priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+    int primMST(int V, List<List<int[]>> adj) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         int[] vis = new int[V];
         pq.push({0, 0});
         int mstSum = 0;
@@ -274,8 +274,8 @@ class SolutionMST {
     }
     
     // Prim's Algorithm (Local Cut Expansion + Min-Heap)
-    int primsMST(int V, vector<List<int[]>> adj) {
-        priority_queue<pair<int, int>, List<int[]>, greater<>> pq;
+    int primsMST(int V, List<List<int[]>> adj) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         int[] vis = new int[V];
         
         pq.push({0, 0}); // {weight, node}

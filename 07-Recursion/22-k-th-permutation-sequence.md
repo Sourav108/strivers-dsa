@@ -116,13 +116,11 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     String getPermutation(int n, int k) {
         int fact = 1;
-        List<Integer> numbers = new ArrayList<>();
+        int[] numbers;
         
         // Compute (n-1)! and fill numbers vector [1, 2, ..., n]
         for (int i = 1; i < n; i++) {

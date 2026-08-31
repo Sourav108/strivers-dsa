@@ -49,7 +49,7 @@ class Solution {
         int i = 0;
         while (i < 10) {
             if (i == 5) continue; // BUG: skips i++, causing infinite loop at i=5!
-            System.out.print(i << " ");
+            System.out.print(i + " ");
             i++;
         }
     }
@@ -103,7 +103,7 @@ int main() {
 ### Java Code
 ```java
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         // Standard while loop (Entry-controlled: 0 or more times)
         int n = 12345;
         int digitCount = 0;
@@ -111,12 +111,12 @@ class Solution {
             digitCount++;
             n /= 10; // Progress toward termination
         }
-        System.out.print("Digits: " << digitCount << "\n");
+        System.out.println("Digits: " + digitCount);
         
         // do-while loop (Exit-controlled: Guaranteed >= 1 execution)
         int num = 0;
         do {
-            System.out.print("Runs at least once even when num == 0! Val: " << num << "\n");
+            System.out.println("Runs at least once even when num == 0! Val: " + num);
             num++;
         } while (num < 0); // Condition is false, but body executed once!
         

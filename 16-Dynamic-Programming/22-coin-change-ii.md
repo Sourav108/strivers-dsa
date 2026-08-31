@@ -113,14 +113,14 @@ class Solution2D {
 
     int change(int amount, int[] coins) {
         int n = coins.length;
-        vector<vector<unsigned long>> dp(n, vector<unsigned long>(amount + 1, 0));
+        long[][] dp = new long[n][amount + 1];
         for (int t = 0; t <= amount; t++) {
             if (t % coins[0] == 0) dp[0][t] = 1;
         }
         for (int i = 1; i < n; i++) {
             for (int t = 0; t <= amount; t++) {
-                unsigned long notTake = dp[i - 1][t];
-                unsigned long take = (t >= coins[i]) ? dp[i][t - coins[i]] : 0;
+                long notTake = dp[i - 1][t];
+                long take = (t >= coins[i]) ? dp[i][t - coins[i]] : 0;
                 dp[i][t] = notTake + take;
             }
         }
@@ -173,8 +173,8 @@ class Solution {
 
     int change(int amount, int[] coins) {
         // dp[t] stores number of combinations to make amount t
-        // Using unsigned long to avoid intermediate integer overflow
-        vector<unsigned long> dp(amount + 1, 0);
+        // Using long to avoid intermediate integer overflow
+        long[] dp = new long[amount + 1];
         dp[0] = 1; // Base case: 1 way to form amount 0 (empty combination)
         
         // OUTER LOOP over coins enforces combination order (no permutations)

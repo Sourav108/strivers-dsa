@@ -123,7 +123,7 @@ static class TreeNode {
 class Solution {
 
     int[][] zigzagLevelOrder(TreeNode  root) {
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result;
         if (root == null) return result;
         
         Queue<TreeNode> q = new LinkedList<>();

@@ -52,11 +52,9 @@ vector<int> nextGreaterBrute(vector<int>& nums1, vector<int>& nums2) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] nextGreaterBrute(int[] nums1, int[] nums2) {
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         for (int x : nums1) {
             int idx = 0;
             while (nums2[idx] != x) idx++;
@@ -143,7 +141,7 @@ class Solution {
             st.push(nums2[i]);
         }
         
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         ans.reserve(nums1.length);
         for (int x : nums1) {
             ans.add(ngeMap[x]);

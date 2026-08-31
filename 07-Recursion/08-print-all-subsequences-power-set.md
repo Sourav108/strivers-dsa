@@ -51,14 +51,12 @@ vector<vector<int>> subsetsBitmask(vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[][] subsetsBitmask(int[] nums) {
         int n = nums.length;
-        List<List<Integer>> ans = new ArrayList<>();
+        int[][] ans;
         for (int mask = 0; mask < (1 << n); mask++) {
-            List<Integer> sub = new ArrayList<>();
+            int[] sub;
             for (int i = 0; i < n; i++) {
                 if (mask & (1 << i)) sub.add(nums[i]);
             }
@@ -121,8 +119,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void generateSubsets(int index, int[] nums, int[] current, int[][] result) {
@@ -141,8 +137,8 @@ class Solution {
     }
 
     int[][] subsets(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> current = new ArrayList<>();
+        int[][] result;
+        int[] current;
         generateSubsets(0, nums, current, result);
         return result;
     }

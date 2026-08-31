@@ -127,8 +127,8 @@ class Solution {
     }
 
     int[][] findSubsequences(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> current = new ArrayList<>();
+        int[][] result;
+        int[] current;
         backtrack(0, nums, current, result);
         return result;
     }

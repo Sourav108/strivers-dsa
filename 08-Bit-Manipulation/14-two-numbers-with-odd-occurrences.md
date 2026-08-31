@@ -53,7 +53,7 @@ class Solution {
     int[] singleNumberHash(int[] nums) {
         Map<Integer, Integer> mp = new HashMap<>();
         for (int x : nums) mp[x]++;
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         for (var [k, v] : mp) if (v == 1) ans.add(k);
         return ans;
     }

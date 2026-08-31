@@ -59,7 +59,7 @@ class Solution {
                     System.out.print(" ");
                 }
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -121,11 +121,11 @@ class Solution {
                     System.out.print(" ");
                 }
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern21(n);
         return 0;

@@ -90,18 +90,16 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[][] subsets(int[] nums) {
         int n = nums.length;
         int totalSubsets = 1 << n; // 2^n
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result;
         result.reserve(totalSubsets);
         
         for (int mask = 0; mask < totalSubsets; mask++) {
-            List<Integer> subset = new ArrayList<>();
+            int[] subset;
             for (int i = 0; i < n; i++) {
                 if (mask & (1 << i)) {
                     subset.add(nums[i]);

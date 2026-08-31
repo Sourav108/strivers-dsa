@@ -122,6 +122,8 @@ int main() {
 
 ### Java Code
 ```java
+import java.util.*;
+
 enum CellState { EMPTY, OCCUPIED, DELETED };
 
 static class Cell {
@@ -133,7 +135,7 @@ static class Cell {
 class OpenAddressingHashTable {
 
     int M;
-    vector<Cell> table;
+    List<Cell> table;
 
     public OpenAddressingHashTable(int size = 11) { /* initialized: M(size), table(size)  */  }
     
@@ -166,11 +168,11 @@ class OpenAddressingHashTable {
     }
 };
 
-int main() {
+public static void main(String[] args) {
     OpenAddressingHashTable ht(7);
     ht.add(10, 100);
     ht.add(17, 200); // 10 % 7 = 3, 17 % 7 = 3 (Collision . probes 3+1^2=4)
-    System.out.print("Key 17 Val: " << ht.get(17) << "\n");
+    System.out.println("Key 17 Val: " + ht.get(17));
     return 0;
 }
 ```

@@ -146,9 +146,7 @@ class Solution {
     int spanningTree(int V, int[][] adj[]) {
         // Min-heap stores {weight, {node, parent}}
         // (parent is needed if we also want to record MST edges)
-        priority_queue<pair<int, pair<int, int>>,
-                       vector<pair<int, pair<int, int>>>,
-                       greater<pair<int, pair<int, int>>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         int[] vis = new int[V];
         

@@ -51,7 +51,7 @@ class Solution {
             for (int j = 0; j < n - i; j++) {
                 System.out.print("* ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -105,11 +105,11 @@ class Solution {
             for (int j = 0; j < n - i; j++) {
                 System.out.print("* ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern5(n);
         return 0;

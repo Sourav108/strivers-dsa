@@ -121,7 +121,7 @@ class Solution2D {
 
     int numDistinct(String s, String t) {
         int n = s.length, m = t.length;
-        vector<vector<unsigned long>> dp(n + 1, vector<unsigned long>(m + 1, 0));
+        long[][] dp = new long[n + 1][m + 1];
         for (int i = 0; i <= n; i++) dp[i][0] = 1;
         
         for (int i = 1; i <= n; i++) {
@@ -192,8 +192,8 @@ class Solution {
         int m = t.length;
         
         // dp[j] stores number of subsequences of s matching prefix t[0 ... j - 1]
-        // Using unsigned long to avoid intermediate integer overflow
-        vector<unsigned long> dp(m + 1, 0);
+        // Using long to avoid intermediate integer overflow
+        long[] dp = new long[m + 1];
         dp[0] = 1; // Base case: 1 way to match empty String t
         
         for (int i = 1; i <= n; i++) {

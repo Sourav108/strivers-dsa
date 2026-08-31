@@ -105,8 +105,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 static class TreeNode {
     int val;
     TreeNode left;
@@ -136,7 +134,7 @@ class Solution {
     }
 
     int[] solve(TreeNode  root, int B) {
-        List<Integer> path = new ArrayList<>();
+        int[] path;
         if (root == null) return path;
         getPath(root, path, B);
         return path;

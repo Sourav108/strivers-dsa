@@ -110,7 +110,7 @@ int main() {
 ### Java Code
 ```java
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         // String instantiation
         String s = "Hello, World!";
         
@@ -127,9 +127,9 @@ class Solution {
         // Reverse in-place
         reverse(s.begin(), s.end());
         
-        System.out.print("Original reversed: " << s << "\n");
-        System.out.print("Substring: " << sub << "\n");
-        System.out.print("Length: " << len << "\n");
+        System.out.println("Original reversed: " + s);
+        System.out.println("Substring: " + sub);
+        System.out.println("Length: " + len);
         
         return 0;
     }

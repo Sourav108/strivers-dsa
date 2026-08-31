@@ -112,8 +112,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     // Lexicographical order: 'D', 'L', 'R', 'U'
@@ -146,7 +144,7 @@ class Solution {
     }
 
     String[] findPath(int[][] mat) {
-        List<String> ans = new ArrayList<>();
+        String[] ans;
         int n = mat.length;
         if (mat[0][0] == 0 || mat[n - 1][n - 1] == 0) return ans;
         

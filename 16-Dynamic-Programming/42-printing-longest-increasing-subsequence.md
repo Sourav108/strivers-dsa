@@ -122,8 +122,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[] printingLongestIncreasingSubsequence(int[] nums, int n) {
@@ -152,7 +150,7 @@ class Solution {
         }
         
         // Backtrack to reconstruct the LIS array
-        List<Integer> lis = new ArrayList<>();
+        int[] lis;
         lis.add(nums[lastIndex]);
         
         while (parent[lastIndex] != lastIndex) {

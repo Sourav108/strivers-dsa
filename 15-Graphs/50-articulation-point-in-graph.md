@@ -138,8 +138,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int timer = 1;
@@ -190,7 +188,7 @@ class Solution {
             }
         }
         
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         for (int i = 0; i < V; i++) {
             if (mark[i] == 1) {
                 ans.add(i);

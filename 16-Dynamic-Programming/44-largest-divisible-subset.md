@@ -158,7 +158,7 @@ class Solution {
         }
         
         // Step 3: Reconstruct the divisible subset
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         result.add(nums[lastIndex]);
         
         while (parent[lastIndex] != lastIndex) {

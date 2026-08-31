@@ -54,7 +54,7 @@ import java.util.*;
 
 static class Node { int data; Node  next; };
 Node  sortArray(Node  head) {
-    List<Integer> v = new ArrayList<>();
+    int[] v;
     Node  c = head;
     while (c) { v.add(c.data); c = c.next; }
     Arrays.sort(v);

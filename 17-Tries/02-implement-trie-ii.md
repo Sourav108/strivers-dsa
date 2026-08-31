@@ -80,7 +80,7 @@ import java.util.*;
 
 class TrieIINaive {
     Map<String, Integer> wordCounts = new HashMap<>();
-    List<String> allWords = new ArrayList<>();
+    String[] allWords;
 
     void insert(String word) {
         wordCounts[word]++;

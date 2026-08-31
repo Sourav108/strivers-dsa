@@ -120,7 +120,7 @@ int main() {
 import java.util.*;
 
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         // 1D Stack Array
         int arr[5] = {10, 20, 30, 40, 50};
         
@@ -138,14 +138,14 @@ class Solution {
             }
         }
         
-        System.out.print("Total Sum: " << totalSum << "\n");
+        System.out.println("Total Sum: " + totalSum);
         
         // Dynamic 2D Array using vector (safe heap allocation)
         int rows = 3, cols = 4;
         int[][] dynamicMat = new int[rows][cols];
         dynamicMat[1][2] = 42;
         
-        System.out.print("dynamicMat[1][2] = " << dynamicMat[1][2] << "\n");
+        System.out.println("dynamicMat[1][2] = " + dynamicMat[1][2]);
         
         return 0;
     }

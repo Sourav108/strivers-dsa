@@ -118,14 +118,12 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
         deque<int> dq; // stores indices in monotonic decreasing order of nums[i]
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         result.reserve(n - k + 1);
         
         for (int i = 0; i < n; i++) {

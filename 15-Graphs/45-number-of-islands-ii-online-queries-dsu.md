@@ -186,7 +186,7 @@ class Solution {
         int[][] vis = new int[n][m];
         
         int islandCount = 0;
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         
         int dRow[] = {-1, 0, 1, 0};
         int dCol[] = {0, 1, 0, -1};

@@ -101,7 +101,7 @@ class Solution3D {
 
     int maxProfit(int[] prices) {
         int n = prices.length;
-        vector<int[][]> dp(n + 1, int[][](2, int[](3, 0)));
+        int[][][] dp = new int[n + 1][2][3];
         
         for (int i = n - 1; i >= 0; i--) {
             for (int buy = 0; buy <= 1; buy++) {

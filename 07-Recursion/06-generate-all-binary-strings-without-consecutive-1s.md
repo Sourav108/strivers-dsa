@@ -99,8 +99,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void backtrack(int k, String current, String[] result) {
@@ -123,7 +121,7 @@ class Solution {
     }
 
     String[] generateBinaryStrings(int k) {
-        List<String> result = new ArrayList<>();
+        String[] result;
         String current = "";
         backtrack(k, current, result);
         return result;

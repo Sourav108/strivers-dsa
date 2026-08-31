@@ -128,7 +128,7 @@ static class TreeNode {
 class Solution {
 
     int[] inorderTraversal(TreeNode  root) {
-        List<Integer> inorder = new ArrayList<>();
+        int[] inorder;
         Stack<TreeNode> st = new Stack<>();
         TreeNode  curr = root;
         

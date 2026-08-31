@@ -48,7 +48,7 @@ int atoiSS(string s) {
 ```java
 class Solution {
     int atoiSS(String s) {
-        stringstream ss(s);
+        String[] tokens = s.split(","); int tokenIdx = 0;
         int x = 0;
         ss >> x;
         return x;

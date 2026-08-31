@@ -103,7 +103,7 @@ class Solution {
         // Sort intervals by start time
         Arrays.sort(intervals);
         
-        List<List<Integer>> merged = new ArrayList<>();
+        int[][] merged;
         merged.add(intervals[0]);
         
         for (int i = 1; i < intervals.length; i++) {

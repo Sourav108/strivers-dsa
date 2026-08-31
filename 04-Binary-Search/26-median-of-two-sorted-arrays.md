@@ -69,7 +69,7 @@ import java.util.*;
 class Solution {
     double findMedianSortedArraysBrute(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
-        List<Integer> merged = new ArrayList<>();
+        int[] merged;
         int i = 0, j = 0;
         while (i < m && j < n) {
             if (nums1[i] <= nums2[j]) merged.add(nums1[i++]);

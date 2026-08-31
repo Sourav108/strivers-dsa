@@ -96,12 +96,10 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[] AllPrimeFactors(int N) {
-        List<Integer> primeFactors = new ArrayList<>();
+        int[] primeFactors;
         
         // Check for factor 2
         if (N % 2 == 0) {

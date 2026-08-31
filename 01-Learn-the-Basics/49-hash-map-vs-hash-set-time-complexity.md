@@ -115,11 +115,11 @@ static class custom_hash {
     }
 };
 
-int main() {
+public static void main(String[] args) {
     // Unhackable fast hash map
     unordered_map<long, int, custom_hash> safeMap;
     safeMap[1000000000LL] = 1;
-    System.out.print("Safe lookup: " << safeMap[1000000000LL] << "\n");
+    System.out.println("Safe lookup: " + safeMap[1000000000LL]);
     return 0;
 }
 ```

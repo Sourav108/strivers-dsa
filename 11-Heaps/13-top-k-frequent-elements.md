@@ -82,12 +82,12 @@ class Solution {
     int[] topKFrequentHeap(int[] nums, int k) {
         Map<Integer, Integer> mp = new HashMap<>();
         for (int x : nums) mp[x]++;
-        priority_queue<pair<int, int>, List<int[]>, greater<pair<int, int>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         for (var [val, count] : mp) {
             pq.push({count, val});
             if (pq.length > k) pq.pop();
         }
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         while (!pq.isEmpty()) { ans.add(pq.peek().second); pq.pop(); }
         return ans;
     }
@@ -162,7 +162,7 @@ class Solution {
             buckets[count].add(val);
         }
         
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         result.reserve(k);
         
         // Scan buckets from highest frequency to lowest

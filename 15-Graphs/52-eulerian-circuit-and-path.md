@@ -236,7 +236,7 @@ class Solution {
     
     // Hierholzer's Algorithm for Trail Reconstruction (Directed / Undirected)
     int[] reconstructEulerianTrail(int startNode, int[][] adj) {
-        List<Integer> trail = new ArrayList<>();
+        int[] trail;
         Stack<Integer> st = new Stack<>();
         st.push(startNode);
         

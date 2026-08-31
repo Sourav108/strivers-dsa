@@ -48,7 +48,7 @@ class Solution {
     void processStringsSlow(String[] vec) {
         // By-value range-for copies every String!
         for (String s : vec) {
-            System.out.print(s << " ");
+            System.out.print(s + " ");
         }
     }
 }
@@ -108,26 +108,26 @@ int main() {
 ### Java Code
 ```java
 class Solution {
-    int main() {
+    public static void main(String[] args) {
         // Standard 3-expression for loop
         for (int i = 0; i < 5; ++i) {
-            System.out.print(i << " ");
+            System.out.print(i + " ");
         }
-        System.out.print("\n");
+        System.out.println();
         
         // Nested loops: Matrix coordinate traversal
         int n = 3;
         for (int r = 0; r < n; ++r) {
             for (int c = 0; c < n; ++c) {
-                System.out.print("(" << r << "," << c << ") ");
+                System.out.print("(" + r + "," + c + ") ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
         
         // C++17 Range-based for loop with reference (Zero-copy)
         String[] names = {"Alice", "Bob", "Charlie"};
         for (var name : names) {
-            System.out.print(name << "\n");
+            System.out.println(name);
         }
         
         return 0;

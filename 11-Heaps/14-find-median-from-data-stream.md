@@ -110,9 +110,9 @@ import java.util.*;
 class MedianFinder {
 
     // Left half: max-heap (holds smaller values)
-    PriorityQueue<Integer> maxHeap;
+    PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
     // Right half: min-heap (holds larger values)
-    priority_queue<int, int[], greater<int>> minHeap;
+    PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
 
     MedianFinder() {}
     

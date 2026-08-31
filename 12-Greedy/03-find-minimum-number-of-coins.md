@@ -87,14 +87,12 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[] minPartition(int V) {
         int coins[] = {2000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
         int n = sizeof(coins) / sizeof(coins[0]);
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         
         for (int i = 0; i < n; i++) {
             while (V >= coins[i]) {

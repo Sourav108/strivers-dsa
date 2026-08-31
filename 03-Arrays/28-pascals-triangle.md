@@ -91,11 +91,9 @@ vector<vector<int>> generatePascalBetter(int numRows) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[][] generatePascalBetter(int numRows) {
-        List<List<Integer>> triangle = new ArrayList<>();
+        int[][] triangle;
         for (int i = 0; i < numRows; i++) {
             int[] row = new int[i + 1];
             for (int j = 1; j < i; j++) {
@@ -146,11 +144,9 @@ vector<vector<int>> generatePascalOptimal(int numRows) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[][] generatePascalOptimal(int numRows) {
-        List<List<Integer>> triangle = new ArrayList<>();
+        int[][] triangle;
         for (int i = 0; i < numRows; i++) {
             int[] row = new int[i + 1];
             long val = 1;

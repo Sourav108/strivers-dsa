@@ -61,9 +61,9 @@ class Solution {
                 int bottom = size - 1 - i;
                 int right = size - 1 - j;
                 int minDist = Math.min(Math.min(top, bottom), Math.min(left, right));
-                System.out.print((n - minDist) << " ");
+                System.out.print((n - minDist) + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -127,13 +127,13 @@ class Solution {
                 int bottom = size - 1 - i;
                 int right = size - 1 - j;
                 int minDist = Math.min(Math.min(top, bottom), Math.min(left, right));
-                System.out.print((n - minDist) << " ");
+                System.out.print((n - minDist) + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern22(n);
         return 0;

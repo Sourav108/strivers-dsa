@@ -138,7 +138,7 @@ import java.util.*;
 
 class Solution {
 
-    void topoDFS(int node, vector<List<int[]>> adj, int[] vis, Stack<Integer> st) {
+    void topoDFS(int node, List<List<int[]>> adj, int[] vis, Stack<Integer> st) {
         vis[node] = 1;
         for (var edge : adj[node]) {
             int v = edge.first;
@@ -151,7 +151,7 @@ class Solution {
 
     int[] shortestPath(int N, int M, int[][] edges) {
         // 1. Build weighted directed adjacency list
-        vector<List<int[]>> adj(N);
+        List<List<int[]>> adj(N);
         for (int i = 0; i < M; i++) {
             int u = edges[i][0];
             int v = edges[i][1];

@@ -124,8 +124,8 @@ class Solution {
     }
 
     int[][] combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> ds = new ArrayList<>();
+        int[][] ans;
+        int[] ds;
         Arrays.sort(candidates); // essential for duplicate skipping and early break
         findCombinations(0, target, candidates, ds, ans);
         return ans;

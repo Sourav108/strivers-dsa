@@ -138,7 +138,7 @@ class Solution {
         }
         
         // Extract topological order from stack
-        List<Integer> topo = new ArrayList<>();
+        int[] topo;
         while (!st.isEmpty()) {
             topo.add(st.peek());
             st.pop();

@@ -51,9 +51,9 @@ class Solution {
         for (int i = 0; i < n; i++) {
             char ch = 'A' + i;
             for (int j = 0; j <= i; j++) {
-                System.out.print(ch << " ");
+                System.out.print(ch + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -107,13 +107,13 @@ class Solution {
         for (int i = 0; i < n; i++) {
             char ch = 'A' + i;
             for (int j = 0; j <= i; j++) {
-                System.out.print(ch << " ");
+                System.out.print(ch + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern16(n);
         return 0;

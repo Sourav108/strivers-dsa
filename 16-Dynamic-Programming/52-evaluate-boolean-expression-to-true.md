@@ -145,7 +145,7 @@ public:
 class Solution {
     int MOD = 1e9 + 7;
     
-    long solve(int i, int j, int isTrue, String exp, vector<long[][]> dp) {
+    long solve(int i, int j, int isTrue, String exp, long[][][] dp) {
         // Base case 1: Invalid range
         if (i > j) return 0;
         
@@ -195,7 +195,7 @@ class Solution {
     }
 
     int countWays(int n, String exp) {
-        vector<long[][]> dp(n, long[][](n, long[](2, -1)));
+        long[][][] dp(n, long[][](n, long[](2, -1)));
         return solve(0, n - 1, 1, exp, dp);
     }
 };

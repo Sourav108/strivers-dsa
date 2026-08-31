@@ -46,11 +46,9 @@ vector<int> printDivisorsLinear(int n) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] printDivisorsLinear(int n) {
-        List<Integer> divs = new ArrayList<>();
+        int[] divs;
         for (int i = 1; i <= n; i++) {
             if (n % i == 0) divs.add(i);
         }
@@ -109,7 +107,7 @@ import java.util.*;
 
 class Solution {
     int[] getAllDivisors(int n) {
-        List<Integer> divisors = new ArrayList<>();
+        int[] divisors;
         
         // Iterate up to Math.sqrt(n)
         for (int i = 1; (long)i * i <= n; i++) {

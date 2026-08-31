@@ -60,14 +60,14 @@ class Solution {
             for (int j = 0; j < n - i; j++) System.out.print("*");
             for (int j = 0; j < 2 * i; j++) System.out.print(" ");
             for (int j = 0; j < n - i; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
         // Lower Half
         for (int i = 0; i < n; i++) {
             for (int j = 0; j <= i; j++) System.out.print("*");
             for (int j = 0; j < 2 * (n - 1 - i); j++) System.out.print(" ");
             for (int j = 0; j <= i; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -130,18 +130,18 @@ class Solution {
             for (int j = 0; j < n - i; j++) System.out.print("*");
             for (int j = 0; j < 2 * i; j++) System.out.print(" ");
             for (int j = 0; j < n - i; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
         // Lower Half
         for (int i = 0; i < n; i++) {
             for (int j = 0; j <= i; j++) System.out.print("*");
             for (int j = 0; j < 2 * (n - 1 - i); j++) System.out.print(" ");
             for (int j = 0; j <= i; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern19(n);
         return 0;

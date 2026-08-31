@@ -190,7 +190,7 @@ class Solution {
 
     int spanningTree(int V, int[][] adj[]) {
         // 1. Extract all unique edges: {weight, {u, v}}
-        vector<pair<int, pair<int, int>>> edges;
+        List<int[]>> edges;
         for (int u = 0; u < V; u++) {
             for (var edge : adj[u]) {
                 int v = edge[0];

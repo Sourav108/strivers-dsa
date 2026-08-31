@@ -91,12 +91,14 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 class SolutionDijkstraGrid {
 
     int shortestPathBinaryMatrix(int[][] grid) {
         int n = grid.length;
         if (grid[0][0] != 0 || grid[n-1][n-1] != 0) return -1;
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         int[][] dist = new int[n][n];
         dist[0][0] = 1;
         pq.push({1, {0, 0}});

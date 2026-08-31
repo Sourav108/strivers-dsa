@@ -57,13 +57,13 @@ class Solution {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n - 1 - i; j++) System.out.print(" ");
             for (int j = 0; j < 2 * i + 1; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
         // Lower Inverted Pyramid
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) System.out.print(" ");
             for (int j = 0; j < 2 * (n - i) - 1; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -123,17 +123,17 @@ class Solution {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n - 1 - i; j++) System.out.print(" ");
             for (int j = 0; j < 2 * i + 1; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
         // Lower Inverted Pyramid
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) System.out.print(" ");
             for (int j = 0; j < 2 * (n - i) - 1; j++) System.out.print("*");
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern9(n);
         return 0;

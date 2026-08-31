@@ -98,8 +98,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void findCombinations(int ind, int target, int[] arr, int[] ds, int[][] ans) {
@@ -122,8 +120,8 @@ class Solution {
     }
 
     int[][] combinationSum(int[] candidates, int target) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> ds = new ArrayList<>();
+        int[][] ans;
+        int[] ds;
         findCombinations(0, target, candidates, ds, ans);
         return ans;
     }

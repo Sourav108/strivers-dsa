@@ -66,12 +66,10 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class SolutionNaive {
 
     int[] maximizeXor(int[] nums, int[][] queries) {
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         for (var q : queries) {
             int x = q[0], m = q[1], maxVal = -1;
             for (int num : nums) {
@@ -294,7 +292,7 @@ class Solution {
         Arrays.sort(nums);
         
         // Step 2: Store queries with original indices and sort by m_i: {m_i, x_i, query_index}
-        vector<pair<int, pair<int, int>>> sortedQueries;
+        List<int[]>> sortedQueries;
         for (int i = 0; i < q; i++) {
             sortedQueries.add({queries[i][1], {queries[i][0], i}});
         }

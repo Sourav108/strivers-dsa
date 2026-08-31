@@ -131,8 +131,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 static class TreeNode {
     int val;
     TreeNode left;
@@ -167,7 +165,7 @@ class Solution {
     
     void addRightBoundary(TreeNode  root, int[] res) {
         TreeNode  curr = root.right;
-        List<Integer> temp = new ArrayList<>();
+        int[] temp;
         while (curr != null) {
             if (!isLeaf(curr)) temp.add(curr.val);
             if (curr.right != null) curr = curr.right;
@@ -180,7 +178,7 @@ class Solution {
     }
 
     int[] boundary(TreeNode  root) {
-        List<Integer> res = new ArrayList<>();
+        int[] res;
         if (root == null) return res;
         
         // Add root if not leaf

@@ -128,7 +128,7 @@ static class TreeNode {
 class Solution {
 
     int[] topView(TreeNode  root) {
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         if (root == null) return result;
         
         // Map stores: col . topmost node value

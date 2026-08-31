@@ -100,7 +100,7 @@ class BSTDemo {
     void printInorder(TreeNode  root) {
         if (root == null) return;
         printInorder(root.left);
-        System.out.print(root.val << " ");
+        System.out.print(root.val + " ");
         printInorder(root.right);
     }
 };

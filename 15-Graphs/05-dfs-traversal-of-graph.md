@@ -128,8 +128,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     void dfsHelper(int node, int[][] adj, int[] vis, int[] dfs) {
@@ -145,7 +143,7 @@ class Solution {
     }
 
     int[] dfsOfGraph(int V, int[][] adj) {
-        List<Integer> dfs = new ArrayList<>();
+        int[] dfs;
         int[] vis = new int[V];
         
         // Start DFS from vertex 0

@@ -52,13 +52,11 @@ string reverseWordsStream(string s) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     String reverseWordsStream(String s) {
-        stringstream ss(s);
+        String[] tokens = s.split(","); int tokenIdx = 0;
         String word, ans = "";
-        List<String> words = new ArrayList<>();
+        String[] words;
         while (ss >> word) words.add(word);
         for (int i = words.length - 1; i >= 0; i--) {
             ans += words[i];

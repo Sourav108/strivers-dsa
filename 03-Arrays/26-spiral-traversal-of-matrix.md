@@ -102,11 +102,9 @@ vector<int> spiralOrderOptimal(const vector<vector<int>>& mat) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] spiralOrderOptimal(int[][] mat) {
-        List<Integer> res = new ArrayList<>();
+        int[] res;
         if (mat.isEmpty()) return res;
         int top = 0, bottom = mat.length - 1, left = 0, right = mat[0].size() - 1;
         while (top <= bottom && left <= right) {

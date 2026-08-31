@@ -140,7 +140,7 @@ class Solution {
             }
         }
         
-        List<Integer> order = new ArrayList<>();
+        int[] order;
         
         while (!q.isEmpty()) {
             int curr = q.peek();

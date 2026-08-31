@@ -100,12 +100,10 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int[][] insert(int[][] intervals, int[] newInterval) {
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result;
         int n = intervals.length;
         int i = 0;
         

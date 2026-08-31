@@ -130,7 +130,7 @@ class Solution {
 
     List<List<String>> partition(String s) {
         List<List<String>> ans;
-        List<String> path = new ArrayList<>();
+        String[] path;
         partitionHelper(0, s, path, ans);
         return ans;
     }

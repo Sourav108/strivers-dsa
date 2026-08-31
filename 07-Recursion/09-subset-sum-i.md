@@ -111,7 +111,7 @@ class Solution {
     }
 
     int[] subsetSums(int[] arr, int n) {
-        List<Integer> ans = new ArrayList<>();
+        int[] ans;
         subsetSumsHelper(0, 0, arr, n, ans);
         Arrays.sort(ans);
         return ans;

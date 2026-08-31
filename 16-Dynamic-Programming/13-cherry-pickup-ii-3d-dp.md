@@ -112,7 +112,7 @@ class Solution3D {
 
     int cherryPickup(int[][] grid) {
         int r = grid.length, c = grid[0].size();
-        vector<int[][]> dp(r, int[][](c, int[](c, 0)));
+        int[][][] dp = new int[r][c][c];
         // Base case for last row
         for (int j1 = 0; j1 < c; j1++) {
             for (int j2 = 0; j2 < c; j2++) {

@@ -126,11 +126,13 @@ public:
 
 ### Java Code
 ```java
+import java.util.*;
+
 class Solution {
 
     int countPaths(int n, int[][] roads) {
         // 1. Build adjacency list: {neighbor, time}
-        vector<vector<pair<int, long>>> adj(n);
+        List<List<int[]>> adj(n);
         for (var r : roads) {
             int u = r[0];
             int v = r[1];
@@ -142,9 +144,7 @@ class Solution {
         int MOD = 1e9 + 7;
         
         // Min-heap stores {distance, node}
-        priority_queue<pair<long, int>, 
-                       vector<pair<long, int>>, 
-                       greater<pair<long, int>>> pq;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         // Use long for distances to prevent 32-bit overflow
         long[] dist = new long[n];

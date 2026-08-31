@@ -154,8 +154,8 @@ class Solution {
         Arrays.sort(v); // O(N log N) Introsort
         
         // 2. Priority Queue: Max-Heap (default) & Min-Heap
-        PriorityQueue<Integer> maxHeap;
-        priority_queue<int, int[], greater<int>> minHeap;
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) . Integer.compare(a[0], b[0]));
         
         // 3. Map (Red-Black Tree: O(log N)) vs Unordered Map (Hash Table: O(1) avg)
         map<String, int> treeMap;
@@ -170,12 +170,12 @@ class Solution {
         // Builtin Bitwise Intrinsic
         int setBits = __builtin_popcount(29); // 29 = 11101 . 4 set bits
         
-        System.out.print("Tree Map First Key: " << treeMap.begin().first << "\n");
-        System.out.print("Binary Search for 3: " << boolalpha << exists << "\n");
-        System.out.print("Set Bits in 29: " << setBits << "\n");
+        System.out.println("Tree Map First Key: " + treeMap.begin().first);
+        System.out.println("Binary Search for 3: " + boolalpha + exists);
+        System.out.println("Set Bits in 29: " + setBits);
     }
     
-    int main() {
+    public static void main(String[] args) {
         demonstrateSTL();
         return 0;
     }

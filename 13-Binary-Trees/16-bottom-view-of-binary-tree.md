@@ -126,7 +126,7 @@ static class TreeNode {
 class Solution {
 
     int[] bottomView(TreeNode  root) {
-        List<Integer> result = new ArrayList<>();
+        int[] result;
         if (root == null) return result;
         
         // Map stores: col . bottom-most node value

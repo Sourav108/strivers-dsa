@@ -55,7 +55,7 @@ import java.util.*;
 
 class Solution {
     int[] majority2Brute(int[] nums) {
-        Map<Integer, Integer> mp = new HashMap<>(); List<Integer> res = new ArrayList<>();
+        Map<Integer, Integer> mp = new HashMap<>(); int[] res;
         for (int x : nums) mp[x]++;
         for (var [v, c] : mp) if (c > nums.length/3) res.add(v);
         return res;
@@ -104,7 +104,7 @@ class Solution {
         int threshold = nums.length / 3;
         for (int x : nums) freq[x]++;
         
-        List<Integer> res = new ArrayList<>();
+        int[] res;
         for (var [val, count] : freq) {
             if (count > threshold) res.add(val);
         }
@@ -158,8 +158,6 @@ vector<int> majorityElement2Optimal(const vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int[] majorityElement2Optimal(int[] nums) {
         int c1 = 0, c2 = 0, el1 = 0, el2 = 1;
@@ -175,7 +173,7 @@ class Solution {
             if (x == el1) c1++;
             else if (x == el2) c2++;
         }
-        List<Integer> res = new ArrayList<>();
+        int[] res;
         int thresh = nums.length / 3;
         if (c1 > thresh) res.add(el1);
         if (c2 > thresh) res.add(el2);

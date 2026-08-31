@@ -58,7 +58,7 @@ class Solution {
     String frequencySortHeap(String s) {
         Map<Character, Integer> freq = new HashMap<>();
         for (char c : s) freq[c]++;
-        vector<pair<int, char>> v;
+        List<int[]> v;
         for (var [c, count] : freq) v.add({count, c});
         sort(v.rbegin(), v.rend());
         String ans = "";

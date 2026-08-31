@@ -129,7 +129,7 @@ static class TreeNode {
 class Solution {
 
     int[] preorderTraversal(TreeNode  root) {
-        List<Integer> preorder = new ArrayList<>();
+        int[] preorder;
         if (root == null) return preorder;
         
         Stack<TreeNode> st = new Stack<>();

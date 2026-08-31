@@ -128,8 +128,6 @@ int reversePairs(vector<int>& nums) {
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
     int countPairs(int[] arr, int low, int mid, int high) {
         int right = mid + 1, count = 0;
@@ -141,7 +139,7 @@ class Solution {
     }
     
     void merge(int[] arr, int low, int mid, int high) {
-        List<Integer> temp = new ArrayList<>();
+        int[] temp;
         int left = low, right = mid + 1;
         while (left <= mid && right <= high) {
             if (arr[left] <= arr[right]) temp.add(arr[left++]);

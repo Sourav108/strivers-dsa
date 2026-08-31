@@ -138,8 +138,6 @@ public:
 
 ### Java Code
 ```java
-import java.util.*;
-
 class Solution {
 
     int timer = 1;
@@ -184,7 +182,7 @@ class Solution {
         int[] vis = new int[n];
         int[] tin = new int[n];
         int[] low = new int[n];
-        List<List<Integer>> bridges = new ArrayList<>();
+        int[][] bridges;
         
         // 2. Perform DFS traversal (handles disconnected graph components)
         for (int i = 0; i < n; i++) {

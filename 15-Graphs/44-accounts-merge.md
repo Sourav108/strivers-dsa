@@ -211,7 +211,7 @@ class Solution {
             // Sort emails lexicographically
             sort(mergedMail[i].begin(), mergedMail[i].end());
             
-            List<String> temp = new ArrayList<>();
+            String[] temp;
             temp.add(accounts[i][0]); // Name
             for (var mail : mergedMail[i]) {
                 temp.add(mail);

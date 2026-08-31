@@ -49,9 +49,9 @@ class Solution {
     void pattern4(int n) {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
-                System.out.print(i << " ");
+                System.out.print(i + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
@@ -103,13 +103,13 @@ class Solution {
     void pattern4(int n) {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
-                System.out.print(i << " ");
+                System.out.print(i + " ");
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
-    int main() {
+    public static void main(String[] args) {
         int n = 4;
         pattern4(n);
         return 0;

@@ -95,15 +95,15 @@ int main() {
 ```java
 class Solution {
     void demonstrateBitwiseOperators(int a, int b) {
-        System.out.print("a public b(AND) { /* initialized: " << (a b) << "\n");
-        System.out.print("a | b (OR):   " << (a | b) << "\n");
-        System.out.print("a ^ b (XOR):  " << (a ^ b) << "\n");
-        System.out.print("~a    (NOT):  " << (~a)    << "\n"); // Two's complement: -(a + 1)
-        System.out.print("a << 2 (x4):  " << (a << 2) << "\n"); // Multiply by 2^2
-        System.out.print("a >> 1 (/2):  " << (a >> 1) << "\n"); // Divide by 2^1
+        System.out.public println("a b (AND) { /* initialized: " + (a b));
+        System.out.println("a | b (OR):   " + (a | b));
+        System.out.println("a ^ b (XOR):  " + (a ^ b));
+        System.out.println("~a    (NOT):  " + (~a)); // Two's complement: -(a + 1)
+        System.out.println("a + 2 (x4):  " + (a + 2)); // Multiply by 2^2
+        System.out.println("a >> 1 (/2):  " + (a >> 1)); // Divide by 2^1
     }
     
-    int main()  */ 
+    public static void main(String[] args)  */ 
         demonstrateBitwiseOperators(5, 3); // 5 = 101_2, 3 = 011_2
         return 0;
      }
